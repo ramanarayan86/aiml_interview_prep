@@ -1,0 +1,74 @@
+<svg viewBox="0 0 860 360" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <defs>
+    <marker id="ar2" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 z" fill="#7C8696"/>
+    </marker>
+  </defs>
+  <rect x="1" y="1" width="858" height="358" rx="16" fill="#FFFFFF" stroke="#E3E6EC"/>
+  <text x="32" y="40" font-size="21" font-weight="700" fill="#16202E">Where QK&#8209;norm is inserted</text>
+  <text x="32" y="63" font-size="13.5" fill="#5B6675">One normalization on each of q and k, <tspan font-weight="600" fill="#0E8A6E">after</tspan> the projection and <tspan font-weight="600" fill="#0E8A6E">before</tspan> the dot product. Nothing else changes.</text>
+
+  <!-- baseline row label -->
+  <text x="32" y="112" font-size="12.5" font-weight="700" fill="#9AA4B2">VANILLA</text>
+  <!-- qknorm row label -->
+  <text x="32" y="262" font-size="12.5" font-weight="700" fill="#0E8A6E">QK&#8209;NORM</text>
+
+  <!-- ===== Vanilla pipeline ===== -->
+  <g transform="translate(120,90)" font-size="12.5">
+    <rect x="0"   y="0" width="78" height="40" rx="9" fill="#EEF1F6" stroke="#D7DCE5"/>
+    <text x="39" y="25" text-anchor="middle" fill="#16202E">x</text>
+
+    <rect x="120" y="0" width="100" height="40" rx="9" fill="#E5EEFC" stroke="#BBD0F4"/>
+    <text x="170" y="20" text-anchor="middle" fill="#1f4fa3">W&#8474;, W&#8490;, W&#7515;</text>
+    <text x="170" y="34" text-anchor="middle" fill="#587bb5" font-size="10.5">projection</text>
+
+    <rect x="262" y="0" width="92" height="40" rx="9" fill="#EEF1F6" stroke="#D7DCE5"/>
+    <text x="308" y="25" text-anchor="middle" fill="#16202E">q&#183;k&#7488; / &#8730;d&#7503;</text>
+
+    <rect x="396" y="0" width="86" height="40" rx="9" fill="#EEF1F6" stroke="#D7DCE5"/>
+    <text x="439" y="25" text-anchor="middle" fill="#16202E">softmax</text>
+
+    <rect x="524" y="0" width="78" height="40" rx="9" fill="#EEF1F6" stroke="#D7DCE5"/>
+    <text x="563" y="25" text-anchor="middle" fill="#16202E">&#215; V</text>
+
+    <line x1="78"  y1="20" x2="118" y2="20" stroke="#7C8696" stroke-width="1.8" marker-end="url(#ar2)"/>
+    <line x1="220" y1="20" x2="260" y2="20" stroke="#7C8696" stroke-width="1.8" marker-end="url(#ar2)"/>
+    <line x1="354" y1="20" x2="394" y2="20" stroke="#7C8696" stroke-width="1.8" marker-end="url(#ar2)"/>
+    <line x1="482" y1="20" x2="522" y2="20" stroke="#7C8696" stroke-width="1.8" marker-end="url(#ar2)"/>
+  </g>
+
+  <!-- ===== QK-norm pipeline ===== -->
+  <g transform="translate(120,238)" font-size="12.5">
+    <rect x="0"   y="0" width="78" height="40" rx="9" fill="#EEF1F6" stroke="#D7DCE5"/>
+    <text x="39" y="25" text-anchor="middle" fill="#16202E">x</text>
+
+    <rect x="120" y="0" width="100" height="40" rx="9" fill="#E5EEFC" stroke="#BBD0F4"/>
+    <text x="170" y="20" text-anchor="middle" fill="#1f4fa3">W&#8474;, W&#8490;, W&#7515;</text>
+    <text x="170" y="34" text-anchor="middle" fill="#587bb5" font-size="10.5">projection</text>
+
+    <!-- the new normalize boxes -->
+    <rect x="248" y="-26" width="120" height="38" rx="9" fill="#DDF3EC" stroke="#8FD3C0"/>
+    <text x="308" y="-2" text-anchor="middle" fill="#0c6e58" font-weight="700">Norm(q) &#183; g</text>
+    <rect x="248" y="30" width="120" height="38" rx="9" fill="#DDF3EC" stroke="#8FD3C0"/>
+    <text x="308" y="54" text-anchor="middle" fill="#0c6e58" font-weight="700">Norm(k)</text>
+
+    <rect x="404" y="0" width="84" height="40" rx="9" fill="#EEF1F6" stroke="#D7DCE5"/>
+    <text x="446" y="20" text-anchor="middle" fill="#16202E">q&#770;&#183;k&#770;&#7488;</text>
+    <text x="446" y="34" text-anchor="middle" fill="#7C8696" font-size="10">bounded</text>
+
+    <rect x="520" y="0" width="82" height="40" rx="9" fill="#EEF1F6" stroke="#D7DCE5"/>
+    <text x="561" y="25" text-anchor="middle" fill="#16202E">softmax</text>
+
+    <line x1="78"  y1="20" x2="118" y2="20" stroke="#7C8696" stroke-width="1.8" marker-end="url(#ar2)"/>
+    <!-- split to two norm boxes -->
+    <path d="M220,20 L234,20 L234,-7 L246,-7" fill="none" stroke="#0E8A6E" stroke-width="1.8" marker-end="url(#ar2)"/>
+    <path d="M220,20 L234,20 L234,49 L246,49" fill="none" stroke="#0E8A6E" stroke-width="1.8" marker-end="url(#ar2)"/>
+    <!-- merge to dot -->
+    <path d="M368,-7 L386,-7 L386,16 L402,16" fill="none" stroke="#0E8A6E" stroke-width="1.8" marker-end="url(#ar2)"/>
+    <path d="M368,49 L386,49 L386,24 L402,24" fill="none" stroke="#0E8A6E" stroke-width="1.8" marker-end="url(#ar2)"/>
+    <line x1="488" y1="20" x2="518" y2="20" stroke="#7C8696" stroke-width="1.8" marker-end="url(#ar2)"/>
+    <text x="563" y="58" text-anchor="middle" font-size="10.5" fill="#7C8696">&#8594; &#215;V</text>
+  </g>
+
+  <text x="32" y="338" font-size="11.5" fill="#9AA4B2">g is a learnable per&#8209;head scale that replaces the fixed 1/&#8730;d&#7503; once q,k are unit&#8209;norm. Norm = LayerNorm or RMSNorm over the head dimension.</text>
+</svg>
