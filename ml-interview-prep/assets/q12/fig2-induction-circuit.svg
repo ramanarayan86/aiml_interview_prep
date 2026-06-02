@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="330" font-family="Arial, sans-serif">
+  <rect width="820" height="330" fill="#f8f9fa" rx="8"/>
+  <text x="410" y="26" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">The Induction Circuit: 2-Layer In-Context Learning Mechanism</text>
+  <text x="410" y="44" text-anchor="middle" font-size="12" fill="#5b6675">Sequence: [A, B, C, A, ?] → Model should predict B</text>
+
+  <defs>
+    <marker id="a12b" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#1f4fa3"/>
+    </marker>
+    <marker id="a12g" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#0e8a6e"/>
+    </marker>
+    <marker id="a12o" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#c77a12"/>
+    </marker>
+  </defs>
+
+  <!-- Sequence tokens: positions 1-5 -->
+  <!-- x positions: 80, 200, 320, 440, 560 -->
+  <!-- y=140 -->
+
+  <!-- Token labels (position row) -->
+  <text x="80" y="130" text-anchor="middle" font-size="11" fill="#5b6675">pos=1</text>
+  <text x="200" y="130" text-anchor="middle" font-size="11" fill="#5b6675">pos=2</text>
+  <text x="320" y="130" text-anchor="middle" font-size="11" fill="#5b6675">pos=3</text>
+  <text x="440" y="130" text-anchor="middle" font-size="11" fill="#5b6675">pos=4</text>
+  <text x="560" y="130" text-anchor="middle" font-size="11" fill="#5b6675">pos=5</text>
+
+  <!-- Token boxes -->
+  <rect x="50" y="138" width="60" height="36" rx="6" fill="#1f4fa3"/>
+  <text x="80" y="162" text-anchor="middle" font-size="16" fill="white" font-weight="bold">A</text>
+  <text x="80" y="178" text-anchor="middle" font-size="9" fill="#1f4fa3">(A₁)</text>
+
+  <rect x="170" y="138" width="60" height="36" rx="6" fill="#0e8a6e"/>
+  <text x="200" y="162" text-anchor="middle" font-size="16" fill="white" font-weight="bold">B</text>
+  <text x="200" y="178" text-anchor="middle" font-size="9" fill="#0e8a6e">(B₁)</text>
+
+  <rect x="290" y="138" width="60" height="36" rx="6" fill="#5b6675"/>
+  <text x="320" y="162" text-anchor="middle" font-size="16" fill="white" font-weight="bold">C</text>
+
+  <rect x="410" y="138" width="60" height="36" rx="6" fill="#1f4fa3"/>
+  <text x="440" y="162" text-anchor="middle" font-size="16" fill="white" font-weight="bold">A</text>
+  <text x="440" y="178" text-anchor="middle" font-size="9" fill="#1f4fa3">(A₂)</text>
+
+  <rect x="530" y="138" width="60" height="36" rx="6" fill="#f8f9fa" stroke="#5b6675" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="560" y="162" text-anchor="middle" font-size="16" fill="#5b6675" font-weight="bold">?</text>
+  <text x="560" y="178" text-anchor="middle" font-size="10" fill="#0e8a6e" font-weight="bold">→ B</text>
+
+  <!-- ===== LAYER L: Previous-token head ===== -->
+  <text x="15" y="212" font-size="12" font-weight="bold" fill="#1f4fa3">Layer L</text>
+  <text x="15" y="226" font-size="11" fill="#1f4fa3">(prev-token</text>
+  <text x="15" y="240" font-size="11" fill="#1f4fa3">head)</text>
+
+  <!-- Previous-token head: each token attends to its PREVIOUS token -->
+  <!-- B (pos 2) attends to A (pos 1): copies A's identity into B's representation -->
+  <path d="M 200 174 C 200 205, 110 215, 80 175" stroke="#c77a12" stroke-width="2.5" fill="none" marker-end="url(#a12o)"/>
+  <text x="140" y="220" text-anchor="middle" font-size="10" fill="#c77a12">B attends to A₁</text>
+  <text x="140" y="233" text-anchor="middle" font-size="9" fill="#c77a12">(copies A's info into B's repr)</text>
+
+  <!-- C (pos 3) attends to B (pos 2) -->
+  <path d="M 320 174 C 320 245, 215 255, 200 175" stroke="#c77a12" stroke-width="2" fill="none" marker-end="url(#a12o)" opacity="0.6" stroke-dasharray="5,3"/>
+
+  <!-- A₂ (pos 4) attends to C (pos 3) -->
+  <path d="M 440 174 C 440 200, 340 215, 320 175" stroke="#c77a12" stroke-width="2.5" fill="none" marker-end="url(#a12o)"/>
+  <text x="380" y="220" text-anchor="middle" font-size="10" fill="#c77a12">A₂ attends to C</text>
+  <text x="380" y="233" text-anchor="middle" font-size="9" fill="#c77a12">(copies C's info into A₂'s repr)</text>
+
+  <!-- ===== LAYER L+1: Induction head ===== -->
+  <text x="15" y="277" font-size="12" font-weight="bold" fill="#0e8a6e">Layer L+1</text>
+  <text x="15" y="291" font-size="11" fill="#0e8a6e">(induction</text>
+  <text x="15" y="305" font-size="11" fill="#0e8a6e">head)</text>
+
+  <!-- Induction head: pos 5 (?) queries pos that follows the PREVIOUS A (pos 1+1=2 → B) -->
+  <!-- Key insight: A₂'s key == A₁'s key (same token), so ? attends to B (pos after A₁) -->
+  <path d="M 560 174 C 560 285, 220 300, 200 175" stroke="#0e8a6e" stroke-width="3" fill="none" marker-end="url(#a12g)"/>
+  <text x="400" y="295" text-anchor="middle" font-size="11" fill="#0e8a6e" font-weight="bold">? (pos 5) attends to B (pos 2)</text>
+  <text x="400" y="309" text-anchor="middle" font-size="10" fill="#0e8a6e">"token after first A₁" → promotes B in logits</text>
+
+  <!-- Key insight box -->
+  <rect x="620" y="138" width="185" height="80" rx="5" fill="#f0fff4" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="712" y="155" text-anchor="middle" font-size="11" fill="#0e8a6e" font-weight="bold">Induction Circuit</text>
+  <text x="628" y="170" font-size="10" fill="#333">1. Prev-token head copies</text>
+  <text x="628" y="183" font-size="10" fill="#333">   A₁ info → B's repr</text>
+  <text x="628" y="196" font-size="10" fill="#333">2. Induction head: A₂ query</text>
+  <text x="628" y="209" font-size="10" fill="#333">   matches B's key (A₁-shifted)</text>
+
+  <rect x="620" y="228" width="185" height="60" rx="5" fill="#fff0f0" stroke="#e05252" stroke-width="1.5"/>
+  <text x="712" y="245" text-anchor="middle" font-size="11" fill="#e05252" font-weight="bold">Why it works</text>
+  <text x="628" y="260" font-size="10" fill="#333">After layer L, B's key contains</text>
+  <text x="628" y="273" font-size="10" fill="#333">A₁-context → matches A₂ query</text>
+  <text x="628" y="286" font-size="10" fill="#333">→ copy next token (B) ✓</text>
+</svg>

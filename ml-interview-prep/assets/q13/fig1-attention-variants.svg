@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 320" width="820" height="320" font-family="Arial, sans-serif">
+  <rect width="820" height="320" fill="#f8f9fa" rx="8"/>
+  <text x="410" y="26" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f4fa3">MHA vs GQA vs MQA: Query Heads Share Key-Value Heads</text>
+
+  <!-- MHA -->
+  <text x="133" y="52" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f4fa3">MHA  (h_kv = h = 8)</text>
+  <text x="133" y="66" text-anchor="middle" font-size="10" fill="#555">Every Q head has its own K,V</text>
+  <!-- 8 Q heads -->
+  <text x="40" y="86" font-size="9" fill="#333" font-weight="bold">Q heads:</text>
+  <rect x="40" y="92" width="22" height="20" rx="3" fill="#1f4fa3"/><text x="51" y="106" text-anchor="middle" font-size="8" fill="#fff">Q1</text>
+  <rect x="64" y="92" width="22" height="20" rx="3" fill="#1f4fa3"/><text x="75" y="106" text-anchor="middle" font-size="8" fill="#fff">Q2</text>
+  <rect x="88" y="92" width="22" height="20" rx="3" fill="#1f4fa3"/><text x="99" y="106" text-anchor="middle" font-size="8" fill="#fff">Q3</text>
+  <rect x="112" y="92" width="22" height="20" rx="3" fill="#1f4fa3"/><text x="123" y="106" text-anchor="middle" font-size="8" fill="#fff">Q4</text>
+  <rect x="136" y="92" width="22" height="20" rx="3" fill="#1f4fa3"/><text x="147" y="106" text-anchor="middle" font-size="8" fill="#fff">Q5</text>
+  <rect x="160" y="92" width="22" height="20" rx="3" fill="#1f4fa3"/><text x="171" y="106" text-anchor="middle" font-size="8" fill="#fff">Q6</text>
+  <rect x="184" y="92" width="22" height="20" rx="3" fill="#1f4fa3"/><text x="195" y="106" text-anchor="middle" font-size="8" fill="#fff">Q7</text>
+  <rect x="208" y="92" width="22" height="20" rx="3" fill="#1f4fa3"/><text x="219" y="106" text-anchor="middle" font-size="8" fill="#fff">Q8</text>
+
+  <!-- KV lines: each Q → its own KV -->
+  <line x1="51" y1="112" x2="51" y2="135" stroke="#e05252" stroke-width="1.5"/>
+  <line x1="75" y1="112" x2="75" y2="135" stroke="#e05252" stroke-width="1.5"/>
+  <line x1="99" y1="112" x2="99" y2="135" stroke="#e05252" stroke-width="1.5"/>
+  <line x1="123" y1="112" x2="123" y2="135" stroke="#e05252" stroke-width="1.5"/>
+  <line x1="147" y1="112" x2="147" y2="135" stroke="#e05252" stroke-width="1.5"/>
+  <line x1="171" y1="112" x2="171" y2="135" stroke="#e05252" stroke-width="1.5"/>
+  <line x1="195" y1="112" x2="195" y2="135" stroke="#e05252" stroke-width="1.5"/>
+  <line x1="219" y1="112" x2="219" y2="135" stroke="#e05252" stroke-width="1.5"/>
+
+  <!-- 8 KV heads -->
+  <text x="40" y="148" font-size="9" fill="#333" font-weight="bold">KV heads:</text>
+  <rect x="40" y="135" width="22" height="20" rx="3" fill="#e05252"/><text x="51" y="149" text-anchor="middle" font-size="8" fill="#fff">KV1</text>
+  <rect x="64" y="135" width="22" height="20" rx="3" fill="#e05252"/><text x="75" y="149" text-anchor="middle" font-size="8" fill="#fff">KV2</text>
+  <rect x="88" y="135" width="22" height="20" rx="3" fill="#e05252"/><text x="99" y="149" text-anchor="middle" font-size="8" fill="#fff">KV3</text>
+  <rect x="112" y="135" width="22" height="20" rx="3" fill="#e05252"/><text x="123" y="149" text-anchor="middle" font-size="8" fill="#fff">KV4</text>
+  <rect x="136" y="135" width="22" height="20" rx="3" fill="#e05252"/><text x="147" y="149" text-anchor="middle" font-size="8" fill="#fff">KV5</text>
+  <rect x="160" y="135" width="22" height="20" rx="3" fill="#e05252"/><text x="171" y="149" text-anchor="middle" font-size="8" fill="#fff">KV6</text>
+  <rect x="184" y="135" width="22" height="20" rx="3" fill="#e05252"/><text x="195" y="149" text-anchor="middle" font-size="8" fill="#fff">KV7</text>
+  <rect x="208" y="135" width="22" height="20" rx="3" fill="#e05252"/><text x="219" y="149" text-anchor="middle" font-size="8" fill="#fff">KV8</text>
+
+  <rect x="30" y="168" width="210" height="28" rx="4" fill="#fce4ec"/>
+  <text x="135" y="180" text-anchor="middle" font-size="9" fill="#c00">KV cache = 8 heads × T × d_h × 2</text>
+  <text x="135" y="192" text-anchor="middle" font-size="9" fill="#c00">→ 100% — baseline</text>
+  <text x="135" y="214" text-anchor="middle" font-size="10" fill="#333">8 independent K,V memories</text>
+  <text x="135" y="228" text-anchor="middle" font-size="10" fill="#333">Max capacity, max cache size</text>
+  <text x="135" y="248" text-anchor="middle" font-size="9" fill="#333">Models: BERT, GPT-2, older LLMs</text>
+
+  <!-- GQA (middle) -->
+  <text x="410" y="52" text-anchor="middle" font-size="13" font-weight="bold" fill="#0e8a6e">GQA  (h_kv = 2, groups of 4)</text>
+  <text x="410" y="66" text-anchor="middle" font-size="10" fill="#555">Groups of Q heads share KV</text>
+
+  <rect x="305" y="92" width="22" height="20" rx="3" fill="#1f4fa3"/><text x="316" y="106" text-anchor="middle" font-size="8" fill="#fff">Q1</text>
+  <rect x="329" y="92" width="22" height="20" rx="3" fill="#1f4fa3"/><text x="340" y="106" text-anchor="middle" font-size="8" fill="#fff">Q2</text>
+  <rect x="353" y="92" width="22" height="20" rx="3" fill="#1f4fa3"/><text x="364" y="106" text-anchor="middle" font-size="8" fill="#fff">Q3</text>
+  <rect x="377" y="92" width="22" height="20" rx="3" fill="#1f4fa3"/><text x="388" y="106" text-anchor="middle" font-size="8" fill="#fff">Q4</text>
+  <rect x="413" y="92" width="22" height="20" rx="3" fill="#1f4fa3" opacity="0.6"/><text x="424" y="106" text-anchor="middle" font-size="8" fill="#fff">Q5</text>
+  <rect x="437" y="92" width="22" height="20" rx="3" fill="#1f4fa3" opacity="0.6"/><text x="448" y="106" text-anchor="middle" font-size="8" fill="#fff">Q6</text>
+  <rect x="461" y="92" width="22" height="20" rx="3" fill="#1f4fa3" opacity="0.6"/><text x="472" y="106" text-anchor="middle" font-size="8" fill="#fff">Q7</text>
+  <rect x="485" y="92" width="22" height="20" rx="3" fill="#1f4fa3" opacity="0.6"/><text x="496" y="106" text-anchor="middle" font-size="8" fill="#fff">Q8</text>
+
+  <!-- Group brackets -->
+  <line x1="305" y1="88" x2="400" y2="88" stroke="#0e8a6e" stroke-width="2"/>
+  <line x1="305" y1="88" x2="305" y2="93" stroke="#0e8a6e" stroke-width="2"/>
+  <line x1="400" y1="88" x2="400" y2="93" stroke="#0e8a6e" stroke-width="2"/>
+  <text x="352" y="84" text-anchor="middle" font-size="8" fill="#0e8a6e">Group 1</text>
+
+  <line x1="413" y1="88" x2="508" y2="88" stroke="#0e8a6e" stroke-width="2"/>
+  <line x1="413" y1="88" x2="413" y2="93" stroke="#0e8a6e" stroke-width="2"/>
+  <line x1="508" y1="88" x2="508" y2="93" stroke="#0e8a6e" stroke-width="2"/>
+  <text x="460" y="84" text-anchor="middle" font-size="8" fill="#0e8a6e">Group 2</text>
+
+  <!-- Lines to shared KV -->
+  <line x1="316" y1="112" x2="352" y2="135" stroke="#0e8a6e" stroke-width="1.5"/>
+  <line x1="340" y1="112" x2="352" y2="135" stroke="#0e8a6e" stroke-width="1.5"/>
+  <line x1="364" y1="112" x2="352" y2="135" stroke="#0e8a6e" stroke-width="1.5"/>
+  <line x1="388" y1="112" x2="352" y2="135" stroke="#0e8a6e" stroke-width="1.5"/>
+
+  <line x1="424" y1="112" x2="460" y2="135" stroke="#0e8a6e" stroke-width="1.5"/>
+  <line x1="448" y1="112" x2="460" y2="135" stroke="#0e8a6e" stroke-width="1.5"/>
+  <line x1="472" y1="112" x2="460" y2="135" stroke="#0e8a6e" stroke-width="1.5"/>
+  <line x1="496" y1="112" x2="460" y2="135" stroke="#0e8a6e" stroke-width="1.5"/>
+
+  <rect x="330" y="135" width="44" height="20" rx="3" fill="#0e8a6e"/><text x="352" y="149" text-anchor="middle" font-size="8" fill="#fff">KV-1</text>
+  <rect x="438" y="135" width="44" height="20" rx="3" fill="#0e8a6e"/><text x="460" y="149" text-anchor="middle" font-size="8" fill="#fff">KV-2</text>
+
+  <rect x="295" y="168" width="230" height="28" rx="4" fill="#e8f5e9"/>
+  <text x="410" y="180" text-anchor="middle" font-size="9" fill="#1b5e20">KV cache = 2 heads → 25% of MHA</text>
+  <text x="410" y="192" text-anchor="middle" font-size="9" fill="#1b5e20">→ 4× smaller cache</text>
+  <text x="410" y="214" text-anchor="middle" font-size="10" fill="#333">Balanced: quality near MHA</text>
+  <text x="410" y="228" text-anchor="middle" font-size="10" fill="#333">Cache much smaller</text>
+  <text x="410" y="248" text-anchor="middle" font-size="9" fill="#333">Models: LLaMA-2, Mistral, Gemma</text>
+
+  <!-- MQA (right) -->
+  <text x="685" y="52" text-anchor="middle" font-size="13" font-weight="bold" fill="#c77a12">MQA  (h_kv = 1)</text>
+  <text x="685" y="66" text-anchor="middle" font-size="10" fill="#555">All Q heads share one K,V</text>
+
+  <rect x="580" y="92" width="22" height="20" rx="3" fill="#1f4fa3"/><text x="591" y="106" text-anchor="middle" font-size="8" fill="#fff">Q1</text>
+  <rect x="604" y="92" width="22" height="20" rx="3" fill="#1f4fa3"/><text x="615" y="106" text-anchor="middle" font-size="8" fill="#fff">Q2</text>
+  <rect x="628" y="92" width="22" height="20" rx="3" fill="#1f4fa3"/><text x="639" y="106" text-anchor="middle" font-size="8" fill="#fff">Q3</text>
+  <rect x="652" y="92" width="22" height="20" rx="3" fill="#1f4fa3"/><text x="663" y="106" text-anchor="middle" font-size="8" fill="#fff">Q4</text>
+  <rect x="676" y="92" width="22" height="20" rx="3" fill="#1f4fa3" opacity="0.5"/><text x="687" y="106" text-anchor="middle" font-size="8" fill="#fff">Q5</text>
+  <rect x="700" y="92" width="22" height="20" rx="3" fill="#1f4fa3" opacity="0.5"/><text x="711" y="106" text-anchor="middle" font-size="8" fill="#fff">Q6</text>
+  <rect x="724" y="92" width="22" height="20" rx="3" fill="#1f4fa3" opacity="0.5"/><text x="735" y="106" text-anchor="middle" font-size="8" fill="#fff">Q7</text>
+  <rect x="748" y="92" width="22" height="20" rx="3" fill="#1f4fa3" opacity="0.3"/><text x="759" y="106" text-anchor="middle" font-size="8" fill="#fff">Q8</text>
+
+  <!-- Lines all converge to single KV -->
+  <line x1="591" y1="112" x2="685" y2="135" stroke="#c77a12" stroke-width="1.5"/>
+  <line x1="615" y1="112" x2="685" y2="135" stroke="#c77a12" stroke-width="1.5"/>
+  <line x1="639" y1="112" x2="685" y2="135" stroke="#c77a12" stroke-width="1.5"/>
+  <line x1="663" y1="112" x2="685" y2="135" stroke="#c77a12" stroke-width="1.5"/>
+  <line x1="687" y1="112" x2="685" y2="135" stroke="#c77a12" stroke-width="1.5"/>
+  <line x1="711" y1="112" x2="685" y2="135" stroke="#c77a12" stroke-width="1.5"/>
+  <line x1="735" y1="112" x2="685" y2="135" stroke="#c77a12" stroke-width="1.5"/>
+  <line x1="759" y1="112" x2="685" y2="135" stroke="#c77a12" stroke-width="1.5"/>
+
+  <rect x="663" y="135" width="44" height="20" rx="3" fill="#c77a12"/><text x="685" y="149" text-anchor="middle" font-size="8" fill="#fff">1 KV</text>
+
+  <rect x="575" y="168" width="220" height="28" rx="4" fill="#fff3e0"/>
+  <text x="685" y="180" text-anchor="middle" font-size="9" fill="#7b4700">KV cache = 1 head → 12.5% of MHA</text>
+  <text x="685" y="192" text-anchor="middle" font-size="9" fill="#7b4700">→ 8× smaller cache</text>
+  <text x="685" y="214" text-anchor="middle" font-size="10" fill="#333">Fastest decode, smallest cache</text>
+  <text x="685" y="228" text-anchor="middle" font-size="10" fill="#333">May lose head diversity</text>
+  <text x="685" y="248" text-anchor="middle" font-size="9" fill="#333">Models: PaLM, Falcon-7B</text>
+</svg>

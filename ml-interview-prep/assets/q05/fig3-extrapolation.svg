@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="320" font-family="Arial, sans-serif">
+  <rect width="820" height="320" fill="#f8f9fa" rx="8"/>
+  <text x="410" y="26" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">Length Extrapolation: Performance Beyond Training Length</text>
+
+  <!-- Chart area: x=70..790, y=50..250 -->
+  <rect x="70" y="50" width="720" height="200" fill="white" stroke="#ccc" rx="4"/>
+
+  <!-- Training cutoff at midpoint: x=70+360=430 -->
+  <line x1="430" y1="50" x2="430" y2="250" stroke="#5b6675" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="435" y="65" font-size="11" fill="#5b6675" font-weight="bold">Training</text>
+  <text x="435" y="78" font-size="11" fill="#5b6675" font-weight="bold">cutoff</text>
+
+  <!-- Region labels -->
+  <text x="250" y="68" text-anchor="middle" font-size="11" fill="#5b6675" font-style="italic">In-distribution</text>
+  <text x="610" y="68" text-anchor="middle" font-size="11" fill="#e05252" font-style="italic">Extrapolation (OOD)</text>
+  <rect x="430" y="50" width="360" height="200" fill="#fde8e8" opacity="0.25" rx="0"/>
+
+  <!-- Y axis: 0..1 (quality), height=200 -->
+  <!-- y(v) = 250 - v*200 -->
+  <line x1="70" y1="250" x2="70" y2="50" stroke="#999" stroke-width="1"/>
+  <text x="65" y="254" text-anchor="end" font-size="10" fill="#5b6675">0</text>
+  <text x="65" y="204" text-anchor="end" font-size="10" fill="#5b6675">0.25</text>
+  <text x="65" y="154" text-anchor="end" font-size="10" fill="#5b6675">0.5</text>
+  <text x="65" y="104" text-anchor="end" font-size="10" fill="#5b6675">0.75</text>
+  <text x="65" y="54" text-anchor="end" font-size="10" fill="#5b6675">1.0</text>
+  <line x1="70" y1="200" x2="790" y2="200" stroke="#eee" stroke-width="1"/>
+  <line x1="70" y1="150" x2="790" y2="150" stroke="#eee" stroke-width="1"/>
+  <line x1="70" y1="100" x2="790" y2="100" stroke="#eee" stroke-width="1"/>
+  <text x="20" y="155" text-anchor="middle" font-size="11" fill="#5b6675" transform="rotate(-90,20,155)">Quality (higher = better)</text>
+
+  <!-- X axis: position 0..2×training_len -->
+  <line x1="70" y1="250" x2="790" y2="250" stroke="#999" stroke-width="1"/>
+  <text x="70" y="268" text-anchor="middle" font-size="10" fill="#5b6675">0</text>
+  <text x="250" y="268" text-anchor="middle" font-size="10" fill="#5b6675">0.5×</text>
+  <text x="430" y="268" text-anchor="middle" font-size="10" fill="#5b6675">1× (train cutoff)</text>
+  <text x="610" y="268" text-anchor="middle" font-size="10" fill="#5b6675">1.5×</text>
+  <text x="790" y="268" text-anchor="middle" font-size="10" fill="#5b6675">2×</text>
+  <text x="430" y="284" text-anchor="middle" font-size="12" fill="#5b6675">Sequence position (relative to training length)</text>
+
+  <!-- ===== SINUSOIDAL: good until cutoff, then degrades sharply ===== -->
+  <!-- In-dist: ~0.88 stable; after cutoff: drops to ~0.25 by 2× -->
+  <!-- y(0.88)=250-176=74; y(0.25)=250-50=200; y(0.5)=250-100=150 -->
+  <polyline
+    points="70,76 250,74 430,74 540,130 610,178 700,210 790,220"
+    stroke="#c77a12" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+  <circle cx="70" cy="76" r="4" fill="#c77a12"/>
+  <circle cx="430" cy="74" r="5" fill="#c77a12"/>
+  <circle cx="790" cy="220" r="4" fill="#c77a12"/>
+
+  <!-- ===== LEARNED: good until cutoff, then drops to 0 ===== -->
+  <!-- In-dist: ~0.92; after cutoff: drops to 0 sharply -->
+  <!-- y(0.92)=250-184=66 -->
+  <polyline
+    points="70,66 250,64 430,64 480,120 520,180 560,230 600,248 700,249 790,249"
+    stroke="#e05252" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+  <circle cx="70" cy="66" r="4" fill="#e05252"/>
+  <circle cx="430" cy="64" r="5" fill="#e05252"/>
+  <circle cx="790" cy="249" r="4" fill="#e05252"/>
+
+  <!-- ===== ROPE: good until cutoff, gradual degradation ===== -->
+  <!-- In-dist: ~0.90; after cutoff: gradual ~0.55 by 2× -->
+  <!-- y(0.90)=250-180=70; y(0.55)=250-110=140 -->
+  <polyline
+    points="70,70 250,68 430,70 540,90 610,110 700,128 790,140"
+    stroke="#1f4fa3" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+  <circle cx="70" cy="70" r="4" fill="#1f4fa3"/>
+  <circle cx="430" cy="70" r="5" fill="#1f4fa3"/>
+  <circle cx="790" cy="140" r="4" fill="#1f4fa3"/>
+
+  <!-- ===== ALIBI: best extrapolation, smallest degradation ===== -->
+  <!-- In-dist: ~0.87; after cutoff: very gradual ~0.74 by 2× -->
+  <!-- y(0.87)=250-174=76; y(0.74)=250-148=102 -->
+  <polyline
+    points="70,80 250,78 430,80 540,84 610,88 700,96 790,102"
+    stroke="#0e8a6e" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+  <circle cx="70" cy="80" r="4" fill="#0e8a6e"/>
+  <circle cx="430" cy="80" r="5" fill="#0e8a6e"/>
+  <circle cx="790" cy="102" r="4" fill="#0e8a6e"/>
+
+  <!-- Legend -->
+  <line x1="85" y1="303" x2="110" y2="303" stroke="#c77a12" stroke-width="2.5"/>
+  <text x="115" y="307" font-size="12" fill="#333">Sinusoidal — sharp drop after cutoff</text>
+  <line x1="335" y1="303" x2="360" y2="303" stroke="#e05252" stroke-width="2.5"/>
+  <text x="365" y="307" font-size="12" fill="#333">Learned — complete failure beyond cutoff</text>
+  <line x1="85" y1="317" x2="110" y2="317" stroke="#1f4fa3" stroke-width="2.5"/>
+  <text x="115" y="321" font-size="12" fill="#333">RoPE — gradual degradation</text>
+  <line x1="335" y1="317" x2="360" y2="317" stroke="#0e8a6e" stroke-width="2.5"/>
+  <text x="365" y="321" font-size="12" fill="#333">ALiBi — best extrapolation (linear bias penalty)</text>
+</svg>

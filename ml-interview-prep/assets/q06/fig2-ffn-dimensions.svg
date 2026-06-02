@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 320" width="860" height="320" font-family="Arial, sans-serif">
+  <!-- Background -->
+  <rect width="860" height="320" fill="#f8f9fa" rx="8"/>
+  <text x="430" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">FFN Expand-Select-Compress Pipeline (d_model=512, d_ff=2048)</text>
+
+  <!-- Input block -->
+  <rect x="30" y="60" width="60" height="190" rx="5" fill="#e8edf7" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="60" y="148" text-anchor="middle" font-size="11" font-weight="bold" fill="#1f4fa3" transform="rotate(-90,60,148)">x ∈ ℝ⁵¹²</text>
+  <text x="60" y="265" text-anchor="middle" font-size="10" fill="#555">d_model</text>
+  <text x="60" y="278" text-anchor="middle" font-size="10" fill="#555">=512</text>
+
+  <!-- Arrow + W1 label -->
+  <line x1="90" y1="155" x2="138" y2="155" stroke="#c77a12" stroke-width="2" marker-end="url(#arr2)"/>
+  <text x="114" y="145" text-anchor="middle" font-size="10" fill="#c77a12" font-weight="bold">W₁</text>
+  <text x="114" y="170" text-anchor="middle" font-size="9" fill="#888">512→2048</text>
+
+  <!-- Expanded hidden block -->
+  <rect x="138" y="30" width="90" height="250" rx="5" fill="#fff3e0" stroke="#c77a12" stroke-width="2"/>
+  <text x="183" y="152" text-anchor="middle" font-size="11" font-weight="bold" fill="#c77a12" transform="rotate(-90,183,152)">h ∈ ℝ²⁰⁴⁸</text>
+  <!-- 4x label brace -->
+  <line x1="100" y1="22" x2="228" y2="22" stroke="#c77a12" stroke-width="1" stroke-dasharray="4,2"/>
+  <text x="164" y="17" text-anchor="middle" font-size="10" fill="#c77a12" font-weight="bold">4× expansion</text>
+  <text x="183" y="290" text-anchor="middle" font-size="10" fill="#c77a12">d_ff = 2048</text>
+
+  <!-- Arrow: GELU -->
+  <line x1="228" y1="155" x2="278" y2="155" stroke="#0e8a6e" stroke-width="2" marker-end="url(#arr2)"/>
+  <text x="253" y="143" text-anchor="middle" font-size="10" fill="#0e8a6e" font-weight="bold">GELU</text>
+  <text x="253" y="170" text-anchor="middle" font-size="9" fill="#0e8a6e">gate ~50%</text>
+
+  <!-- Activated hidden block — show sparsity with half shaded -->
+  <rect x="278" y="30" width="90" height="250" rx="5" fill="#e8f5e9" stroke="#0e8a6e" stroke-width="2"/>
+  <!-- active neurons (top half) -->
+  <rect x="278" y="30" width="90" height="122" rx="5" fill="#a5d6b0"/>
+  <text x="323" y="88" text-anchor="middle" font-size="9" fill="#0a5c2e">Active</text>
+  <text x="323" y="102" text-anchor="middle" font-size="9" fill="#0a5c2e">neurons</text>
+  <text x="323" y="116" text-anchor="middle" font-size="9" fill="#0a5c2e">~50%</text>
+  <!-- inactive neurons (bottom half) -->
+  <rect x="278" y="158" width="90" height="122" rx="0" fill="#f0f0f0"/>
+  <text x="323" y="216" text-anchor="middle" font-size="9" fill="#aaa">Dead</text>
+  <text x="323" y="230" text-anchor="middle" font-size="9" fill="#aaa">neurons</text>
+  <text x="323" y="244" text-anchor="middle" font-size="9" fill="#aaa">≈0</text>
+  <text x="323" y="290" text-anchor="middle" font-size="10" fill="#0e8a6e">h′ ∈ ℝ²⁰⁴⁸</text>
+
+  <!-- Arrow: W2 compress -->
+  <line x1="368" y1="155" x2="418" y2="155" stroke="#e05252" stroke-width="2" marker-end="url(#arr2)"/>
+  <text x="393" y="143" text-anchor="middle" font-size="10" fill="#e05252" font-weight="bold">W₂</text>
+  <text x="393" y="170" text-anchor="middle" font-size="9" fill="#888">2048→512</text>
+
+  <!-- Output block -->
+  <rect x="418" y="60" width="60" height="190" rx="5" fill="#fce4ec" stroke="#e05252" stroke-width="1.5"/>
+  <text x="448" y="148" text-anchor="middle" font-size="11" font-weight="bold" fill="#e05252" transform="rotate(-90,448,148)">out ∈ ℝ⁵¹²</text>
+  <text x="448" y="265" text-anchor="middle" font-size="10" fill="#555">d_model</text>
+  <text x="448" y="278" text-anchor="middle" font-size="10" fill="#555">=512</text>
+
+  <!-- Separator -->
+  <line x1="510" y1="40" x1="510" y2="290" stroke="#ddd" stroke-width="1"/>
+
+  <!-- Right side: parameter count and comparison -->
+  <text x="540" y="58" font-size="13" font-weight="bold" fill="#1f4fa3">Parameter count</text>
+
+  <text x="540" y="82" font-size="11" fill="#333">FFN params  =  2 × d_model × d_ff  +  d_ff  +  d_model</text>
+  <text x="540" y="100" font-size="11" fill="#555">  =  2 × 512 × 2048  +  2048  +  512</text>
+  <text x="540" y="118" font-size="11" fill="#1f4fa3" font-weight="bold">  =  2,098,176 + 2,560  ≈  2.10 M</text>
+
+  <line x1="530" y1="132" x2="840" y2="132" stroke="#ddd" stroke-width="1"/>
+
+  <text x="540" y="152" font-size="13" font-weight="bold" fill="#1f4fa3">Sublayer comparison (BERT-base, d=768)</text>
+
+  <rect x="540" y="163" width="290" height="28" rx="4" fill="#fff3e0"/>
+  <text x="555" y="182" font-size="11" fill="#c77a12" font-weight="bold">FFN</text>
+  <text x="620" y="182" font-size="11" fill="#333">2 × 768 × 3072 ≈ 4.72 M</text>
+  <text x="810" y="182" text-anchor="end" font-size="11" fill="#c77a12" font-weight="bold">67%</text>
+
+  <rect x="540" y="195" width="290" height="28" rx="4" fill="#e8edf7"/>
+  <text x="555" y="214" font-size="11" fill="#1f4fa3" font-weight="bold">Attention</text>
+  <text x="620" y="214" font-size="11" fill="#333">4 × 768² ≈ 2.36 M</text>
+  <text x="810" y="214" text-anchor="end" font-size="11" fill="#1f4fa3" font-weight="bold">33%</text>
+
+  <line x1="530" y1="235" x2="840" y2="235" stroke="#ddd" stroke-width="1"/>
+
+  <text x="540" y="256" font-size="12" font-weight="bold" fill="#0e8a6e">Why 4× specifically?</text>
+  <text x="540" y="274" font-size="10" fill="#555">• Overcomplete feature space for sparse representations</text>
+  <text x="540" y="290" font-size="10" fill="#555">• Balances compute with attention sub-layer (O(nd²) each)</text>
+  <text x="540" y="306" font-size="10" fill="#555">• Aligns to hardware tile sizes (e.g. 2048 = 16 × 128)</text>
+
+  <defs>
+    <marker id="arr2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#555"/>
+    </marker>
+  </defs>
+</svg>

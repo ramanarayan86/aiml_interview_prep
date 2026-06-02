@@ -12,7 +12,7 @@
 
 ![Questions](https://img.shields.io/badge/questions-42-1f4fa3)
 ![Levels](https://img.shields.io/badge/levels-Basic→Advanced→Applied-0e8a6e)
-![Status](https://img.shields.io/badge/answered-1%2F42-c77a12)
+![Status](https://img.shields.io/badge/answered-16%2F42-c77a12)
 
 </div>
 
@@ -26,29 +26,29 @@ The bedrock section. If you can teach every idea here from first principles, mos
 
 | # | Question | Status |
 |---|----------|:------:|
-| Q1 | Forward pass of a Transformer block; what residual connections protect against | 📝 |
-| Q2 | Why scaled dot‑product attention divides by √d_k | 📝 |
-| Q3 | LayerNorm vs BatchNorm; why LayerNorm for sequences | 📝 |
-| Q4 | Pre‑norm vs post‑norm; why the field shifted to pre‑norm | 📝 |
-| Q5 | Why positional encodings; sinusoidal vs learned vs RoPE vs ALiBi | 📝 |
-| Q6 | Role of the FFN; why ~4× hidden dimension | 📝 |
-| Q7 | Teacher forcing & exposure bias | 📝 |
-| Q8 | Causal masking and how it's implemented | 📝 |
-| Q9 | Why multiple attention heads instead of one big head | 📝 |
-| Q10 | Encoder‑only vs decoder‑only vs encoder‑decoder; when to choose each | 📝 |
+| Q1 | [Forward pass of a Transformer block; what residual connections protect against](./q01-transformer-block.md) | ✅ |
+| Q2 | [Why scaled dot‑product attention divides by √d_k](./q02-scaled-attention.md) | ✅ |
+| Q3 | [LayerNorm vs BatchNorm; why LayerNorm for sequences](./q03-layernorm-batchnorm.md) | ✅ |
+| Q4 | [Pre‑norm vs post‑norm; why the field shifted to pre‑norm](./q04-prenorm-postnorm.md) | ✅ |
+| Q5 | [Why positional encodings; sinusoidal vs learned vs RoPE vs ALiBi](./q05-positional-encodings.md) | ✅ |
+| Q6 | [Role of the FFN; why ~4× hidden dimension](./q06-ffn.md) | ✅ |
+| Q7 | [Teacher forcing & exposure bias](./q07-teacher-forcing.md) | ✅ |
+| Q8 | [Causal masking and how it's implemented](./q08-causal-masking.md) | ✅ |
+| Q9 | [Why multiple attention heads instead of one big head](./q09-multi-head-attention.md) | ✅ |
+| Q10 | [Encoder‑only vs decoder‑only vs encoder‑decoder; when to choose each](./q10-encoder-decoder.md) | ✅ |
 
 ### 🟡 Intermediate
 
 | # | Question | Status |
 |---|----------|:------:|
-| Q11 | Compute & memory complexity of attention; where O(n²) actually hurts | 📝 |
-| Q12 | Multi‑Head Attention & head specialization (induction/copy heads, sinks) | 📝 |
-| Q13 | GQA & MQA; quality–throughput tradeoff | 📝 |
-| Q14 | RMSNorm vs LayerNorm; why RMSNorm dominates | 📝 |
-| Q15 | SwiGLU & GeGLU; why they replaced ReLU/GELU | 📝 |
+| Q11 | [Compute & memory complexity of attention; where O(n²) actually hurts](./q11-attention-complexity.md) | ✅ |
+| Q12 | [Multi‑Head Attention & head specialization (induction/copy heads, sinks)](./q12-mha-interpretability.md) | ✅ |
+| Q13 | [GQA & MQA; quality–throughput tradeoff](./q13-gqa-mqa.md) | ✅ |
+| Q14 | [RMSNorm vs LayerNorm; why RMSNorm dominates](./q14-rmsnorm-vs-layernorm.md) | ✅ |
+| Q15 | [SwiGLU & GeGLU; why they replaced ReLU/GELU](./q15-swiglu-geglu.md) | ✅ |
 | Q16 | Weight tying of input/output embeddings | 📝 |
 | Q17 | Dropout in Transformers; why often off for large‑scale pretraining | 📝 |
-| **Q18** | **What is the QK‑norm trick? What stability problem does it solve?** | [✅](./q18-qk-norm.md) |
+| **Q18** | **[What is the QK‑norm trick? What stability problem does it solve?](./q18-qk-norm.md)** | ✅ |
 | Q19 | Absolute vs relative vs rotary encodings; why RoPE extrapolates | 📝 |
 | Q20 | ALiBi: linear bias on logits for length extrapolation | 📝 |
 | Q21 | Parallel attention+FFN (GPT‑J, PaLM, Falcon); tradeoffs | 📝 |
@@ -86,8 +86,18 @@ The bedrock section. If you can teach every idea here from first principles, mos
 
 ---
 
+## Reading order suggestions
+
+**New to Transformers?** Start with Q1 → Q2 → Q3 → Q4 → Q5 → Q6 → Q7 → Q8 → Q9 → Q10
+
+**Interview in 48 hours?** Hit the ⭐ answers: [Q18 — QK‑norm](./q18-qk-norm.md) · [Q11 — Complexity](./q11-attention-complexity.md) · [Q13 — GQA/MQA](./q13-gqa-mqa.md) · [Q6 — FFN](./q06-ffn.md) · [Q12 — MHA Interpretability](./q12-mha-interpretability.md)
+
+**Deep-dive track:** Q11 → Q12 → Q13 → Q14 → Q15 → Q18
+
+---
+
 <div align="center">
 
-[🏠 Home](../../README.md) &nbsp;|&nbsp; [▶️ Start with Q18 — QK‑norm](./q18-qk-norm.md)
+[🏠 Home](../../README.md) &nbsp;|&nbsp; [▶️ Start here: Q1 — Transformer Block](./q01-transformer-block.md) &nbsp;|&nbsp; [⭐ Reference answer: Q18 — QK‑norm](./q18-qk-norm.md)
 
 </div>

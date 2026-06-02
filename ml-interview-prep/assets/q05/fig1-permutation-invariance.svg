@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="320" font-family="Arial, sans-serif">
+  <rect width="820" height="320" fill="#f8f9fa" rx="8"/>
+  <text x="410" y="26" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">Without Positional Encoding: Attention is Permutation Invariant</text>
+
+  <defs>
+    <marker id="a5" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#5b6675"/>
+    </marker>
+    <marker id="a5b" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#1f4fa3"/>
+    </marker>
+    <marker id="a5g" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#0e8a6e"/>
+    </marker>
+  </defs>
+
+  <!-- ===== WITHOUT PE: two orderings → SAME output ===== -->
+  <text x="410" y="48" text-anchor="middle" font-size="12" fill="#e05252" font-weight="bold">WITHOUT positional encoding: same attention weights regardless of token order</text>
+
+  <!-- Ordering 1: The | cat | sat -->
+  <text x="100" y="72" text-anchor="middle" font-size="11" fill="#5b6675" font-weight="bold">Order 1: [The, cat, sat]</text>
+
+  <rect x="30" y="80" width="60" height="30" rx="5" fill="#1f4fa3"/>
+  <text x="60" y="100" text-anchor="middle" font-size="12" fill="white" font-weight="bold">The</text>
+
+  <rect x="110" y="80" width="60" height="30" rx="5" fill="#1f4fa3"/>
+  <text x="140" y="100" text-anchor="middle" font-size="12" fill="white" font-weight="bold">cat</text>
+
+  <rect x="190" y="80" width="60" height="30" rx="5" fill="#1f4fa3"/>
+  <text x="220" y="100" text-anchor="middle" font-size="12" fill="white" font-weight="bold">sat</text>
+
+  <!-- Attention arrows for ordering 1: same pattern (all-to-all, identical weights) -->
+  <!-- The → cat -->
+  <path d="M 90 93 C 95 75, 105 75, 110 90" stroke="#1f4fa3" stroke-width="1.8" fill="none" marker-end="url(#a5b)" opacity="0.7"/>
+  <!-- cat → sat -->
+  <path d="M 170 93 C 175 75, 185 75, 190 90" stroke="#1f4fa3" stroke-width="1.8" fill="none" marker-end="url(#a5b)" opacity="0.7"/>
+  <!-- The → sat -->
+  <path d="M 90 85 C 100 60, 200 60, 190 85" stroke="#1f4fa3" stroke-width="1.4" fill="none" marker-end="url(#a5b)" opacity="0.5"/>
+
+  <!-- Ordering 2: cat | sat | The -->
+  <text x="100" y="148" text-anchor="middle" font-size="11" fill="#5b6675" font-weight="bold">Order 2: [cat, sat, The]</text>
+
+  <rect x="30" y="156" width="60" height="30" rx="5" fill="#c77a12"/>
+  <text x="60" y="176" text-anchor="middle" font-size="12" fill="white" font-weight="bold">cat</text>
+
+  <rect x="110" y="156" width="60" height="30" rx="5" fill="#c77a12"/>
+  <text x="140" y="176" text-anchor="middle" font-size="12" fill="white" font-weight="bold">sat</text>
+
+  <rect x="190" y="156" width="60" height="30" rx="5" fill="#c77a12"/>
+  <text x="220" y="176" text-anchor="middle" font-size="12" fill="white" font-weight="bold">The</text>
+
+  <!-- Same attention arrows (identical pattern) -->
+  <path d="M 90 169 C 95 151, 105 151, 110 166" stroke="#c77a12" stroke-width="1.8" fill="none" marker-end="url(#a5)" opacity="0.7"/>
+  <path d="M 170 169 C 175 151, 185 151, 190 166" stroke="#c77a12" stroke-width="1.8" fill="none" marker-end="url(#a5)" opacity="0.7"/>
+  <path d="M 90 161 C 100 136, 200 136, 190 161" stroke="#c77a12" stroke-width="1.4" fill="none" marker-end="url(#a5)" opacity="0.5"/>
+
+  <!-- SAME output label -->
+  <rect x="290" y="105" width="130" height="52" rx="6" fill="#e05252" opacity="0.15" stroke="#e05252"/>
+  <text x="355" y="128" text-anchor="middle" font-size="13" fill="#e05252" font-weight="bold">IDENTICAL</text>
+  <text x="355" y="147" text-anchor="middle" font-size="11" fill="#e05252">attention output!</text>
+
+  <!-- Arrows from both to "SAME" -->
+  <line x1="250" y1="100" x2="290" y2="118" stroke="#e05252" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#a5)"/>
+  <line x1="250" y1="175" x2="290" y2="148" stroke="#e05252" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#a5)"/>
+
+  <!-- ===== WITH PE: arrows differ ===== -->
+  <!-- Divider -->
+  <line x1="455" y1="45" x2="455" y2="220" stroke="#ddd" stroke-width="1.5" stroke-dasharray="5,3"/>
+
+  <text x="630" y="48" text-anchor="middle" font-size="12" fill="#0e8a6e" font-weight="bold">WITH positional encoding: order matters</text>
+
+  <!-- Order 1 with PE: The(0) | cat(1) | sat(2) -->
+  <text x="630" y="72" text-anchor="middle" font-size="11" fill="#5b6675" font-weight="bold">Order 1: The[0] cat[1] sat[2]</text>
+
+  <rect x="490" y="80" width="65" height="30" rx="5" fill="#1f4fa3"/>
+  <text x="522" y="100" text-anchor="middle" font-size="11" fill="white" font-weight="bold">The</text>
+  <text x="522" y="113" text-anchor="middle" font-size="9" fill="#1f4fa3">pos=0</text>
+
+  <rect x="577" y="80" width="65" height="30" rx="5" fill="#1f4fa3"/>
+  <text x="609" y="100" text-anchor="middle" font-size="11" fill="white" font-weight="bold">cat</text>
+  <text x="609" y="113" text-anchor="middle" font-size="9" fill="#1f4fa3">pos=1</text>
+
+  <rect x="664" y="80" width="65" height="30" rx="5" fill="#1f4fa3"/>
+  <text x="696" y="100" text-anchor="middle" font-size="11" fill="white" font-weight="bold">sat</text>
+  <text x="696" y="113" text-anchor="middle" font-size="9" fill="#1f4fa3">pos=2</text>
+
+  <!-- Strong The→cat (nearby) -->
+  <path d="M 555 90 C 560 68, 572 68, 577 85" stroke="#1f4fa3" stroke-width="2.5" fill="none" marker-end="url(#a5b)" opacity="0.9"/>
+  <!-- Weaker The→sat (far) -->
+  <path d="M 555 85 C 565 58, 672 58, 664 82" stroke="#1f4fa3" stroke-width="1.2" fill="none" marker-end="url(#a5b)" opacity="0.4"/>
+
+  <!-- Order 2 with PE: cat(0) | sat(1) | The(2) -->
+  <text x="630" y="148" text-anchor="middle" font-size="11" fill="#5b6675" font-weight="bold">Order 2: cat[0] sat[1] The[2]</text>
+
+  <rect x="490" y="156" width="65" height="30" rx="5" fill="#0e8a6e"/>
+  <text x="522" y="176" text-anchor="middle" font-size="11" fill="white" font-weight="bold">cat</text>
+  <text x="522" y="189" text-anchor="middle" font-size="9" fill="#0e8a6e">pos=0</text>
+
+  <rect x="577" y="156" width="65" height="30" rx="5" fill="#0e8a6e"/>
+  <text x="609" y="176" text-anchor="middle" font-size="11" fill="white" font-weight="bold">sat</text>
+  <text x="609" y="189" text-anchor="middle" font-size="9" fill="#0e8a6e">pos=1</text>
+
+  <rect x="664" y="156" width="65" height="30" rx="5" fill="#0e8a6e"/>
+  <text x="696" y="176" text-anchor="middle" font-size="11" fill="white" font-weight="bold">The</text>
+  <text x="696" y="189" text-anchor="middle" font-size="9" fill="#0e8a6e">pos=2</text>
+
+  <!-- DIFFERENT arrow pattern (cat at pos 0 attends differently) -->
+  <path d="M 555 166 C 560 144, 572 144, 577 161" stroke="#0e8a6e" stroke-width="1.8" fill="none" marker-end="url(#a5g)" opacity="0.8"/>
+  <!-- cat→The: now strong (semantic subject) -->
+  <path d="M 555 161 C 565 134, 672 134, 664 158" stroke="#0e8a6e" stroke-width="2.2" fill="none" marker-end="url(#a5g)" opacity="0.85"/>
+
+  <text x="770" y="130" text-anchor="middle" font-size="11" fill="#0e8a6e" font-weight="bold">DIFFERENT</text>
+  <text x="770" y="145" text-anchor="middle" font-size="10" fill="#0e8a6e">attention</text>
+  <text x="770" y="158" text-anchor="middle" font-size="10" fill="#0e8a6e">patterns ✓</text>
+
+  <!-- Footer -->
+  <text x="410" y="240" text-anchor="middle" font-size="12" fill="#1f4fa3" font-weight="bold">Key insight:</text>
+  <text x="410" y="256" text-anchor="middle" font-size="11" fill="#5b6675">Attention computes dot products between embeddings — without PE, embeddings carry no position info.</text>
+  <text x="410" y="272" text-anchor="middle" font-size="11" fill="#5b6675">The same token set produces identical attention regardless of order.</text>
+  <text x="410" y="290" text-anchor="middle" font-size="11" fill="#0e8a6e">Positional encoding injects order information: x_pos = token_emb + pos_emb</text>
+</svg>

@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 340" width="820" height="340" font-family="Arial, sans-serif">
+  <rect width="820" height="340" fill="#f8f9fa" rx="8"/>
+  <text x="410" y="26" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f4fa3">GPU Memory Hierarchy &amp; Why Naive Attention is IO-Bound</text>
+
+  <!-- Naive attention (left) -->
+  <text x="180" y="52" text-anchor="middle" font-size="12" font-weight="bold" fill="#e05252">Naive Attention (IO-heavy)</text>
+
+  <!-- HBM box -->
+  <rect x="30" y="65" width="300" height="220" rx="6" fill="#fce4ec" stroke="#e05252" stroke-width="1.5"/>
+  <text x="180" y="85" text-anchor="middle" font-size="11" font-weight="bold" fill="#e05252">HBM (80 GB · ~2 TB/s)</text>
+
+  <!-- Q, K, V in HBM -->
+  <rect x="45" y="100" width="80" height="30" rx="3" fill="#fff"/>
+  <text x="85" y="120" text-anchor="middle" font-size="10" fill="#333">Q ∈ R^(n×d)</text>
+  <rect x="135" y="100" width="80" height="30" rx="3" fill="#fff"/>
+  <text x="175" y="120" text-anchor="middle" font-size="10" fill="#333">K ∈ R^(n×d)</text>
+  <rect x="225" y="100" width="80" height="30" rx="3" fill="#fff"/>
+  <text x="265" y="120" text-anchor="middle" font-size="10" fill="#333">V ∈ R^(n×d)</text>
+
+  <!-- Arrow down: write S -->
+  <line x1="180" y1="130" x2="180" y2="155" stroke="#e05252" stroke-width="2" marker-end="url(#ard)"/>
+  <text x="195" y="147" font-size="9" fill="#e05252">write</text>
+
+  <!-- S matrix in HBM -->
+  <rect x="60" y="155" width="240" height="35" rx="3" fill="#ffcdd2" stroke="#e05252" stroke-width="1"/>
+  <text x="180" y="177" text-anchor="middle" font-size="11" fill="#c00" font-weight="bold">S = QKᵀ  (n×n matrix) ← HUGE</text>
+
+  <!-- Arrow: read back for softmax -->
+  <line x1="180" y1="190" x2="180" y2="215" stroke="#e05252" stroke-width="2" marker-end="url(#ard)"/>
+  <text x="195" y="207" font-size="9" fill="#e05252">read back</text>
+
+  <!-- P matrix in HBM -->
+  <rect x="60" y="215" width="240" height="35" rx="3" fill="#ffcdd2" stroke="#e05252" stroke-width="1"/>
+  <text x="180" y="237" text-anchor="middle" font-size="11" fill="#c00" font-weight="bold">P = softmax(S)  (n×n again)</text>
+
+  <!-- Arrow: read back for PV -->
+  <line x1="180" y1="250" x2="180" y2="270" stroke="#e05252" stroke-width="2" marker-end="url(#ard)"/>
+  <text x="200" y="263" font-size="9" fill="#e05252">read again</text>
+  <rect x="80" y="270" width="200" height="28" rx="3" fill="#fff3e0"/>
+  <text x="180" y="289" text-anchor="middle" font-size="10" fill="#c77a12">Output = P · V</text>
+
+  <!-- Annotation: cost -->
+  <text x="180" y="307" text-anchor="middle" font-size="10" fill="#e05252" font-weight="bold">4× HBM round-trips per layer!</text>
+
+  <!-- Divider -->
+  <line x1="365" y1="50" x2="365" y2="330" stroke="#ccc" stroke-width="1.5"/>
+
+  <!-- FlashAttention (right) -->
+  <text x="590" y="52" text-anchor="middle" font-size="12" font-weight="bold" fill="#0e8a6e">FlashAttention (IO-aware)</text>
+
+  <!-- HBM box right -->
+  <rect x="430" y="65" width="300" height="100" rx="6" fill="#e8f5e9" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="580" y="85" text-anchor="middle" font-size="11" font-weight="bold" fill="#0e8a6e">HBM (80 GB · ~2 TB/s)</text>
+  <rect x="445" y="100" width="80" height="28" rx="3" fill="#fff"/>
+  <text x="485" y="118" text-anchor="middle" font-size="10" fill="#333">Q tile</text>
+  <rect x="535" y="100" width="80" height="28" rx="3" fill="#fff"/>
+  <text x="575" y="118" text-anchor="middle" font-size="10" fill="#333">K tile</text>
+  <rect x="625" y="100" width="80" height="28" rx="3" fill="#fff"/>
+  <text x="665" y="118" text-anchor="middle" font-size="10" fill="#333">V tile</text>
+  <text x="580" y="158" text-anchor="middle" font-size="9" fill="#0e8a6e">Load one tile at a time</text>
+
+  <!-- Arrow: load tile to SRAM -->
+  <line x1="580" y1="165" x2="580" y2="190" stroke="#0e8a6e" stroke-width="2" marker-end="url(#arg)"/>
+
+  <!-- SRAM box -->
+  <rect x="430" y="190" width="300" height="80" rx="6" fill="#c8e6c9" stroke="#0e8a6e" stroke-width="2"/>
+  <text x="580" y="210" text-anchor="middle" font-size="11" font-weight="bold" fill="#0e8a6e">SRAM / Shared Memory</text>
+  <text x="580" y="225" text-anchor="middle" font-size="10" fill="#0e8a6e">192 KB per SM · ~20 TB/s</text>
+  <text x="580" y="243" text-anchor="middle" font-size="10" fill="#1b5e20">Compute partial attn, update running max,</text>
+  <text x="580" y="257" text-anchor="middle" font-size="10" fill="#1b5e20">accumulate O — all on-chip. No n×n stored.</text>
+
+  <!-- Arrow: write output only -->
+  <line x1="580" y1="270" x2="580" y2="295" stroke="#0e8a6e" stroke-width="2" marker-end="url(#arg)"/>
+  <rect x="455" y="295" width="250" height="28" rx="3" fill="#e8f5e9" stroke="#0e8a6e"/>
+  <text x="580" y="314" text-anchor="middle" font-size="10" fill="#0e8a6e" font-weight="bold">Write output O to HBM once ✓</text>
+
+  <!-- Right annotation -->
+  <text x="580" y="333" text-anchor="middle" font-size="10" fill="#0e8a6e">Same arithmetic · 5–10× fewer HBM ops</text>
+
+  <defs>
+    <marker id="ard" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#e05252"/>
+    </marker>
+    <marker id="arg" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#0e8a6e"/>
+    </marker>
+  </defs>
+</svg>

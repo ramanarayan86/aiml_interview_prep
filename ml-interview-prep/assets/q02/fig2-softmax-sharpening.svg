@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="320" font-family="Arial, sans-serif">
+  <rect width="820" height="320" fill="#f8f9fa" rx="8"/>
+  <text x="410" y="26" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">Larger Logits → Sharper Softmax → Attention Collapse</text>
+  <text x="410" y="44" text-anchor="middle" font-size="11" fill="#5b6675">Base logits: [-0.5, 0.8, 1.2, -0.3, 0.6, 0.9]  |  Tokens: t1–t6</text>
+
+  <!-- ===== LEFT: d_k=1 (scale=×1) ===== -->
+  <!-- Softmax of [-0.5, 0.8, 1.2, -0.3, 0.6, 0.9] -->
+  <!-- exp values: 0.607, 2.226, 3.320, 0.741, 1.822, 2.460 → sum=11.176 -->
+  <!-- probs: 0.054, 0.199, 0.297, 0.066, 0.163, 0.220 -->
+  <rect x="30" y="58" width="240" height="200" fill="white" stroke="#ccc" rx="4"/>
+  <text x="150" y="52" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f4fa3">d_k=1 (unscaled)</text>
+  <text x="150" y="68" text-anchor="middle" font-size="10" fill="#5b6675">Moderate distribution</text>
+
+  <!-- bar chart: 6 tokens, chart area x=40..260, y=70..250 -->
+  <!-- bar width=28, gap=8 -->
+  <!-- y_bottom=248, chart_h=160, bar h = prob*160 -->
+  <!-- t1: 0.054*160=8.7 -->
+  <rect x="43" y="239" width="28" height="9" fill="#1f4fa3" opacity="0.8"/>
+  <text x="57" y="265" text-anchor="middle" font-size="10" fill="#5b6675">t1</text>
+  <text x="57" y="236" text-anchor="middle" font-size="9" fill="#333">0.05</text>
+  <!-- t2: 0.199*160=31.8 -->
+  <rect x="79" y="216" width="28" height="32" fill="#1f4fa3" opacity="0.8"/>
+  <text x="93" y="265" text-anchor="middle" font-size="10" fill="#5b6675">t2</text>
+  <text x="93" y="213" text-anchor="middle" font-size="9" fill="#333">0.20</text>
+  <!-- t3: 0.297*160=47.5 -->
+  <rect x="115" y="201" width="28" height="47" fill="#1f4fa3" opacity="0.8"/>
+  <text x="129" y="265" text-anchor="middle" font-size="10" fill="#5b6675">t3</text>
+  <text x="129" y="198" text-anchor="middle" font-size="9" fill="#333">0.30</text>
+  <!-- t4: 0.066*160=10.6 -->
+  <rect x="151" y="237" width="28" height="11" fill="#1f4fa3" opacity="0.8"/>
+  <text x="165" y="265" text-anchor="middle" font-size="10" fill="#5b6675">t4</text>
+  <text x="165" y="234" text-anchor="middle" font-size="9" fill="#333">0.07</text>
+  <!-- t5: 0.163*160=26.1 -->
+  <rect x="187" y="222" width="28" height="26" fill="#1f4fa3" opacity="0.8"/>
+  <text x="201" y="265" text-anchor="middle" font-size="10" fill="#5b6675">t5</text>
+  <text x="201" y="219" text-anchor="middle" font-size="9" fill="#333">0.16</text>
+  <!-- t6: 0.220*160=35.2 -->
+  <rect x="223" y="213" width="28" height="35" fill="#1f4fa3" opacity="0.8"/>
+  <text x="237" y="265" text-anchor="middle" font-size="10" fill="#5b6675">t6</text>
+  <text x="237" y="210" text-anchor="middle" font-size="9" fill="#333">0.22</text>
+
+  <!-- baseline -->
+  <line x1="40" y1="248" x2="260" y2="248" stroke="#999" stroke-width="1"/>
+
+  <!-- ===== MIDDLE: d_k=16 (scale=×4) ===== -->
+  <!-- logits ×4: [-2, 3.2, 4.8, -1.2, 2.4, 3.6] -->
+  <!-- exp: 0.135, 24.5, 121.5, 0.301, 11.02, 36.6 → sum=194.1 -->
+  <!-- probs: 0.0007, 0.126, 0.626, 0.0015, 0.057, 0.189 -->
+  <rect x="290" y="58" width="240" height="200" fill="white" stroke="#ccc" rx="4"/>
+  <text x="410" y="52" text-anchor="middle" font-size="12" font-weight="bold" fill="#c77a12">d_k=16 (unscaled)</text>
+  <text x="410" y="68" text-anchor="middle" font-size="10" fill="#5b6675">Sharper — one bar dominates</text>
+
+  <!-- t1: ~0 -->
+  <rect x="303" y="248" width="28" height="0" fill="#c77a12" opacity="0.85"/>
+  <text x="317" y="265" text-anchor="middle" font-size="10" fill="#5b6675">t1</text>
+  <!-- t2: 0.126*160=20.2 -->
+  <rect x="339" y="228" width="28" height="20" fill="#c77a12" opacity="0.85"/>
+  <text x="353" y="265" text-anchor="middle" font-size="10" fill="#5b6675">t2</text>
+  <text x="353" y="225" text-anchor="middle" font-size="9" fill="#333">0.13</text>
+  <!-- t3: 0.626*160=100 -->
+  <rect x="375" y="148" width="28" height="100" fill="#c77a12" opacity="0.85"/>
+  <text x="389" y="265" text-anchor="middle" font-size="10" fill="#5b6675">t3</text>
+  <text x="389" y="145" text-anchor="middle" font-size="9" fill="#333">0.63</text>
+  <!-- t4: ~0 -->
+  <rect x="411" y="248" width="28" height="0" fill="#c77a12" opacity="0.85"/>
+  <text x="425" y="265" text-anchor="middle" font-size="10" fill="#5b6675">t4</text>
+  <!-- t5: 0.057*160=9.1 -->
+  <rect x="447" y="239" width="28" height="9" fill="#c77a12" opacity="0.85"/>
+  <text x="461" y="265" text-anchor="middle" font-size="10" fill="#5b6675">t5</text>
+  <text x="461" y="236" text-anchor="middle" font-size="9" fill="#333">0.06</text>
+  <!-- t6: 0.189*160=30.2 -->
+  <rect x="483" y="218" width="28" height="30" fill="#c77a12" opacity="0.85"/>
+  <text x="497" y="265" text-anchor="middle" font-size="10" fill="#5b6675">t6</text>
+  <text x="497" y="215" text-anchor="middle" font-size="9" fill="#333">0.19</text>
+
+  <line x1="300" y1="248" x2="520" y2="248" stroke="#999" stroke-width="1"/>
+
+  <!-- ===== RIGHT: d_k=64 (scale=×20) ===== -->
+  <!-- logits ×20: [-10, 16, 24, -6, 12, 18] -->
+  <!-- exp: 4.5e-5, 8.9e6, 2.65e10, 2.5e-3, 162755, 6.6e7 → sum≈2.65e10 -->
+  <!-- probs: ~0, ~0.0003, ~0.9997, ~0, ~0, ~0.0025 -->
+  <rect x="550" y="58" width="240" height="200" fill="white" stroke="#ccc" rx="4"/>
+  <text x="670" y="52" text-anchor="middle" font-size="12" font-weight="bold" fill="#e05252">d_k=64 (unscaled)</text>
+  <text x="670" y="68" text-anchor="middle" font-size="10" fill="#5b6675">Near one-hot spike</text>
+
+  <!-- t1: ~0 -->
+  <rect x="563" y="248" width="28" height="0" fill="#e05252" opacity="0.85"/>
+  <text x="577" y="265" text-anchor="middle" font-size="10" fill="#5b6675">t1</text>
+  <!-- t2: ~0 -->
+  <rect x="599" y="248" width="28" height="0" fill="#e05252" opacity="0.85"/>
+  <text x="613" y="265" text-anchor="middle" font-size="10" fill="#5b6675">t2</text>
+  <!-- t3: ~1.0 → h=160 -->
+  <rect x="635" y="88" width="28" height="160" fill="#e05252" opacity="0.85"/>
+  <text x="649" y="265" text-anchor="middle" font-size="10" fill="#5b6675">t3</text>
+  <text x="649" y="85" text-anchor="middle" font-size="9" fill="#333">≈1.00</text>
+  <!-- t4: ~0 -->
+  <rect x="671" y="248" width="28" height="0" fill="#e05252" opacity="0.85"/>
+  <text x="685" y="265" text-anchor="middle" font-size="10" fill="#5b6675">t4</text>
+  <!-- t5: ~0 -->
+  <rect x="707" y="248" width="28" height="0" fill="#e05252" opacity="0.85"/>
+  <text x="721" y="265" text-anchor="middle" font-size="10" fill="#5b6675">t5</text>
+  <!-- t6: ~0 -->
+  <rect x="743" y="248" width="28" height="0" fill="#e05252" opacity="0.85"/>
+  <text x="757" y="265" text-anchor="middle" font-size="10" fill="#5b6675">t6</text>
+
+  <line x1="560" y1="248" x2="780" y2="248" stroke="#999" stroke-width="1"/>
+
+  <!-- Attention collapse label -->
+  <text x="670" y="120" text-anchor="middle" font-size="11" fill="#e05252" font-weight="bold">Attention collapse!</text>
+  <text x="670" y="134" text-anchor="middle" font-size="10" fill="#e05252">gradient near zero</text>
+  <text x="670" y="148" text-anchor="middle" font-size="10" fill="#e05252">for all other tokens</text>
+
+  <!-- Footer -->
+  <text x="410" y="295" text-anchor="middle" font-size="11" fill="#5b6675">Scaling by 1/√d_k normalizes logit variance to 1 regardless of d_k, preventing softmax saturation</text>
+  <text x="410" y="310" text-anchor="middle" font-size="11" fill="#5b6675">Formula: Attention(Q,K,V) = softmax(QKᵀ / √d_k) · V</text>
+</svg>

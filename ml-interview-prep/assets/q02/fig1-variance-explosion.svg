@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="320" font-family="Arial, sans-serif">
+  <rect width="820" height="320" fill="#f8f9fa" rx="8"/>
+  <text x="410" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">Without √d_k Scaling: Logit Variance Grows with d_k</text>
+  <text x="410" y="46" text-anchor="middle" font-size="12" fill="#5b6675">Var[q·k] = d_k when unscaled vs. Var[q·k / √d_k] = 1 when scaled</text>
+
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#5b6675"/>
+    </marker>
+  </defs>
+
+  <!-- Chart area: x=90..760, y=65..260 -->
+  <rect x="90" y="65" width="670" height="195" fill="white" stroke="#ccc" rx="4"/>
+
+  <!-- Y axis label -->
+  <text x="22" y="165" text-anchor="middle" font-size="12" fill="#5b6675" transform="rotate(-90, 22, 165)">Var[q·k]</text>
+
+  <!-- X positions for d_k: 4, 16, 64, 256, 1024 -->
+  <!-- Map: x=90 + (log(dk)-log(4)) / (log(1024)-log(4)) * 670 -->
+  <!-- log2(4)=2, log2(16)=4, log2(64)=6, log2(256)=8, log2(1024)=10 → range 8 -->
+  <!-- x(4) = 90 + 0/8*670 = 90 -->
+  <!-- x(16) = 90 + 2/8*670 = 90+167.5=257.5 -->
+  <!-- x(64) = 90 + 4/8*670 = 90+335=425 -->
+  <!-- x(256)= 90 + 6/8*670 = 90+502.5=592.5 -->
+  <!-- x(1024)=90 + 8/8*670 = 760 -->
+
+  <!-- Y axis: max=1024, min=0, height=195 -->
+  <!-- y(v) = 260 - v/1024*195 -->
+  <!-- y(0)=260, y(256)=211, y(512)=165, y(768)=118, y(1024)=65 -->
+
+  <!-- Gridlines + Y ticks -->
+  <line x1="90" y1="260" x2="760" y2="260" stroke="#ddd" stroke-width="1"/>
+  <line x1="90" y1="211" x2="760" y2="211" stroke="#ddd" stroke-width="1"/>
+  <line x1="90" y1="162" x2="760" y2="162" stroke="#ddd" stroke-width="1"/>
+  <line x1="90" y1="113" x2="760" y2="113" stroke="#ddd" stroke-width="1"/>
+  <line x1="90" y1="65" x2="760" y2="65" stroke="#ddd" stroke-width="1"/>
+
+  <text x="85" y="264" text-anchor="end" font-size="10" fill="#5b6675">0</text>
+  <text x="85" y="215" text-anchor="end" font-size="10" fill="#5b6675">256</text>
+  <text x="85" y="166" text-anchor="end" font-size="10" fill="#5b6675">512</text>
+  <text x="85" y="117" text-anchor="end" font-size="10" fill="#5b6675">768</text>
+  <text x="85" y="69" text-anchor="end" font-size="10" fill="#5b6675">1024</text>
+
+  <!-- X ticks -->
+  <text x="90" y="278" text-anchor="middle" font-size="11" fill="#5b6675">4</text>
+  <text x="257" y="278" text-anchor="middle" font-size="11" fill="#5b6675">16</text>
+  <text x="425" y="278" text-anchor="middle" font-size="11" fill="#5b6675">64</text>
+  <text x="592" y="278" text-anchor="middle" font-size="11" fill="#5b6675">256</text>
+  <text x="760" y="278" text-anchor="middle" font-size="11" fill="#5b6675">1024</text>
+  <text x="425" y="296" text-anchor="middle" font-size="12" fill="#5b6675">d_k (head dimension)</text>
+
+  <!-- WITHOUT scaling line: Var = d_k (linear in log scale we just use actual coordinates) -->
+  <!-- Points: (4, 4), (16, 16), (64, 64), (256, 256), (1024, 1024) -->
+  <!-- y coords: 260-4/1024*195=259.2, 260-16/1024*195=257, 260-64/1024*195=248, 260-256/1024*195=211, 260-1024/1024*195=65 -->
+  <polyline points="90,259 257,257 425,248 592,211 760,65"
+            stroke="#e05252" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+  <!-- Dots -->
+  <circle cx="90" cy="259" r="5" fill="#e05252"/>
+  <circle cx="257" cy="257" r="5" fill="#e05252"/>
+  <circle cx="425" cy="248" r="5" fill="#e05252"/>
+  <circle cx="592" cy="211" r="5" fill="#e05252"/>
+  <circle cx="760" cy="65" r="5" fill="#e05252"/>
+
+  <!-- WITH scaling line: Var = 1.0 (flat) -->
+  <!-- y(1) = 260 - 1/1024*195 ≈ 259.8 ≈ 260 — too close to 0 axis -->
+  <!-- Let's normalize y differently: show flat line near bottom, clearly labeled -->
+  <line x1="90" y1="258" x2="760" y2="258" stroke="#0e8a6e" stroke-width="2.5" stroke-dasharray="7,4"/>
+  <circle cx="90" cy="258" r="5" fill="#0e8a6e"/>
+  <circle cx="257" cy="258" r="5" fill="#0e8a6e"/>
+  <circle cx="425" cy="258" r="5" fill="#0e8a6e"/>
+  <circle cx="592" cy="258" r="5" fill="#0e8a6e"/>
+  <circle cx="760" cy="258" r="5" fill="#0e8a6e"/>
+
+  <!-- Vertical dashed line at d_k=64 -->
+  <line x1="425" y1="65" x2="425" y2="260" stroke="#c77a12" stroke-width="1.8" stroke-dasharray="5,4"/>
+  <text x="430" y="85" font-size="11" fill="#c77a12" font-weight="bold">d_k = 64</text>
+  <text x="430" y="99" font-size="10" fill="#c77a12">(typical)</text>
+
+  <!-- Labels for lines -->
+  <text x="620" y="100" font-size="12" fill="#e05252" font-weight="bold">Without scaling</text>
+  <text x="620" y="115" font-size="11" fill="#e05252">Var = d_k (grows)</text>
+  <text x="620" y="248" font-size="12" fill="#0e8a6e" font-weight="bold">With √d_k scaling</text>
+  <text x="620" y="263" font-size="11" fill="#0e8a6e">Var = 1.0 (constant)</text>
+
+  <!-- Legend -->
+  <line x1="100" y1="308" x2="130" y2="308" stroke="#e05252" stroke-width="2.5"/>
+  <text x="135" y="312" font-size="12" fill="#333">Unscaled: Var[q·k] = d_k</text>
+  <line x1="370" y1="308" x2="400" y2="308" stroke="#0e8a6e" stroke-width="2.5" stroke-dasharray="7,4"/>
+  <text x="405" y="312" font-size="12" fill="#333">Scaled by 1/√d_k: Var = 1</text>
+  <line x1="610" y1="308" x2="630" y2="308" stroke="#c77a12" stroke-width="1.8" stroke-dasharray="5,4"/>
+  <text x="635" y="312" font-size="12" fill="#c77a12">d_k=64 (typical)</text>
+</svg>

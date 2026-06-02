@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="340" font-family="Arial, sans-serif">
+  <rect width="820" height="340" fill="#f8f9fa" rx="8"/>
+  <text x="410" y="26" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">Single Head vs Multi-Head: Same Parameters, Different Expressivity</text>
+
+  <defs>
+    <marker id="a9" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#5b6675"/>
+    </marker>
+  </defs>
+
+  <!-- ===== LEFT: Single Head ===== -->
+  <rect x="20" y="40" width="360" height="256" rx="6" fill="white" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="200" y="58" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f4fa3">Single Head Attention</text>
+
+  <!-- W_Q, W_K, W_V: d×d matrices -->
+  <rect x="40" y="68" width="90" height="36" rx="4" fill="#1f4fa3" opacity="0.8"/>
+  <text x="85" y="91" text-anchor="middle" font-size="12" fill="white" font-weight="bold">W_Q</text>
+  <text x="85" y="108" text-anchor="middle" font-size="10" fill="#1f4fa3">d × d</text>
+
+  <rect x="155" y="68" width="90" height="36" rx="4" fill="#1f4fa3" opacity="0.8"/>
+  <text x="200" y="91" text-anchor="middle" font-size="12" fill="white" font-weight="bold">W_K</text>
+  <text x="200" y="108" text-anchor="middle" font-size="10" fill="#1f4fa3">d × d</text>
+
+  <rect x="270" y="68" width="90" height="36" rx="4" fill="#1f4fa3" opacity="0.8"/>
+  <text x="315" y="91" text-anchor="middle" font-size="12" fill="white" font-weight="bold">W_V</text>
+  <text x="315" y="108" text-anchor="middle" font-size="10" fill="#1f4fa3">d × d</text>
+
+  <!-- Arrows down -->
+  <line x1="85" y1="104" x2="85" y2="125" stroke="#5b6675" stroke-width="1.5" marker-end="url(#a9)"/>
+  <line x1="200" y1="104" x2="200" y2="125" stroke="#5b6675" stroke-width="1.5" marker-end="url(#a9)"/>
+  <line x1="315" y1="104" x2="315" y2="125" stroke="#5b6675" stroke-width="1.5" marker-end="url(#a9)"/>
+
+  <!-- Single attention map -->
+  <rect x="75" y="126" width="250" height="70" rx="4" fill="#dde8fa" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="200" y="152" text-anchor="middle" font-size="12" fill="#1f4fa3" font-weight="bold">Attention(Q, K, V)</text>
+  <text x="200" y="168" text-anchor="middle" font-size="11" fill="#5b6675">= softmax(QKᵀ/√d) · V</text>
+  <text x="200" y="184" text-anchor="middle" font-size="10" fill="#5b6675">1 attention map, size d×d</text>
+
+  <!-- Arrow down -->
+  <line x1="200" y1="196" x2="200" y2="212" stroke="#5b6675" stroke-width="1.5" marker-end="url(#a9)"/>
+
+  <!-- W_O -->
+  <rect x="155" y="213" width="90" height="36" rx="4" fill="#0e8a6e" opacity="0.8"/>
+  <text x="200" y="236" text-anchor="middle" font-size="12" fill="white" font-weight="bold">W_O</text>
+  <text x="200" y="252" text-anchor="middle" font-size="10" fill="#0e8a6e">d × d</text>
+
+  <!-- Parameter count -->
+  <rect x="30" y="262" width="340" height="26" rx="4" fill="#f0f4ff"/>
+  <text x="200" y="279" text-anchor="middle" font-size="11" fill="#1f4fa3" font-weight="bold">Total: 4 × d² params (W_Q + W_K + W_V + W_O)</text>
+
+  <!-- ===== Divider + equals ===== -->
+  <text x="410" y="175" text-anchor="middle" font-size="20" fill="#5b6675" font-weight="bold">≡</text>
+  <text x="410" y="195" text-anchor="middle" font-size="12" fill="#0e8a6e" font-weight="bold">same #</text>
+  <text x="410" y="210" text-anchor="middle" font-size="12" fill="#0e8a6e" font-weight="bold">params!</text>
+
+  <!-- ===== RIGHT: Multi-Head (4 heads) ===== -->
+  <rect x="440" y="40" width="360" height="256" rx="6" fill="white" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="620" y="58" text-anchor="middle" font-size="13" font-weight="bold" fill="#0e8a6e">Multi-Head Attention (h=4 heads)</text>
+
+  <!-- 4 small heads, each with W_Q^i, W_K^i, W_V^i of size d×(d/4) -->
+  <!-- Row of 4 mini-heads -->
+  <g>
+    <!-- Head 1 -->
+    <rect x="450" y="68" width="70" height="28" rx="3" fill="#1f4fa3" opacity="0.7"/>
+    <text x="485" y="87" text-anchor="middle" font-size="10" fill="white">W_Q¹ W_K¹ W_V¹</text>
+    <text x="485" y="100" text-anchor="middle" font-size="9" fill="#1f4fa3">d×(d/4) each</text>
+    <rect x="450" y="108" width="70" height="28" rx="3" fill="#1f4fa3" opacity="0.55"/>
+    <text x="485" y="127" text-anchor="middle" font-size="10" fill="white">head₁</text>
+    <line x1="485" y1="136" x2="485" y2="148" stroke="#5b6675" stroke-width="1.2" marker-end="url(#a9)"/>
+    <rect x="460" y="149" width="50" height="28" rx="3" fill="#dde8fa" stroke="#1f4fa3"/>
+    <text x="485" y="168" text-anchor="middle" font-size="9" fill="#1f4fa3">z₁</text>
+  </g>
+  <g>
+    <!-- Head 2 -->
+    <rect x="530" y="68" width="70" height="28" rx="3" fill="#0e8a6e" opacity="0.7"/>
+    <text x="565" y="87" text-anchor="middle" font-size="10" fill="white">W_Q² W_K² W_V²</text>
+    <text x="565" y="100" text-anchor="middle" font-size="9" fill="#0e8a6e">d×(d/4) each</text>
+    <rect x="530" y="108" width="70" height="28" rx="3" fill="#0e8a6e" opacity="0.55"/>
+    <text x="565" y="127" text-anchor="middle" font-size="10" fill="white">head₂</text>
+    <line x1="565" y1="136" x2="565" y2="148" stroke="#5b6675" stroke-width="1.2" marker-end="url(#a9)"/>
+    <rect x="540" y="149" width="50" height="28" rx="3" fill="#d6f5ec" stroke="#0e8a6e"/>
+    <text x="565" y="168" text-anchor="middle" font-size="9" fill="#0e8a6e">z₂</text>
+  </g>
+  <g>
+    <!-- Head 3 -->
+    <rect x="610" y="68" width="70" height="28" rx="3" fill="#c77a12" opacity="0.7"/>
+    <text x="645" y="87" text-anchor="middle" font-size="10" fill="white">W_Q³ W_K³ W_V³</text>
+    <text x="645" y="100" text-anchor="middle" font-size="9" fill="#c77a12">d×(d/4) each</text>
+    <rect x="610" y="108" width="70" height="28" rx="3" fill="#c77a12" opacity="0.55"/>
+    <text x="645" y="127" text-anchor="middle" font-size="10" fill="white">head₃</text>
+    <line x1="645" y1="136" x2="645" y2="148" stroke="#5b6675" stroke-width="1.2" marker-end="url(#a9)"/>
+    <rect x="620" y="149" width="50" height="28" rx="3" fill="#fef0da" stroke="#c77a12"/>
+    <text x="645" y="168" text-anchor="middle" font-size="9" fill="#c77a12">z₃</text>
+  </g>
+  <g>
+    <!-- Head 4 -->
+    <rect x="690" y="68" width="70" height="28" rx="3" fill="#e05252" opacity="0.7"/>
+    <text x="725" y="87" text-anchor="middle" font-size="10" fill="white">W_Q⁴ W_K⁴ W_V⁴</text>
+    <text x="725" y="100" text-anchor="middle" font-size="9" fill="#e05252">d×(d/4) each</text>
+    <rect x="690" y="108" width="70" height="28" rx="3" fill="#e05252" opacity="0.55"/>
+    <text x="725" y="127" text-anchor="middle" font-size="10" fill="white">head₄</text>
+    <line x1="725" y1="136" x2="725" y2="148" stroke="#5b6675" stroke-width="1.2" marker-end="url(#a9)"/>
+    <rect x="700" y="149" width="50" height="28" rx="3" fill="#fde8e8" stroke="#e05252"/>
+    <text x="725" y="168" text-anchor="middle" font-size="9" fill="#e05252">z₄</text>
+  </g>
+
+  <!-- Concat arrow -->
+  <line x1="485" y1="177" x2="485" y2="188" stroke="#5b6675" stroke-width="1.2"/>
+  <line x1="565" y1="177" x2="565" y2="188" stroke="#5b6675" stroke-width="1.2"/>
+  <line x1="645" y1="177" x2="645" y2="188" stroke="#5b6675" stroke-width="1.2"/>
+  <line x1="725" y1="177" x2="725" y2="188" stroke="#5b6675" stroke-width="1.2"/>
+  <line x1="485" y1="188" x2="725" y2="188" stroke="#5b6675" stroke-width="1.2"/>
+  <line x1="605" y1="188" x2="605" y2="200" stroke="#5b6675" stroke-width="1.5" marker-end="url(#a9)"/>
+  <text x="605" y="196" text-anchor="middle" font-size="9" fill="#5b6675">Concat(z₁,z₂,z₃,z₄)</text>
+
+  <!-- W_O -->
+  <rect x="560" y="204" width="90" height="36" rx="4" fill="#0e8a6e" opacity="0.8"/>
+  <text x="605" y="227" text-anchor="middle" font-size="12" fill="white" font-weight="bold">W_O</text>
+  <text x="605" y="248" text-anchor="middle" font-size="10" fill="#0e8a6e">d × d</text>
+
+  <!-- Parameter count -->
+  <rect x="448" y="262" width="344" height="26" rx="4" fill="#f0fff4"/>
+  <text x="620" y="275" text-anchor="middle" font-size="10" fill="#0e8a6e" font-weight="bold">4×(d×d/4)×3 + d² = 3d² + d² = 4d² params ✓ Same!</text>
+
+  <!-- Bottom note -->
+  <text x="410" y="308" text-anchor="middle" font-size="12" fill="#1f4fa3" font-weight="bold">Parameter count is identical: 4d²</text>
+  <text x="410" y="324" text-anchor="middle" font-size="11" fill="#5b6675">Multi-head gives richer representations by learning h independent attention patterns at no extra cost</text>
+</svg>

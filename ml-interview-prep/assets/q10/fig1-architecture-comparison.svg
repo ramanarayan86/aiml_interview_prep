@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="330" font-family="Arial, sans-serif">
+  <rect width="820" height="330" fill="#f8f9fa" rx="8"/>
+  <text x="410" y="26" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">Three Transformer Architecture Families</text>
+
+  <defs>
+    <marker id="a10" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#5b6675"/>
+    </marker>
+    <marker id="a10b" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#1f4fa3"/>
+    </marker>
+    <marker id="a10g" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#0e8a6e"/>
+    </marker>
+    <marker id="a10o" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#c77a12"/>
+    </marker>
+  </defs>
+
+  <!-- ===== LEFT: Encoder-only (BERT) ===== -->
+  <rect x="10" y="38" width="248" height="262" rx="6" fill="white" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="134" y="56" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f4fa3">Encoder-Only</text>
+  <text x="134" y="70" text-anchor="middle" font-size="11" fill="#1f4fa3">e.g., BERT, RoBERTa</text>
+
+  <!-- Tokens row -->
+  <text x="134" y="93" text-anchor="middle" font-size="10" fill="#5b6675">[CLS] The cat sat</text>
+  <rect x="22" y="97" width="36" height="22" rx="3" fill="#1f4fa3" opacity="0.9"/>
+  <text x="40" y="113" text-anchor="middle" font-size="9" fill="white" font-weight="bold">[CLS]</text>
+  <rect x="62" y="97" width="36" height="22" rx="3" fill="#1f4fa3" opacity="0.6"/>
+  <text x="80" y="113" text-anchor="middle" font-size="9" fill="white">The</text>
+  <rect x="102" y="97" width="36" height="22" rx="3" fill="#1f4fa3" opacity="0.6"/>
+  <text x="120" y="113" text-anchor="middle" font-size="9" fill="white">cat</text>
+  <rect x="142" y="97" width="36" height="22" rx="3" fill="#1f4fa3" opacity="0.6"/>
+  <text x="160" y="113" text-anchor="middle" font-size="9" fill="white">sat</text>
+
+  <!-- Bidirectional attention arrows -->
+  <path d="M 80 97 C 80 78, 120 78, 120 97" stroke="#1f4fa3" stroke-width="1.8" fill="none" marker-end="url(#a10b)" opacity="0.7"/>
+  <path d="M 120 97 C 120 78, 80 78, 80 97" stroke="#1f4fa3" stroke-width="1.8" fill="none" marker-end="url(#a10b)" opacity="0.7"/>
+  <path d="M 40 97 C 40 65, 160 65, 160 97" stroke="#1f4fa3" stroke-width="1.5" fill="none" marker-end="url(#a10b)" opacity="0.5"/>
+
+  <!-- Encoder stack boxes -->
+  <rect x="30" y="128" width="198" height="30" rx="4" fill="#dde8fa" stroke="#1f4fa3"/>
+  <text x="129" y="148" text-anchor="middle" font-size="11" fill="#1f4fa3" font-weight="bold">Bidirectional Self-Attn</text>
+  <rect x="30" y="162" width="198" height="30" rx="4" fill="#dde8fa" stroke="#1f4fa3"/>
+  <text x="129" y="182" text-anchor="middle" font-size="11" fill="#1f4fa3" font-weight="bold">Feed-Forward Network</text>
+  <text x="129" y="200" text-anchor="middle" font-size="10" fill="#5b6675">× N layers</text>
+
+  <!-- [CLS] token used for classification -->
+  <rect x="22" y="210" width="36" height="22" rx="3" fill="#1f4fa3" opacity="0.9"/>
+  <text x="40" y="225" text-anchor="middle" font-size="9" fill="white">[CLS]</text>
+  <line x1="40" y1="232" x2="40" y2="248" stroke="#1f4fa3" stroke-width="1.5" marker-end="url(#a10b)"/>
+
+  <!-- Classification head -->
+  <rect x="22" y="250" width="170" height="28" rx="4" fill="#1f4fa3" opacity="0.8"/>
+  <text x="107" y="269" text-anchor="middle" font-size="11" fill="white" font-weight="bold">Classification Head</text>
+
+  <text x="134" y="292" text-anchor="middle" font-size="10" fill="#5b6675">Use: NLU, classification,</text>
+  <text x="134" y="305" text-anchor="middle" font-size="10" fill="#5b6675">entity recognition, QA</text>
+
+  <!-- ===== MIDDLE: Decoder-only (GPT) ===== -->
+  <rect x="286" y="38" width="248" height="262" rx="6" fill="white" stroke="#c77a12" stroke-width="1.5"/>
+  <text x="410" y="56" text-anchor="middle" font-size="13" font-weight="bold" fill="#c77a12">Decoder-Only</text>
+  <text x="410" y="70" text-anchor="middle" font-size="11" fill="#c77a12">e.g., GPT-2/3/4, LLaMA, Mistral</text>
+
+  <!-- Tokens row -->
+  <text x="410" y="93" text-anchor="middle" font-size="10" fill="#5b6675">The cat sat [→ next]</text>
+  <rect x="298" y="97" width="36" height="22" rx="3" fill="#c77a12" opacity="0.7"/>
+  <text x="316" y="113" text-anchor="middle" font-size="9" fill="white">The</text>
+  <rect x="338" y="97" width="36" height="22" rx="3" fill="#c77a12" opacity="0.7"/>
+  <text x="356" y="113" text-anchor="middle" font-size="9" fill="white">cat</text>
+  <rect x="378" y="97" width="36" height="22" rx="3" fill="#c77a12" opacity="0.7"/>
+  <text x="396" y="113" text-anchor="middle" font-size="9" fill="white">sat</text>
+  <rect x="418" y="97" width="50" height="22" rx="3" fill="#c77a12" opacity="0.4" stroke="#c77a12" stroke-dasharray="3,2"/>
+  <text x="443" y="113" text-anchor="middle" font-size="9" fill="#c77a12">[next]</text>
+
+  <!-- Causal (one-directional) arrows only →  -->
+  <path d="M 338 97 C 338 78, 355 78, 356 97" stroke="#c77a12" stroke-width="1.8" fill="none" marker-end="url(#a10o)" opacity="0.7"/>
+  <path d="M 378 97 C 378 78, 393 78, 396 97" stroke="#c77a12" stroke-width="1.8" fill="none" marker-end="url(#a10o)" opacity="0.7"/>
+  <!-- Long-range causal: The → sat -->
+  <path d="M 316 97 C 316 65, 394 65, 396 97" stroke="#c77a12" stroke-width="1.4" fill="none" marker-end="url(#a10o)" opacity="0.5"/>
+  <!-- blocked: sat → The (no back arrow) -->
+  <text x="410" y="75" text-anchor="middle" font-size="8" fill="#c77a12">← causal mask, no back-attending</text>
+
+  <!-- Decoder stack boxes -->
+  <rect x="296" y="128" width="198" height="30" rx="4" fill="#fef0da" stroke="#c77a12"/>
+  <text x="395" y="148" text-anchor="middle" font-size="11" fill="#c77a12" font-weight="bold">Causal Self-Attention</text>
+  <rect x="296" y="162" width="198" height="30" rx="4" fill="#fef0da" stroke="#c77a12"/>
+  <text x="395" y="182" text-anchor="middle" font-size="11" fill="#c77a12" font-weight="bold">Feed-Forward Network</text>
+  <text x="395" y="200" text-anchor="middle" font-size="10" fill="#5b6675">× N layers (no encoder)</text>
+
+  <!-- Autoregressive output -->
+  <rect x="296" y="215" width="198" height="30" rx="4" fill="#c77a12" opacity="0.85"/>
+  <text x="395" y="235" text-anchor="middle" font-size="11" fill="white" font-weight="bold">LM Head → next token</text>
+
+  <!-- Autoregressive loop arrow -->
+  <path d="M 494 230 C 520 230, 530 105, 494 112" stroke="#c77a12" stroke-width="2" fill="none" marker-end="url(#a10o)" stroke-dasharray="5,3"/>
+  <text x="525" y="170" font-size="9" fill="#c77a12">auto-</text>
+  <text x="525" y="182" font-size="9" fill="#c77a12">regressive</text>
+
+  <text x="410" y="270" text-anchor="middle" font-size="10" fill="#5b6675">Use: text generation, chat,</text>
+  <text x="410" y="283" text-anchor="middle" font-size="10" fill="#5b6675">code, few-shot learning</text>
+
+  <!-- ===== RIGHT: Encoder-Decoder (T5) ===== -->
+  <rect x="562" y="38" width="248" height="262" rx="6" fill="white" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="686" y="56" text-anchor="middle" font-size="13" font-weight="bold" fill="#0e8a6e">Encoder-Decoder</text>
+  <text x="686" y="70" text-anchor="middle" font-size="11" fill="#0e8a6e">e.g., T5, BART, mT5</text>
+
+  <!-- Encoder side (top) -->
+  <text x="686" y="90" text-anchor="middle" font-size="10" fill="#5b6675">Source: "translate: The cat"</text>
+  <rect x="572" y="95" width="228" height="28" rx="4" fill="#d6f5ec" stroke="#0e8a6e"/>
+  <text x="686" y="114" text-anchor="middle" font-size="11" fill="#0e8a6e" font-weight="bold">Encoder (bidirectional)</text>
+  <rect x="572" y="127" width="228" height="28" rx="4" fill="#d6f5ec" stroke="#0e8a6e"/>
+  <text x="686" y="146" text-anchor="middle" font-size="11" fill="#0e8a6e" font-weight="bold">→ encoder hidden states</text>
+
+  <!-- Cross-attention arrow (encoder → decoder) -->
+  <line x1="686" y1="155" x2="686" y2="172" stroke="#0e8a6e" stroke-width="1.5" marker-end="url(#a10g)"/>
+
+  <!-- Decoder side -->
+  <rect x="572" y="173" width="228" height="28" rx="4" fill="#fef0da" stroke="#c77a12"/>
+  <text x="686" y="192" text-anchor="middle" font-size="11" fill="#c77a12" font-weight="bold">Decoder (causal self-attn)</text>
+  <!-- Cross-attention layer -->
+  <rect x="572" y="204" width="228" height="28" rx="4" fill="#f5f0ff" stroke="#5b6675"/>
+  <text x="686" y="223" text-anchor="middle" font-size="11" fill="#5b6675" font-weight="bold">Cross-Attention</text>
+  <text x="686" y="238" text-anchor="middle" font-size="10" fill="#5b6675">(decoder Q, encoder K,V)</text>
+  <rect x="572" y="240" width="228" height="24" rx="4" fill="#fef0da" stroke="#c77a12"/>
+  <text x="686" y="257" text-anchor="middle" font-size="11" fill="#c77a12" font-weight="bold">FFN → output token</text>
+
+  <!-- Cross-attention arrows from encoder to cross-attn -->
+  <path d="M 572 141 C 550 141, 550 225, 572 225" stroke="#0e8a6e" stroke-width="2" fill="none" marker-end="url(#a10g)" stroke-dasharray="5,3"/>
+  <text x="543" y="190" font-size="9" fill="#0e8a6e" transform="rotate(-90,543,190)">K,V from encoder</text>
+
+  <text x="686" y="282" text-anchor="middle" font-size="10" fill="#5b6675">Use: translation, summarization,</text>
+  <text x="686" y="295" text-anchor="middle" font-size="10" fill="#5b6675">seq2seq, structured output</text>
+</svg>

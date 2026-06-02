@@ -1,0 +1,182 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="340" font-family="Arial, sans-serif">
+  <rect width="820" height="340" fill="#f8f9fa" rx="8"/>
+  <text x="410" y="24" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">Four Positional Encoding Families</text>
+
+  <!-- 2×2 grid: panels at (10,32), (420,32), (10,186), (420,186) each 400×150 -->
+
+  <!-- ===== TOP-LEFT: Sinusoidal ===== -->
+  <rect x="10" y="32" width="395" height="148" rx="6" fill="white" stroke="#ccc"/>
+  <text x="207" y="50" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f4fa3">Sinusoidal (Vaswani et al. 2017)</text>
+  <text x="207" y="64" text-anchor="middle" font-size="10" fill="#5b6675">PE(pos, 2i) = sin(pos/10000^(2i/d))   PE(pos, 2i+1) = cos(...)</text>
+
+  <!-- Mini heatmap: 8 positions × 8 dimensions, wavy pattern -->
+  <!-- Cell: w=28, h=14, start x=30, y=72 -->
+  <!-- sin values for visualization -->
+  <g>
+    <!-- row=pos, col=dim. Use opacity to show sin value -->
+    <!-- pos 0: sin(0/...)=0 for all dims -->
+    <!-- Just draw representative wavy pattern manually -->
+    <!-- Row 0 (pos=0): all ~0.5 (blue) -->
+    <rect x="30" y="72" width="28" height="14" fill="#1f4fa3" opacity="0.1"/>
+    <rect x="60" y="72" width="28" height="14" fill="#1f4fa3" opacity="0.5"/>
+    <rect x="90" y="72" width="28" height="14" fill="#1f4fa3" opacity="0.1"/>
+    <rect x="120" y="72" width="28" height="14" fill="#1f4fa3" opacity="0.6"/>
+    <rect x="150" y="72" width="28" height="14" fill="#1f4fa3" opacity="0.1"/>
+    <rect x="180" y="72" width="28" height="14" fill="#1f4fa3" opacity="0.7"/>
+    <rect x="210" y="72" width="28" height="14" fill="#1f4fa3" opacity="0.1"/>
+    <rect x="240" y="72" width="28" height="14" fill="#1f4fa3" opacity="0.8"/>
+    <!-- Row 1 -->
+    <rect x="30" y="88" width="28" height="14" fill="#1f4fa3" opacity="0.9"/>
+    <rect x="60" y="88" width="28" height="14" fill="#1f4fa3" opacity="0.4"/>
+    <rect x="90" y="88" width="28" height="14" fill="#1f4fa3" opacity="0.7"/>
+    <rect x="120" y="88" width="28" height="14" fill="#1f4fa3" opacity="0.2"/>
+    <rect x="150" y="88" width="28" height="14" fill="#1f4fa3" opacity="0.6"/>
+    <rect x="180" y="88" width="28" height="14" fill="#1f4fa3" opacity="0.1"/>
+    <rect x="210" y="88" width="28" height="14" fill="#1f4fa3" opacity="0.5"/>
+    <rect x="240" y="88" width="28" height="14" fill="#1f4fa3" opacity="0.1"/>
+    <!-- Row 2 -->
+    <rect x="30" y="104" width="28" height="14" fill="#1f4fa3" opacity="0.5"/>
+    <rect x="60" y="104" width="28" height="14" fill="#1f4fa3" opacity="0.9"/>
+    <rect x="90" y="104" width="28" height="14" fill="#1f4fa3" opacity="0.3"/>
+    <rect x="120" y="104" width="28" height="14" fill="#1f4fa3" opacity="0.8"/>
+    <rect x="150" y="104" width="28" height="14" fill="#1f4fa3" opacity="0.2"/>
+    <rect x="180" y="104" width="28" height="14" fill="#1f4fa3" opacity="0.7"/>
+    <rect x="210" y="104" width="28" height="14" fill="#1f4fa3" opacity="0.1"/>
+    <rect x="240" y="104" width="28" height="14" fill="#1f4fa3" opacity="0.6"/>
+    <!-- Row 3 -->
+    <rect x="30" y="120" width="28" height="14" fill="#1f4fa3" opacity="0.2"/>
+    <rect x="60" y="120" width="28" height="14" fill="#1f4fa3" opacity="0.7"/>
+    <rect x="90" y="120" width="28" height="14" fill="#1f4fa3" opacity="0.9"/>
+    <rect x="120" y="120" width="28" height="14" fill="#1f4fa3" opacity="0.3"/>
+    <rect x="150" y="120" width="28" height="14" fill="#1f4fa3" opacity="0.8"/>
+    <rect x="180" y="120" width="28" height="14" fill="#1f4fa3" opacity="0.2"/>
+    <rect x="210" y="120" width="28" height="14" fill="#1f4fa3" opacity="0.7"/>
+    <rect x="240" y="120" width="28" height="14" fill="#1f4fa3" opacity="0.1"/>
+    <!-- Row 4 -->
+    <rect x="30" y="136" width="28" height="14" fill="#1f4fa3" opacity="0.7"/>
+    <rect x="60" y="136" width="28" height="14" fill="#1f4fa3" opacity="0.2"/>
+    <rect x="90" y="136" width="28" height="14" fill="#1f4fa3" opacity="0.6"/>
+    <rect x="120" y="136" width="28" height="14" fill="#1f4fa3" opacity="0.9"/>
+    <rect x="150" y="136" width="28" height="14" fill="#1f4fa3" opacity="0.3"/>
+    <rect x="180" y="136" width="28" height="14" fill="#1f4fa3" opacity="0.8"/>
+    <rect x="210" y="136" width="28" height="14" fill="#1f4fa3" opacity="0.2"/>
+    <rect x="240" y="136" width="28" height="14" fill="#1f4fa3" opacity="0.7"/>
+  </g>
+  <text x="50" y="170" font-size="9" fill="#5b6675" text-anchor="middle">pos</text>
+  <text x="155" y="168" font-size="9" fill="#5b6675" text-anchor="middle">→ dim (d_model) →</text>
+  <text x="310" y="110" font-size="11" fill="#0e8a6e" font-weight="bold">✓ No training needed</text>
+  <text x="310" y="124" font-size="11" fill="#0e8a6e">✓ Extrapolates well</text>
+  <text x="310" y="138" font-size="11" fill="#0e8a6e">✓ Fixed, deterministic</text>
+  <text x="310" y="152" font-size="11" fill="#e05252">✗ Not learnable</text>
+  <text x="310" y="166" font-size="11" fill="#e05252">✗ Degrades at OOD len</text>
+
+  <!-- ===== TOP-RIGHT: Learned ===== -->
+  <rect x="415" y="32" width="395" height="148" rx="6" fill="white" stroke="#ccc"/>
+  <text x="612" y="50" text-anchor="middle" font-size="13" font-weight="bold" fill="#c77a12">Learned (BERT, GPT-1/2)</text>
+  <text x="612" y="64" text-anchor="middle" font-size="10" fill="#5b6675">PE = nn.Embedding(max_length, d_model) — learned during training</text>
+
+  <!-- Lookup table icon -->
+  <rect x="430" y="74" width="140" height="20" rx="3" fill="#c77a12" opacity="0.8"/>
+  <text x="500" y="89" text-anchor="middle" font-size="10" fill="white">pos=0: [0.1, -0.3, ...]</text>
+  <rect x="430" y="96" width="140" height="20" rx="3" fill="#c77a12" opacity="0.6"/>
+  <text x="500" y="111" text-anchor="middle" font-size="10" fill="white">pos=1: [0.5, 0.2, ...]</text>
+  <rect x="430" y="118" width="140" height="20" rx="3" fill="#c77a12" opacity="0.4"/>
+  <text x="500" y="133" text-anchor="middle" font-size="10" fill="white">pos=2: [-0.2, 0.8, ...]</text>
+  <rect x="430" y="140" width="140" height="14" rx="3" fill="#e05252" opacity="0.3" stroke="#e05252" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="500" y="152" text-anchor="middle" font-size="9" fill="#e05252" font-weight="bold">⚠ MAX LENGTH CEILING</text>
+  <text x="500" y="163" text-anchor="middle" font-size="9" fill="#e05252">pos &gt; max_len → undefined!</text>
+
+  <text x="610" y="90" font-size="11" fill="#0e8a6e" font-weight="bold">✓ Adapts to data</text>
+  <text x="610" y="104" font-size="11" fill="#0e8a6e">✓ Best in-distribution</text>
+  <text x="610" y="118" font-size="11" fill="#e05252">✗ Hard max length limit</text>
+  <text x="610" y="132" font-size="11" fill="#e05252">✗ Fails on longer seqs</text>
+  <text x="610" y="146" font-size="11" fill="#e05252">✗ More parameters</text>
+  <text x="610" y="160" font-size="10" fill="#5b6675">Used by: BERT (512), GPT-2 (1024)</text>
+
+  <!-- ===== BOTTOM-LEFT: RoPE ===== -->
+  <rect x="10" y="186" width="395" height="148" rx="6" fill="white" stroke="#ccc"/>
+  <text x="207" y="204" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f4fa3">RoPE — Rotary Position Embedding</text>
+  <text x="207" y="218" text-anchor="middle" font-size="10" fill="#5b6675">Rotate Q and K vectors by angle θ·pos. Attention depends on relative pos only.</text>
+
+  <!-- Visual: rotating vectors -->
+  <!-- Two circles showing Q vector rotating -->
+  <circle cx="90" cy="276" r="48" fill="none" stroke="#ddd" stroke-width="1"/>
+  <line x1="90" y1="276" x2="128" y2="255" stroke="#1f4fa3" stroke-width="2.5" marker-end="url(#a5)"/>
+  <text x="133" y="254" font-size="10" fill="#1f4fa3" font-weight="bold">Q(pos=1)</text>
+
+  <line x1="90" y1="276" x2="130" y2="290" stroke="#c77a12" stroke-width="2.5" stroke-dasharray="4,2"/>
+  <text x="135" y="297" font-size="10" fill="#c77a12">Q(pos=0)</text>
+
+  <!-- Rotation arc -->
+  <path d="M 110 260 A 22 22 0 0 1 122 282" stroke="#0e8a6e" stroke-width="1.5" fill="none"/>
+  <text x="125" y="270" font-size="9" fill="#0e8a6e">θ·pos</text>
+
+  <circle cx="205" cy="276" r="48" fill="none" stroke="#ddd" stroke-width="1"/>
+  <line x1="205" y1="276" x2="245" y2="252" stroke="#1f4fa3" stroke-width="2.5" marker-end="url(#a5)"/>
+  <text x="248" y="252" font-size="10" fill="#1f4fa3" font-weight="bold">K(pos=3)</text>
+  <line x1="205" y1="276" x2="243" y2="297" stroke="#c77a12" stroke-width="2.5" stroke-dasharray="4,2"/>
+  <path d="M 225 261 A 22 22 0 0 1 237 282" stroke="#0e8a6e" stroke-width="1.5" fill="none"/>
+  <text x="240" y="270" font-size="9" fill="#0e8a6e">θ·3</text>
+
+  <text x="310" y="255" font-size="11" fill="#0e8a6e" font-weight="bold">✓ No length limit</text>
+  <text x="310" y="270" font-size="11" fill="#0e8a6e">✓ Relative pos attention</text>
+  <text x="310" y="285" font-size="11" fill="#0e8a6e">✓ Good extrapolation</text>
+  <text x="310" y="300" font-size="11" fill="#e05252">✗ Complex to implement</text>
+  <text x="310" y="314" font-size="10" fill="#5b6675">Used by: LLaMA, Falcon, Mistral</text>
+  <text x="207" y="330" text-anchor="middle" font-size="10" fill="#5b6675">q·k = f(q, pos_q) · f(k, pos_k) → depends on (pos_q − pos_k)</text>
+
+  <!-- ===== BOTTOM-RIGHT: ALiBi ===== -->
+  <rect x="415" y="186" width="395" height="148" rx="6" fill="white" stroke="#ccc"/>
+  <text x="612" y="204" text-anchor="middle" font-size="13" font-weight="bold" fill="#0e8a6e">ALiBi — Attention with Linear Biases</text>
+  <text x="612" y="218" text-anchor="middle" font-size="10" fill="#5b6675">Add linear bias to attention logits: score(q,k) = q·k − m·|pos_q − pos_k|</text>
+
+  <!-- Bias triangle: 6×6 lower-triangular showing linear penalty -->
+  <!-- Cells: smaller = closer = less penalty (darker = attended to) -->
+  <!-- x_start=430, y_start=228, cell=18 -->
+  <g>
+    <!-- Row 0: pos=0 -->
+    <rect x="430" y="228" width="18" height="18" fill="#1f4fa3" opacity="1.0"/>
+    <!-- Row 1: pos=1 -->
+    <rect x="430" y="248" width="18" height="18" fill="#1f4fa3" opacity="0.5"/>
+    <rect x="450" y="248" width="18" height="18" fill="#1f4fa3" opacity="1.0"/>
+    <!-- Row 2: pos=2 -->
+    <rect x="430" y="268" width="18" height="18" fill="#1f4fa3" opacity="0.3"/>
+    <rect x="450" y="268" width="18" height="18" fill="#1f4fa3" opacity="0.6"/>
+    <rect x="470" y="268" width="18" height="18" fill="#1f4fa3" opacity="1.0"/>
+    <!-- Row 3: pos=3 -->
+    <rect x="430" y="288" width="18" height="18" fill="#1f4fa3" opacity="0.15"/>
+    <rect x="450" y="288" width="18" height="18" fill="#1f4fa3" opacity="0.3"/>
+    <rect x="470" y="288" width="18" height="18" fill="#1f4fa3" opacity="0.6"/>
+    <rect x="490" y="288" width="18" height="18" fill="#1f4fa3" opacity="1.0"/>
+    <!-- Row 4: pos=4 -->
+    <rect x="430" y="308" width="18" height="18" fill="#1f4fa3" opacity="0.08"/>
+    <rect x="450" y="308" width="18" height="18" fill="#1f4fa3" opacity="0.15"/>
+    <rect x="470" y="308" width="18" height="18" fill="#1f4fa3" opacity="0.3"/>
+    <rect x="490" y="308" width="18" height="18" fill="#1f4fa3" opacity="0.6"/>
+    <rect x="510" y="308" width="18" height="18" fill="#1f4fa3" opacity="1.0"/>
+  </g>
+  <text x="445" y="225" text-anchor="middle" font-size="8" fill="#5b6675">k0</text>
+  <text x="463" y="225" text-anchor="middle" font-size="8" fill="#5b6675">k1</text>
+  <text x="481" y="225" text-anchor="middle" font-size="8" fill="#5b6675">k2</text>
+  <text x="499" y="225" text-anchor="middle" font-size="8" fill="#5b6675">k3</text>
+  <text x="517" y="225" text-anchor="middle" font-size="8" fill="#5b6675">k4</text>
+  <text x="424" y="242" text-anchor="end" font-size="8" fill="#5b6675">q0</text>
+  <text x="424" y="262" text-anchor="end" font-size="8" fill="#5b6675">q1</text>
+  <text x="424" y="282" text-anchor="end" font-size="8" fill="#5b6675">q2</text>
+  <text x="424" y="302" text-anchor="end" font-size="8" fill="#5b6675">q3</text>
+  <text x="424" y="322" text-anchor="end" font-size="8" fill="#5b6675">q4</text>
+
+  <!-- Legend for bias -->
+  <text x="545" y="244" font-size="10" fill="#5b6675">darker = smaller penalty</text>
+  <text x="545" y="257" font-size="10" fill="#5b6675">(closer tokens)</text>
+
+  <text x="610" y="275" font-size="11" fill="#0e8a6e" font-weight="bold">✓ Best extrapolation</text>
+  <text x="610" y="290" font-size="11" fill="#0e8a6e">✓ No position vectors</text>
+  <text x="610" y="305" font-size="11" fill="#0e8a6e">✓ Simple, fast</text>
+  <text x="610" y="320" font-size="11" fill="#e05252">✗ Inductive bias may limit</text>
+  <text x="610" y="332" font-size="10" fill="#5b6675">Used by: MPT, BLOOM</text>
+
+  <!-- grid lines -->
+  <line x1="10" y1="186" x2="810" y2="186" stroke="#ddd" stroke-width="1"/>
+  <line x1="415" y1="32" x2="415" y2="334" stroke="#ddd" stroke-width="1"/>
+</svg>

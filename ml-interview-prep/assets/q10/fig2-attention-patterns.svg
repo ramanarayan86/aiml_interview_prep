@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="300" font-family="Arial, sans-serif">
+  <rect width="820" height="300" fill="#f8f9fa" rx="8"/>
+  <text x="410" y="26" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">Attention Patterns for Each Architecture</text>
+
+  <!-- ===== LEFT: Encoder full attention matrix 5×5 ===== -->
+  <text x="170" y="48" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f4fa3">Encoder (BERT)</text>
+  <text x="170" y="62" text-anchor="middle" font-size="11" fill="#5b6675">Full bidirectional attention</text>
+
+  <!-- 5×5 matrix, cell=36, start x=80, y=70 -->
+  <!-- All cells accessible (blue) -->
+  <g>
+    <rect x="80" y="70" width="36" height="36" fill="#1f4fa3" opacity="0.9" rx="1"/><rect x="118" y="70" width="36" height="36" fill="#1f4fa3" opacity="0.6" rx="1"/><rect x="156" y="70" width="36" height="36" fill="#1f4fa3" opacity="0.45" rx="1"/><rect x="194" y="70" width="36" height="36" fill="#1f4fa3" opacity="0.7" rx="1"/><rect x="232" y="70" width="36" height="36" fill="#1f4fa3" opacity="0.3" rx="1"/>
+    <rect x="80" y="108" width="36" height="36" fill="#1f4fa3" opacity="0.55" rx="1"/><rect x="118" y="108" width="36" height="36" fill="#1f4fa3" opacity="0.95" rx="1"/><rect x="156" y="108" width="36" height="36" fill="#1f4fa3" opacity="0.65" rx="1"/><rect x="194" y="108" width="36" height="36" fill="#1f4fa3" opacity="0.4" rx="1"/><rect x="232" y="108" width="36" height="36" fill="#1f4fa3" opacity="0.55" rx="1"/>
+    <rect x="80" y="146" width="36" height="36" fill="#1f4fa3" opacity="0.35" rx="1"/><rect x="118" y="146" width="36" height="36" fill="#1f4fa3" opacity="0.7" rx="1"/><rect x="156" y="146" width="36" height="36" fill="#1f4fa3" opacity="0.9" rx="1"/><rect x="194" y="146" width="36" height="36" fill="#1f4fa3" opacity="0.5" rx="1"/><rect x="232" y="146" width="36" height="36" fill="#1f4fa3" opacity="0.6" rx="1"/>
+    <rect x="80" y="184" width="36" height="36" fill="#1f4fa3" opacity="0.5" rx="1"/><rect x="118" y="184" width="36" height="36" fill="#1f4fa3" opacity="0.4" rx="1"/><rect x="156" y="184" width="36" height="36" fill="#1f4fa3" opacity="0.75" rx="1"/><rect x="194" y="184" width="36" height="36" fill="#1f4fa3" opacity="0.95" rx="1"/><rect x="232" y="184" width="36" height="36" fill="#1f4fa3" opacity="0.45" rx="1"/>
+    <rect x="80" y="222" width="36" height="36" fill="#1f4fa3" opacity="0.25" rx="1"/><rect x="118" y="222" width="36" height="36" fill="#1f4fa3" opacity="0.55" rx="1"/><rect x="156" y="222" width="36" height="36" fill="#1f4fa3" opacity="0.4" rx="1"/><rect x="194" y="222" width="36" height="36" fill="#1f4fa3" opacity="0.7" rx="1"/><rect x="232" y="222" width="36" height="36" fill="#1f4fa3" opacity="0.9" rx="1"/>
+  </g>
+  <rect x="80" y="70" width="188" height="188" fill="none" stroke="#1f4fa3" stroke-width="1.5"/>
+  <!-- Axis labels -->
+  <text x="174" y="268" text-anchor="middle" font-size="10" fill="#5b6675">Key →</text>
+  <text x="68" y="165" text-anchor="end" font-size="10" fill="#5b6675" transform="rotate(-90,68,165)">Query ↓</text>
+  <!-- Token labels -->
+  <text x="98" y="66" text-anchor="middle" font-size="9" fill="#5b6675">t1</text>
+  <text x="136" y="66" text-anchor="middle" font-size="9" fill="#5b6675">t2</text>
+  <text x="174" y="66" text-anchor="middle" font-size="9" fill="#5b6675">t3</text>
+  <text x="212" y="66" text-anchor="middle" font-size="9" fill="#5b6675">t4</text>
+  <text x="250" y="66" text-anchor="middle" font-size="9" fill="#5b6675">t5</text>
+  <text x="76" y="92" text-anchor="end" font-size="9" fill="#5b6675">t1</text>
+  <text x="76" y="130" text-anchor="end" font-size="9" fill="#5b6675">t2</text>
+  <text x="76" y="168" text-anchor="end" font-size="9" fill="#5b6675">t3</text>
+  <text x="76" y="206" text-anchor="end" font-size="9" fill="#5b6675">t4</text>
+  <text x="76" y="244" text-anchor="end" font-size="9" fill="#5b6675">t5</text>
+  <text x="170" y="284" text-anchor="middle" font-size="11" fill="#1f4fa3">All 5×5 = 25 pairs ✓</text>
+
+  <!-- ===== MIDDLE: Decoder causal (lower triangular) 5×5 ===== -->
+  <text x="430" y="48" text-anchor="middle" font-size="13" font-weight="bold" fill="#c77a12">Decoder (GPT)</text>
+  <text x="430" y="62" text-anchor="middle" font-size="11" fill="#5b6675">Causal: lower triangle only</text>
+
+  <!-- 5×5 matrix, cell=36, start x=340 -->
+  <g>
+    <!-- Row 1 -->
+    <rect x="340" y="70" width="36" height="36" fill="#c77a12" opacity="0.9" rx="1"/>
+    <rect x="378" y="70" width="36" height="36" fill="#2d3748" rx="1"/>
+    <rect x="416" y="70" width="36" height="36" fill="#2d3748" rx="1"/>
+    <rect x="454" y="70" width="36" height="36" fill="#2d3748" rx="1"/>
+    <rect x="492" y="70" width="36" height="36" fill="#2d3748" rx="1"/>
+    <!-- Row 2 -->
+    <rect x="340" y="108" width="36" height="36" fill="#c77a12" opacity="0.45" rx="1"/>
+    <rect x="378" y="108" width="36" height="36" fill="#c77a12" opacity="0.9" rx="1"/>
+    <rect x="416" y="108" width="36" height="36" fill="#2d3748" rx="1"/>
+    <rect x="454" y="108" width="36" height="36" fill="#2d3748" rx="1"/>
+    <rect x="492" y="108" width="36" height="36" fill="#2d3748" rx="1"/>
+    <!-- Row 3 -->
+    <rect x="340" y="146" width="36" height="36" fill="#c77a12" opacity="0.3" rx="1"/>
+    <rect x="378" y="146" width="36" height="36" fill="#c77a12" opacity="0.6" rx="1"/>
+    <rect x="416" y="146" width="36" height="36" fill="#c77a12" opacity="0.9" rx="1"/>
+    <rect x="454" y="146" width="36" height="36" fill="#2d3748" rx="1"/>
+    <rect x="492" y="146" width="36" height="36" fill="#2d3748" rx="1"/>
+    <!-- Row 4 -->
+    <rect x="340" y="184" width="36" height="36" fill="#c77a12" opacity="0.2" rx="1"/>
+    <rect x="378" y="184" width="36" height="36" fill="#c77a12" opacity="0.4" rx="1"/>
+    <rect x="416" y="184" width="36" height="36" fill="#c77a12" opacity="0.65" rx="1"/>
+    <rect x="454" y="184" width="36" height="36" fill="#c77a12" opacity="0.9" rx="1"/>
+    <rect x="492" y="184" width="36" height="36" fill="#2d3748" rx="1"/>
+    <!-- Row 5 -->
+    <rect x="340" y="222" width="36" height="36" fill="#c77a12" opacity="0.15" rx="1"/>
+    <rect x="378" y="222" width="36" height="36" fill="#c77a12" opacity="0.3" rx="1"/>
+    <rect x="416" y="222" width="36" height="36" fill="#c77a12" opacity="0.5" rx="1"/>
+    <rect x="454" y="222" width="36" height="36" fill="#c77a12" opacity="0.75" rx="1"/>
+    <rect x="492" y="222" width="36" height="36" fill="#c77a12" opacity="0.9" rx="1"/>
+  </g>
+  <rect x="340" y="70" width="188" height="188" fill="none" stroke="#c77a12" stroke-width="1.5"/>
+  <!-- labels -->
+  <text x="358" y="66" text-anchor="middle" font-size="9" fill="#5b6675">t1</text>
+  <text x="396" y="66" text-anchor="middle" font-size="9" fill="#5b6675">t2</text>
+  <text x="434" y="66" text-anchor="middle" font-size="9" fill="#5b6675">t3</text>
+  <text x="472" y="66" text-anchor="middle" font-size="9" fill="#5b6675">t4</text>
+  <text x="510" y="66" text-anchor="middle" font-size="9" fill="#5b6675">t5</text>
+  <text x="336" y="92" text-anchor="end" font-size="9" fill="#5b6675">t1</text>
+  <text x="336" y="130" text-anchor="end" font-size="9" fill="#5b6675">t2</text>
+  <text x="336" y="168" text-anchor="end" font-size="9" fill="#5b6675">t3</text>
+  <text x="336" y="206" text-anchor="end" font-size="9" fill="#5b6675">t4</text>
+  <text x="336" y="244" text-anchor="end" font-size="9" fill="#5b6675">t5</text>
+  <text x="430" y="268" text-anchor="middle" font-size="10" fill="#5b6675">Key →</text>
+  <text x="430" y="284" text-anchor="middle" font-size="11" fill="#c77a12">Lower triangle only (causal)</text>
+
+  <!-- ===== RIGHT: Cross-attention 5×3 (decoder queries → encoder keys) ===== -->
+  <text x="680" y="48" text-anchor="middle" font-size="13" font-weight="bold" fill="#0e8a6e">Cross-Attention (T5)</text>
+  <text x="680" y="62" text-anchor="middle" font-size="11" fill="#5b6675">Decoder (5) attends to Encoder (3)</text>
+
+  <!-- 5×3 matrix, cell=40×36 -->
+  <g>
+    <!-- Row 1 (dec t1 → enc e1,e2,e3) -->
+    <rect x="610" y="70" width="40" height="36" fill="#0e8a6e" opacity="0.9" rx="1"/>
+    <rect x="652" y="70" width="40" height="36" fill="#0e8a6e" opacity="0.5" rx="1"/>
+    <rect x="694" y="70" width="40" height="36" fill="#0e8a6e" opacity="0.2" rx="1"/>
+    <!-- Row 2 -->
+    <rect x="610" y="108" width="40" height="36" fill="#0e8a6e" opacity="0.3" rx="1"/>
+    <rect x="652" y="108" width="40" height="36" fill="#0e8a6e" opacity="0.85" rx="1"/>
+    <rect x="694" y="108" width="40" height="36" fill="#0e8a6e" opacity="0.4" rx="1"/>
+    <!-- Row 3 -->
+    <rect x="610" y="146" width="40" height="36" fill="#0e8a6e" opacity="0.2" rx="1"/>
+    <rect x="652" y="146" width="40" height="36" fill="#0e8a6e" opacity="0.55" rx="1"/>
+    <rect x="694" y="146" width="40" height="36" fill="#0e8a6e" opacity="0.8" rx="1"/>
+    <!-- Row 4 -->
+    <rect x="610" y="184" width="40" height="36" fill="#0e8a6e" opacity="0.6" rx="1"/>
+    <rect x="652" y="184" width="40" height="36" fill="#0e8a6e" opacity="0.3" rx="1"/>
+    <rect x="694" y="184" width="40" height="36" fill="#0e8a6e" opacity="0.7" rx="1"/>
+    <!-- Row 5 -->
+    <rect x="610" y="222" width="40" height="36" fill="#0e8a6e" opacity="0.4" rx="1"/>
+    <rect x="652" y="222" width="40" height="36" fill="#0e8a6e" opacity="0.7" rx="1"/>
+    <rect x="694" y="222" width="40" height="36" fill="#0e8a6e" opacity="0.5" rx="1"/>
+  </g>
+  <rect x="610" y="70" width="124" height="188" fill="none" stroke="#0e8a6e" stroke-width="1.5"/>
+  <!-- labels -->
+  <text x="630" y="66" text-anchor="middle" font-size="9" fill="#5b6675">e1</text>
+  <text x="672" y="66" text-anchor="middle" font-size="9" fill="#5b6675">e2</text>
+  <text x="714" y="66" text-anchor="middle" font-size="9" fill="#5b6675">e3</text>
+  <text x="606" y="92" text-anchor="end" font-size="9" fill="#5b6675">d1</text>
+  <text x="606" y="130" text-anchor="end" font-size="9" fill="#5b6675">d2</text>
+  <text x="606" y="168" text-anchor="end" font-size="9" fill="#5b6675">d3</text>
+  <text x="606" y="206" text-anchor="end" font-size="9" fill="#5b6675">d4</text>
+  <text x="606" y="244" text-anchor="end" font-size="9" fill="#5b6675">d5</text>
+  <text x="622" y="62" text-anchor="start" font-size="9" fill="#0e8a6e">Encoder Keys →</text>
+  <text x="597" y="165" text-anchor="end" font-size="9" fill="#0e8a6e" transform="rotate(-90,597,165)">Decoder Queries ↓</text>
+  <text x="672" y="268" text-anchor="middle" font-size="10" fill="#5b6675">5×3 = 15 pairs</text>
+  <text x="672" y="284" text-anchor="middle" font-size="11" fill="#0e8a6e">All decoder positions</text>
+</svg>

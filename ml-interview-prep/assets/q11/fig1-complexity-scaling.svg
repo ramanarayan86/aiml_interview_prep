@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 380" width="820" height="380" font-family="Arial, sans-serif">
+  <rect width="820" height="380" fill="#f8f9fa" rx="8"/>
+  <text x="410" y="26" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f4fa3">Attention Complexity: O(n²d) Attention vs O(nd²) Projections/FFN</text>
+
+  <!-- Axes -->
+  <line x1="80" y1="320" x2="680" y2="320" stroke="#333" stroke-width="1.5" marker-end="url(#ax)"/>
+  <line x1="80" y1="320" x2="80" y2="40" stroke="#333" stroke-width="1.5" marker-end="url(#ax)"/>
+  <text x="380" y="355" text-anchor="middle" font-size="12" fill="#333">Sequence length n (log scale)</text>
+  <text x="32" y="180" text-anchor="middle" font-size="12" fill="#333" transform="rotate(-90,32,180)">FLOPs / Memory (log scale)</text>
+
+  <!-- X axis ticks -->
+  <text x="130" y="335" text-anchor="middle" font-size="10" fill="#555">128</text>
+  <text x="230" y="335" text-anchor="middle" font-size="10" fill="#555">512</text>
+  <text x="330" y="335" text-anchor="middle" font-size="10" fill="#555">2K</text>
+  <text x="430" y="335" text-anchor="middle" font-size="10" fill="#555">8K</text>
+  <text x="530" y="335" text-anchor="middle" font-size="10" fill="#555">32K</text>
+  <text x="630" y="335" text-anchor="middle" font-size="10" fill="#555">128K</text>
+
+  <!-- O(n) line — FFN/projections -->
+  <polyline points="130,280 230,252 330,224 430,196 530,168 630,140" fill="none" stroke="#0e8a6e" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="645" y="138" font-size="10" fill="#0e8a6e" font-weight="bold">O(nd²) FFN</text>
+
+  <!-- O(n²d) attention line -->
+  <polyline points="130,270 230,220 330,170 430,120 530,80 630,55" fill="none" stroke="#e05252" stroke-width="2.5"/>
+  <text x="645" y="52" font-size="10" fill="#e05252" font-weight="bold">O(n²d) Attn</text>
+
+  <!-- O(n²) memory line -->
+  <polyline points="130,275 230,230 330,185 430,140 530,105 630,78" fill="none" stroke="#c77a12" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="645" y="88" font-size="10" fill="#c77a12" font-weight="bold">O(hn²) Memory</text>
+
+  <!-- crossover annotation -->
+  <line x1="395" y1="40" x2="395" y2="320" stroke="#1f4fa3" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="398" y="60" font-size="9" fill="#1f4fa3">n = 6d</text>
+  <text x="398" y="72" font-size="9" fill="#1f4fa3">crossover</text>
+  <text x="398" y="84" font-size="9" fill="#1f4fa3">(d=4096 → n≈24K)</text>
+
+  <!-- Right panel: text summary -->
+  <rect x="695" y="50" width="115" height="260" rx="6" fill="#fff" stroke="#ddd" stroke-width="1"/>
+  <text x="752" y="70" text-anchor="middle" font-size="11" font-weight="bold" fill="#333">Key insight</text>
+  <text x="700" y="90" font-size="9" fill="#555">At short/mid n:</text>
+  <text x="700" y="104" font-size="9" fill="#0e8a6e">FFN dominates</text>
+  <text x="700" y="118" font-size="9" fill="#555">compute</text>
+  <line x1="700" y1="128" x2="800" y2="128" stroke="#eee" stroke-width="1"/>
+  <text x="700" y="145" font-size="9" fill="#555">At long n:</text>
+  <text x="700" y="159" font-size="9" fill="#e05252">Attention</text>
+  <text x="700" y="173" font-size="9" fill="#e05252">dominates</text>
+  <text x="700" y="187" font-size="9" fill="#555">compute</text>
+  <line x1="700" y1="197" x2="800" y2="197" stroke="#eee" stroke-width="1"/>
+  <text x="700" y="214" font-size="9" fill="#555">Memory always</text>
+  <text x="700" y="228" font-size="9" fill="#c77a12">O(n²) is the</text>
+  <text x="700" y="242" font-size="9" fill="#c77a12">first limiter</text>
+  <line x1="700" y1="252" x2="800" y2="252" stroke="#eee" stroke-width="1"/>
+  <text x="700" y="268" font-size="9" fill="#1f4fa3">FlashAttention</text>
+  <text x="700" y="282" font-size="9" fill="#1f4fa3">fixes IO, not</text>
+  <text x="700" y="296" font-size="9" fill="#1f4fa3">FLOPs</text>
+
+  <defs>
+    <marker id="ax" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#333"/>
+    </marker>
+  </defs>
+</svg>

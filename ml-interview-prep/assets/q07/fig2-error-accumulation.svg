@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="300" font-family="Arial, sans-serif">
+  <rect width="820" height="300" fill="#f8f9fa" rx="8"/>
+  <text x="410" y="26" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">Exposure Bias: Error Accumulation During Inference</text>
+  <text x="410" y="44" text-anchor="middle" font-size="12" fill="#5b6675">P(all correct at step t) ≈ p^t where p = per-step accuracy</text>
+
+  <!-- Chart area: x=80..760, y=58..240 -->
+  <rect x="80" y="58" width="680" height="182" fill="white" stroke="#ccc" rx="4"/>
+
+  <!-- Shaded error compounding region: below decay curve, above 0 -->
+  <!-- We'll shade below the p^t curve down to y=240 in light red -->
+  <!-- Curve points at steps 1-10: 0.95, 0.87, 0.80, 0.74, 0.68, 0.63, 0.58, 0.54, 0.50, 0.46 (p=0.92^t, scaled) -->
+  <!-- Actually p=0.92: 0.92, 0.846, 0.778, 0.716, 0.659, 0.606, 0.558, 0.513, 0.472, 0.434 -->
+  <!-- y(v) = 240 - v*182 -->
+  <!-- step spacing: x(t) = 80 + (t-1)/9 * 680 -->
+  <!-- t=1: x=80, t=2: x=155.6, t=3: x=231, t=4: x=306, t=5: x=382, t=6: x=457, t=7: x=533, t=8: x=608, t=9: x=684, t=10: x=760 -->
+
+  <!-- Error compounding fill: polygon from curve down to baseline -->
+  <polygon
+    points="80,72 156,84 231,98 306,109 382,120 457,129 533,138 608,147 684,154 760,161  760,240 80,240"
+    fill="#fde8e8" opacity="0.7"/>
+
+  <!-- Y axis: 0..1, height=182 -->
+  <text x="75" y="242" text-anchor="end" font-size="10" fill="#5b6675">0</text>
+  <text x="75" y="197" text-anchor="end" font-size="10" fill="#5b6675">0.25</text>
+  <text x="75" y="151" text-anchor="end" font-size="10" fill="#5b6675">0.5</text>
+  <text x="75" y="105" text-anchor="end" font-size="10" fill="#5b6675">0.75</text>
+  <text x="75" y="60" text-anchor="end" font-size="10" fill="#5b6675">1.0</text>
+  <line x1="80" y1="195" x2="760" y2="195" stroke="#eee" stroke-width="1"/>
+  <line x1="80" y1="149" x2="760" y2="149" stroke="#eee" stroke-width="1"/>
+  <line x1="80" y1="103" x2="760" y2="103" stroke="#eee" stroke-width="1"/>
+  <text x="18" y="155" text-anchor="middle" font-size="12" fill="#5b6675" transform="rotate(-90,18,155)">P(correct at step t)</text>
+
+  <!-- Horizontal reference at p=1.0 -->
+  <line x1="80" y1="58" x2="760" y2="58" stroke="#0e8a6e" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.5"/>
+  <text x="765" y="62" font-size="10" fill="#0e8a6e">ideal=1.0</text>
+
+  <!-- Decay curve: p=0.92, P(t) = 0.92^t -->
+  <!-- P(1)=0.92 → y=240-0.92*182=72.6≈73 -->
+  <!-- P(2)=0.846 → y=240-154=86 -->
+  <!-- P(3)=0.779 → y=240-142=98 -->
+  <!-- P(4)=0.716 → y=240-130=110 -->
+  <!-- P(5)=0.659 → y=240-120=120 -->
+  <!-- P(6)=0.606 → y=240-110=130 -->
+  <!-- P(7)=0.558 → y=240-102=138 -->
+  <!-- P(8)=0.513 → y=240-93=147 -->
+  <!-- P(9)=0.472 → y=240-86=154 -->
+  <!-- P(10)=0.434 → y=240-79=161 -->
+  <polyline
+    points="80,73 156,86 231,98 306,110 382,120 457,130 533,138 608,147 684,154 760,161"
+    stroke="#e05252" stroke-width="3" fill="none" stroke-linejoin="round"/>
+
+  <!-- Dots -->
+  <circle cx="80" cy="73" r="5" fill="#e05252"/>
+  <circle cx="156" cy="86" r="5" fill="#e05252"/>
+  <circle cx="231" cy="98" r="5" fill="#e05252"/>
+  <circle cx="306" cy="110" r="5" fill="#e05252"/>
+  <circle cx="382" cy="120" r="5" fill="#e05252"/>
+  <circle cx="457" cy="130" r="5" fill="#e05252"/>
+  <circle cx="533" cy="138" r="5" fill="#e05252"/>
+  <circle cx="608" cy="147" r="5" fill="#e05252"/>
+  <circle cx="684" cy="154" r="5" fill="#e05252"/>
+  <circle cx="760" cy="161" r="5" fill="#e05252"/>
+
+  <!-- Value labels on dots -->
+  <text x="80" y="68" text-anchor="middle" font-size="9" fill="#e05252">0.92</text>
+  <text x="156" y="81" text-anchor="middle" font-size="9" fill="#e05252">0.85</text>
+  <text x="231" y="93" text-anchor="middle" font-size="9" fill="#e05252">0.78</text>
+  <text x="382" y="115" text-anchor="middle" font-size="9" fill="#e05252">0.66</text>
+  <text x="533" y="133" text-anchor="middle" font-size="9" fill="#e05252">0.56</text>
+  <text x="760" y="156" text-anchor="middle" font-size="9" fill="#e05252">0.43</text>
+
+  <!-- X axis -->
+  <text x="80" y="256" text-anchor="middle" font-size="10" fill="#5b6675">1</text>
+  <text x="156" y="256" text-anchor="middle" font-size="10" fill="#5b6675">2</text>
+  <text x="231" y="256" text-anchor="middle" font-size="10" fill="#5b6675">3</text>
+  <text x="306" y="256" text-anchor="middle" font-size="10" fill="#5b6675">4</text>
+  <text x="382" y="256" text-anchor="middle" font-size="10" fill="#5b6675">5</text>
+  <text x="457" y="256" text-anchor="middle" font-size="10" fill="#5b6675">6</text>
+  <text x="533" y="256" text-anchor="middle" font-size="10" fill="#5b6675">7</text>
+  <text x="608" y="256" text-anchor="middle" font-size="10" fill="#5b6675">8</text>
+  <text x="684" y="256" text-anchor="middle" font-size="10" fill="#5b6675">9</text>
+  <text x="760" y="256" text-anchor="middle" font-size="10" fill="#5b6675">10</text>
+  <text x="420" y="272" text-anchor="middle" font-size="12" fill="#5b6675">Generation step</text>
+
+  <!-- Error compounding region label -->
+  <text x="440" y="210" text-anchor="middle" font-size="12" fill="#e05252" font-weight="bold">Error compounding region</text>
+  <text x="440" y="225" text-anchor="middle" font-size="11" fill="#e05252">P(correct) = 0.92^t (p=0.92 per-step accuracy)</text>
+
+  <!-- Formula annotation box -->
+  <rect x="85" y="62" width="210" height="30" rx="4" fill="#f0f4ff" stroke="#1f4fa3" stroke-width="1"/>
+  <text x="190" y="81" text-anchor="middle" font-size="11" fill="#1f4fa3" font-weight="bold">P(correct at step t) ≈ p^t</text>
+
+  <!-- Annotation arrow -->
+  <text x="530" y="85" font-size="11" fill="#e05252">Step 10: only 43% chance</text>
+  <text x="530" y="100" font-size="11" fill="#e05252">of being fully correct!</text>
+</svg>

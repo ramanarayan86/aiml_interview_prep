@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="340" font-family="Arial, sans-serif">
+  <rect width="820" height="340" fill="#f8f9fa" rx="8"/>
+  <text x="410" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">BatchNorm vs LayerNorm: Which Axes Are Normalized?</text>
+  <text x="410" y="46" text-anchor="middle" font-size="12" fill="#5b6675">Tensor shape: [Batch=4, Sequence=5, Features=8]</text>
+
+  <!-- ===== 3D box representation ===== -->
+  <!-- Draw a 3D-style grid tensor -->
+  <!-- Front face: Sequence × Features grid (5 cols, 8 rows visible) -->
+  <!-- We'll draw 4 "layers" of batch offset to the right/up -->
+
+  <!-- Batch offset: dx=18, dy=-12 per batch layer -->
+  <!-- Each cell: w=36, h=24 -->
+  <!-- Front face: x0=180, y0=100, cols=8 (features), rows=5 (seq) -->
+
+  <!-- Draw 4 batch layers back to front -->
+  <!-- Batch 3 (back) -->
+  <g opacity="0.35">
+    <!-- batch=3, offset = 3*18=54 right, 3*(-12)=-36 up → dx=54, dy=-36 from front -->
+    <rect x="284" y="94" width="288" height="120" fill="#e0e8f0" stroke="#aaa" stroke-width="0.8" rx="2"/>
+  </g>
+  <!-- Batch 2 -->
+  <g opacity="0.5">
+    <rect x="266" y="106" width="288" height="120" fill="#d0dcea" stroke="#aaa" stroke-width="0.8" rx="2"/>
+  </g>
+  <!-- Batch 1 -->
+  <g opacity="0.7">
+    <rect x="248" y="118" width="288" height="120" fill="#c8d8e8" stroke="#999" stroke-width="1" rx="2"/>
+  </g>
+
+  <!-- Batch 0 (front face) — draw grid -->
+  <!-- x0=230, y0=130, cell_w=36, cell_h=24, 8 cols (features), 5 rows (seq) -->
+  <g id="front">
+    <!-- Row 0 (seq pos 0) -->
+    <rect x="230" y="130" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <rect x="266" y="130" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <rect x="302" y="130" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <rect x="338" y="130" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <rect x="374" y="130" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <rect x="410" y="130" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <rect x="446" y="130" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <rect x="482" y="130" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <!-- Row 1 -->
+    <rect x="230" y="154" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <rect x="266" y="154" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <rect x="302" y="154" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <rect x="338" y="154" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <rect x="374" y="154" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <rect x="410" y="154" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <rect x="446" y="154" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <rect x="482" y="154" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <!-- Row 2 -->
+    <rect x="230" y="178" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <rect x="266" y="178" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <rect x="302" y="178" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <rect x="338" y="178" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <rect x="374" y="178" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <rect x="410" y="178" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <rect x="446" y="178" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <rect x="482" y="178" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <!-- Row 3 -->
+    <rect x="230" y="202" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <rect x="266" y="202" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <rect x="302" y="202" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <rect x="338" y="202" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <rect x="374" y="202" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <rect x="410" y="202" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <rect x="446" y="202" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <rect x="482" y="202" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <!-- Row 4 -->
+    <rect x="230" y="226" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <rect x="266" y="226" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <rect x="302" y="226" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <rect x="338" y="226" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <rect x="374" y="226" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <rect x="410" y="226" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <rect x="446" y="226" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+    <rect x="482" y="226" width="36" height="24" fill="#dce8f5" stroke="#aaa" stroke-width="0.8"/>
+  </g>
+
+  <!-- BatchNorm highlight: column 2 (feature dim=2) across ALL batch layers and seq position 2 -->
+  <!-- Highlight: across batch=all 4 layers, seq=2 (row 2), feature=2 (col 2) — vertical slice -->
+  <!-- Col 2 = x=302; row 2 = y=178 -->
+  <rect x="302" y="178" width="36" height="24" fill="#1f4fa3" opacity="0.75" stroke="#1f4fa3" stroke-width="1.5"/>
+  <!-- same col across batch layers (approximate) -->
+  <rect x="320" y="166" width="36" height="24" fill="#1f4fa3" opacity="0.5" stroke="#1f4fa3" stroke-width="1"/>
+  <rect x="338" y="154" width="36" height="24" fill="#1f4fa3" opacity="0.35" stroke="#1f4fa3" stroke-width="1"/>
+  <rect x="356" y="142" width="36" height="24" fill="#1f4fa3" opacity="0.2" stroke="#1f4fa3" stroke-width="0.8"/>
+
+  <!-- LayerNorm highlight: row 2 (seq=2), all features, batch=0 only -->
+  <!-- Row 2 of batch 0: y=178, x=230..518 -->
+  <rect x="230" y="178" width="288" height="24" fill="#0e8a6e" opacity="0.45" stroke="#0e8a6e" stroke-width="2"/>
+
+  <!-- Axis labels -->
+  <text x="228" y="125" text-anchor="end" font-size="11" fill="#5b6675" transform="rotate(-90,228,125)">Sequence (pos)</text>
+  <text x="374" y="266" text-anchor="middle" font-size="11" fill="#5b6675">Features (d_model = 8)</text>
+
+  <!-- Batch axis arrow (3D) -->
+  <defs>
+    <marker id="arr2" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#5b6675"/>
+    </marker>
+  </defs>
+  <line x1="230" y1="130" x2="284" y2="94" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arr2)"/>
+  <text x="265" y="88" font-size="11" fill="#5b6675">Batch dim →</text>
+
+  <!-- BatchNorm annotation -->
+  <text x="80" y="170" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f4fa3">BatchNorm</text>
+  <text x="80" y="186" text-anchor="middle" font-size="11" fill="#1f4fa3">Normalizes across</text>
+  <text x="80" y="200" text-anchor="middle" font-size="11" fill="#1f4fa3">Batch dimension</text>
+  <text x="80" y="214" text-anchor="middle" font-size="10" fill="#5b6675">(same feature, same</text>
+  <text x="80" y="228" text-anchor="middle" font-size="10" fill="#5b6675">seq pos, all samples)</text>
+  <line x1="140" y1="192" x2="302" y2="185" stroke="#1f4fa3" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr2)"/>
+
+  <!-- LayerNorm annotation -->
+  <text x="670" y="190" text-anchor="middle" font-size="12" font-weight="bold" fill="#0e8a6e">LayerNorm</text>
+  <text x="670" y="206" text-anchor="middle" font-size="11" fill="#0e8a6e">Normalizes across</text>
+  <text x="670" y="220" text-anchor="middle" font-size="11" fill="#0e8a6e">Feature dimension</text>
+  <text x="670" y="234" text-anchor="middle" font-size="10" fill="#5b6675">(all features, one</text>
+  <text x="670" y="248" text-anchor="middle" font-size="10" fill="#5b6675">token, one sample)</text>
+  <line x1="612" y1="204" x2="520" y2="192" stroke="#0e8a6e" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr2)"/>
+
+  <!-- Footer -->
+  <text x="410" y="295" text-anchor="middle" font-size="11" fill="#1f4fa3" font-weight="bold">BatchNorm:</text>
+  <text x="520" y="295" text-anchor="start" font-size="11" fill="#5b6675">μ,σ computed over batch dim → breaks at batch=1 or variable-length sequences</text>
+  <text x="410" y="313" text-anchor="middle" font-size="11" fill="#0e8a6e" font-weight="bold">LayerNorm:</text>
+  <text x="520" y="313" text-anchor="start" font-size="11" fill="#5b6675">μ,σ computed over feature dim → independent per token, works with any batch size</text>
+</svg>

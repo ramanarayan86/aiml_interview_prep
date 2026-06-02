@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="310" font-family="Arial, sans-serif">
+  <rect width="820" height="310" fill="#f8f9fa" rx="8"/>
+  <text x="410" y="26" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">Teacher Forcing (Training) vs Autoregressive (Inference)</text>
+
+  <defs>
+    <marker id="a7" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#5b6675"/>
+    </marker>
+    <marker id="a7g" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#0e8a6e"/>
+    </marker>
+    <marker id="a7r" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#e05252"/>
+    </marker>
+  </defs>
+
+  <!-- ========= TOP ROW: Training with teacher forcing ========= -->
+  <rect x="10" y="36" width="800" height="110" rx="6" fill="white" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="20" y="52" font-size="12" font-weight="bold" fill="#0e8a6e">TRAINING — Teacher Forcing</text>
+  <text x="20" y="66" font-size="10" fill="#5b6675">Always feeds ground-truth tokens regardless of model output</text>
+
+  <!-- START -->
+  <rect x="30" y="74" width="65" height="30" rx="5" fill="#5b6675"/>
+  <text x="62" y="94" text-anchor="middle" font-size="11" fill="white" font-weight="bold">[START]</text>
+
+  <!-- Arrow -->
+  <line x1="95" y1="89" x2="118" y2="89" stroke="#5b6675" stroke-width="1.8" marker-end="url(#a7)"/>
+
+  <!-- Model 1 -->
+  <rect x="120" y="74" width="65" height="30" rx="5" fill="#1f4fa3"/>
+  <text x="152" y="94" text-anchor="middle" font-size="11" fill="white" font-weight="bold">Model</text>
+
+  <!-- Output arrow + label -->
+  <line x1="185" y1="89" x2="218" y2="89" stroke="#5b6675" stroke-width="1.8" marker-end="url(#a7)"/>
+
+  <!-- Output "The" -->
+  <rect x="220" y="74" width="55" height="30" rx="5" fill="#dde8fa" stroke="#1f4fa3"/>
+  <text x="247" y="94" text-anchor="middle" font-size="11" fill="#1f4fa3">"The"</text>
+  <text x="247" y="113" text-anchor="middle" font-size="9" fill="#0e8a6e">✓ GT: "The"</text>
+
+  <!-- Forced feed: ground truth "The" → Model 2 -->
+  <line x1="275" y1="89" x2="298" y2="89" stroke="#0e8a6e" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#a7g)"/>
+  <text x="287" y="82" text-anchor="middle" font-size="8" fill="#0e8a6e">force</text>
+
+  <!-- Model 2 -->
+  <rect x="300" y="74" width="65" height="30" rx="5" fill="#1f4fa3"/>
+  <text x="332" y="94" text-anchor="middle" font-size="11" fill="white" font-weight="bold">Model</text>
+
+  <line x1="365" y1="89" x2="398" y2="89" stroke="#5b6675" stroke-width="1.8" marker-end="url(#a7)"/>
+
+  <!-- Output "cat" -->
+  <rect x="400" y="74" width="55" height="30" rx="5" fill="#dde8fa" stroke="#1f4fa3"/>
+  <text x="427" y="94" text-anchor="middle" font-size="11" fill="#1f4fa3">"cat"</text>
+  <text x="427" y="113" text-anchor="middle" font-size="9" fill="#0e8a6e">✓ GT: "cat"</text>
+
+  <line x1="455" y1="89" x2="478" y2="89" stroke="#0e8a6e" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#a7g)"/>
+  <text x="467" y="82" text-anchor="middle" font-size="8" fill="#0e8a6e">force</text>
+
+  <!-- Model 3 -->
+  <rect x="480" y="74" width="65" height="30" rx="5" fill="#1f4fa3"/>
+  <text x="512" y="94" text-anchor="middle" font-size="11" fill="white" font-weight="bold">Model</text>
+
+  <line x1="545" y1="89" x2="578" y2="89" stroke="#5b6675" stroke-width="1.8" marker-end="url(#a7)"/>
+
+  <rect x="580" y="74" width="55" height="30" rx="5" fill="#dde8fa" stroke="#1f4fa3"/>
+  <text x="607" y="94" text-anchor="middle" font-size="11" fill="#1f4fa3">"sat"</text>
+  <text x="607" y="113" text-anchor="middle" font-size="9" fill="#0e8a6e">✓ GT: "sat"</text>
+
+  <line x1="635" y1="89" x2="658" y2="89" stroke="#0e8a6e" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#a7g)"/>
+  <text x="647" y="82" text-anchor="middle" font-size="8" fill="#0e8a6e">force</text>
+
+  <text x="700" y="89" font-size="14" fill="#5b6675">...</text>
+
+  <text x="750" y="85" font-size="11" fill="#0e8a6e" font-weight="bold">Parallel, fast,</text>
+  <text x="750" y="99" font-size="11" fill="#0e8a6e" font-weight="bold">no error drift</text>
+
+  <!-- ========= BOTTOM ROW: Inference ========= -->
+  <rect x="10" y="160" width="800" height="120" rx="6" fill="white" stroke="#e05252" stroke-width="1.5"/>
+  <text x="20" y="176" font-size="12" font-weight="bold" fill="#e05252">INFERENCE — Autoregressive (no teacher forcing)</text>
+  <text x="20" y="190" font-size="10" fill="#5b6675">Feeds model's own predictions — errors compound step by step</text>
+
+  <!-- START -->
+  <rect x="30" y="198" width="65" height="30" rx="5" fill="#5b6675"/>
+  <text x="62" y="218" text-anchor="middle" font-size="11" fill="white" font-weight="bold">[START]</text>
+
+  <line x1="95" y1="213" x2="118" y2="213" stroke="#5b6675" stroke-width="1.8" marker-end="url(#a7)"/>
+
+  <rect x="120" y="198" width="65" height="30" rx="5" fill="#1f4fa3"/>
+  <text x="152" y="218" text-anchor="middle" font-size="11" fill="white" font-weight="bold">Model</text>
+
+  <line x1="185" y1="213" x2="218" y2="213" stroke="#5b6675" stroke-width="1.8" marker-end="url(#a7)"/>
+
+  <rect x="220" y="198" width="55" height="30" rx="5" fill="#dde8fa" stroke="#1f4fa3"/>
+  <text x="247" y="218" text-anchor="middle" font-size="11" fill="#1f4fa3">"The"</text>
+  <text x="247" y="237" text-anchor="middle" font-size="9" fill="#0e8a6e">correct ✓</text>
+
+  <!-- Feed own output back (correct step) -->
+  <line x1="275" y1="213" x2="298" y2="213" stroke="#1f4fa3" stroke-width="2" marker-end="url(#a7)"/>
+  <text x="287" y="206" text-anchor="middle" font-size="8" fill="#1f4fa3">own</text>
+
+  <rect x="300" y="198" width="65" height="30" rx="5" fill="#1f4fa3"/>
+  <text x="332" y="218" text-anchor="middle" font-size="11" fill="white" font-weight="bold">Model</text>
+
+  <line x1="365" y1="213" x2="398" y2="213" stroke="#5b6675" stroke-width="1.8" marker-end="url(#a7)"/>
+
+  <!-- Wrong prediction! -->
+  <rect x="400" y="198" width="55" height="30" rx="5" fill="#fde8e8" stroke="#e05252" stroke-width="2"/>
+  <text x="427" y="218" text-anchor="middle" font-size="11" fill="#e05252">"dog"</text>
+  <text x="427" y="237" text-anchor="middle" font-size="9" fill="#e05252">wrong! ✗</text>
+
+  <!-- Feed wrong output back -->
+  <line x1="455" y1="213" x2="478" y2="213" stroke="#e05252" stroke-width="2" marker-end="url(#a7r)"/>
+  <text x="467" y="206" text-anchor="middle" font-size="8" fill="#e05252">wrong</text>
+
+  <rect x="480" y="198" width="65" height="30" rx="5" fill="#1f4fa3"/>
+  <text x="512" y="218" text-anchor="middle" font-size="11" fill="white" font-weight="bold">Model</text>
+
+  <line x1="545" y1="213" x2="578" y2="213" stroke="#5b6675" stroke-width="1.8" marker-end="url(#a7)"/>
+
+  <!-- Compounding error -->
+  <rect x="580" y="198" width="55" height="30" rx="5" fill="#fde8e8" stroke="#e05252" stroke-width="2"/>
+  <text x="607" y="218" text-anchor="middle" font-size="11" fill="#e05252">"chased"</text>
+  <text x="607" y="237" text-anchor="middle" font-size="9" fill="#e05252">cascades ✗</text>
+
+  <!-- Red annotation -->
+  <rect x="660" y="196" width="148" height="52" rx="5" fill="#e05252" opacity="0.1" stroke="#e05252" stroke-width="1.5"/>
+  <text x="734" y="212" text-anchor="middle" font-size="11" fill="#e05252" font-weight="bold">Exposure Bias:</text>
+  <text x="734" y="226" text-anchor="middle" font-size="10" fill="#e05252">Training dist ≠</text>
+  <text x="734" y="240" text-anchor="middle" font-size="10" fill="#e05252">Inference dist</text>
+
+  <!-- Footer -->
+  <text x="410" y="295" text-anchor="middle" font-size="11" fill="#5b6675">Fix: Scheduled Sampling (mix GT + model tokens) or RLHF/DPO (train on own outputs)</text>
+</svg>

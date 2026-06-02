@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 340" width="820" height="340" font-family="Arial, sans-serif">
+  <rect width="820" height="340" fill="#f8f9fa" rx="8"/>
+  <text x="410" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f4fa3">Activation Functions: ReLU → GELU → Swish/SiLU (toward SwiGLU)</text>
+
+  <!-- Axes -->
+  <line x1="80" y1="40" x2="80" y2="290" stroke="#555" stroke-width="1.5" marker-end="url(#axa)"/>
+  <line x1="40" y1="200" x2="540" y2="200" stroke="#555" stroke-width="1.5" marker-end="url(#axa)"/>
+
+  <!-- Grid lines -->
+  <line x1="80" y1="90" x2="535" y2="90" stroke="#eee" stroke-width="1"/>
+  <line x1="80" y1="145" x2="535" y2="145" stroke="#eee" stroke-width="1"/>
+  <line x1="80" y1="255" x2="535" y2="255" stroke="#eee" stroke-width="1"/>
+  <line x1="80" y1="310" x2="535" y2="310" stroke="#eee" stroke-width="1"/>
+
+  <!-- X labels -->
+  <text x="80" y="315" text-anchor="middle" font-size="10" fill="#555">-3</text>
+  <text x="163" y="315" text-anchor="middle" font-size="10" fill="#555">-2</text>
+  <text x="246" y="315" text-anchor="middle" font-size="10" fill="#555">-1</text>
+  <text x="330" y="315" text-anchor="middle" font-size="10" fill="#555">0</text>
+  <text x="413" y="315" text-anchor="middle" font-size="10" fill="#555">1</text>
+  <text x="496" y="315" text-anchor="middle" font-size="10" fill="#555">2</text>
+  <text x="290" y="330" text-anchor="middle" font-size="11" fill="#555">input x</text>
+
+  <!-- Y labels -->
+  <text x="66" y="94" text-anchor="end" font-size="10" fill="#555">2.0</text>
+  <text x="66" y="149" text-anchor="end" font-size="10" fill="#555">1.0</text>
+  <text x="66" y="204" text-anchor="end" font-size="10" fill="#555">0</text>
+  <text x="66" y="259" text-anchor="end" font-size="10" fill="#555">-0.5</text>
+  <text x="32" y="180" text-anchor="middle" font-size="11" fill="#555" transform="rotate(-90,32,180)">output</text>
+
+  <!-- Scale: x in [-3, 2.5], 1 unit = 83px, y: 0 at y=200, 1 unit = 55px up -->
+  <!-- x offset: 80 + (x+3)*83 -->
+  <!-- y offset: 200 - y*55 -->
+
+  <!-- ReLU: max(0,x) — piecewise: (80,-3) → (330,0) flat at 0, then (330,0)→(538,2.5) -->
+  <polyline points="80,200 330,200 538,62" fill="none" stroke="#e05252" stroke-width="2.5"/>
+  <!-- label -->
+  <text x="490" y="72" font-size="10" fill="#e05252" font-weight="bold">ReLU</text>
+  <text x="490" y="84" font-size="9" fill="#e05252">max(0, x)</text>
+
+  <!-- GELU: x·Φ(x). Approximate: smooth version -->
+  <!-- points: x=-3→0.004, x=-2→0.045, x=-1→0.159, x=0→0, x=1→0.841, x=2→1.955 -->
+  <!-- But offset: x→ 80+(x+3)*83, y→200-f(x)*55 -->
+  <!-- x=-3: (80, 200-0.004*55=199.78≈200), x=-2:(163, 200-0.045*55=197.5), x=-1:(246,200-0.159*55=191.3)-->
+  <!-- Wait — GELU(-1)≈-0.159, GELU(0)=0, GELU(1)≈0.841, GELU(2)≈1.955 -->
+  <!-- y=200-(-0.159)*55 = 200+8.7 = 208.7 -->
+  <polyline points="80,200 163,197.5 246,208.7 330,200 413,153.7 496,92.5 538,62" fill="none" stroke="#1f4fa3" stroke-width="2.5"/>
+  <text x="175" y="218" font-size="10" fill="#1f4fa3" font-weight="bold">GELU</text>
+  <text x="175" y="230" font-size="9" fill="#1f4fa3">x·Φ(x)</text>
+
+  <!-- Swish/SiLU: x·σ(x). Similar to GELU but slightly different -->
+  <!-- SiLU(-3)≈-0.142, SiLU(-2)≈-0.238, SiLU(-1)≈-0.269, SiLU(0)=0, SiLU(1)≈0.731, SiLU(2)≈1.762 -->
+  <!-- y for -1: 200-(-0.269)*55 = 200+14.8=214.8 -->
+  <polyline points="80,207.8 163,213.1 246,214.8 330,200 413,159.8 496,103.1 538,68" fill="none" stroke="#0e8a6e" stroke-width="2.5" stroke-dasharray="6,3"/>
+  <text x="135" y="232" font-size="10" fill="#0e8a6e" font-weight="bold">Swish/SiLU</text>
+  <text x="135" y="244" font-size="9" fill="#0e8a6e">x·σ(x)</text>
+
+  <!-- Right side legend panel -->
+  <rect x="570" y="50" width="235" height="250" rx="6" fill="#fff" stroke="#ddd" stroke-width="1"/>
+  <text x="687" y="72" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">Why it matters for SwiGLU</text>
+
+  <line x1="580" y1="88" width="214" stroke="#ddd"/>
+  <rect x="580" y="95" width="16" height="3" fill="#e05252"/>
+  <text x="602" y="103" font-size="10" fill="#333">ReLU: hard zero threshold</text>
+  <text x="602" y="116" font-size="9" fill="#777">• Dead neurons (≤0 never fires)</text>
+  <text x="602" y="128" font-size="9" fill="#777">• Non-smooth at x=0</text>
+  <text x="602" y="140" font-size="9" fill="#777">• No negative output</text>
+
+  <rect x="580" y="150" width="16" height="3" fill="#1f4fa3"/>
+  <text x="602" y="158" font-size="10" fill="#333">GELU: smooth approximation</text>
+  <text x="602" y="171" font-size="9" fill="#777">• Smooth everywhere</text>
+  <text x="602" y="183" font-size="9" fill="#777">• Slight negative output near -1</text>
+  <text x="602" y="195" font-size="9" fill="#777">• Better gradient flow than ReLU</text>
+
+  <rect x="580" y="205" width="16" height="3" fill="#0e8a6e"/>
+  <text x="602" y="213" font-size="10" fill="#333">SiLU: self-gated (Swish β=1)</text>
+  <text x="602" y="226" font-size="9" fill="#777">• x gates itself via σ(x)</text>
+  <text x="602" y="238" font-size="9" fill="#777">• Stronger negative region</text>
+  <text x="602" y="250" font-size="9" fill="#777">• Foundation of SwiGLU gate</text>
+
+  <rect x="580" y="258" width="215" height="34" rx="4" fill="#e8f5e9"/>
+  <text x="687" y="272" text-anchor="middle" font-size="10" fill="#0e8a6e" font-weight="bold">SwiGLU gate = SiLU(xWg) ⊙ xWv</text>
+  <text x="687" y="285" text-anchor="middle" font-size="9" fill="#0e8a6e">SiLU becomes the gate in GLU structure</text>
+
+  <defs>
+    <marker id="axa" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#555"/>
+    </marker>
+  </defs>
+</svg>

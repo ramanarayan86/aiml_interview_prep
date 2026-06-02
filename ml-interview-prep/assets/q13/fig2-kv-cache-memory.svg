@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="320" font-family="Arial, sans-serif">
+  <rect width="820" height="320" fill="#f8f9fa" rx="8"/>
+  <text x="410" y="26" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">KV Cache Memory vs Batch Size: MHA vs GQA-8 vs MQA (70B model)</text>
+  <text x="410" y="44" text-anchor="middle" font-size="12" fill="#5b6675">Sequence length T=4096, bf16 (2 bytes/param). KV cache = 2 × layers × heads × head_dim × T × batch</text>
+
+  <!-- Chart area: x=80..760, y=58..240 -->
+  <rect x="80" y="58" width="680" height="182" fill="white" stroke="#ccc" rx="4"/>
+
+  <!-- "Fits in GPU" region (≤80GB): y=58..240-182*(80/360)=240-40.4=199.6→200 -->
+  <!-- Actually let's set y axis max=360GB, min=0, h=182 -->
+  <!-- y(v) = 240 - v/360*182 -->
+  <!-- y(80) = 240 - 40.4 = 199.6 ≈ 200 -->
+  <!-- Fits in GPU region: y=200..240 -->
+  <rect x="80" y="200" width="680" height="40" fill="#d6f5ec" opacity="0.5"/>
+  <text x="200" y="218" font-size="11" fill="#0e8a6e" font-weight="bold">Fits in GPU (≤80GB)</text>
+
+  <!-- Out of memory region: y=58..200 -->
+  <rect x="80" y="58" width="680" height="142" fill="#fde8e8" opacity="0.3"/>
+  <text x="200" y="80" font-size="11" fill="#e05252" font-weight="bold">Out of Memory (>80GB)</text>
+
+  <!-- Y axis: 0..360 GB, h=182 -->
+  <!-- Ticks: 0, 90, 180, 270, 360 -->
+  <!-- y(0)=240, y(90)=240-45.5=194.5, y(180)=240-91=149, y(270)=240-136.5=103.5, y(360)=240-182=58 -->
+  <text x="75" y="244" text-anchor="end" font-size="10" fill="#5b6675">0</text>
+  <text x="75" y="198" text-anchor="end" font-size="10" fill="#5b6675">90</text>
+  <text x="75" y="152" text-anchor="end" font-size="10" fill="#5b6675">180</text>
+  <text x="75" y="106" text-anchor="end" font-size="10" fill="#5b6675">270</text>
+  <text x="75" y="60" text-anchor="end" font-size="10" fill="#5b6675">360</text>
+  <line x1="80" y1="198" x2="760" y2="198" stroke="#eee" stroke-width="1"/>
+  <line x1="80" y1="152" x2="760" y2="152" stroke="#eee" stroke-width="1"/>
+  <line x1="80" y1="106" x2="760" y2="106" stroke="#eee" stroke-width="1"/>
+  <text x="18" y="155" text-anchor="middle" font-size="11" fill="#5b6675" transform="rotate(-90,18,155)">KV Cache Memory (GB)</text>
+
+  <!-- X axis: batch size 1..32 -->
+  <!-- x(b) = 80 + (b-1)/31 * 680 -->
+  <!-- b=1: 80, b=4: 80+3/31*680=145.8, b=8: 80+7/31*680=233.5, b=16: 80+15/31*680=409, b=24: 80+23/31*680=584, b=32: 760 -->
+  <text x="80" y="256" text-anchor="middle" font-size="10" fill="#5b6675">1</text>
+  <text x="146" y="256" text-anchor="middle" font-size="10" fill="#5b6675">4</text>
+  <text x="234" y="256" text-anchor="middle" font-size="10" fill="#5b6675">8</text>
+  <text x="409" y="256" text-anchor="middle" font-size="10" fill="#5b6675">16</text>
+  <text x="584" y="256" text-anchor="middle" font-size="10" fill="#5b6675">24</text>
+  <text x="760" y="256" text-anchor="middle" font-size="10" fill="#5b6675">32</text>
+  <text x="420" y="272" text-anchor="middle" font-size="12" fill="#5b6675">Batch size</text>
+
+  <!-- MHA line: linear, at batch=32 → 342GB -->
+  <!-- batch=1: 10.7GB, batch=32: 342GB -->
+  <!-- y(10.7)=240-10.7/360*182=234.6; y(342)=240-342/360*182=67.7 -->
+  <!-- Linear: y(b) = 240 - (b*10.7)/360*182 -->
+  <!-- Actually at b=1: 10.7, b=8: 85.5, b=16: 171, b=24: 256.5, b=32: 342 -->
+  <!-- y(10.7)=234.6, y(85.5)=196.8, y(171)=153.6, y(256.5)=110.4, y(342)=67.3 -->
+  <polyline
+    points="80,235 146,225 234,197 409,153 584,110 760,67"
+    stroke="#e05252" stroke-width="3" fill="none" stroke-linejoin="round"/>
+  <circle cx="80" cy="235" r="4" fill="#e05252"/>
+  <circle cx="234" cy="197" r="4" fill="#e05252"/>
+  <circle cx="409" cy="153" r="4" fill="#e05252"/>
+  <circle cx="760" cy="67" r="5" fill="#e05252"/>
+
+  <!-- GQA-8 line: 8× smaller than MHA -->
+  <!-- at batch=1: 1.34GB, batch=32: 42.75GB -->
+  <!-- y(1.34)=239.3; y(42.75)=218.4 -->
+  <!-- points: b=1:1.34, b=8:10.7, b=16:21.4, b=24:32, b=32:42.75 -->
+  <polyline
+    points="80,239 146,238 234,235 409,229 584,224 760,218"
+    stroke="#c77a12" stroke-width="3" fill="none" stroke-linejoin="round"/>
+  <circle cx="80" cy="239" r="4" fill="#c77a12"/>
+  <circle cx="234" cy="235" r="4" fill="#c77a12"/>
+  <circle cx="409" cy="229" r="4" fill="#c77a12"/>
+  <circle cx="760" cy="218" r="5" fill="#c77a12"/>
+
+  <!-- MQA line: 64× smaller (1 key-value group) -->
+  <!-- at batch=1: 0.17GB, batch=32: 5.34GB -->
+  <!-- y(0.17)=240; y(5.34)=237.3 -->
+  <polyline
+    points="80,240 146,240 234,239 409,238 584,237 760,237"
+    stroke="#0e8a6e" stroke-width="3" fill="none" stroke-linejoin="round"/>
+  <circle cx="80" cy="240" r="4" fill="#0e8a6e"/>
+  <circle cx="760" cy="237" r="5" fill="#0e8a6e"/>
+
+  <!-- Value labels at batch=32 -->
+  <text x="765" y="64" font-size="10" fill="#e05252" font-weight="bold">342 GB</text>
+  <text x="765" y="215" font-size="10" fill="#c77a12" font-weight="bold">43 GB</text>
+  <text x="765" y="233" font-size="10" fill="#0e8a6e" font-weight="bold">5.3 GB</text>
+
+  <!-- Legend -->
+  <line x1="90" y1="292" x2="115" y2="292" stroke="#e05252" stroke-width="3"/>
+  <circle cx="102" cy="292" r="4" fill="#e05252"/>
+  <text x="120" y="296" font-size="12" fill="#333">MHA (64 heads) — 1× memory</text>
+  <line x1="330" y1="292" x2="355" y2="292" stroke="#c77a12" stroke-width="3"/>
+  <circle cx="342" cy="292" r="4" fill="#c77a12"/>
+  <text x="360" y="296" font-size="12" fill="#333">GQA-8 (8 groups) — 8× less</text>
+  <line x1="570" y1="292" x2="595" y2="292" stroke="#0e8a6e" stroke-width="3"/>
+  <circle cx="582" cy="292" r="4" fill="#0e8a6e"/>
+  <text x="600" y="296" font-size="12" fill="#333">MQA (1 group) — 64× less</text>
+
+  <!-- 80GB line annotation -->
+  <line x1="80" y1="198" x2="760" y2="198" stroke="#0e8a6e" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="762" y="196" font-size="9" fill="#0e8a6e" text-anchor="start">80 GB</text>
+  <!-- OOM annotation for MHA -->
+  <text x="430" y="130" font-size="11" fill="#e05252" font-style="italic">MHA OOM at batch&gt;8 on 80GB GPU</text>
+</svg>

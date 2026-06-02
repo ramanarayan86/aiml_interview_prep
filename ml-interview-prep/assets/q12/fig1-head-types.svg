@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 300" width="820" height="300" font-family="Arial, sans-serif">
+  <rect width="820" height="300" fill="#f8f9fa" rx="8"/>
+  <text x="410" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f4fa3">Three Canonical Attention Head Types (Mechanistic Interpretability)</text>
+
+  <!-- Helper: 6x6 grid drawing function via explicit rects -->
+  <!-- INDUCTION HEAD (left) -->
+  <text x="135" y="55" text-anchor="middle" font-size="12" font-weight="bold" fill="#0e8a6e">Induction Head</text>
+  <text x="135" y="70" text-anchor="middle" font-size="9" fill="#555">shifted diagonal pattern</text>
+  <!-- 6x6 grid at x=50,y=80, cell=38 -->
+  <!-- Labels top -->
+  <text x="69" y="94" text-anchor="middle" font-size="8" fill="#777">A</text>
+  <text x="107" y="94" text-anchor="middle" font-size="8" fill="#777">B</text>
+  <text x="145" y="94" text-anchor="middle" font-size="8" fill="#777">…</text>
+  <text x="183" y="94" text-anchor="middle" font-size="8" fill="#777">A</text>
+  <text x="221" y="94" text-anchor="middle" font-size="8" fill="#777">?</text>
+
+  <!-- Row: token A (attends to B, the token after previous A) -->
+  <rect x="50" y="100" width="38" height="30" rx="1" fill="#e8f5e9"/><text x="69" y="120" text-anchor="middle" font-size="8" fill="#777">A</text>
+  <rect x="88" y="100" width="38" height="30" rx="1" fill="#f0f0f0"/>
+  <rect x="126" y="100" width="38" height="30" rx="1" fill="#f0f0f0"/>
+  <rect x="164" y="100" width="38" height="30" rx="1" fill="#a5d6b0"/>
+  <rect x="202" y="100" width="38" height="30" rx="1" fill="#f0f0f0"/>
+
+  <!-- Row: token B (attends backward) -->
+  <rect x="50" y="130" width="38" height="30" rx="1" fill="#f0f0f0"/><text x="69" y="150" text-anchor="middle" font-size="8" fill="#777">B</text>
+  <rect x="88" y="130" width="38" height="30" rx="1" fill="#e8f5e9"/>
+  <rect x="126" y="130" width="38" height="30" rx="1" fill="#f0f0f0"/>
+  <rect x="164" y="130" width="38" height="30" rx="1" fill="#f0f0f0"/>
+  <rect x="202" y="130" width="38" height="30" rx="1" fill="#f0f0f0"/>
+
+  <!-- Row: query at second A — attends to B (one after first A) -->
+  <rect x="50" y="160" width="38" height="30" rx="1" fill="#f0f0f0"/>
+  <rect x="88" y="160" width="38" height="30" rx="1" fill="#0e8a6e" opacity="0.8"/>
+  <rect x="126" y="160" width="38" height="30" rx="1" fill="#f0f0f0"/>
+  <rect x="164" y="160" width="38" height="30" rx="1" fill="#f0f0f0"/>
+  <rect x="202" y="160" width="38" height="30" rx="1" fill="#f0f0f0"/>
+  <text x="27" y="180" text-anchor="middle" font-size="8" fill="#0e8a6e" font-weight="bold">A</text>
+
+  <!-- Key label -->
+  <text x="135" y="208" text-anchor="middle" font-size="9" fill="#333">Query at 2nd "A" → key "B"</text>
+  <text x="135" y="220" text-anchor="middle" font-size="9" fill="#333">(predicts what followed 1st "A")</text>
+  <rect x="50" y="228" width="160" height="14" rx="2" fill="#e8f5e9"/>
+  <text x="130" y="239" text-anchor="middle" font-size="8" fill="#0e8a6e">Enables in-context learning</text>
+
+  <!-- COPY HEAD (middle) -->
+  <text x="410" y="55" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f4fa3">Copy / Name-Mover Head</text>
+  <text x="410" y="70" text-anchor="middle" font-size="9" fill="#555">diagonal pattern (same token)</text>
+  <!-- 5x5 grid at x=320, y=80, cell=36 -->
+  <rect x="320" y="100" width="36" height="30" rx="1" fill="#e8edf7"/><text x="338" y="120" text-anchor="middle" font-size="8" fill="#1f4fa3">▓▓</text>
+  <rect x="356" y="100" width="36" height="30" rx="1" fill="#f0f0f0"/>
+  <rect x="392" y="100" width="36" height="30" rx="1" fill="#f0f0f0"/>
+  <rect x="428" y="100" width="36" height="30" rx="1" fill="#f0f0f0"/>
+  <rect x="464" y="100" width="36" height="30" rx="1" fill="#f0f0f0"/>
+
+  <rect x="320" y="130" width="36" height="30" rx="1" fill="#f0f0f0"/>
+  <rect x="356" y="130" width="36" height="30" rx="1" fill="#1f4fa3" opacity="0.8"/>
+  <rect x="392" y="130" width="36" height="30" rx="1" fill="#f0f0f0"/>
+  <rect x="428" y="130" width="36" height="30" rx="1" fill="#f0f0f0"/>
+  <rect x="464" y="130" width="36" height="30" rx="1" fill="#f0f0f0"/>
+
+  <rect x="320" y="160" width="36" height="30" rx="1" fill="#f0f0f0"/>
+  <rect x="356" y="160" width="36" height="30" rx="1" fill="#f0f0f0"/>
+  <rect x="392" y="160" width="36" height="30" rx="1" fill="#1f4fa3" opacity="0.8"/>
+  <rect x="428" y="160" width="36" height="30" rx="1" fill="#f0f0f0"/>
+  <rect x="464" y="160" width="36" height="30" rx="1" fill="#f0f0f0"/>
+
+  <rect x="320" y="190" width="36" height="30" rx="1" fill="#f0f0f0"/>
+  <rect x="356" y="190" width="36" height="30" rx="1" fill="#f0f0f0"/>
+  <rect x="392" y="190" width="36" height="30" rx="1" fill="#f0f0f0"/>
+  <rect x="428" y="190" width="36" height="30" rx="1" fill="#1f4fa3" opacity="0.8"/>
+  <rect x="464" y="190" width="36" height="30" rx="1" fill="#f0f0f0"/>
+
+  <text x="410" y="240" text-anchor="middle" font-size="9" fill="#333">Each token attends to itself</text>
+  <text x="410" y="252" text-anchor="middle" font-size="9" fill="#333">(or same token seen earlier)</text>
+  <rect x="330" y="260" width="160" height="14" rx="2" fill="#e8edf7"/>
+  <text x="410" y="271" text-anchor="middle" font-size="8" fill="#1f4fa3">Copies names, IDs, code symbols</text>
+
+  <!-- ATTENTION SINK (right) -->
+  <text x="680" y="55" text-anchor="middle" font-size="12" font-weight="bold" fill="#c77a12">Attention Sink</text>
+  <text x="680" y="70" text-anchor="middle" font-size="9" fill="#555">first column saturated</text>
+  <!-- 5x5 grid at x=590, y=80, cell=36 -->
+  <rect x="590" y="100" width="36" height="30" rx="1" fill="#c77a12" opacity="0.9"/>
+  <rect x="626" y="100" width="36" height="30" rx="1" fill="#fff3e0"/>
+  <rect x="662" y="100" width="36" height="30" rx="1" fill="#f0f0f0"/>
+  <rect x="698" y="100" width="36" height="30" rx="1" fill="#f0f0f0"/>
+  <rect x="734" y="100" width="36" height="30" rx="1" fill="#f0f0f0"/>
+
+  <rect x="590" y="130" width="36" height="30" rx="1" fill="#c77a12" opacity="0.9"/>
+  <rect x="626" y="130" width="36" height="30" rx="1" fill="#f0f0f0"/>
+  <rect x="662" y="130" width="36" height="30" rx="1" fill="#fff3e0"/>
+  <rect x="698" y="130" width="36" height="30" rx="1" fill="#f0f0f0"/>
+  <rect x="734" y="130" width="36" height="30" rx="1" fill="#f0f0f0"/>
+
+  <rect x="590" y="160" width="36" height="30" rx="1" fill="#c77a12" opacity="0.9"/>
+  <rect x="626" y="160" width="36" height="30" rx="1" fill="#f0f0f0"/>
+  <rect x="662" y="160" width="36" height="30" rx="1" fill="#f0f0f0"/>
+  <rect x="698" y="160" width="36" height="30" rx="1" fill="#fff3e0"/>
+  <rect x="734" y="160" width="36" height="30" rx="1" fill="#f0f0f0"/>
+
+  <rect x="590" y="190" width="36" height="30" rx="1" fill="#c77a12" opacity="0.9"/>
+  <rect x="626" y="190" width="36" height="30" rx="1" fill="#f0f0f0"/>
+  <rect x="662" y="190" width="36" height="30" rx="1" fill="#f0f0f0"/>
+  <rect x="698" y="190" width="36" height="30" rx="1" fill="#f0f0f0"/>
+  <rect x="734" y="190" width="36" height="30" rx="1" fill="#fff3e0"/>
+
+  <text x="607" y="220" text-anchor="middle" font-size="9" fill="#c77a12" font-weight="bold">tok₀</text>
+  <text x="680" y="240" text-anchor="middle" font-size="9" fill="#333">Every token attends to token 0</text>
+  <text x="680" y="252" text-anchor="middle" font-size="9" fill="#333">regardless of semantic content</text>
+  <rect x="600" y="260" width="160" height="14" rx="2" fill="#fff3e0"/>
+  <text x="680" y="271" text-anchor="middle" font-size="8" fill="#c77a12">StreamingLLM: keep tok₀ in cache</text>
+</svg>
