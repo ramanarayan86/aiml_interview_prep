@@ -41,22 +41,42 @@ The goal: open one page, and walk out able to answer that question **like you in
 
 ```
 ml-interview-prep/
-├── README.md                      ← you are here (the question bank)
-├── _TEMPLATE.md                   ← the answer-page template
-├── CONTRIBUTING.md                ← how to add / improve answers
+├── README.md                        ← you are here
+├── _TEMPLATE.md                     ← answer-page template (copy to add a question)
+├── CONTRIBUTING.md                  ← how to add / improve answers
 ├── assets/
-│   └── q18/                       ← per-question SVG figures
-│       ├── fig1-problem.svg
-│       ├── fig2-pipeline.svg
-│       ├── fig3-geometry.svg
-│       └── fig4-distribution.svg
+│   ├── q01/  fig1-block-overview.svg  fig2-gradient-flow.svg  fig3-residual-stream.svg
+│   ├── q02/  fig1-variance-explosion.svg  fig2-softmax-sharpening.svg
+│   ├── q03/  fig1-batch-vs-layer-axes.svg  fig2-normalization-geometry.svg
+│   ├── q04/  fig1-postnorm-gradient-vanishing.svg  fig2-prenorm-vs-postnorm-block.svg
+│   ├── q05/  fig1-permutation-invariance.svg  fig2-encoding-comparison.svg  fig3-extrapolation.svg
+│   ├── q06/  fig1-ffn-as-memory.svg  fig2-ffn-dimensions.svg
+│   ├── q07/  fig1-teacher-forcing-vs-inference.svg  fig2-error-accumulation.svg
+│   ├── q08/  fig1-attention-matrix-causal.svg  fig2-masking-mechanism.svg
+│   ├── q09/  fig1-head-diversity.svg  fig2-single-vs-multi-head.svg
+│   ├── q10/  fig1-architecture-comparison.svg  fig2-attention-patterns.svg
+│   ├── q11/  fig1-complexity-scaling.svg  fig2-memory-hierarchy.svg
+│   ├── q12/  fig1-head-types.svg  fig2-induction-circuit.svg
+│   ├── q13/  fig1-attention-variants.svg  fig2-kv-cache-memory.svg
+│   ├── q14/  fig1-norm-computation-steps.svg  fig2-invariance-properties.svg
+│   ├── q15/  fig1-activation-functions.svg  fig2-swiglu-gating.svg
+│   ├── q16/  fig1-weight-tying-diagram.svg  fig2-gradient-flow-tying.svg
+│   ├── q17/  fig1-dropout-placement.svg  fig2-scale-vs-dropout.svg
+│   ├── q18/  fig1-problem.svg  fig2-pipeline.svg  fig3-geometry.svg  fig4-distribution.svg
+│   ├── q19/  fig1-extrapolation-comparison.svg  fig2-rope-aliasing.svg
+│   ├── q20/  fig1-alibi-bias-matrix.svg  fig2-alibi-vs-rope-extrapolation.svg
+│   ├── q21/  fig1-sequential-vs-parallel-block.svg  fig2-gemm-fusion.svg
+│   └── q22/  fig1-bias-ln-redundancy.svg  fig2-residual-stream-dc-offset.svg
 └── questions/
     └── section-01-transformer-architecture/
-        ├── README.md              ← section index (links every question)
-        └── q18-qk-norm.md         ← a fully worked example answer
+        ├── README.md                ← section index (all 42 questions)
+        ├── q01-transformer-block.md
+        ├── q02-scaled-attention.md
+        ├── ...  (Q1–Q22 fully answered, Q23–Q42 scaffolded)
+        └── q22-no-bias.md
 ```
 
-Each section is a folder with its own index; each question is one Markdown file; each question's images live under `assets/qNN/`. This keeps the repo **scalable** — adding Section 12 or Question 437 never touches anything else.
+Each section is a folder with its own index; each question is one Markdown file; figures live under `assets/qNN/` — exactly 2–3 SVGs per question. Adding a new question never touches any existing file.
 
 ---
 
