@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 820 340" width="820" height="340" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif">
+
+  <!-- Background -->
+  <rect width="820" height="340" fill="#f8f9fa" rx="8"/>
+
+  <!-- Arrowhead markers -->
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#5b6675"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#0e8a6e"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#e05252"/>
+    </marker>
+    <marker id="arrow-orange" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#c77a12"/>
+    </marker>
+  </defs>
+
+  <!-- ===== TITLE ===== -->
+  <text x="410" y="22" font-size="14" font-weight="bold" fill="#1f4fa3" text-anchor="middle">Bias-Free Residual Stream: No DC Offset Accumulation Across Layers</text>
+
+  <!-- ============================================================ -->
+  <!-- TOP SECTION: WITH BIAS -->
+  <!-- ============================================================ -->
+
+  <rect x="10" y="34" width="120" height="22" rx="4" fill="#e05252"/>
+  <text x="70" y="49" font-size="12" font-weight="bold" fill="white" text-anchor="middle">WITH BIAS</text>
+
+  <!-- h0 node -->
+  <rect x="30" y="68" width="48" height="24" rx="4" fill="#1f4fa3"/>
+  <text x="54" y="84" font-size="11" font-weight="bold" fill="white" text-anchor="middle">h&#x2080;</text>
+
+  <line x1="78" y1="80" x2="126" y2="80" stroke="#5b6675" stroke-width="1.8" marker-end="url(#arrow)"/>
+
+  <!-- Layer 1 block (with bias) -->
+  <rect x="128" y="58" width="138" height="44" rx="4" fill="white" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="197" y="76" font-size="10" fill="#1f4fa3" text-anchor="middle">+&#916;_attn&#x2081; + b_attn&#x2081;</text>
+  <text x="197" y="92" font-size="10" fill="#c77a12" text-anchor="middle">+&#916;_ffn&#x2081; + b_ffn&#x2081;</text>
+
+  <!-- h1 node -->
+  <rect x="278" y="68" width="44" height="24" rx="4" fill="#1f4fa3"/>
+  <text x="300" y="84" font-size="11" font-weight="bold" fill="white" text-anchor="middle">h&#x2081;</text>
+
+  <line x1="322" y1="80" x2="368" y2="80" stroke="#5b6675" stroke-width="1.8" marker-end="url(#arrow)"/>
+
+  <!-- Layer 2 block (with bias) -->
+  <rect x="370" y="58" width="138" height="44" rx="4" fill="white" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="439" y="76" font-size="10" fill="#1f4fa3" text-anchor="middle">+&#916;_attn&#x2082; + b_attn&#x2082;</text>
+  <text x="439" y="92" font-size="10" fill="#c77a12" text-anchor="middle">+&#916;_ffn&#x2082; + b_ffn&#x2082;</text>
+
+  <!-- h2 node -->
+  <rect x="520" y="68" width="44" height="24" rx="4" fill="#1f4fa3"/>
+  <text x="542" y="84" font-size="11" font-weight="bold" fill="white" text-anchor="middle">h&#x2082;</text>
+
+  <line x1="564" y1="80" x2="596" y2="80" stroke="#5b6675" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <text x="583" y="77" font-size="14" fill="#5b6675" text-anchor="middle">&#x2026;</text>
+
+  <!-- hL node -->
+  <rect x="604" y="68" width="44" height="24" rx="4" fill="#1f4fa3"/>
+  <text x="626" y="84" font-size="11" font-weight="bold" fill="white" text-anchor="middle">h_L</text>
+
+  <!-- DC offset label -->
+  <text x="30" y="120" font-size="10" font-weight="bold" fill="#e05252">DC offset accumulates: &#x3A3;(b_attn_l + b_ffn_l)</text>
+
+  <!-- Growing bar segments showing accumulation below each h node -->
+  <!-- after h1: small -->
+  <rect x="278" y="128" width="44" height="7" rx="2" fill="#e05252" opacity="0.5"/>
+  <!-- after h2: medium -->
+  <rect x="520" y="124" width="44" height="13" rx="2" fill="#e05252" opacity="0.72"/>
+  <!-- after hL: largest -->
+  <rect x="604" y="120" width="44" height="19" rx="2" fill="#e05252" opacity="0.92"/>
+
+  <!-- Growth dashed lines between bars -->
+  <line x1="322" y1="133" x2="518" y2="133" stroke="#e05252" stroke-width="1.1" stroke-dasharray="3,2" marker-end="url(#arrow-red)"/>
+  <line x1="564" y1="133" x2="602" y2="133" stroke="#e05252" stroke-width="1.1" stroke-dasharray="3,2" marker-end="url(#arrow-red)"/>
+
+  <!-- LayerNorm callout -->
+  <rect x="665" y="58" width="144" height="56" rx="4" fill="#fff3cd" stroke="#c77a12" stroke-width="1.2"/>
+  <text x="737" y="74" font-size="9.5" fill="#c77a12" text-anchor="middle" font-weight="bold">LayerNorm clips DC</text>
+  <text x="737" y="88" font-size="9" fill="#5b6675" text-anchor="middle">but wastes model</text>
+  <text x="737" y="100" font-size="9" fill="#5b6675" text-anchor="middle">representational capacity</text>
+
+  <line x1="649" y1="80" x2="663" y2="80" stroke="#c77a12" stroke-width="1.2" stroke-dasharray="3,2" marker-end="url(#arrow-orange)"/>
+
+  <!-- Max label -->
+  <text x="626" y="153" font-size="9" fill="#e05252" text-anchor="middle" font-weight="bold">MAX offset</text>
+
+  <!-- ============================================================ -->
+  <!-- DIVIDER -->
+  <!-- ============================================================ -->
+  <line x1="10" y1="176" x2="810" y2="176" stroke="#d0d5dd" stroke-width="1.2" stroke-dasharray="6,3"/>
+
+  <!-- ============================================================ -->
+  <!-- BOTTOM SECTION: WITHOUT BIAS -->
+  <!-- ============================================================ -->
+
+  <rect x="10" y="184" width="140" height="22" rx="4" fill="#0e8a6e"/>
+  <text x="80" y="199" font-size="12" font-weight="bold" fill="white" text-anchor="middle">WITHOUT BIAS</text>
+
+  <!-- h0 node -->
+  <rect x="30" y="216" width="48" height="24" rx="4" fill="#0e8a6e"/>
+  <text x="54" y="232" font-size="11" font-weight="bold" fill="white" text-anchor="middle">h&#x2080;</text>
+
+  <line x1="78" y1="228" x2="126" y2="228" stroke="#5b6675" stroke-width="1.8" marker-end="url(#arrow-green)"/>
+
+  <!-- Layer 1 block (no bias) -->
+  <rect x="128" y="212" width="110" height="30" rx="4" fill="white" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="183" y="225" font-size="10" fill="#0e8a6e" text-anchor="middle">+&#916;_attn&#x2081;</text>
+  <text x="183" y="238" font-size="10" fill="#0e8a6e" text-anchor="middle">+&#916;_ffn&#x2081;</text>
+
+  <!-- h1 node -->
+  <rect x="250" y="216" width="44" height="24" rx="4" fill="#0e8a6e"/>
+  <text x="272" y="232" font-size="11" font-weight="bold" fill="white" text-anchor="middle">h&#x2081;</text>
+
+  <line x1="294" y1="228" x2="338" y2="228" stroke="#5b6675" stroke-width="1.8" marker-end="url(#arrow-green)"/>
+
+  <!-- Layer 2 block (no bias) -->
+  <rect x="340" y="212" width="110" height="30" rx="4" fill="white" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="395" y="225" font-size="10" fill="#0e8a6e" text-anchor="middle">+&#916;_attn&#x2082;</text>
+  <text x="395" y="238" font-size="10" fill="#0e8a6e" text-anchor="middle">+&#916;_ffn&#x2082;</text>
+
+  <!-- h2 node -->
+  <rect x="462" y="216" width="44" height="24" rx="4" fill="#0e8a6e"/>
+  <text x="484" y="232" font-size="11" font-weight="bold" fill="white" text-anchor="middle">h&#x2082;</text>
+
+  <line x1="506" y1="228" x2="542" y2="228" stroke="#5b6675" stroke-width="1.8" marker-end="url(#arrow-green)"/>
+  <text x="527" y="225" font-size="14" fill="#5b6675" text-anchor="middle">&#x2026;</text>
+
+  <!-- hL node -->
+  <rect x="550" y="216" width="44" height="24" rx="4" fill="#0e8a6e"/>
+  <text x="572" y="232" font-size="11" font-weight="bold" fill="white" text-anchor="middle">h_L</text>
+
+  <!-- Flat zero-offset indicator -->
+  <text x="30" y="264" font-size="10" font-weight="bold" fill="#0e8a6e">Mean &#x2248; 0 throughout (no DC offset)</text>
+
+  <!-- Flat small equal bars under each h node -->
+  <rect x="250" y="270" width="44" height="4" rx="2" fill="#0e8a6e" opacity="0.35"/>
+  <rect x="462" y="270" width="44" height="4" rx="2" fill="#0e8a6e" opacity="0.35"/>
+  <rect x="550" y="270" width="44" height="4" rx="2" fill="#0e8a6e" opacity="0.35"/>
+
+  <!-- Stable annotation -->
+  <text x="272" y="285" font-size="9" fill="#0e8a6e" text-anchor="middle">stable</text>
+  <text x="484" y="285" font-size="9" fill="#0e8a6e" text-anchor="middle">stable</text>
+  <text x="572" y="285" font-size="9" fill="#0e8a6e" text-anchor="middle">stable</text>
+
+  <!-- Benefit callout box -->
+  <rect x="624" y="208" width="182" height="84" rx="4" fill="#e8f5f1" stroke="#0e8a6e" stroke-width="1.2"/>
+  <text x="715" y="224" font-size="9.5" fill="#0e8a6e" text-anchor="middle" font-weight="bold">Benefits of Bias-Free Design</text>
+  <text x="715" y="239" font-size="9" fill="#5b6675" text-anchor="middle">&#x2713; Residual stream stays centered</text>
+  <text x="715" y="252" font-size="9" fill="#5b6675" text-anchor="middle">&#x2713; LayerNorm used at full efficiency</text>
+  <text x="715" y="265" font-size="9" fill="#5b6675" text-anchor="middle">&#x2713; Full capacity reserved for signal</text>
+  <text x="715" y="278" font-size="9" fill="#5b6675" text-anchor="middle">&#x2713; Cleaner gradient flow</text>
+
+  <line x1="595" y1="228" x2="622" y2="228" stroke="#0e8a6e" stroke-width="1.2" stroke-dasharray="3,2" marker-end="url(#arrow-green)"/>
+
+  <!-- Bottom caption -->
+  <text x="410" y="314" font-size="9" fill="#5b6675" text-anchor="middle">Biases inject a constant per-layer shift into the residual stream. This accumulates as a DC offset that LayerNorm must subtract at every layer, wasting representational capacity.</text>
+  <text x="410" y="327" font-size="9" fill="#5b6675" text-anchor="middle">Removing biases keeps the stream mean-zero naturally, allowing LayerNorm to focus on normalizing meaningful signal variance.</text>
+
+</svg>

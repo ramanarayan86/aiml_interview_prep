@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="820" height="320" viewBox="0 0 820 320" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif">
+  <defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#5b6675"/>
+    </marker>
+    <clipPath id="chartClip">
+      <rect x="100" y="30" width="630" height="210"/>
+    </clipPath>
+  </defs>
+
+  <rect width="820" height="320" fill="#f8f9fa" rx="8"/>
+
+  <!-- Title -->
+  <text x="410" y="22" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f4fa3">Length Extrapolation: Perplexity Beyond Training Context (T_train = 1024)</text>
+
+  <!-- Chart area background -->
+  <rect x="100" y="30" width="630" height="210" fill="#ffffff" rx="4" stroke="#d0d5dd" stroke-width="1"/>
+
+  <!-- ===== LIGHT RED SHADING right of 1024 ===== -->
+  <!-- X map: 256→100, 4096→730. range=3840px=630px. per unit = 630/3840=0.164 -->
+  <!-- x=1024: offset from 256 = 768 units * 0.164 = 126px → chart x = 100+126=226 -->
+  <rect x="226" y="30" width="504" height="210" fill="#e05252" opacity="0.08" clip-path="url(#chartClip)"/>
+
+  <!-- Y gridlines: ppl 5-80, chart height 210. per unit=(210/75)=2.8 -->
+  <!-- y=20 → chart y = 30 + (80-20)/75*210 = 30+168=198 -->
+  <!-- y=40 → 30+(80-40)/75*210 = 30+112=142 -->
+  <!-- y=60 → 30+(80-60)/75*210 = 30+56=86  -->
+  <line x1="100" y1="198" x2="730" y2="198" stroke="#e0e0e0" stroke-width="0.8"/>
+  <line x1="100" y1="142" x2="730" y2="142" stroke="#e0e0e0" stroke-width="0.8"/>
+  <line x1="100" y1="86" x2="730" y2="86" stroke="#e0e0e0" stroke-width="0.8"/>
+
+  <!-- Y axis labels -->
+  <text x="92" y="34" text-anchor="end" font-size="10" fill="#5b6675">80</text>
+  <text x="92" y="90" text-anchor="end" font-size="10" fill="#5b6675">60</text>
+  <text x="92" y="146" text-anchor="end" font-size="10" fill="#5b6675">40</text>
+  <text x="92" y="202" text-anchor="end" font-size="10" fill="#5b6675">20</text>
+  <text x="92" y="240" text-anchor="end" font-size="10" fill="#5b6675">5</text>
+  <!-- y=5: 30+(80-5)/75*210=30+210=240 -->
+
+  <!-- Y axis label -->
+  <text x="18" y="140" text-anchor="middle" font-size="11" fill="#5b6675" transform="rotate(-90,18,140)">Perplexity</text>
+
+  <!-- X axis ticks: 512, 1024, 2048, 4096 -->
+  <!-- x=512: (512-256)/3840*630=256/3840*630=42 → 100+42=142 -->
+  <!-- x=1024: 226 (computed above) -->
+  <!-- x=2048: (2048-256)/3840*630=1792/3840*630=294 → 100+294=394 -->
+  <!-- x=4096: (4096-256)/3840*630=3840/3840*630=630 → 730 -->
+  <line x1="142" y1="240" x2="142" y2="244" stroke="#5b6675" stroke-width="1"/>
+  <line x1="226" y1="240" x2="226" y2="244" stroke="#5b6675" stroke-width="1"/>
+  <line x1="394" y1="240" x2="394" y2="244" stroke="#5b6675" stroke-width="1"/>
+  <line x1="730" y1="240" x2="730" y2="244" stroke="#5b6675" stroke-width="1"/>
+
+  <text x="142" y="255" text-anchor="middle" font-size="10" fill="#5b6675">512</text>
+  <text x="226" y="255" text-anchor="middle" font-size="10" fill="#5b6675">1024</text>
+  <text x="394" y="255" text-anchor="middle" font-size="10" fill="#5b6675">2048</text>
+  <text x="730" y="255" text-anchor="middle" font-size="10" fill="#5b6675">4096</text>
+
+  <!-- X axis label -->
+  <text x="415" y="272" text-anchor="middle" font-size="11" fill="#5b6675">Sequence length at inference</text>
+
+  <!-- X/Y axis lines -->
+  <line x1="100" y1="240" x2="735" y2="240" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+  <line x1="100" y1="240" x2="100" y2="25" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+
+  <!-- Training cutoff dashed line at x=226 -->
+  <line x1="226" y1="30" x2="226" y2="255" stroke="#c77a12" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="230" y="45" font-size="9" fill="#c77a12" font-weight="bold">Training cutoff</text>
+  <text x="230" y="57" font-size="9" fill="#c77a12">T=1024</text>
+
+  <!-- Helper: ppl_to_y(p) = 30 + (80-p)/75 * 210 -->
+  <!-- ppl=12 → 30 + 68/75*210 = 30+190.4=220.4 -->
+  <!-- ppl=35 → 30 + 45/75*210 = 30+126=156 -->
+  <!-- ppl=22 → 30 + 58/75*210 = 30+162.4=192.4 -->
+  <!-- ppl=13 → 30 + 67/75*210 = 30+187.6=217.6 -->
+  <!-- ppl=80 → 30 + 0/75*210 = 30 -->
+
+  <!-- CURVE 1: Learned absolute PE (red) — flat ~12 until 1024, spike to 80+ by 1200 -->
+  <!-- x=1200: (1200-256)/3840*630=944/3840*630=154.8 → 100+155=255 -->
+  <polyline points="100,220 226,220 255,30" fill="none" stroke="#e05252" stroke-width="2.5" clip-path="url(#chartClip)"/>
+
+  <!-- CURVE 2: Sinusoidal PE (orange dashed) — flat ~12 until 1024, rise to ~35 at 4096 -->
+  <polyline points="100,220 226,220 730,156" fill="none" stroke="#c77a12" stroke-width="2" stroke-dasharray="8,4" clip-path="url(#chartClip)"/>
+
+  <!-- CURVE 3: RoPE vanilla (blue) — flat ~12 until 1500, rises to ~22 at 4096 -->
+  <!-- x=1500: (1500-256)/3840*630=1244/3840*630=204 → 304 -->
+  <polyline points="100,220 304,220 730,192" fill="none" stroke="#1f4fa3" stroke-width="2.5" clip-path="url(#chartClip)"/>
+
+  <!-- CURVE 4: RoPE+NTK (green) — nearly flat ~13 through 4096 -->
+  <polyline points="100,218 730,217" fill="none" stroke="#0e8a6e" stroke-width="2.5" clip-path="url(#chartClip)"/>
+
+  <!-- ===== LEGEND (top-left inside chart) ===== -->
+  <rect x="108" y="38" width="210" height="90" fill="white" rx="4" stroke="#d0d5dd" stroke-width="1" opacity="0.92"/>
+
+  <!-- Legend item 1: Learned abs PE (red) -->
+  <line x1="116" y1="55" x2="146" y2="55" stroke="#e05252" stroke-width="2.5"/>
+  <text x="152" y="59" font-size="10" fill="#e05252">Learned absolute PE</text>
+
+  <!-- Legend item 2: Sinusoidal (orange dashed) -->
+  <line x1="116" y1="72" x2="146" y2="72" stroke="#c77a12" stroke-width="2" stroke-dasharray="8,4"/>
+  <text x="152" y="76" font-size="10" fill="#c77a12">Sinusoidal PE</text>
+
+  <!-- Legend item 3: RoPE vanilla (blue) -->
+  <line x1="116" y1="89" x2="146" y2="89" stroke="#1f4fa3" stroke-width="2.5"/>
+  <text x="152" y="93" font-size="10" fill="#1f4fa3">RoPE vanilla</text>
+
+  <!-- Legend item 4: RoPE+NTK (green) -->
+  <line x1="116" y1="106" x2="146" y2="106" stroke="#0e8a6e" stroke-width="2.5"/>
+  <text x="152" y="110" font-size="10" fill="#0e8a6e">RoPE + NTK scaling</text>
+
+  <!-- Curve labels at right end -->
+  <text x="733" y="194" font-size="9" fill="#1f4fa3">RoPE</text>
+  <text x="733" y="219" font-size="9" fill="#0e8a6e">NTK</text>
+  <text x="733" y="160" font-size="9" fill="#c77a12">Sinu.</text>
+</svg>

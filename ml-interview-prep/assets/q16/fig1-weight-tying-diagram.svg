@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="340" viewBox="0 0 820 340">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#5b6675"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#0e8a6e"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="820" height="340" fill="#f8f9fa" rx="8"/>
+
+  <!-- Title -->
+  <text x="410" y="28" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1f4fa3" text-anchor="middle">Weight Tying: Input Embedding = Output Projection (Transposed)</text>
+
+  <!-- Divider -->
+  <line x1="410" y1="42" x2="410" y2="322" stroke="#d0d4da" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+  <!-- ===== LEFT: WITHOUT TYING ===== -->
+
+  <!-- Section label -->
+  <rect x="28" y="46" width="168" height="22" rx="4" fill="#fde8e8" stroke="#e05252" stroke-width="1.2"/>
+  <text x="112" y="61" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#e05252" text-anchor="middle">WITHOUT Weight Tying</text>
+
+  <!-- Token -->
+  <rect x="57" y="82" width="110" height="30" rx="5" fill="#ffffff" stroke="#5b6675" stroke-width="1.5"/>
+  <text x="112" y="101" font-family="Arial, sans-serif" font-size="12" fill="#5b6675" text-anchor="middle">token: &#x201C;cat&#x201D;</text>
+
+  <!-- Arrow down -->
+  <line x1="112" y1="112" x2="112" y2="133" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Embedding matrix E (independent) -->
+  <rect x="42" y="135" width="140" height="38" rx="5" fill="#dde8f8" stroke="#1f4fa3" stroke-width="2"/>
+  <text x="112" y="151" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#1f4fa3" text-anchor="middle">E  (V&#xD7;d)</text>
+  <text x="112" y="166" font-family="Arial, sans-serif" font-size="10" fill="#1f4fa3" text-anchor="middle">Embedding Matrix</text>
+
+  <!-- Arrow + label -->
+  <line x1="112" y1="173" x2="112" y2="195" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="155" y="188" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">embed(&#x201C;cat&#x201D;)</text>
+
+  <!-- Transformer -->
+  <rect x="42" y="197" width="140" height="34" rx="5" fill="#fff8ec" stroke="#c77a12" stroke-width="2"/>
+  <text x="112" y="213" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#c77a12" text-anchor="middle">Transformer</text>
+  <text x="112" y="226" font-family="Arial, sans-serif" font-size="10" fill="#c77a12" text-anchor="middle">Layers</text>
+
+  <!-- Arrow + label -->
+  <line x1="112" y1="231" x2="112" y2="253" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="155" y="246" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">h_final</text>
+
+  <!-- Output matrix W_out (independent) -->
+  <rect x="37" y="255" width="150" height="38" rx="5" fill="#fde8e8" stroke="#e05252" stroke-width="2"/>
+  <text x="112" y="271" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#e05252" text-anchor="middle">W_out  (d&#xD7;V)</text>
+  <text x="112" y="286" font-family="Arial, sans-serif" font-size="10" fill="#e05252" text-anchor="middle">Output Matrix (separate)</text>
+
+  <!-- Arrow down -->
+  <line x1="112" y1="293" x2="112" y2="310" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Logits -->
+  <text x="112" y="322" font-family="Arial, sans-serif" font-size="11" fill="#5b6675" text-anchor="middle">logits  (V)</text>
+
+  <!-- Cost badge -->
+  <rect x="22" y="328" width="183" height="16" rx="3" fill="#fde8e8" stroke="#e05252" stroke-width="1.2"/>
+  <text x="113" y="340" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#e05252" text-anchor="middle">2 &#xD7; V&#xD7;d parameters</text>
+
+  <!-- ===== RIGHT: WITH TYING ===== -->
+
+  <!-- Section label -->
+  <rect x="428" y="46" width="168" height="22" rx="4" fill="#ddf3ed" stroke="#0e8a6e" stroke-width="1.2"/>
+  <text x="512" y="61" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#0e8a6e" text-anchor="middle">WITH Weight Tying</text>
+
+  <!-- Token -->
+  <rect x="457" y="82" width="110" height="30" rx="5" fill="#ffffff" stroke="#5b6675" stroke-width="1.5"/>
+  <text x="512" y="101" font-family="Arial, sans-serif" font-size="12" fill="#5b6675" text-anchor="middle">token: &#x201C;cat&#x201D;</text>
+
+  <!-- Arrow down -->
+  <line x1="512" y1="112" x2="512" y2="133" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Shared Embedding matrix E -->
+  <rect x="432" y="135" width="160" height="38" rx="5" fill="#ddf3ed" stroke="#0e8a6e" stroke-width="2.5"/>
+  <text x="512" y="151" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#0e8a6e" text-anchor="middle">E  (V&#xD7;d)</text>
+  <text x="512" y="166" font-family="Arial, sans-serif" font-size="10" fill="#0e8a6e" text-anchor="middle">&#x2605; Shared Matrix &#x2605;</text>
+
+  <!-- Arrow E -> transformer (embed lookup) -->
+  <line x1="512" y1="173" x2="512" y2="195" stroke="#0e8a6e" stroke-width="1.8" marker-end="url(#arrow-green)"/>
+  <text x="555" y="188" font-family="Arial, sans-serif" font-size="10" fill="#0e8a6e">E[token_id]</text>
+
+  <!-- Transformer -->
+  <rect x="442" y="197" width="140" height="34" rx="5" fill="#fff8ec" stroke="#c77a12" stroke-width="2"/>
+  <text x="512" y="213" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#c77a12" text-anchor="middle">Transformer</text>
+  <text x="512" y="226" font-family="Arial, sans-serif" font-size="10" fill="#c77a12" text-anchor="middle">Layers</text>
+
+  <!-- Arrow + label -->
+  <line x1="512" y1="231" x2="512" y2="253" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="555" y="246" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">h_final</text>
+
+  <!-- Logit projection (reuses E^T) -->
+  <rect x="432" y="255" width="160" height="38" rx="5" fill="#ddf3ed" stroke="#0e8a6e" stroke-width="2.5"/>
+  <text x="512" y="271" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#0e8a6e" text-anchor="middle">h_final &#xD7; E&#x1D40;  (d&#x2192;V)</text>
+  <text x="512" y="286" font-family="Arial, sans-serif" font-size="10" fill="#0e8a6e" text-anchor="middle">Logit Projection (reuse E)</text>
+
+  <!-- Curved dashed arrow from E (right edge) to logit proj (right edge) -->
+  <path d="M 592 154 C 650 154, 650 274, 592 274"
+        stroke="#0e8a6e" stroke-width="1.6" fill="none" stroke-dasharray="5,3"
+        marker-end="url(#arrow-green)"/>
+  <text x="670" y="208" font-family="Arial, sans-serif" font-size="10" fill="#0e8a6e" text-anchor="middle">reuse E</text>
+  <text x="670" y="221" font-family="Arial, sans-serif" font-size="10" fill="#0e8a6e" text-anchor="middle">as E&#x1D40;</text>
+
+  <!-- Arrow down -->
+  <line x1="512" y1="293" x2="512" y2="310" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Logits -->
+  <text x="512" y="322" font-family="Arial, sans-serif" font-size="11" fill="#5b6675" text-anchor="middle">logits  (V)</text>
+
+  <!-- Cost badge -->
+  <rect x="415" y="328" width="220" height="16" rx="3" fill="#ddf3ed" stroke="#0e8a6e" stroke-width="1.2"/>
+  <text x="525" y="340" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#0e8a6e" text-anchor="middle">1 &#xD7; V&#xD7;d parameters &#x2014; 50% saved</text>
+
+</svg>

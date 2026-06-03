@@ -60,14 +60,14 @@ Each section is a folder with its own index; each question is one Markdown file;
 
 ---
 
-## ⭐ Answered so far — Section 1 (16 / 42)
+## ⭐ Answered so far — Section 1 (22 / 42)
 
-All 16 answers follow the same first-principles template: 20-second answer → derivation → figures → PyTorch code → worked example → interview drills.
+All 22 answers follow the same first-principles template: 20-second answer → derivation → figures → PyTorch code → worked example → interview drills.
 
 | Group | Questions answered |
 |---|---|
 | **Basic (Q1–Q10)** | [Q1 — Transformer block](./questions/section-01-transformer-architecture/q01-transformer-block.md) · [Q2 — √d_k scaling](./questions/section-01-transformer-architecture/q02-scaled-attention.md) · [Q3 — LayerNorm vs BatchNorm](./questions/section-01-transformer-architecture/q03-layernorm-batchnorm.md) · [Q4 — Pre/Post-norm](./questions/section-01-transformer-architecture/q04-prenorm-postnorm.md) · [Q5 — Positional encodings](./questions/section-01-transformer-architecture/q05-positional-encodings.md) · [Q6 — FFN](./questions/section-01-transformer-architecture/q06-ffn.md) · [Q7 — Teacher forcing](./questions/section-01-transformer-architecture/q07-teacher-forcing.md) · [Q8 — Causal masking](./questions/section-01-transformer-architecture/q08-causal-masking.md) · [Q9 — Multi-head attention](./questions/section-01-transformer-architecture/q09-multi-head-attention.md) · [Q10 — Encoder/Decoder](./questions/section-01-transformer-architecture/q10-encoder-decoder.md) |
-| **Intermediate (Q11–Q18)** | [Q11 — Attention complexity O(n²)](./questions/section-01-transformer-architecture/q11-attention-complexity.md) · [Q12 — MHA & interpretability](./questions/section-01-transformer-architecture/q12-mha-interpretability.md) · [Q13 — GQA & MQA](./questions/section-01-transformer-architecture/q13-gqa-mqa.md) · [Q14 — RMSNorm vs LayerNorm](./questions/section-01-transformer-architecture/q14-rmsnorm-vs-layernorm.md) · [Q15 — SwiGLU & GeGLU](./questions/section-01-transformer-architecture/q15-swiglu-geglu.md) · [**Q18 — QK‑norm ⭐**](./questions/section-01-transformer-architecture/q18-qk-norm.md) |
+| **Intermediate (Q11–Q22)** | [Q11 — Attention complexity O(n²)](./questions/section-01-transformer-architecture/q11-attention-complexity.md) · [Q12 — MHA & interpretability](./questions/section-01-transformer-architecture/q12-mha-interpretability.md) · [Q13 — GQA & MQA](./questions/section-01-transformer-architecture/q13-gqa-mqa.md) · [Q14 — RMSNorm vs LayerNorm](./questions/section-01-transformer-architecture/q14-rmsnorm-vs-layernorm.md) · [Q15 — SwiGLU & GeGLU](./questions/section-01-transformer-architecture/q15-swiglu-geglu.md) · [Q16 — Weight tying](./questions/section-01-transformer-architecture/q16-weight-tying.md) · [Q17 — Dropout](./questions/section-01-transformer-architecture/q17-dropout.md) · [**Q18 — QK‑norm ⭐**](./questions/section-01-transformer-architecture/q18-qk-norm.md) · [Q19 — RoPE extrapolation](./questions/section-01-transformer-architecture/q19-position-encodings.md) · [Q20 — ALiBi](./questions/section-01-transformer-architecture/q20-alibi.md) · [Q21 — Parallel Attn+FFN](./questions/section-01-transformer-architecture/q21-parallel-attention-ffn.md) · [Q22 — No-bias Transformers](./questions/section-01-transformer-architecture/q22-no-bias.md) |
 
 > **Reference standard:** [Q18 — QK‑norm](./questions/section-01-transformer-architecture/q18-qk-norm.md) — softmax temperature, attention‑logit explosion, entropy collapse, ℓ₂ vs RMSNorm variants, MLA incompatibility, and the σReparam / soft‑cap / μP family — with four original SVG figures.
 
@@ -106,14 +106,14 @@ All 16 answers follow the same first-principles template: 20-second answer → d
 
 ## Section 1 at a glance
 
-16 of 42 questions answered — all of Basic (Q1–Q10) and the first six Intermediate (Q11–Q15, Q18). [**Open Section 1 →**](./questions/section-01-transformer-architecture/README.md)
+22 of 42 questions answered — all of Basic (Q1–Q10) and all 12 Intermediate (Q11–Q22). [**Open Section 1 →**](./questions/section-01-transformer-architecture/README.md)
 
 <div align="center">
 
 | Basic | Intermediate | Advanced | Applied |
 |:---:|:---:|:---:|:---:|
-| Q1–Q10 ✅ | Q11–Q22 (6/12 ✅) | Q23–Q34 | Q35–Q42 |
-| forward pass, √d_k, norms, position, FFN, masking, heads, architectures | complexity ✅, GQA/MQA ✅, RMSNorm ✅, SwiGLU ✅, **QK‑norm ✅**, interpretability ✅ | RoPE derivation, FlashAttention, sinks, sub‑quadratic, Mamba | MFU debugging, repetition, norm migration, 128K context, NaNs |
+| Q1–Q10 ✅ | Q11–Q22 ✅ | Q23–Q34 | Q35–Q42 |
+| forward pass, √d_k, norms, position, FFN, masking, heads, architectures | complexity, GQA/MQA, RMSNorm, SwiGLU, weight tying, dropout, **QK‑norm**, RoPE, ALiBi, parallel block, no-bias | RoPE derivation, FlashAttention, sinks, sub‑quadratic, Mamba | MFU debugging, repetition, norm migration, 128K context, NaNs |
 
 </div>
 

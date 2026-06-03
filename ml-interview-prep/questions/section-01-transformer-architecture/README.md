@@ -12,7 +12,7 @@
 
 ![Questions](https://img.shields.io/badge/questions-42-1f4fa3)
 ![Levels](https://img.shields.io/badge/levels-Basic→Advanced→Applied-0e8a6e)
-![Status](https://img.shields.io/badge/answered-16%2F42-c77a12)
+![Status](https://img.shields.io/badge/answered-22%2F42-c77a12)
 
 </div>
 
@@ -46,13 +46,13 @@ The bedrock section. If you can teach every idea here from first principles, mos
 | Q13 | [GQA & MQA; quality–throughput tradeoff](./q13-gqa-mqa.md) | ✅ |
 | Q14 | [RMSNorm vs LayerNorm; why RMSNorm dominates](./q14-rmsnorm-vs-layernorm.md) | ✅ |
 | Q15 | [SwiGLU & GeGLU; why they replaced ReLU/GELU](./q15-swiglu-geglu.md) | ✅ |
-| Q16 | Weight tying of input/output embeddings | 📝 |
-| Q17 | Dropout in Transformers; why often off for large‑scale pretraining | 📝 |
+| Q16 | [Weight tying of input/output embeddings](./q16-weight-tying.md) | ✅ |
+| Q17 | [Dropout in Transformers; why often off for large‑scale pretraining](./q17-dropout.md) | ✅ |
 | **Q18** | **[What is the QK‑norm trick? What stability problem does it solve?](./q18-qk-norm.md)** | ✅ |
-| Q19 | Absolute vs relative vs rotary encodings; why RoPE extrapolates | 📝 |
-| Q20 | ALiBi: linear bias on logits for length extrapolation | 📝 |
-| Q21 | Parallel attention+FFN (GPT‑J, PaLM, Falcon); tradeoffs | 📝 |
-| Q22 | No‑bias Transformers: theoretical & empirical justification | 📝 |
+| Q19 | [Absolute vs relative vs rotary encodings; why RoPE extrapolates](./q19-position-encodings.md) | ✅ |
+| Q20 | [ALiBi: linear bias on logits for length extrapolation](./q20-alibi.md) | ✅ |
+| Q21 | [Parallel attention+FFN (GPT‑J, PaLM, Falcon); tradeoffs](./q21-parallel-attention-ffn.md) | ✅ |
+| Q22 | [No‑bias Transformers: theoretical & empirical justification](./q22-no-bias.md) | ✅ |
 
 ### 🔴 Advanced
 
@@ -88,11 +88,11 @@ The bedrock section. If you can teach every idea here from first principles, mos
 
 ## Reading order suggestions
 
-**New to Transformers?** Start with Q1 → Q2 → Q3 → Q4 → Q5 → Q6 → Q7 → Q8 → Q9 → Q10
+**New to Transformers?** Q1 → Q2 → Q3 → Q4 → Q5 → Q6 → Q7 → Q8 → Q9 → Q10
 
-**Interview in 48 hours?** Hit the ⭐ answers: [Q18 — QK‑norm](./q18-qk-norm.md) · [Q11 — Complexity](./q11-attention-complexity.md) · [Q13 — GQA/MQA](./q13-gqa-mqa.md) · [Q6 — FFN](./q06-ffn.md) · [Q12 — MHA Interpretability](./q12-mha-interpretability.md)
+**Interview in 48 hours?** [Q18 — QK‑norm](./q18-qk-norm.md) · [Q11 — Complexity](./q11-attention-complexity.md) · [Q13 — GQA/MQA](./q13-gqa-mqa.md) · [Q6 — FFN](./q06-ffn.md) · [Q12 — MHA Interpretability](./q12-mha-interpretability.md)
 
-**Deep-dive track:** Q11 → Q12 → Q13 → Q14 → Q15 → Q18
+**Full Intermediate track:** Q11 → Q12 → Q13 → Q14 → Q15 → Q16 → Q17 → Q18 → Q19 → Q20 → Q21 → Q22
 
 ---
 

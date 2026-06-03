@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 340" width="820" height="340" font-family="Arial, sans-serif">
+
+  <defs>
+    <marker id="ah" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#5b6675"/>
+    </marker>
+    <marker id="ah-orange" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#c77a12"/>
+    </marker>
+    <marker id="ah-red" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#e05252"/>
+    </marker>
+    <marker id="ah-green" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#0e8a6e"/>
+    </marker>
+  </defs>
+
+  <rect width="820" height="340" fill="#f8f9fa" rx="8"/>
+
+  <text x="410" y="28" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f4fa3">Dropout: Helpful for Small-Data Regime, Harmful at Scale</text>
+
+  <!-- LEFT PANEL -->
+  <rect x="30" y="42" width="370" height="270" fill="#ffffff" rx="6" stroke="#d0d7e3" stroke-width="1.2"/>
+  <text x="215" y="65" text-anchor="middle" font-size="12" font-weight="bold" fill="#5b6675">Small Model / Small Data</text>
+
+  <line x1="90" y1="82" x2="90" y2="268" stroke="#5b6675" stroke-width="1.5" marker-end="url(#ah)"/>
+  <line x1="90" y1="268" x2="380" y2="268" stroke="#5b6675" stroke-width="1.5" marker-end="url(#ah)"/>
+
+  <text x="50" y="178" text-anchor="middle" font-size="11" fill="#5b6675" transform="rotate(-90,50,178)">Perplexity</text>
+  <text x="230" y="290" text-anchor="middle" font-size="11" fill="#5b6675">Training Steps</text>
+
+  <text x="86" y="107" text-anchor="end" font-size="9" fill="#5b6675">High</text>
+  <text x="86" y="248" text-anchor="end" font-size="9" fill="#5b6675">Low</text>
+  <line x1="88" y1="103" x2="90" y2="103" stroke="#5b6675" stroke-width="1"/>
+  <line x1="88" y1="244" x2="90" y2="244" stroke="#5b6675" stroke-width="1"/>
+
+  <line x1="90" y1="103" x2="376" y2="103" stroke="#e8ecf2" stroke-width="0.8"/>
+  <line x1="90" y1="150" x2="376" y2="150" stroke="#e8ecf2" stroke-width="0.8"/>
+  <line x1="90" y1="200" x2="376" y2="200" stroke="#e8ecf2" stroke-width="0.8"/>
+  <line x1="90" y1="244" x2="376" y2="244" stroke="#e8ecf2" stroke-width="0.8"/>
+
+  <!-- Without dropout: dips then rises (overfitting) -->
+  <polyline points="90,238 120,192 148,158 170,140 190,132 210,130 230,133 255,142 280,155 308,168 335,180 365,190"
+    fill="none" stroke="#c77a12" stroke-width="2.2" stroke-dasharray="6,3"/>
+
+  <!-- With dropout: steady decrease to lower ppl -->
+  <polyline points="90,238 120,208 148,183 175,163 200,148 225,137 252,129 280,124 310,120 340,118 365,116"
+    fill="none" stroke="#1f4fa3" stroke-width="2.2"/>
+
+  <!-- Legend left -->
+  <line x1="100" y1="95" x2="122" y2="95" stroke="#1f4fa3" stroke-width="2"/>
+  <text x="126" y="99" font-size="9.5" fill="#1f4fa3">With Dropout (lower ppl)</text>
+  <line x1="100" y1="111" x2="122" y2="111" stroke="#c77a12" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="126" y="115" font-size="9.5" fill="#c77a12">Without Dropout (overfits)</text>
+
+  <!-- Overfitting hump label -->
+  <text x="240" y="123" font-size="9" fill="#c77a12" font-style="italic">overfitting hump</text>
+  <line x1="248" y1="125" x2="232" y2="133" stroke="#c77a12" stroke-width="1" marker-end="url(#ah-orange)"/>
+
+  <!-- Dropout helps annotation -->
+  <text x="148" y="174" font-size="9.5" fill="#0e8a6e" font-weight="bold">Dropout helps</text>
+  <line x1="204" y1="170" x2="242" y2="154" stroke="#0e8a6e" stroke-width="1.2" marker-end="url(#ah-green)"/>
+
+  <!-- RIGHT PANEL -->
+  <rect x="420" y="42" width="370" height="270" fill="#ffffff" rx="6" stroke="#d0d7e3" stroke-width="1.2"/>
+  <text x="605" y="65" text-anchor="middle" font-size="12" font-weight="bold" fill="#5b6675">Large Model / Large Data</text>
+
+  <line x1="480" y1="82" x2="480" y2="268" stroke="#5b6675" stroke-width="1.5" marker-end="url(#ah)"/>
+  <line x1="480" y1="268" x2="770" y2="268" stroke="#5b6675" stroke-width="1.5" marker-end="url(#ah)"/>
+
+  <text x="440" y="178" text-anchor="middle" font-size="11" fill="#5b6675" transform="rotate(-90,440,178)">Perplexity</text>
+  <text x="620" y="290" text-anchor="middle" font-size="11" fill="#5b6675">Training Steps</text>
+
+  <text x="476" y="107" text-anchor="end" font-size="9" fill="#5b6675">High</text>
+  <text x="476" y="248" text-anchor="end" font-size="9" fill="#5b6675">Low</text>
+  <line x1="478" y1="103" x2="480" y2="103" stroke="#5b6675" stroke-width="1"/>
+  <line x1="478" y1="244" x2="480" y2="244" stroke="#5b6675" stroke-width="1"/>
+
+  <line x1="480" y1="103" x2="766" y2="103" stroke="#e8ecf2" stroke-width="0.8"/>
+  <line x1="480" y1="150" x2="766" y2="150" stroke="#e8ecf2" stroke-width="0.8"/>
+  <line x1="480" y1="200" x2="766" y2="200" stroke="#e8ecf2" stroke-width="0.8"/>
+  <line x1="480" y1="244" x2="766" y2="244" stroke="#e8ecf2" stroke-width="0.8"/>
+
+  <!-- Without dropout: low final ppl (no overfitting at scale) -->
+  <polyline points="480,238 512,208 542,180 570,156 597,136 622,120 647,110 672,104 698,100 724,98 755,96"
+    fill="none" stroke="#1f4fa3" stroke-width="2.2" stroke-dasharray="6,3"/>
+
+  <!-- With dropout: plateaus higher (underfitting) -->
+  <polyline points="480,238 512,218 542,198 570,180 597,166 622,155 647,148 672,143 698,140 724,138 755,137"
+    fill="none" stroke="#c77a12" stroke-width="2.2"/>
+
+  <!-- Legend right -->
+  <line x1="490" y1="95" x2="512" y2="95" stroke="#1f4fa3" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="516" y="99" font-size="9.5" fill="#1f4fa3">Without Dropout (lower ppl)</text>
+  <line x1="490" y1="111" x2="512" y2="111" stroke="#c77a12" stroke-width="2"/>
+  <text x="516" y="115" font-size="9.5" fill="#c77a12">With Dropout (underfits)</text>
+
+  <!-- Gap bracket -->
+  <line x1="758" y1="96" x2="758" y2="137" stroke="#5b6675" stroke-width="1.2" stroke-dasharray="2,2"/>
+  <line x1="755" y1="96" x2="761" y2="96" stroke="#5b6675" stroke-width="1.2"/>
+  <line x1="755" y1="137" x2="761" y2="137" stroke="#5b6675" stroke-width="1.2"/>
+  <text x="763" y="119" font-size="8.5" fill="#5b6675">gap</text>
+
+  <!-- Dropout hurts annotation -->
+  <text x="530" y="182" font-size="9.5" fill="#e05252" font-weight="bold">Dropout hurts</text>
+  <line x1="592" y1="178" x2="628" y2="158" stroke="#e05252" stroke-width="1.2" marker-end="url(#ah-red)"/>
+
+  <!-- GPT-3 annotation box -->
+  <rect x="488" y="218" width="268" height="36" fill="#fff8f0" rx="4" stroke="#c77a12" stroke-width="1.2"/>
+  <text x="622" y="232" text-anchor="middle" font-size="9.5" fill="#c77a12" font-weight="bold">GPT-3, LLaMA, PaLM: dropout = 0</text>
+  <text x="622" y="248" text-anchor="middle" font-size="9" fill="#5b6675">Large-scale models omit dropout entirely</text>
+
+  <!-- Bottom caption -->
+  <text x="410" y="322" text-anchor="middle" font-size="10" fill="#5b6675" font-style="italic">At scale, data abundance removes overfitting risk; dropout only increases bias without reducing variance.</text>
+
+</svg>

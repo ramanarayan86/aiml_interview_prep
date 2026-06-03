@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 340" width="820" height="340">
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#5b6675"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#0e8a6e"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="820" height="340" fill="#f8f9fa" rx="8"/>
+
+  <!-- Title -->
+  <text x="410" y="26" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+        fill="#1f4fa3" text-anchor="middle">
+    Why Bias Before LayerNorm is Redundant: The Bias Cancels in Mean Subtraction
+  </text>
+
+  <!-- TOP SECTION: Algebraic proof flow -->
+  <text x="14" y="52" font-family="Arial, sans-serif" font-size="11" font-weight="bold"
+        fill="#5b6675">Algebraic Derivation</text>
+
+  <!-- Step 1: input x -->
+  <rect x="14" y="60" width="48" height="32" rx="5" fill="#1f4fa3"/>
+  <text x="38" y="80" font-family="Arial, sans-serif" font-size="13" font-weight="bold"
+        fill="white" text-anchor="middle" dominant-baseline="middle">x</text>
+
+  <line x1="62" y1="76" x2="88" y2="76" stroke="#5b6675" stroke-width="1.6"
+        marker-end="url(#arrow)"/>
+
+  <!-- Step 2: Linear(W, b) -->
+  <rect x="90" y="60" width="105" height="32" rx="5" fill="white" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="142" y="73" font-family="Arial, sans-serif" font-size="11" font-weight="bold"
+        fill="#1f4fa3" text-anchor="middle">Linear(W, b)</text>
+  <text x="142" y="86" font-family="Arial, sans-serif" font-size="9.5" fill="#5b6675"
+        text-anchor="middle">y = xW + b</text>
+
+  <line x1="195" y1="76" x2="221" y2="76" stroke="#5b6675" stroke-width="1.6"
+        marker-end="url(#arrow)"/>
+
+  <!-- Step 3: xW + b -->
+  <rect x="223" y="60" width="70" height="32" rx="5" fill="#eef2fb" stroke="#1f4fa3" stroke-width="1.2"/>
+  <text x="258" y="80" font-family="Arial, sans-serif" font-size="12" font-weight="bold"
+        fill="#1f4fa3" text-anchor="middle" dominant-baseline="middle">xW + b</text>
+
+  <line x1="293" y1="76" x2="319" y2="76" stroke="#5b6675" stroke-width="1.6"
+        marker-end="url(#arrow)"/>
+
+  <!-- Step 4: LayerNorm -->
+  <rect x="321" y="60" width="115" height="32" rx="5" fill="white" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="378" y="73" font-family="Arial, sans-serif" font-size="11" font-weight="bold"
+        fill="#0e8a6e" text-anchor="middle">LayerNorm(gamma, beta)</text>
+  <text x="378" y="86" font-family="Arial, sans-serif" font-size="9.5" fill="#5b6675"
+        text-anchor="middle">normalize + scale</text>
+
+  <line x1="436" y1="76" x2="462" y2="76" stroke="#5b6675" stroke-width="1.6"
+        marker-end="url(#arrow)"/>
+
+  <!-- Step 5: output -->
+  <rect x="464" y="60" width="60" height="32" rx="5" fill="#0e8a6e"/>
+  <text x="494" y="80" font-family="Arial, sans-serif" font-size="11" font-weight="bold"
+        fill="white" text-anchor="middle" dominant-baseline="middle">output</text>
+
+  <!-- Proof annotation box -->
+  <rect x="14" y="103" width="660" height="100" rx="6" fill="white" stroke="#c77a12"
+        stroke-width="1.4" stroke-dasharray="5,3"/>
+
+  <text x="24" y="119" font-family="Arial, sans-serif" font-size="10.5" font-weight="bold"
+        fill="#c77a12">Proof: mean subtraction kills b</text>
+
+  <text x="24" y="137" font-family="Arial, sans-serif" font-size="10.5" fill="#1e2533">
+    <tspan font-weight="bold" fill="#5b6675">Step 1  </tspan>
+    mean(xW + b) = mean(xW) + b
+    <tspan font-size="9.5" fill="#5b6675">     (b is the same scalar added to every feature dimension)</tspan>
+  </text>
+
+  <text x="24" y="157" font-family="Arial, sans-serif" font-size="10.5" fill="#1e2533">
+    <tspan font-weight="bold" fill="#5b6675">Step 2  </tspan>
+    (xW + b) - mean(xW + b) = xW + b - mean(xW) - b = xW - mean(xW)
+    <tspan font-size="9" fill="#e05252">   [b cancels]</tspan>
+  </text>
+
+  <text x="24" y="177" font-family="Arial, sans-serif" font-size="10.5" fill="#1e2533">
+    <tspan font-weight="bold" fill="#5b6675">Step 3  </tspan>
+    After normalization and rescaling:
+    <tspan font-weight="bold" fill="#0e8a6e"> LN(xW + b ; gamma, beta) = LN(xW ; gamma, beta)</tspan>
+    <tspan fill="#5b6675" font-size="9.5"> -- b contributes nothing</tspan>
+  </text>
+
+  <rect x="24" y="182" width="638" height="16" rx="3" fill="#eef8f5"/>
+  <text x="343" y="193" font-family="Arial, sans-serif" font-size="10.5" font-weight="bold"
+        fill="#0e8a6e" text-anchor="middle">
+    The bias b in the linear layer is exactly absorbed by LayerNorm's own beta parameter
+  </text>
+
+  <!-- BOTTOM SECTION label -->
+  <text x="14" y="222" font-family="Arial, sans-serif" font-size="11" font-weight="bold"
+        fill="#5b6675">Equivalent Parameterizations</text>
+
+  <!-- Box 1 -->
+  <rect x="14" y="230" width="330" height="74" rx="7" fill="white" stroke="#1f4fa3"
+        stroke-width="1.8"/>
+  <text x="179" y="246" font-family="Arial, sans-serif" font-size="10" font-weight="bold"
+        fill="#1f4fa3" text-anchor="middle">With explicit bias b</text>
+
+  <rect x="24" y="253" width="28" height="26" rx="4" fill="#1f4fa3"/>
+  <text x="38" y="269" font-family="Arial, sans-serif" font-size="12" font-weight="bold"
+        fill="white" text-anchor="middle" dominant-baseline="middle">x</text>
+
+  <line x1="52" y1="266" x2="68" y2="266" stroke="#5b6675" stroke-width="1.4"
+        marker-end="url(#arrow)"/>
+
+  <rect x="70" y="253" width="68" height="26" rx="4" fill="#eef2fb" stroke="#1f4fa3" stroke-width="1.1"/>
+  <text x="104" y="269" font-family="Arial, sans-serif" font-size="10.5" font-weight="bold"
+        fill="#1f4fa3" text-anchor="middle" dominant-baseline="middle">xW + b</text>
+
+  <line x1="138" y1="266" x2="154" y2="266" stroke="#5b6675" stroke-width="1.4"
+        marker-end="url(#arrow)"/>
+
+  <rect x="156" y="253" width="84" height="26" rx="4" fill="white" stroke="#0e8a6e" stroke-width="1.1"/>
+  <text x="198" y="262" font-family="Arial, sans-serif" font-size="10" font-weight="bold"
+        fill="#0e8a6e" text-anchor="middle">LN(gamma, beta)</text>
+  <text x="198" y="274" font-family="Arial, sans-serif" font-size="8.5" fill="#5b6675"
+        text-anchor="middle">standard beta offset</text>
+
+  <line x1="240" y1="266" x2="256" y2="266" stroke="#5b6675" stroke-width="1.4"
+        marker-end="url(#arrow)"/>
+
+  <rect x="258" y="253" width="76" height="26" rx="4" fill="#0e8a6e"/>
+  <text x="296" y="269" font-family="Arial, sans-serif" font-size="10" font-weight="bold"
+        fill="white" text-anchor="middle" dominant-baseline="middle">output</text>
+
+  <text x="179" y="297" font-family="Arial, sans-serif" font-size="9" fill="#c77a12"
+        text-anchor="middle" font-style="italic">b is explicit learnable param in Linear</text>
+
+  <!-- Equals sign -->
+  <text x="370" y="272" font-family="Arial, sans-serif" font-size="26" font-weight="bold"
+        fill="#e05252" text-anchor="middle" dominant-baseline="middle">=</text>
+  <text x="370" y="290" font-family="Arial, sans-serif" font-size="8.5" fill="#e05252"
+        text-anchor="middle">identical output</text>
+
+  <!-- Box 2 -->
+  <rect x="396" y="230" width="330" height="74" rx="7" fill="white" stroke="#0e8a6e"
+        stroke-width="1.8"/>
+  <text x="561" y="246" font-family="Arial, sans-serif" font-size="10" font-weight="bold"
+        fill="#0e8a6e" text-anchor="middle">Bias absorbed into LN's beta</text>
+
+  <rect x="406" y="253" width="28" height="26" rx="4" fill="#1f4fa3"/>
+  <text x="420" y="269" font-family="Arial, sans-serif" font-size="12" font-weight="bold"
+        fill="white" text-anchor="middle" dominant-baseline="middle">x</text>
+
+  <line x1="434" y1="266" x2="450" y2="266" stroke="#5b6675" stroke-width="1.4"
+        marker-end="url(#arrow)"/>
+
+  <rect x="452" y="253" width="60" height="26" rx="4" fill="#eef2fb" stroke="#1f4fa3" stroke-width="1.1"/>
+  <text x="482" y="269" font-family="Arial, sans-serif" font-size="10.5" font-weight="bold"
+        fill="#1f4fa3" text-anchor="middle" dominant-baseline="middle">xW</text>
+
+  <line x1="512" y1="266" x2="528" y2="266" stroke="#5b6675" stroke-width="1.4"
+        marker-end="url(#arrow)"/>
+
+  <rect x="530" y="253" width="106" height="26" rx="4" fill="white" stroke="#0e8a6e" stroke-width="1.1"/>
+  <text x="583" y="262" font-family="Arial, sans-serif" font-size="10" font-weight="bold"
+        fill="#0e8a6e" text-anchor="middle">LN(gamma, beta+b)</text>
+  <text x="583" y="274" font-family="Arial, sans-serif" font-size="8.5" fill="#5b6675"
+        text-anchor="middle">beta absorbs b</text>
+
+  <line x1="636" y1="266" x2="652" y2="266" stroke="#5b6675" stroke-width="1.4"
+        marker-end="url(#arrow)"/>
+
+  <rect x="654" y="253" width="62" height="26" rx="4" fill="#0e8a6e"/>
+  <text x="685" y="269" font-family="Arial, sans-serif" font-size="10" font-weight="bold"
+        fill="white" text-anchor="middle" dominant-baseline="middle">output</text>
+
+  <text x="561" y="297" font-family="Arial, sans-serif" font-size="9" fill="#c77a12"
+        text-anchor="middle" font-style="italic">b=0 in Linear; LN's beta handles it</text>
+
+  <!-- Bottom conclusion bar -->
+  <rect x="14" y="314" width="792" height="20" rx="4" fill="#1f4fa3"/>
+  <text x="410" y="328" font-family="Arial, sans-serif" font-size="10" font-weight="bold"
+        fill="white" text-anchor="middle" dominant-baseline="middle">
+    Bias in a linear layer immediately before LayerNorm is exactly redundant -- LN's beta parameter absorbs it completely
+  </text>
+
+</svg>

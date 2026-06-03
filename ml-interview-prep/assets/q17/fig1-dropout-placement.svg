@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="340" viewBox="0 0 820 340">
+  <defs>
+    <marker id="arrow-gray" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#5b6675"/>
+    </marker>
+    <marker id="arrow-blue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#1f4fa3"/>
+    </marker>
+    <marker id="arrow-orange" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#c77a12"/>
+    </marker>
+  </defs>
+
+  <rect width="820" height="340" fill="#f8f9fa" rx="8"/>
+
+  <text x="410" y="26" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1f4fa3" text-anchor="middle">Dropout Locations in a Transformer Block (Pre-LN)</text>
+
+  <!-- Token Embed + Pos Embed box -->
+  <rect x="40" y="42" width="180" height="34" rx="5" fill="#ffffff" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="130" y="63" font-family="Arial, sans-serif" font-size="11" fill="#1f4fa3" text-anchor="middle">Token Embed + Pos Embed</text>
+
+  <!-- Arrow down -->
+  <line x1="130" y1="76" x2="130" y2="92" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrow-gray)"/>
+
+  <!-- [1] Embedding Dropout -->
+  <rect x="65" y="94" width="130" height="28" rx="5" fill="#fff3e0" stroke="#c77a12" stroke-width="2"/>
+  <text x="130" y="112" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#c77a12" text-anchor="middle">Dropout (1)</text>
+
+  <!-- Arrow down -->
+  <line x1="130" y1="122" x2="130" y2="138" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrow-gray)"/>
+
+  <!-- LayerNorm 1 -->
+  <rect x="70" y="140" width="120" height="28" rx="5" fill="#ffffff" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="130" y="159" font-family="Arial, sans-serif" font-size="11" fill="#0e8a6e" text-anchor="middle">LayerNorm</text>
+
+  <!-- Arrow down -->
+  <line x1="130" y1="168" x2="130" y2="184" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrow-gray)"/>
+
+  <!-- Multi-Head Attention block -->
+  <rect x="40" y="186" width="180" height="68" rx="5" fill="#eef2fb" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="130" y="206" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1f4fa3" text-anchor="middle">Multi-Head Attention</text>
+  <text x="130" y="224" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">softmax(QKT/sqrtd)</text>
+  <rect x="68" y="229" width="124" height="18" rx="3" fill="#fff3e0" stroke="#c77a12" stroke-width="1.5"/>
+  <text x="130" y="242" font-family="Arial, sans-serif" font-size="9.5" font-weight="bold" fill="#c77a12" text-anchor="middle">Dropout (2)  then @ V</text>
+
+  <!-- Arrow down out of MHA -->
+  <line x1="130" y1="254" x2="130" y2="270" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrow-gray)"/>
+
+  <!-- [3] Residual dropout (attn) -->
+  <rect x="65" y="272" width="130" height="28" rx="5" fill="#fff3e0" stroke="#c77a12" stroke-width="2"/>
+  <text x="130" y="290" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#c77a12" text-anchor="middle">Dropout (3)</text>
+
+  <!-- Arrow right from dropout3 -->
+  <line x1="195" y1="286" x2="355" y2="286" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrow-gray)"/>
+
+  <!-- Residual add circle (attn) -->
+  <circle cx="370" cy="286" r="12" fill="#ffffff" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="370" y="291" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1f4fa3" text-anchor="middle">+</text>
+
+  <!-- Residual bypass line (attn): from after emb dropout -->
+  <polyline points="220,108 390,108 390,286 382,286" fill="none" stroke="#5b6675" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrow-gray)"/>
+  <text x="395" y="104" font-family="Arial, sans-serif" font-size="9" fill="#5b6675">residual</text>
+
+  <!-- Arrow up from attn add -->
+  <line x1="370" y1="274" x2="370" y2="252" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrow-gray)"/>
+
+  <!-- LayerNorm 2 -->
+  <rect x="310" y="224" width="120" height="28" rx="5" fill="#ffffff" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="370" y="243" font-family="Arial, sans-serif" font-size="11" fill="#0e8a6e" text-anchor="middle">LayerNorm</text>
+
+  <!-- Arrow up from LN2 -->
+  <line x1="370" y1="224" x2="370" y2="206" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrow-gray)"/>
+
+  <!-- FFN block -->
+  <rect x="300" y="150" width="140" height="56" rx="5" fill="#eef2fb" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="370" y="174" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1f4fa3" text-anchor="middle">Feed-Forward Network</text>
+  <text x="370" y="192" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">Linear - GELU - Linear</text>
+
+  <!-- Arrow up from FFN -->
+  <line x1="370" y1="150" x2="370" y2="132" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrow-gray)"/>
+
+  <!-- [4] Residual dropout (FFN) -->
+  <rect x="305" y="100" width="130" height="28" rx="5" fill="#fff3e0" stroke="#c77a12" stroke-width="2"/>
+  <text x="370" y="118" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#c77a12" text-anchor="middle">Dropout (4)</text>
+
+  <!-- Arrow right from dropout4 -->
+  <line x1="435" y1="114" x2="543" y2="114" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrow-gray)"/>
+
+  <!-- Residual add circle (FFN) -->
+  <circle cx="558" cy="114" r="12" fill="#ffffff" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="558" y="119" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1f4fa3" text-anchor="middle">+</text>
+
+  <!-- Residual bypass (FFN): from after attn add up and over -->
+  <polyline points="370,274 580,274 580,114 570,114" fill="none" stroke="#5b6675" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrow-gray)"/>
+  <text x="584" y="270" font-family="Arial, sans-serif" font-size="9" fill="#5b6675">residual</text>
+
+  <!-- Arrow right from FFN add to output -->
+  <line x1="570" y1="114" x2="638" y2="114" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrow-gray)"/>
+
+  <!-- Output box -->
+  <rect x="640" y="98" width="130" height="34" rx="5" fill="#ffffff" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="705" y="116" font-family="Arial, sans-serif" font-size="11" fill="#1f4fa3" text-anchor="middle">To Next Layer</text>
+  <text x="705" y="130" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">(or Output Head)</text>
+
+  <!-- LEGEND -->
+  <rect x="490" y="170" width="302" height="152" rx="5" fill="#ffffff" stroke="#5b6675" stroke-width="1" stroke-dasharray="4,2"/>
+  <text x="641" y="190" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#5b6675" text-anchor="middle">Dropout Positions Legend</text>
+
+  <rect x="504" y="200" width="64" height="18" rx="3" fill="#fff3e0" stroke="#c77a12" stroke-width="1.5"/>
+  <text x="536" y="213" font-family="Arial, sans-serif" font-size="9.5" font-weight="bold" fill="#c77a12" text-anchor="middle">Dropout (1)</text>
+  <text x="575" y="213" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">After token+pos embedding</text>
+
+  <rect x="504" y="224" width="64" height="18" rx="3" fill="#fff3e0" stroke="#c77a12" stroke-width="1.5"/>
+  <text x="536" y="237" font-family="Arial, sans-serif" font-size="9.5" font-weight="bold" fill="#c77a12" text-anchor="middle">Dropout (2)</text>
+  <text x="575" y="237" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">After softmax, before @ V</text>
+
+  <rect x="504" y="248" width="64" height="18" rx="3" fill="#fff3e0" stroke="#c77a12" stroke-width="1.5"/>
+  <text x="536" y="261" font-family="Arial, sans-serif" font-size="9.5" font-weight="bold" fill="#c77a12" text-anchor="middle">Dropout (3)</text>
+  <text x="575" y="261" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">Attn output, before residual add</text>
+
+  <rect x="504" y="272" width="64" height="18" rx="3" fill="#fff3e0" stroke="#c77a12" stroke-width="1.5"/>
+  <text x="536" y="285" font-family="Arial, sans-serif" font-size="9.5" font-weight="bold" fill="#c77a12" text-anchor="middle">Dropout (4)</text>
+  <text x="575" y="285" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">FFN output, before residual add</text>
+
+  <line x1="504" y1="304" x2="542" y2="304" stroke="#5b6675" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="575" y="308" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">Skip / residual connection</text>
+
+</svg>

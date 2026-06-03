@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="820" height="300" viewBox="0 0 820 300" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif">
+  <rect width="820" height="300" fill="#f8f9fa" rx="8"/>
+
+  <!-- ===== LEFT PANEL: UNTIED ===== -->
+  <rect x="10" y="10" width="390" height="280" fill="#ffffff" rx="8" stroke="#d0d5dd" stroke-width="1.5"/>
+  <text x="205" y="38" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f4fa3">Untied: Separate Matrices</text>
+
+  <!-- Forward flow left -->
+  <!-- Token ID box -->
+  <rect x="30" y="55" width="80" height="30" rx="6" fill="#e8eef8" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="70" y="75" text-anchor="middle" font-size="11" fill="#1f4fa3" font-weight="bold">Token ID</text>
+
+  <!-- Arrow to E -->
+  <line x1="110" y1="70" x2="140" y2="70" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- E box -->
+  <rect x="140" y="50" width="70" height="40" rx="6" fill="#fff3e0" stroke="#c77a12" stroke-width="2"/>
+  <text x="175" y="68" text-anchor="middle" font-size="12" font-weight="bold" fill="#c77a12">E</text>
+  <text x="175" y="82" text-anchor="middle" font-size="9" fill="#5b6675">V×d</text>
+
+  <!-- Arrow to transformer -->
+  <line x1="210" y1="70" x2="235" y2="70" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Transformer box -->
+  <rect x="235" y="50" width="80" height="40" rx="6" fill="#e8eef8" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="275" y="68" text-anchor="middle" font-size="10" fill="#1f4fa3">trans-</text>
+  <text x="275" y="82" text-anchor="middle" font-size="10" fill="#1f4fa3">former</text>
+
+  <!-- Arrow to h_final -->
+  <line x1="315" y1="70" x2="342" y2="70" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="328" y="64" text-anchor="middle" font-size="9" fill="#5b6675">h_final</text>
+
+  <!-- W_out box -->
+  <rect x="342" y="50" width="38" height="40" rx="6" fill="#fde8e8" stroke="#e05252" stroke-width="2"/>
+  <text x="361" y="68" text-anchor="middle" font-size="10" font-weight="bold" fill="#e05252">W</text>
+  <text x="361" y="80" text-anchor="middle" font-size="8" fill="#e05252">out</text>
+
+  <!-- Forward arrow W_out to logits -->
+  <line x1="195" y1="108" x2="195" y2="130" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arr)"/>
+  <!-- vertical connector from transformer row down -->
+  <line x1="361" y1="90" x2="361" y2="108" stroke="#5b6675" stroke-width="1.5"/>
+  <line x1="70" y1="108" x2="370" y2="108" stroke="#5b6675" stroke-width="1.5"/>
+  <line x1="70" y1="90" x2="70" y2="108" stroke="#5b6675" stroke-width="1.5"/>
+
+  <!-- Logits box -->
+  <rect x="140" y="130" width="80" height="28" rx="5" fill="#e8eef8" stroke="#5b6675" stroke-width="1"/>
+  <text x="180" y="149" text-anchor="middle" font-size="11" fill="#5b6675">logits</text>
+
+  <!-- Arrow logits to loss -->
+  <line x1="220" y1="144" x2="250" y2="144" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="250" y="130" width="55" height="28" rx="5" fill="#fde8e8" stroke="#e05252" stroke-width="1.5"/>
+  <text x="277" y="149" text-anchor="middle" font-size="11" font-weight="bold" fill="#e05252">loss</text>
+
+  <!-- BACKWARD arrows -->
+  <!-- Backward from loss to W_out only -->
+  <text x="205" y="195" text-anchor="middle" font-size="11" font-weight="bold" fill="#e05252">Backward pass:</text>
+
+  <!-- W_out backward arrow (red, gets gradient) -->
+  <rect x="140" y="208" width="70" height="32" rx="6" fill="#fde8e8" stroke="#e05252" stroke-width="2"/>
+  <text x="175" y="222" text-anchor="middle" font-size="11" font-weight="bold" fill="#e05252">W_out</text>
+  <text x="175" y="234" text-anchor="middle" font-size="8" fill="#e05252">d×V</text>
+  <text x="185" y="253" text-anchor="middle" font-size="9" fill="#e05252">← ∂L/∂W_out</text>
+  <line x1="175" y1="208" x2="175" y2="175" stroke="#e05252" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrRed)"/>
+  <text x="195" y="170" font-size="9" fill="#e05252">grad from loss</text>
+
+  <!-- E backward arrow (gray, limited) -->
+  <rect x="30" y="208" width="70" height="32" rx="6" fill="#fff3e0" stroke="#c77a12" stroke-width="2"/>
+  <text x="65" y="226" text-anchor="middle" font-size="12" font-weight="bold" fill="#c77a12">E</text>
+  <text x="65" y="238" text-anchor="middle" font-size="8" fill="#c77a12">V×d</text>
+  <text x="65" y="253" text-anchor="middle" font-size="9" fill="#c77a12">← sparse grad only</text>
+  <line x1="65" y1="208" x2="65" y2="175" stroke="#c77a12" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrOrg)"/>
+  <text x="22" y="170" font-size="9" fill="#c77a12">lookup</text>
+  <text x="22" y="181" font-size="9" fill="#c77a12">grad only</text>
+
+  <!-- NO connection label -->
+  <line x1="100" y1="224" x2="138" y2="224" stroke="#e05252" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="119" y="218" text-anchor="middle" font-size="9" fill="#e05252" font-weight="bold">✕ no link</text>
+
+  <!-- Label -->
+  <text x="205" y="278" text-anchor="middle" font-size="10" fill="#5b6675">2 independent matrices, gradients flow separately</text>
+
+  <!-- ===== RIGHT PANEL: TIED ===== -->
+  <rect x="420" y="10" width="390" height="280" fill="#ffffff" rx="8" stroke="#d0d5dd" stroke-width="1.5"/>
+  <text x="615" y="38" text-anchor="middle" font-size="14" font-weight="bold" fill="#0e8a6e">Tied: E = W_out^T</text>
+
+  <!-- Token ID box -->
+  <rect x="440" y="55" width="80" height="30" rx="6" fill="#e8eef8" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="480" y="75" text-anchor="middle" font-size="11" fill="#1f4fa3" font-weight="bold">Token ID</text>
+
+  <!-- Arrow to E (tied) -->
+  <line x1="520" y1="70" x2="550" y2="70" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- E tied box -->
+  <rect x="550" y="48" width="90" height="44" rx="6" fill="#e0f5f0" stroke="#0e8a6e" stroke-width="2.5"/>
+  <text x="595" y="66" text-anchor="middle" font-size="12" font-weight="bold" fill="#0e8a6e">E = W_out^T</text>
+  <text x="595" y="82" text-anchor="middle" font-size="9" fill="#0e8a6e">V×d (shared)</text>
+
+  <!-- Arrow to transformer -->
+  <line x1="640" y1="70" x2="665" y2="70" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Transformer box -->
+  <rect x="665" y="50" width="80" height="40" rx="6" fill="#e8eef8" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="705" y="68" text-anchor="middle" font-size="10" fill="#1f4fa3">trans-</text>
+  <text x="705" y="82" text-anchor="middle" font-size="10" fill="#1f4fa3">former</text>
+
+  <!-- h_final arrow down -->
+  <line x1="705" y1="90" x2="705" y2="115" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="715" y="108" font-size="9" fill="#5b6675">h_final</text>
+
+  <!-- Same E transposed box -->
+  <rect x="660" y="115" width="90" height="35" rx="6" fill="#e0f5f0" stroke="#0e8a6e" stroke-width="2"/>
+  <text x="705" y="130" text-anchor="middle" font-size="10" font-weight="bold" fill="#0e8a6e">E^T (same!)</text>
+  <text x="705" y="143" text-anchor="middle" font-size="9" fill="#0e8a6e">d×V</text>
+
+  <!-- Arrow to logits -->
+  <line x1="705" y1="150" x2="705" y2="170" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="660" y="170" width="90" height="28" rx="5" fill="#e8eef8" stroke="#5b6675" stroke-width="1"/>
+  <text x="705" y="189" text-anchor="middle" font-size="11" fill="#5b6675">logits</text>
+
+  <!-- Arrow to loss -->
+  <line x1="705" y1="198" x2="705" y2="218" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="675" y="218" width="55" height="28" rx="5" fill="#fde8e8" stroke="#e05252" stroke-width="1.5"/>
+  <text x="702" y="237" text-anchor="middle" font-size="11" font-weight="bold" fill="#e05252">loss</text>
+
+  <!-- BACKWARD — TWO arrows to E (tied) -->
+  <!-- From LM head (right side) -->
+  <path d="M 640 232 Q 620 232 610 210 Q 600 185 595 145" stroke="#e05252" stroke-width="2" fill="none" stroke-dasharray="5,3" marker-end="url(#arrRed)"/>
+  <text x="612" y="196" font-size="9" fill="#e05252">∂L/∂E</text>
+  <text x="607" y="207" font-size="9" fill="#e05252">(LM head)</text>
+
+  <!-- From embedding (left side) -->
+  <path d="M 480 90 Q 480 130 530 145" stroke="#c77a12" stroke-width="2" fill="none" stroke-dasharray="5,3" marker-end="url(#arrOrg)"/>
+  <text x="448" y="120" font-size="9" fill="#c77a12">∂L/∂E</text>
+  <text x="440" y="131" font-size="9" fill="#c77a12">(embed)</text>
+
+  <!-- Merge symbol circle at E box -->
+  <circle cx="595" cy="165" r="10" fill="#0e8a6e" opacity="0.15" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="595" y="169" text-anchor="middle" font-size="12" fill="#0e8a6e" font-weight="bold">⊕</text>
+  <text x="595" y="180" text-anchor="middle" font-size="8" fill="#0e8a6e">grads merge</text>
+
+  <!-- Label -->
+  <text x="615" y="265" text-anchor="middle" font-size="10" fill="#0e8a6e" font-weight="bold">1 matrix, receives gradients from BOTH paths simultaneously</text>
+
+  <!-- ===== BOTTOM ANNOTATION ===== -->
+  <rect x="10" y="282" width="800" height="0" rx="0" fill="none"/>
+  <!-- annotation is inside the panels above due to height=300 -->
+
+  <!-- GLOBAL TITLE at very bottom -->
+  <text x="410" y="295" text-anchor="middle" font-size="10" fill="#5b6675" font-style="italic">Dual gradient signal aligns the embedding space with the output distribution</text>
+
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#5b6675"/>
+    </marker>
+    <marker id="arrRed" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#e05252"/>
+    </marker>
+    <marker id="arrOrg" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#c77a12"/>
+    </marker>
+  </defs>
+</svg>
