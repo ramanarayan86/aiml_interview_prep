@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 320" width="820" height="320" font-family="Arial, sans-serif">
+  <rect width="820" height="320" fill="#f8f9fa" rx="8"/>
+  <text x="410" y="26" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f4fa3">The Residual Stream: A Shared Communication Bus Across All Layers</text>
+
+  <!-- Residual stream vertical highway -->
+  <rect x="370" y="48" width="80" height="258" rx="6" fill="#e8edf7" stroke="#1f4fa3" stroke-width="2"/>
+  <text x="410" y="68" text-anchor="middle" font-size="11" font-weight="bold" fill="#1f4fa3">Residual</text>
+  <text x="410" y="82" text-anchor="middle" font-size="11" font-weight="bold" fill="#1f4fa3">Stream h</text>
+  <text x="410" y="97" text-anchor="middle" font-size="9" fill="#5b6675">d_model dims</text>
+
+  <!-- Layer 0: input embedding -->
+  <rect x="160" y="52" width="160" height="32" rx="5" fill="#fff" stroke="#5b6675" stroke-width="1.2"/>
+  <text x="240" y="72" text-anchor="middle" font-size="11" fill="#333">Token + Position Embed</text>
+  <line x1="320" y1="68" x2="370" y2="110" stroke="#5b6675" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#ag)"/>
+  <text x="345" y="95" text-anchor="middle" font-size="9" fill="#5b6675">h₀ = embed(x)</text>
+
+  <!-- Layer 1: Attention reads/writes -->
+  <rect x="30" y="110" width="140" height="32" rx="5" fill="#fff3e0" stroke="#c77a12" stroke-width="1.5"/>
+  <text x="100" y="130" text-anchor="middle" font-size="11" fill="#c77a12">Attn head (L1)</text>
+  <!-- read arrow -->
+  <line x1="370" y1="126" x2="170" y2="126" stroke="#c77a12" stroke-width="1.5" marker-end="url(#ao)"/>
+  <text x="270" y="119" text-anchor="middle" font-size="8" fill="#c77a12">read Q,K,V</text>
+  <!-- write arrow -->
+  <line x1="170" y1="132" x2="370" y2="145" stroke="#c77a12" stroke-width="2" marker-end="url(#ao)"/>
+  <text x="270" y="149" text-anchor="middle" font-size="8" fill="#c77a12">write Δh (attn output)</text>
+
+  <!-- Layer 1: FFN reads/writes -->
+  <rect x="510" y="150" width="140" height="32" rx="5" fill="#fff3e0" stroke="#c77a12" stroke-width="1.5"/>
+  <text x="580" y="170" text-anchor="middle" font-size="11" fill="#c77a12">FFN (L1)</text>
+  <line x1="450" y1="163" x2="510" y2="166" stroke="#c77a12" stroke-width="1.5" marker-end="url(#ao)"/>
+  <text x="480" y="157" text-anchor="middle" font-size="8" fill="#c77a12">read h</text>
+  <line x1="510" y1="172" x2="450" y2="180" stroke="#c77a12" stroke-width="2" marker-end="url(#ao)"/>
+  <text x="480" y="188" text-anchor="middle" font-size="8" fill="#c77a12">write Δh (FFN output)</text>
+
+  <!-- Divider dots -->
+  <text x="410" y="210" text-anchor="middle" font-size="18" fill="#5b6675">⋮</text>
+
+  <!-- Layer N: Attention -->
+  <rect x="30" y="225" width="140" height="32" rx="5" fill="#e8f5e9" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="100" y="245" text-anchor="middle" font-size="11" fill="#0e8a6e">Attn head (LN)</text>
+  <line x1="370" y1="241" x2="170" y2="241" stroke="#0e8a6e" stroke-width="1.5" marker-end="url(#ag2)"/>
+  <line x1="170" y1="247" x2="370" y2="260" stroke="#0e8a6e" stroke-width="2" marker-end="url(#ag2)"/>
+
+  <!-- Layer N: FFN -->
+  <rect x="510" y="255" width="140" height="32" rx="5" fill="#e8f5e9" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="580" y="275" text-anchor="middle" font-size="11" fill="#0e8a6e">FFN (LN)</text>
+  <line x1="450" y1="270" x2="510" y2="271" stroke="#0e8a6e" stroke-width="1.5" marker-end="url(#ag2)"/>
+  <line x1="510" y1="277" x2="450" y2="284" stroke="#0e8a6e" stroke-width="2" marker-end="url(#ag2)"/>
+
+  <!-- Output unembed -->
+  <rect x="160" y="290" width="160" height="24" rx="5" fill="#fff" stroke="#5b6675" stroke-width="1.2"/>
+  <text x="240" y="307" text-anchor="middle" font-size="11" fill="#333">Unembed (logits)</text>
+  <line x1="370" y1="295" x2="320" y2="302" stroke="#5b6675" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#ag)"/>
+
+  <!-- Key insight annotation -->
+  <rect x="575" y="48" width="230" height="90" rx="6" fill="#fff" stroke="#ddd" stroke-width="1"/>
+  <text x="690" y="66" text-anchor="middle" font-size="11" font-weight="bold" fill="#1f4fa3">Key insight</text>
+  <text x="583" y="84" font-size="9" fill="#555">Every attention head and FFN</text>
+  <text x="583" y="98" font-size="9" fill="#555">reads from AND writes to the</text>
+  <text x="583" y="112" font-size="9" fill="#555">same residual stream h.</text>
+  <text x="583" y="126" font-size="9" fill="#555">h = Σ all Δh contributions so far.</text>
+
+  <!-- h = sum formula -->
+  <text x="410" y="312" text-anchor="middle" font-size="10" fill="#1f4fa3" font-weight="bold">h_final = embed(x) + Σ Δh_attn_L + Σ Δh_ffn_L  (summed over all layers L)</text>
+
+  <defs>
+    <marker id="ag" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#5b6675"/>
+    </marker>
+    <marker id="ao" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#c77a12"/>
+    </marker>
+    <marker id="ag2" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#0e8a6e"/>
+    </marker>
+  </defs>
+</svg>

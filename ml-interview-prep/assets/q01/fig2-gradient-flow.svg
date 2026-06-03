@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="340" font-family="Arial, sans-serif">
+  <rect width="820" height="340" fill="#f8f9fa" rx="8"/>
+  <text x="410" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">Gradient Magnitude Through Layers: With vs Without Residuals</text>
+
+  <!-- ===== LEFT CHART: WITHOUT residuals ===== -->
+  <text x="210" y="55" text-anchor="middle" font-size="13" font-weight="bold" fill="#e05252">Without Residual Connections</text>
+
+  <!-- Chart area left: x=60..380, y=70..270 -->
+  <rect x="60" y="70" width="320" height="200" fill="white" stroke="#ccc" stroke-width="1" rx="4"/>
+
+  <!-- Y axis label -->
+  <text x="18" y="175" text-anchor="middle" font-size="11" fill="#5b6675" transform="rotate(-90, 18, 175)">Gradient magnitude</text>
+  <!-- X axis label -->
+  <text x="220" y="298" text-anchor="middle" font-size="11" fill="#5b6675">Layer depth</text>
+
+  <!-- Y axis ticks: 0, 0.25, 0.5, 0.75, 1.0 -->
+  <!-- y=270 → 0, y=220 → 0.25, y=170 → 0.5, y=120 → 0.75, y=70 → 1.0 -->
+  <line x1="55" y1="270" x2="60" y2="270" stroke="#5b6675" stroke-width="1"/>
+  <text x="52" y="274" text-anchor="end" font-size="10" fill="#5b6675">0</text>
+  <line x1="55" y1="220" x2="60" y2="220" stroke="#5b6675" stroke-width="1"/>
+  <text x="52" y="224" text-anchor="end" font-size="10" fill="#5b6675">0.25</text>
+  <line x1="55" y1="170" x2="60" y2="170" stroke="#5b6675" stroke-width="1"/>
+  <text x="52" y="174" text-anchor="end" font-size="10" fill="#5b6675">0.5</text>
+  <line x1="55" y1="120" x2="60" y2="120" stroke="#5b6675" stroke-width="1"/>
+  <text x="52" y="124" text-anchor="end" font-size="10" fill="#5b6675">0.75</text>
+  <line x1="55" y1="70" x2="60" y2="70" stroke="#5b6675" stroke-width="1"/>
+  <text x="52" y="74" text-anchor="end" font-size="10" fill="#5b6675">1.0</text>
+
+  <!-- Gridlines -->
+  <line x1="60" y1="220" x2="380" y2="220" stroke="#eee" stroke-width="1"/>
+  <line x1="60" y1="170" x2="380" y2="170" stroke="#eee" stroke-width="1"/>
+  <line x1="60" y1="120" x2="380" y2="120" stroke="#eee" stroke-width="1"/>
+
+  <!-- Bars without residuals: values 1.0, 0.7, 0.5, 0.3, 0.15, 0.07, 0.03, 0.01, 0.004, 0.001, 0.0003, ~0 -->
+  <!-- bar width ~22, gap ~4, chart width 320, 12 bars: (320-12*4)/12 ≈ 22.67 -->
+  <!-- x start: 68, each bar+gap: 26.67 -->
+  <!-- heights: val*200 -->
+  <!-- Layer 1: 1.0 → h=200, y=70 -->
+  <rect x="68" y="70" width="20" height="200" fill="#e05252" opacity="0.85"/>
+  <text x="78" y="283" text-anchor="middle" font-size="9" fill="#5b6675">1</text>
+  <!-- Layer 2: 0.7 → h=140, y=130 -->
+  <rect x="95" y="130" width="20" height="140" fill="#e05252" opacity="0.85"/>
+  <text x="105" y="283" text-anchor="middle" font-size="9" fill="#5b6675">2</text>
+  <!-- Layer 3: 0.5 → h=100, y=170 -->
+  <rect x="122" y="170" width="20" height="100" fill="#e05252" opacity="0.85"/>
+  <text x="132" y="283" text-anchor="middle" font-size="9" fill="#5b6675">3</text>
+  <!-- Layer 4: 0.3 → h=60, y=210 -->
+  <rect x="149" y="210" width="20" height="60" fill="#e05252" opacity="0.85"/>
+  <text x="159" y="283" text-anchor="middle" font-size="9" fill="#5b6675">4</text>
+  <!-- Layer 5: 0.15 → h=30, y=240 -->
+  <rect x="176" y="240" width="20" height="30" fill="#e05252" opacity="0.85"/>
+  <text x="186" y="283" text-anchor="middle" font-size="9" fill="#5b6675">5</text>
+  <!-- Layer 6: 0.07 → h=14, y=256 -->
+  <rect x="203" y="256" width="20" height="14" fill="#e05252" opacity="0.85"/>
+  <text x="213" y="283" text-anchor="middle" font-size="9" fill="#5b6675">6</text>
+  <!-- Layer 7: 0.03 → h=6, y=264 -->
+  <rect x="230" y="264" width="20" height="6" fill="#e05252" opacity="0.85"/>
+  <text x="240" y="283" text-anchor="middle" font-size="9" fill="#5b6675">7</text>
+  <!-- Layer 8: 0.01 → h=2, y=268 -->
+  <rect x="257" y="268" width="20" height="2" fill="#e05252" opacity="0.85"/>
+  <text x="267" y="283" text-anchor="middle" font-size="9" fill="#5b6675">8</text>
+  <!-- Layer 9: 0.004 → h=1, y=269 -->
+  <rect x="284" y="269" width="20" height="1" fill="#e05252" opacity="0.85"/>
+  <text x="294" y="283" text-anchor="middle" font-size="9" fill="#5b6675">9</text>
+  <!-- Layer 10-12: ~0 -->
+  <rect x="311" y="270" width="20" height="0" fill="#e05252" opacity="0.85"/>
+  <text x="321" y="283" text-anchor="middle" font-size="9" fill="#5b6675">10</text>
+  <rect x="338" y="270" width="20" height="0" fill="#e05252" opacity="0.85"/>
+  <text x="348" y="283" text-anchor="middle" font-size="9" fill="#5b6675">11</text>
+  <rect x="355" y="270" width="20" height="0" fill="#e05252" opacity="0.85"/>
+  <text x="365" y="283" text-anchor="middle" font-size="9" fill="#5b6675">12</text>
+
+  <!-- Vanishing label -->
+  <text x="220" y="255" text-anchor="middle" font-size="11" fill="#e05252" font-style="italic">⚠ Vanishing gradients</text>
+
+  <!-- ===== RIGHT CHART: WITH residuals ===== -->
+  <text x="610" y="55" text-anchor="middle" font-size="13" font-weight="bold" fill="#0e8a6e">With Residual Connections</text>
+
+  <!-- Chart area right: x=460..780, y=70..270 -->
+  <rect x="460" y="70" width="320" height="200" fill="white" stroke="#ccc" stroke-width="1" rx="4"/>
+
+  <!-- Y axis ticks right -->
+  <line x1="455" y1="270" x2="460" y2="270" stroke="#5b6675" stroke-width="1"/>
+  <text x="452" y="274" text-anchor="end" font-size="10" fill="#5b6675">0</text>
+  <line x1="455" y1="220" x2="460" y2="220" stroke="#5b6675" stroke-width="1"/>
+  <text x="452" y="224" text-anchor="end" font-size="10" fill="#5b6675">0.25</text>
+  <line x1="455" y1="170" x2="460" y2="170" stroke="#5b6675" stroke-width="1"/>
+  <text x="452" y="174" text-anchor="end" font-size="10" fill="#5b6675">0.5</text>
+  <line x1="455" y1="120" x2="460" y2="120" stroke="#5b6675" stroke-width="1"/>
+  <text x="452" y="124" text-anchor="end" font-size="10" fill="#5b6675">0.75</text>
+  <line x1="455" y1="70" x2="460" y2="70" stroke="#5b6675" stroke-width="1"/>
+  <text x="452" y="74" text-anchor="end" font-size="10" fill="#5b6675">1.0</text>
+
+  <!-- Gridlines right -->
+  <line x1="460" y1="220" x2="780" y2="220" stroke="#eee" stroke-width="1"/>
+  <line x1="460" y1="170" x2="780" y2="170" stroke="#eee" stroke-width="1"/>
+  <line x1="460" y1="120" x2="780" y2="120" stroke="#eee" stroke-width="1"/>
+
+  <!-- X axis label right -->
+  <text x="620" y="298" text-anchor="middle" font-size="11" fill="#5b6675">Layer depth</text>
+
+  <!-- Bars with residuals: 1.0, 0.95, 0.98, 0.92, 0.97, 0.94, 0.96, 0.91, 0.95, 0.93, 0.96, 0.94 -->
+  <!-- heights: val*200 -->
+  <!-- L1: 1.0 → h=200 -->
+  <rect x="468" y="70" width="20" height="200" fill="#0e8a6e" opacity="0.85"/>
+  <text x="478" y="283" text-anchor="middle" font-size="9" fill="#5b6675">1</text>
+  <!-- L2: 0.95 → h=190 -->
+  <rect x="495" y="80" width="20" height="190" fill="#0e8a6e" opacity="0.85"/>
+  <text x="505" y="283" text-anchor="middle" font-size="9" fill="#5b6675">2</text>
+  <!-- L3: 0.98 → h=196 -->
+  <rect x="522" y="74" width="20" height="196" fill="#0e8a6e" opacity="0.85"/>
+  <text x="532" y="283" text-anchor="middle" font-size="9" fill="#5b6675">3</text>
+  <!-- L4: 0.92 → h=184 -->
+  <rect x="549" y="86" width="20" height="184" fill="#0e8a6e" opacity="0.85"/>
+  <text x="559" y="283" text-anchor="middle" font-size="9" fill="#5b6675">4</text>
+  <!-- L5: 0.97 → h=194 -->
+  <rect x="576" y="76" width="20" height="194" fill="#0e8a6e" opacity="0.85"/>
+  <text x="586" y="283" text-anchor="middle" font-size="9" fill="#5b6675">5</text>
+  <!-- L6: 0.94 → h=188 -->
+  <rect x="603" y="82" width="20" height="188" fill="#0e8a6e" opacity="0.85"/>
+  <text x="613" y="283" text-anchor="middle" font-size="9" fill="#5b6675">6</text>
+  <!-- L7: 0.96 → h=192 -->
+  <rect x="630" y="78" width="20" height="192" fill="#0e8a6e" opacity="0.85"/>
+  <text x="640" y="283" text-anchor="middle" font-size="9" fill="#5b6675">7</text>
+  <!-- L8: 0.91 → h=182 -->
+  <rect x="657" y="88" width="20" height="182" fill="#0e8a6e" opacity="0.85"/>
+  <text x="667" y="283" text-anchor="middle" font-size="9" fill="#5b6675">8</text>
+  <!-- L9: 0.95 → h=190 -->
+  <rect x="684" y="80" width="20" height="190" fill="#0e8a6e" opacity="0.85"/>
+  <text x="694" y="283" text-anchor="middle" font-size="9" fill="#5b6675">9</text>
+  <!-- L10: 0.93 → h=186 -->
+  <rect x="711" y="84" width="20" height="186" fill="#0e8a6e" opacity="0.85"/>
+  <text x="721" y="283" text-anchor="middle" font-size="9" fill="#5b6675">10</text>
+  <!-- L11: 0.96 → h=192 -->
+  <rect x="728" y="78" width="20" height="192" fill="#0e8a6e" opacity="0.85"/>
+  <text x="738" y="283" text-anchor="middle" font-size="9" fill="#5b6675">11</text>
+  <!-- L12: 0.94 → h=188 -->
+  <rect x="750" y="82" width="20" height="188" fill="#0e8a6e" opacity="0.85"/>
+  <text x="760" y="283" text-anchor="middle" font-size="9" fill="#5b6675">12</text>
+
+  <!-- Stable label -->
+  <text x="620" y="115" text-anchor="middle" font-size="11" fill="#0e8a6e" font-style="italic">✓ Stable gradients throughout</text>
+
+  <!-- Footer note -->
+  <text x="410" y="325" text-anchor="middle" font-size="11" fill="#5b6675" font-style="italic">Residual connections ensure gradient flows directly from output to early layers via the identity path</text>
+</svg>

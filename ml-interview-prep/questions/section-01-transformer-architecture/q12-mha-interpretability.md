@@ -264,6 +264,11 @@ flowchart TB
     style L2 fill:#e8f5e9,stroke:#27ae60
 ```
 
+<div align="center">
+<img src="../../assets/q12/fig2-induction-circuit.svg" alt="Two-layer induction circuit: Layer L previous-token head annotates each position with the identity of the preceding token; Layer L+1 induction head uses this to attend back to the token that followed the first occurrence of the current token, then copies it forward via the OV circuit." width="90%">
+<br><sub><b>Figure 2.</b> The induction circuit in action on the sequence [A, B, …, A, ?]. The prev-token head (orange) and induction head (green) cooperate across two layers to predict B.</sub>
+</div>
+
 ### Detection signature
 
 An induction head shows a characteristic **shifted diagonal** in its attention matrix: token at position $i$ attends strongly to position $j$ where $j = \text{(previous occurrence of token}_{i-1})$. If you plot the $T \times T$ attention matrix, you see a diagonal stripe shifted one position below the main diagonal and offset by the gap between repetitions.

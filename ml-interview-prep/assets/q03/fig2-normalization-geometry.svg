@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="330" font-family="Arial, sans-serif">
+  <rect width="820" height="330" fill="#f8f9fa" rx="8"/>
+  <text x="410" y="26" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">BatchNorm Fails with Variable-Length Sequences</text>
+
+  <defs>
+    <marker id="arr3" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#5b6675"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#e05252"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#0e8a6e"/>
+    </marker>
+  </defs>
+
+  <!-- ======= TOP SECTION: BatchNorm ======= -->
+  <text x="30" y="55" font-size="13" font-weight="bold" fill="#e05252">BatchNorm approach</text>
+  <text x="30" y="70" font-size="11" fill="#5b6675">Statistics computed across the batch at each position — PAD tokens corrupt the mean/variance</text>
+
+  <!-- Seq 1: [tok1, tok2, tok3, tok4, PAD, PAD] -->
+  <text x="30" y="92" font-size="11" fill="#333" font-weight="bold">Seq 1:</text>
+  <rect x="85" y="78" width="60" height="28" rx="4" fill="#1f4fa3"/>
+  <text x="115" y="97" text-anchor="middle" font-size="11" fill="white" font-weight="bold">tok1</text>
+  <rect x="153" y="78" width="60" height="28" rx="4" fill="#1f4fa3"/>
+  <text x="183" y="97" text-anchor="middle" font-size="11" fill="white" font-weight="bold">tok2</text>
+  <rect x="221" y="78" width="60" height="28" rx="4" fill="#1f4fa3"/>
+  <text x="251" y="97" text-anchor="middle" font-size="11" fill="white" font-weight="bold">tok3</text>
+  <rect x="289" y="78" width="60" height="28" rx="4" fill="#1f4fa3"/>
+  <text x="319" y="97" text-anchor="middle" font-size="11" fill="white" font-weight="bold">tok4</text>
+  <rect x="357" y="78" width="60" height="28" rx="4" fill="#9aacbe" stroke="#ccc"/>
+  <text x="387" y="97" text-anchor="middle" font-size="11" fill="white" font-weight="bold">PAD</text>
+  <rect x="425" y="78" width="60" height="28" rx="4" fill="#9aacbe" stroke="#ccc"/>
+  <text x="455" y="97" text-anchor="middle" font-size="11" fill="white" font-weight="bold">PAD</text>
+
+  <!-- Seq 2: [tok1, tok2, PAD, PAD, PAD, PAD] -->
+  <text x="30" y="128" font-size="11" fill="#333" font-weight="bold">Seq 2:</text>
+  <rect x="85" y="114" width="60" height="28" rx="4" fill="#1f4fa3"/>
+  <text x="115" y="133" text-anchor="middle" font-size="11" fill="white" font-weight="bold">tok1</text>
+  <rect x="153" y="114" width="60" height="28" rx="4" fill="#1f4fa3"/>
+  <text x="183" y="133" text-anchor="middle" font-size="11" fill="white" font-weight="bold">tok2</text>
+  <rect x="221" y="114" width="60" height="28" rx="4" fill="#9aacbe" stroke="#ccc"/>
+  <text x="251" y="133" text-anchor="middle" font-size="11" fill="white" font-weight="bold">PAD</text>
+  <rect x="289" y="114" width="60" height="28" rx="4" fill="#9aacbe" stroke="#ccc"/>
+  <text x="319" y="133" text-anchor="middle" font-size="11" fill="white" font-weight="bold">PAD</text>
+  <rect x="357" y="114" width="60" height="28" rx="4" fill="#9aacbe" stroke="#ccc"/>
+  <text x="387" y="133" text-anchor="middle" font-size="11" fill="white" font-weight="bold">PAD</text>
+  <rect x="425" y="114" width="60" height="28" rx="4" fill="#9aacbe" stroke="#ccc"/>
+  <text x="455" y="133" text-anchor="middle" font-size="11" fill="white" font-weight="bold">PAD</text>
+
+  <!-- BatchNorm: computes over batch at pos 3 (index 2) -->
+  <!-- Arrow pointing down from pos 3 column showing statistics contamination -->
+  <rect x="215" y="74" width="72" height="72" fill="none" stroke="#e05252" stroke-width="2" stroke-dasharray="4,3" rx="3"/>
+  <text x="251" y="160" text-anchor="middle" font-size="10" fill="#e05252">pos 3: batch μ,σ</text>
+  <text x="251" y="173" text-anchor="middle" font-size="10" fill="#e05252">mixes real+PAD ✗</text>
+
+  <rect x="351" y="74" width="140" height="72" fill="none" stroke="#e05252" stroke-width="2" stroke-dasharray="4,3" rx="3"/>
+  <text x="421" y="160" text-anchor="middle" font-size="10" fill="#e05252">positions 5-6: all PAD</text>
+  <text x="421" y="173" text-anchor="middle" font-size="10" fill="#e05252">statistics are meaningless ✗</text>
+
+  <text x="550" y="100" font-size="11" fill="#e05252" font-weight="bold">Problem: PAD tokens</text>
+  <text x="550" y="115" font-size="11" fill="#e05252">pollute batch statistics.</text>
+  <text x="550" y="130" font-size="11" fill="#e05252">Mean/variance at each</text>
+  <text x="550" y="145" font-size="11" fill="#e05252">position biased toward 0.</text>
+  <text x="550" y="160" font-size="11" fill="#e05252">Real token norms distorted.</text>
+
+  <!-- ======= BOTTOM SECTION: LayerNorm ======= -->
+  <text x="30" y="205" font-size="13" font-weight="bold" fill="#0e8a6e">LayerNorm approach</text>
+  <text x="30" y="220" font-size="11" fill="#5b6675">Each token normalized independently over its feature vector — PAD tokens don't affect other tokens</text>
+
+  <!-- Seq 1 -->
+  <text x="30" y="242" font-size="11" fill="#333" font-weight="bold">Seq 1:</text>
+  <rect x="85" y="228" width="60" height="28" rx="4" fill="#1f4fa3"/>
+  <text x="115" y="247" text-anchor="middle" font-size="11" fill="white" font-weight="bold">tok1</text>
+  <rect x="153" y="228" width="60" height="28" rx="4" fill="#1f4fa3"/>
+  <text x="183" y="247" text-anchor="middle" font-size="11" fill="white" font-weight="bold">tok2</text>
+  <rect x="221" y="228" width="60" height="28" rx="4" fill="#1f4fa3"/>
+  <text x="251" y="247" text-anchor="middle" font-size="11" fill="white" font-weight="bold">tok3</text>
+  <rect x="289" y="228" width="60" height="28" rx="4" fill="#1f4fa3"/>
+  <text x="319" y="247" text-anchor="middle" font-size="11" fill="white" font-weight="bold">tok4</text>
+  <rect x="357" y="228" width="60" height="28" rx="4" fill="#9aacbe" stroke="#ccc"/>
+  <text x="387" y="247" text-anchor="middle" font-size="11" fill="white" font-weight="bold">PAD</text>
+  <rect x="425" y="228" width="60" height="28" rx="4" fill="#9aacbe" stroke="#ccc"/>
+  <text x="455" y="247" text-anchor="middle" font-size="11" fill="white" font-weight="bold">PAD</text>
+
+  <!-- Individual LN arrows -->
+  <line x1="115" y1="256" x2="115" y2="270" stroke="#0e8a6e" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="115" y="282" text-anchor="middle" font-size="9" fill="#0e8a6e">LN ✓</text>
+  <line x1="183" y1="256" x2="183" y2="270" stroke="#0e8a6e" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="183" y="282" text-anchor="middle" font-size="9" fill="#0e8a6e">LN ✓</text>
+  <line x1="251" y1="256" x2="251" y2="270" stroke="#0e8a6e" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="251" y="282" text-anchor="middle" font-size="9" fill="#0e8a6e">LN ✓</text>
+  <line x1="319" y1="256" x2="319" y2="270" stroke="#0e8a6e" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="319" y="282" text-anchor="middle" font-size="9" fill="#0e8a6e">LN ✓</text>
+  <line x1="387" y1="256" x2="387" y2="270" stroke="#9aacbe" stroke-width="1.5"/>
+  <text x="387" y="282" text-anchor="middle" font-size="9" fill="#9aacbe">skip</text>
+  <line x1="455" y1="256" x2="455" y2="270" stroke="#9aacbe" stroke-width="1.5"/>
+  <text x="455" y="282" text-anchor="middle" font-size="9" fill="#9aacbe">skip</text>
+
+  <text x="550" y="248" font-size="11" fill="#0e8a6e" font-weight="bold">Solution: each token's</text>
+  <text x="550" y="263" font-size="11" fill="#0e8a6e">features normalized</text>
+  <text x="550" y="278" font-size="11" fill="#0e8a6e">independently. PAD tokens</text>
+  <text x="550" y="293" font-size="11" fill="#0e8a6e">have zero cross-token effect. ✓</text>
+
+  <!-- Legend -->
+  <rect x="30" y="308" width="14" height="12" rx="2" fill="#1f4fa3"/>
+  <text x="50" y="319" font-size="11" fill="#333">Real token</text>
+  <rect x="140" y="308" width="14" height="12" rx="2" fill="#9aacbe"/>
+  <text x="160" y="319" font-size="11" fill="#333">PAD token (zero content)</text>
+</svg>
