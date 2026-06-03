@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="820" height="310" viewBox="0 0 820 310" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif">
+  <rect width="820" height="310" fill="#f8f9fa" rx="8"/>
+
+  <!-- Title -->
+  <text x="410" y="22" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f4fa3">ALiBi Bias Matrix: Different Slopes Create Different Attention Ranges</text>
+
+  <!-- ===========================
+       LEFT: Head 1 lambda=0.5
+  =========================== -->
+  <rect x="20" y="32" width="375" height="240" fill="#ffffff" rx="6" stroke="#d0d5dd" stroke-width="1"/>
+  <text x="207" y="52" text-anchor="middle" font-size="12" font-weight="bold" fill="#c77a12">Head 1: λ=0.5 (local)</text>
+
+  <!-- Grid: 6x6, cell size ~48x30, starting at x=40, y=62 -->
+  <!-- cell(i,j): value = -0.5 * |i-j|, i=row 0..5, j=col 0..5 -->
+  <!-- Colors: 0→white, 0.5→light orange, 1.0→med orange, 1.5→dark orange, 2.0→darker, 2.5→darkest -->
+
+  <!-- Color scale: distance d, color = interpolate between #ffffff (d=0) and #7b3a00 (d=5) -->
+  <!-- d=0: #ffffff  d=1: #fde8c8  d=2: #f8c882  d=3: #e8992e  d=4: #c77a12  d=5: #8c5200 -->
+
+  <!-- Row 0 -->
+  <!-- (0,0) d=0 val=0 -->
+  <rect x="42" y="62" width="52" height="30" fill="#ffffff" stroke="#ccc" stroke-width="0.5"/>
+  <text x="68" y="82" text-anchor="middle" font-size="10" fill="#333">0</text>
+  <!-- (0,1) d=1 val=-0.5 -->
+  <rect x="94" y="62" width="52" height="30" fill="#fde8c8" stroke="#ccc" stroke-width="0.5"/>
+  <text x="120" y="82" text-anchor="middle" font-size="10" fill="#333">−0.5</text>
+  <!-- (0,2) d=2 val=-1.0 -->
+  <rect x="146" y="62" width="52" height="30" fill="#f8c882" stroke="#ccc" stroke-width="0.5"/>
+  <text x="172" y="82" text-anchor="middle" font-size="10" fill="#333">−1.0</text>
+  <!-- (0,3) d=3 val=-1.5 -->
+  <rect x="198" y="62" width="52" height="30" fill="#e8992e" stroke="#ccc" stroke-width="0.5"/>
+  <text x="224" y="82" text-anchor="middle" font-size="10" fill="#fff">−1.5</text>
+  <!-- (0,4) d=4 val=-2.0 -->
+  <rect x="250" y="62" width="52" height="30" fill="#c77a12" stroke="#ccc" stroke-width="0.5"/>
+  <text x="276" y="82" text-anchor="middle" font-size="10" fill="#fff">−2.0</text>
+  <!-- (0,5) d=5 val=-2.5 -->
+  <rect x="302" y="62" width="52" height="30" fill="#8c5200" stroke="#ccc" stroke-width="0.5"/>
+  <text x="328" y="82" text-anchor="middle" font-size="10" fill="#fff">−2.5</text>
+
+  <!-- Row 1 -->
+  <rect x="42" y="92" width="52" height="30" fill="#fde8c8" stroke="#ccc" stroke-width="0.5"/>
+  <text x="68" y="112" text-anchor="middle" font-size="10" fill="#333">−0.5</text>
+  <rect x="94" y="92" width="52" height="30" fill="#ffffff" stroke="#ccc" stroke-width="0.5"/>
+  <text x="120" y="112" text-anchor="middle" font-size="10" fill="#333">0</text>
+  <rect x="146" y="92" width="52" height="30" fill="#fde8c8" stroke="#ccc" stroke-width="0.5"/>
+  <text x="172" y="112" text-anchor="middle" font-size="10" fill="#333">−0.5</text>
+  <rect x="198" y="92" width="52" height="30" fill="#f8c882" stroke="#ccc" stroke-width="0.5"/>
+  <text x="224" y="112" text-anchor="middle" font-size="10" fill="#333">−1.0</text>
+  <rect x="250" y="92" width="52" height="30" fill="#e8992e" stroke="#ccc" stroke-width="0.5"/>
+  <text x="276" y="112" text-anchor="middle" font-size="10" fill="#fff">−1.5</text>
+  <rect x="302" y="92" width="52" height="30" fill="#c77a12" stroke="#ccc" stroke-width="0.5"/>
+  <text x="328" y="112" text-anchor="middle" font-size="10" fill="#fff">−2.0</text>
+
+  <!-- Row 2 -->
+  <rect x="42" y="122" width="52" height="30" fill="#f8c882" stroke="#ccc" stroke-width="0.5"/>
+  <text x="68" y="142" text-anchor="middle" font-size="10" fill="#333">−1.0</text>
+  <rect x="94" y="122" width="52" height="30" fill="#fde8c8" stroke="#ccc" stroke-width="0.5"/>
+  <text x="120" y="142" text-anchor="middle" font-size="10" fill="#333">−0.5</text>
+  <rect x="146" y="122" width="52" height="30" fill="#ffffff" stroke="#ccc" stroke-width="0.5"/>
+  <text x="172" y="142" text-anchor="middle" font-size="10" fill="#333">0</text>
+  <rect x="198" y="122" width="52" height="30" fill="#fde8c8" stroke="#ccc" stroke-width="0.5"/>
+  <text x="224" y="142" text-anchor="middle" font-size="10" fill="#333">−0.5</text>
+  <rect x="250" y="122" width="52" height="30" fill="#f8c882" stroke="#ccc" stroke-width="0.5"/>
+  <text x="276" y="142" text-anchor="middle" font-size="10" fill="#333">−1.0</text>
+  <rect x="302" y="122" width="52" height="30" fill="#e8992e" stroke="#ccc" stroke-width="0.5"/>
+  <text x="328" y="142" text-anchor="middle" font-size="10" fill="#fff">−1.5</text>
+
+  <!-- Row 3 -->
+  <rect x="42" y="152" width="52" height="30" fill="#e8992e" stroke="#ccc" stroke-width="0.5"/>
+  <text x="68" y="172" text-anchor="middle" font-size="10" fill="#fff">−1.5</text>
+  <rect x="94" y="152" width="52" height="30" fill="#f8c882" stroke="#ccc" stroke-width="0.5"/>
+  <text x="120" y="172" text-anchor="middle" font-size="10" fill="#333">−1.0</text>
+  <rect x="146" y="152" width="52" height="30" fill="#fde8c8" stroke="#ccc" stroke-width="0.5"/>
+  <text x="172" y="172" text-anchor="middle" font-size="10" fill="#333">−0.5</text>
+  <rect x="198" y="152" width="52" height="30" fill="#ffffff" stroke="#ccc" stroke-width="0.5"/>
+  <text x="224" y="172" text-anchor="middle" font-size="10" fill="#333">0</text>
+  <rect x="250" y="152" width="52" height="30" fill="#fde8c8" stroke="#ccc" stroke-width="0.5"/>
+  <text x="276" y="172" text-anchor="middle" font-size="10" fill="#333">−0.5</text>
+  <rect x="302" y="152" width="52" height="30" fill="#f8c882" stroke="#ccc" stroke-width="0.5"/>
+  <text x="328" y="172" text-anchor="middle" font-size="10" fill="#333">−1.0</text>
+
+  <!-- Row 4 -->
+  <rect x="42" y="182" width="52" height="30" fill="#c77a12" stroke="#ccc" stroke-width="0.5"/>
+  <text x="68" y="202" text-anchor="middle" font-size="10" fill="#fff">−2.0</text>
+  <rect x="94" y="182" width="52" height="30" fill="#e8992e" stroke="#ccc" stroke-width="0.5"/>
+  <text x="120" y="202" text-anchor="middle" font-size="10" fill="#fff">−1.5</text>
+  <rect x="146" y="182" width="52" height="30" fill="#f8c882" stroke="#ccc" stroke-width="0.5"/>
+  <text x="172" y="202" text-anchor="middle" font-size="10" fill="#333">−1.0</text>
+  <rect x="198" y="182" width="52" height="30" fill="#fde8c8" stroke="#ccc" stroke-width="0.5"/>
+  <text x="224" y="202" text-anchor="middle" font-size="10" fill="#333">−0.5</text>
+  <rect x="250" y="182" width="52" height="30" fill="#ffffff" stroke="#ccc" stroke-width="0.5"/>
+  <text x="276" y="202" text-anchor="middle" font-size="10" fill="#333">0</text>
+  <rect x="302" y="182" width="52" height="30" fill="#fde8c8" stroke="#ccc" stroke-width="0.5"/>
+  <text x="328" y="202" text-anchor="middle" font-size="10" fill="#333">−0.5</text>
+
+  <!-- Row 5 -->
+  <rect x="42" y="212" width="52" height="30" fill="#8c5200" stroke="#ccc" stroke-width="0.5"/>
+  <text x="68" y="232" text-anchor="middle" font-size="10" fill="#fff">−2.5</text>
+  <rect x="94" y="212" width="52" height="30" fill="#c77a12" stroke="#ccc" stroke-width="0.5"/>
+  <text x="120" y="232" text-anchor="middle" font-size="10" fill="#fff">−2.0</text>
+  <rect x="146" y="212" width="52" height="30" fill="#e8992e" stroke="#ccc" stroke-width="0.5"/>
+  <text x="172" y="232" text-anchor="middle" font-size="10" fill="#fff">−1.5</text>
+  <rect x="198" y="212" width="52" height="30" fill="#f8c882" stroke="#ccc" stroke-width="0.5"/>
+  <text x="224" y="232" text-anchor="middle" font-size="10" fill="#333">−1.0</text>
+  <rect x="250" y="212" width="52" height="30" fill="#fde8c8" stroke="#ccc" stroke-width="0.5"/>
+  <text x="276" y="232" text-anchor="middle" font-size="10" fill="#333">−0.5</text>
+  <rect x="302" y="212" width="52" height="30" fill="#ffffff" stroke="#ccc" stroke-width="0.5"/>
+  <text x="328" y="232" text-anchor="middle" font-size="10" fill="#333">0</text>
+
+  <!-- Row/Col labels left panel -->
+  <text x="30" y="82" text-anchor="middle" font-size="9" fill="#5b6675">0</text>
+  <text x="30" y="112" text-anchor="middle" font-size="9" fill="#5b6675">1</text>
+  <text x="30" y="142" text-anchor="middle" font-size="9" fill="#5b6675">2</text>
+  <text x="30" y="172" text-anchor="middle" font-size="9" fill="#5b6675">3</text>
+  <text x="30" y="202" text-anchor="middle" font-size="9" fill="#5b6675">4</text>
+  <text x="30" y="232" text-anchor="middle" font-size="9" fill="#5b6675">5</text>
+  <text x="68" y="58" text-anchor="middle" font-size="9" fill="#5b6675">0</text>
+  <text x="120" y="58" text-anchor="middle" font-size="9" fill="#5b6675">1</text>
+  <text x="172" y="58" text-anchor="middle" font-size="9" fill="#5b6675">2</text>
+  <text x="224" y="58" text-anchor="middle" font-size="9" fill="#5b6675">3</text>
+  <text x="276" y="58" text-anchor="middle" font-size="9" fill="#5b6675">4</text>
+  <text x="328" y="58" text-anchor="middle" font-size="9" fill="#5b6675">5</text>
+  <text x="207" y="258" text-anchor="middle" font-size="10" fill="#c77a12">−λ×|i−j| = −0.5×|i−j|</text>
+
+  <!-- ===========================
+       RIGHT: Head 4 lambda=0.0625
+  =========================== -->
+  <!-- Colors: tiny values → mostly very light. Scale: max penalty = 5*0.0625=0.3125 → barely any color -->
+  <!-- Use very light orange for all non-zero -->
+  <!-- d=0:#ffffff, d=1:#fef8f0, d=2:#fdf3e2, d=3:#fce8c8, d=4:#fad8a0, d=5:#f8c882 -->
+
+  <rect x="425" y="32" width="375" height="240" fill="#ffffff" rx="6" stroke="#d0d5dd" stroke-width="1"/>
+  <text x="612" y="52" text-anchor="middle" font-size="12" font-weight="bold" fill="#0e8a6e">Head 4: λ=0.0625 (global)</text>
+
+  <!-- Row 0 -->
+  <rect x="447" y="62" width="52" height="30" fill="#ffffff" stroke="#ccc" stroke-width="0.5"/>
+  <text x="473" y="82" text-anchor="middle" font-size="10" fill="#333">0</text>
+  <rect x="499" y="62" width="52" height="30" fill="#fef8f0" stroke="#ccc" stroke-width="0.5"/>
+  <text x="525" y="82" text-anchor="middle" font-size="10" fill="#555">−0.06</text>
+  <rect x="551" y="62" width="52" height="30" fill="#fdf3e2" stroke="#ccc" stroke-width="0.5"/>
+  <text x="577" y="82" text-anchor="middle" font-size="10" fill="#555">−0.13</text>
+  <rect x="603" y="62" width="52" height="30" fill="#fce8c8" stroke="#ccc" stroke-width="0.5"/>
+  <text x="629" y="82" text-anchor="middle" font-size="10" fill="#555">−0.19</text>
+  <rect x="655" y="62" width="52" height="30" fill="#fad8a0" stroke="#ccc" stroke-width="0.5"/>
+  <text x="681" y="82" text-anchor="middle" font-size="10" fill="#555">−0.25</text>
+  <rect x="707" y="62" width="52" height="30" fill="#f8c882" stroke="#ccc" stroke-width="0.5"/>
+  <text x="733" y="82" text-anchor="middle" font-size="10" fill="#555">−0.31</text>
+
+  <!-- Row 1 -->
+  <rect x="447" y="92" width="52" height="30" fill="#fef8f0" stroke="#ccc" stroke-width="0.5"/>
+  <text x="473" y="112" text-anchor="middle" font-size="10" fill="#555">−0.06</text>
+  <rect x="499" y="92" width="52" height="30" fill="#ffffff" stroke="#ccc" stroke-width="0.5"/>
+  <text x="525" y="112" text-anchor="middle" font-size="10" fill="#333">0</text>
+  <rect x="551" y="92" width="52" height="30" fill="#fef8f0" stroke="#ccc" stroke-width="0.5"/>
+  <text x="577" y="112" text-anchor="middle" font-size="10" fill="#555">−0.06</text>
+  <rect x="603" y="92" width="52" height="30" fill="#fdf3e2" stroke="#ccc" stroke-width="0.5"/>
+  <text x="629" y="112" text-anchor="middle" font-size="10" fill="#555">−0.13</text>
+  <rect x="655" y="92" width="52" height="30" fill="#fce8c8" stroke="#ccc" stroke-width="0.5"/>
+  <text x="681" y="112" text-anchor="middle" font-size="10" fill="#555">−0.19</text>
+  <rect x="707" y="92" width="52" height="30" fill="#fad8a0" stroke="#ccc" stroke-width="0.5"/>
+  <text x="733" y="112" text-anchor="middle" font-size="10" fill="#555">−0.25</text>
+
+  <!-- Row 2 -->
+  <rect x="447" y="122" width="52" height="30" fill="#fdf3e2" stroke="#ccc" stroke-width="0.5"/>
+  <text x="473" y="142" text-anchor="middle" font-size="10" fill="#555">−0.13</text>
+  <rect x="499" y="122" width="52" height="30" fill="#fef8f0" stroke="#ccc" stroke-width="0.5"/>
+  <text x="525" y="142" text-anchor="middle" font-size="10" fill="#555">−0.06</text>
+  <rect x="551" y="122" width="52" height="30" fill="#ffffff" stroke="#ccc" stroke-width="0.5"/>
+  <text x="577" y="142" text-anchor="middle" font-size="10" fill="#333">0</text>
+  <rect x="603" y="122" width="52" height="30" fill="#fef8f0" stroke="#ccc" stroke-width="0.5"/>
+  <text x="629" y="142" text-anchor="middle" font-size="10" fill="#555">−0.06</text>
+  <rect x="655" y="122" width="52" height="30" fill="#fdf3e2" stroke="#ccc" stroke-width="0.5"/>
+  <text x="681" y="142" text-anchor="middle" font-size="10" fill="#555">−0.13</text>
+  <rect x="707" y="122" width="52" height="30" fill="#fce8c8" stroke="#ccc" stroke-width="0.5"/>
+  <text x="733" y="142" text-anchor="middle" font-size="10" fill="#555">−0.19</text>
+
+  <!-- Row 3 -->
+  <rect x="447" y="152" width="52" height="30" fill="#fce8c8" stroke="#ccc" stroke-width="0.5"/>
+  <text x="473" y="172" text-anchor="middle" font-size="10" fill="#555">−0.19</text>
+  <rect x="499" y="152" width="52" height="30" fill="#fdf3e2" stroke="#ccc" stroke-width="0.5"/>
+  <text x="525" y="172" text-anchor="middle" font-size="10" fill="#555">−0.13</text>
+  <rect x="551" y="152" width="52" height="30" fill="#fef8f0" stroke="#ccc" stroke-width="0.5"/>
+  <text x="577" y="172" text-anchor="middle" font-size="10" fill="#555">−0.06</text>
+  <rect x="603" y="152" width="52" height="30" fill="#ffffff" stroke="#ccc" stroke-width="0.5"/>
+  <text x="629" y="172" text-anchor="middle" font-size="10" fill="#333">0</text>
+  <rect x="655" y="152" width="52" height="30" fill="#fef8f0" stroke="#ccc" stroke-width="0.5"/>
+  <text x="681" y="172" text-anchor="middle" font-size="10" fill="#555">−0.06</text>
+  <rect x="707" y="152" width="52" height="30" fill="#fdf3e2" stroke="#ccc" stroke-width="0.5"/>
+  <text x="733" y="172" text-anchor="middle" font-size="10" fill="#555">−0.13</text>
+
+  <!-- Row 4 -->
+  <rect x="447" y="182" width="52" height="30" fill="#fad8a0" stroke="#ccc" stroke-width="0.5"/>
+  <text x="473" y="202" text-anchor="middle" font-size="10" fill="#555">−0.25</text>
+  <rect x="499" y="182" width="52" height="30" fill="#fce8c8" stroke="#ccc" stroke-width="0.5"/>
+  <text x="525" y="202" text-anchor="middle" font-size="10" fill="#555">−0.19</text>
+  <rect x="551" y="182" width="52" height="30" fill="#fdf3e2" stroke="#ccc" stroke-width="0.5"/>
+  <text x="577" y="202" text-anchor="middle" font-size="10" fill="#555">−0.13</text>
+  <rect x="603" y="182" width="52" height="30" fill="#fef8f0" stroke="#ccc" stroke-width="0.5"/>
+  <text x="629" y="202" text-anchor="middle" font-size="10" fill="#555">−0.06</text>
+  <rect x="655" y="182" width="52" height="30" fill="#ffffff" stroke="#ccc" stroke-width="0.5"/>
+  <text x="681" y="202" text-anchor="middle" font-size="10" fill="#333">0</text>
+  <rect x="707" y="182" width="52" height="30" fill="#fef8f0" stroke="#ccc" stroke-width="0.5"/>
+  <text x="733" y="202" text-anchor="middle" font-size="10" fill="#555">−0.06</text>
+
+  <!-- Row 5 -->
+  <rect x="447" y="212" width="52" height="30" fill="#f8c882" stroke="#ccc" stroke-width="0.5"/>
+  <text x="473" y="232" text-anchor="middle" font-size="10" fill="#555">−0.31</text>
+  <rect x="499" y="212" width="52" height="30" fill="#fad8a0" stroke="#ccc" stroke-width="0.5"/>
+  <text x="525" y="232" text-anchor="middle" font-size="10" fill="#555">−0.25</text>
+  <rect x="551" y="212" width="52" height="30" fill="#fce8c8" stroke="#ccc" stroke-width="0.5"/>
+  <text x="577" y="232" text-anchor="middle" font-size="10" fill="#555">−0.19</text>
+  <rect x="603" y="212" width="52" height="30" fill="#fdf3e2" stroke="#ccc" stroke-width="0.5"/>
+  <text x="629" y="232" text-anchor="middle" font-size="10" fill="#555">−0.13</text>
+  <rect x="655" y="212" width="52" height="30" fill="#fef8f0" stroke="#ccc" stroke-width="0.5"/>
+  <text x="681" y="232" text-anchor="middle" font-size="10" fill="#555">−0.06</text>
+  <rect x="707" y="212" width="52" height="30" fill="#ffffff" stroke="#ccc" stroke-width="0.5"/>
+  <text x="733" y="232" text-anchor="middle" font-size="10" fill="#333">0</text>
+
+  <!-- Row/Col labels right panel -->
+  <text x="435" y="82" text-anchor="middle" font-size="9" fill="#5b6675">0</text>
+  <text x="435" y="112" text-anchor="middle" font-size="9" fill="#5b6675">1</text>
+  <text x="435" y="142" text-anchor="middle" font-size="9" fill="#5b6675">2</text>
+  <text x="435" y="172" text-anchor="middle" font-size="9" fill="#5b6675">3</text>
+  <text x="435" y="202" text-anchor="middle" font-size="9" fill="#5b6675">4</text>
+  <text x="435" y="232" text-anchor="middle" font-size="9" fill="#5b6675">5</text>
+  <text x="473" y="58" text-anchor="middle" font-size="9" fill="#5b6675">0</text>
+  <text x="525" y="58" text-anchor="middle" font-size="9" fill="#5b6675">1</text>
+  <text x="577" y="58" text-anchor="middle" font-size="9" fill="#5b6675">2</text>
+  <text x="629" y="58" text-anchor="middle" font-size="9" fill="#5b6675">3</text>
+  <text x="681" y="58" text-anchor="middle" font-size="9" fill="#5b6675">4</text>
+  <text x="733" y="58" text-anchor="middle" font-size="9" fill="#5b6675">5</text>
+  <text x="612" y="258" text-anchor="middle" font-size="10" fill="#0e8a6e">−λ×|i−j| = −0.0625×|i−j|</text>
+
+  <!-- Bottom annotation -->
+  <text x="410" y="294" text-anchor="middle" font-size="10" fill="#5b6675" font-style="italic">Head 1 strongly penalizes distance → local attention.  Head 4 barely penalizes → global attention.</text>
+</svg>

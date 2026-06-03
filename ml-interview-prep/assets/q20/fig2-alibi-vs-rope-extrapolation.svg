@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="820" height="300" viewBox="0 0 820 300" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif">
+  <defs>
+    <marker id="ax2" markerWidth="7" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 7 3, 0 6" fill="#5b6675"/>
+    </marker>
+    <clipPath id="lineClip">
+      <rect x="65" y="38" width="290" height="185"/>
+    </clipPath>
+  </defs>
+
+  <rect width="820" height="300" fill="#f8f9fa" rx="8"/>
+
+  <!-- Title -->
+  <text x="410" y="20" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1f4fa3">ALiBi: Excellent Perplexity Extrapolation, but Recency Prior Limits Long-Range Recall</text>
+
+  <!-- ==============================
+       LEFT PANEL: Perplexity line chart
+  ============================== -->
+  <rect x="15" y="28" width="390" height="240" fill="#ffffff" rx="6" stroke="#d0d5dd" stroke-width="1"/>
+  <text x="210" y="46" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f4fa3">Perplexity Extrapolation</text>
+
+  <!-- Chart area: x 65-355, y 38-223 -->
+  <rect x="65" y="50" width="290" height="173" fill="#f8f9fa" rx="2" stroke="#e0e0e0" stroke-width="1"/>
+
+  <!-- X: 512-8192, range=7680, width=290px. scale=290/7680=0.0378 -->
+  <!-- x=1024: 65+(1024-512)*0.0378=65+19.4=84 -->
+  <!-- x=2048: 65+(2048-512)*0.0378=65+58=123 -->
+  <!-- x=4096: 65+(4096-512)*0.0378=65+135.5=200.5 -->
+  <!-- x=8192: 65+290=355 -->
+  <!-- Y: 8-50, range=42, height=173. scale=173/42=4.12 -->
+  <!-- ppl=11: 223-(11-8)*4.12=223-12.4=210.6 -->
+  <!-- ppl=14: 223-(14-8)*4.12=223-24.7=198.3 -->
+  <!-- ppl=50: 223-(50-8)*4.12=223-173=50 -->
+
+  <!-- Y gridlines -->
+  <line x1="65" y1="173" x2="355" y2="173" stroke="#e0e0e0" stroke-width="0.7"/>  <!-- ppl=20: 223-(20-8)*4.12=223-49.4=173.6 ≈ 174 -->
+  <line x1="65" y1="132" x2="355" y2="132" stroke="#e0e0e0" stroke-width="0.7"/>  <!-- ppl=30: 223-90.6=132 -->
+  <line x1="65" y1="91" x2="355" y2="91" stroke="#e0e0e0" stroke-width="0.7"/>   <!-- ppl=40: 223-131.8=91 -->
+
+  <!-- Y labels -->
+  <text x="60" y="54" text-anchor="end" font-size="9" fill="#5b6675">50</text>
+  <text x="60" y="95" text-anchor="end" font-size="9" fill="#5b6675">40</text>
+  <text x="60" y="136" text-anchor="end" font-size="9" fill="#5b6675">30</text>
+  <text x="60" y="177" text-anchor="end" font-size="9" fill="#5b6675">20</text>
+  <text x="60" y="227" text-anchor="end" font-size="9" fill="#5b6675">8</text>
+  <text x="18" y="140" text-anchor="middle" font-size="10" fill="#5b6675" transform="rotate(-90,18,140)">Perplexity</text>
+
+  <!-- Training cutoff dashed at x=1024 → chart x=84 -->
+  <line x1="84" y1="50" x2="84" y2="235" stroke="#c77a12" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="87" y="62" font-size="8" fill="#c77a12">train</text>
+  <text x="87" y="72" font-size="8" fill="#c77a12">cutoff</text>
+
+  <!-- Axes -->
+  <line x1="65" y1="223" x2="358" y2="223" stroke="#5b6675" stroke-width="1.5" marker-end="url(#ax2)"/>
+  <line x1="65" y1="223" x2="65" y2="46" stroke="#5b6675" stroke-width="1.5" marker-end="url(#ax2)"/>
+
+  <!-- X tick labels -->
+  <text x="65" y="236" text-anchor="middle" font-size="9" fill="#5b6675">512</text>
+  <text x="84" y="236" text-anchor="middle" font-size="9" fill="#c77a12">1k</text>
+  <text x="123" y="236" text-anchor="middle" font-size="9" fill="#5b6675">2k</text>
+  <text x="201" y="236" text-anchor="middle" font-size="9" fill="#5b6675">4k</text>
+  <text x="355" y="236" text-anchor="middle" font-size="9" fill="#5b6675">8k</text>
+  <text x="210" y="250" text-anchor="middle" font-size="10" fill="#5b6675">Context length</text>
+
+  <!-- ALiBi (green): flat ~11 from 512-8192 -->
+  <!-- y(11) = 223-(11-8)*4.12=223-12.4=210.6 -->
+  <line x1="65" y1="211" x2="355" y2="211" stroke="#0e8a6e" stroke-width="2.5" clip-path="url(#lineClip)"/>
+
+  <!-- RoPE+NTK (blue): flat to ~3000, slight rise to 14 at 8192 -->
+  <!-- x=3000: 65+(3000-512)*0.0378=65+94=159 -->
+  <!-- y(14)=198.3 -->
+  <polyline points="65,211 159,211 355,198" fill="none" stroke="#1f4fa3" stroke-width="2.5" clip-path="url(#lineClip)"/>
+
+  <!-- Absolute PE (red): flat then cliff at 1024 → spikes off chart -->
+  <!-- Cliff at x=84, spike to 50+ (y=50) -->
+  <polyline points="65,211 84,211 100,50" fill="none" stroke="#e05252" stroke-width="2.5" clip-path="url(#lineClip)"/>
+
+  <!-- Legend -->
+  <rect x="73" y="57" width="145" height="60" fill="white" rx="3" stroke="#d0d5dd" stroke-width="1" opacity="0.95"/>
+  <line x1="80" y1="70" x2="100" y2="70" stroke="#0e8a6e" stroke-width="2"/>
+  <text x="105" y="74" font-size="9" fill="#0e8a6e">ALiBi</text>
+  <line x1="80" y1="84" x2="100" y2="84" stroke="#1f4fa3" stroke-width="2"/>
+  <text x="105" y="88" font-size="9" fill="#1f4fa3">RoPE+NTK</text>
+  <line x1="80" y1="98" x2="100" y2="98" stroke="#e05252" stroke-width="2"/>
+  <text x="105" y="102" font-size="9" fill="#e05252">Absolute PE</text>
+
+  <!-- Annotation -->
+  <text x="210" y="265" text-anchor="middle" font-size="9" fill="#0e8a6e" font-weight="bold">ALiBi: best perplexity extrapolation</text>
+
+  <!-- ==============================
+       RIGHT PANEL: Needle-in-haystack bar chart
+  ============================== -->
+  <rect x="415" y="28" width="390" height="240" fill="#ffffff" rx="6" stroke="#d0d5dd" stroke-width="1"/>
+  <text x="610" y="46" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f4fa3">Needle-in-Haystack Accuracy</text>
+
+  <!-- Bar chart: 3 bars -->
+  <!-- Y: 0-100%, height 173px → scale=1.73px/% -->
+  <!-- ALiBi: 68% → height=117.6, RoPE+NTK: 88% → 152.2, Abs: 31% → 53.6 -->
+  <!-- Bars starting y=223, going up -->
+  <!-- Bar positions: x=470 (ALiBi), x=560 (RoPE), x=650 (Abs) -->
+
+  <!-- Y axis for bar chart -->
+  <line x1="455" y1="223" x2="455" y2="46" stroke="#5b6675" stroke-width="1.5" marker-end="url(#ax2)"/>
+  <line x1="455" y1="223" x2="740" y2="223" stroke="#5b6675" stroke-width="1.5" marker-end="url(#ax2)"/>
+
+  <!-- Y gridlines and labels -->
+  <line x1="455" y1="50" x2="730" y2="50" stroke="#e0e0e0" stroke-width="0.7"/>  <!-- 100% -->
+  <line x1="455" y1="136" x2="730" y2="136" stroke="#e0e0e0" stroke-width="0.7"/> <!-- 50% -->
+  <text x="450" y="54" text-anchor="end" font-size="9" fill="#5b6675">100%</text>
+  <text x="450" y="140" text-anchor="end" font-size="9" fill="#5b6675">50%</text>
+  <text x="450" y="227" text-anchor="end" font-size="9" fill="#5b6675">0%</text>
+  <text x="430" y="140" text-anchor="middle" font-size="10" fill="#5b6675" transform="rotate(-90,430,140)">Accuracy</text>
+
+  <!-- ALiBi bar: 68% → height=117.6, top y=223-117.6=105 -->
+  <rect x="480" y="105" width="65" height="118" fill="#0e8a6e" rx="3" opacity="0.85"/>
+  <text x="512" y="100" text-anchor="middle" font-size="11" font-weight="bold" fill="#0e8a6e">68%</text>
+  <text x="512" y="237" text-anchor="middle" font-size="10" fill="#0e8a6e">ALiBi</text>
+
+  <!-- RoPE+NTK bar: 88% → height=152.2, top y=223-152=71 -->
+  <rect x="570" y="71" width="65" height="152" fill="#1f4fa3" rx="3" opacity="0.85"/>
+  <text x="602" y="66" text-anchor="middle" font-size="11" font-weight="bold" fill="#1f4fa3">88%</text>
+  <text x="602" y="237" text-anchor="middle" font-size="10" fill="#1f4fa3">RoPE+NTK</text>
+
+  <!-- Absolute PE bar: 31% → height=53.6, top y=223-54=169 -->
+  <rect x="660" y="169" width="65" height="54" fill="#e05252" rx="3" opacity="0.85"/>
+  <text x="692" y="164" text-anchor="middle" font-size="11" font-weight="bold" fill="#e05252">31%</text>
+  <text x="692" y="237" text-anchor="middle" font-size="10" fill="#e05252">Absolute PE</text>
+
+  <!-- Annotations -->
+  <!-- ALiBi annotation -->
+  <line x1="480" y1="150" x2="460" y2="150" stroke="#c77a12" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="458" y="118" font-size="8" fill="#c77a12" text-anchor="end">Recency bias</text>
+  <text x="458" y="129" font-size="8" fill="#c77a12" text-anchor="end">penalizes distant</text>
+  <text x="458" y="140" font-size="8" fill="#c77a12" text-anchor="end">tokens — hurts</text>
+  <text x="458" y="151" font-size="8" fill="#c77a12" text-anchor="end">retrieval</text>
+
+  <!-- RoPE annotation -->
+  <line x1="635" y1="120" x2="655" y2="120" stroke="#1f4fa3" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="658" y="110" font-size="8" fill="#1f4fa3">No recency prior</text>
+  <text x="658" y="121" font-size="8" fill="#1f4fa3">→ better long-</text>
+  <text x="658" y="132" font-size="8" fill="#1f4fa3">range recall</text>
+
+  <text x="610" y="265" text-anchor="middle" font-size="9" fill="#5b6675" font-style="italic">Needle-in-haystack: retrieve specific token from long context</text>
+</svg>

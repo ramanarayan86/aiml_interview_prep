@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="820" height="310" viewBox="0 0 820 310" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif">
+  <defs>
+    <marker id="arrd" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto">
+      <polygon points="0 0, 8 3.5, 0 7" fill="#5b6675"/>
+    </marker>
+    <marker id="arrb" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto">
+      <polygon points="0 0, 8 3.5, 0 7" fill="#1f4fa3"/>
+    </marker>
+    <marker id="arrg" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto">
+      <polygon points="0 0, 8 3.5, 0 7" fill="#0e8a6e"/>
+    </marker>
+    <marker id="arro" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto">
+      <polygon points="0 0, 8 3.5, 0 7" fill="#c77a12"/>
+    </marker>
+  </defs>
+
+  <rect width="820" height="310" fill="#f8f9fa" rx="8"/>
+
+  <!-- Title -->
+  <text x="410" y="22" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f4fa3">Sequential vs Parallel Transformer Block</text>
+
+  <!-- ==============================
+       LEFT: Sequential Block
+  ============================== -->
+  <rect x="15" y="32" width="385" height="265" fill="#ffffff" rx="6" stroke="#d0d5dd" stroke-width="1.5"/>
+  <text x="207" y="52" text-anchor="middle" font-size="12" font-weight="bold" fill="#c77a12">Sequential Block (standard — LLaMA, Mistral)</text>
+
+  <!-- x input box -->
+  <rect x="158" y="62" width="100" height="28" rx="5" fill="#e8eef8" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="208" y="81" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f4fa3">x</text>
+
+  <!-- Skip connection line from x going right -->
+  <line x1="258" y1="76" x2="330" y2="76" stroke="#5b6675" stroke-width="1.5"/>
+  <line x1="330" y1="76" x2="330" y2="148" stroke="#5b6675" stroke-width="1.5"/>
+
+  <!-- Arrow x → LN1 -->
+  <line x1="208" y1="90" x2="208" y2="106" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrd)"/>
+
+  <!-- LN1 box -->
+  <rect x="158" y="106" width="100" height="28" rx="5" fill="#e0f5f0" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="208" y="125" text-anchor="middle" font-size="11" fill="#0e8a6e" font-weight="bold">LN₁</text>
+
+  <!-- Arrow LN1 → Attention -->
+  <line x1="208" y1="134" x2="208" y2="148" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrd)"/>
+
+  <!-- Attention box -->
+  <rect x="133" y="148" width="150" height="32" rx="5" fill="#e8eef8" stroke="#1f4fa3" stroke-width="2"/>
+  <text x="208" y="169" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f4fa3">Attention</text>
+
+  <!-- Skip add ⊕ (after attention) -->
+  <line x1="208" y1="180" x2="208" y2="195" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrd)"/>
+  <!-- Skip from x arrives here -->
+  <line x1="330" y1="148" x2="330" y2="200" stroke="#5b6675" stroke-width="1.5"/>
+  <line x1="330" y1="200" x2="232" y2="200" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrd)"/>
+
+  <!-- ⊕ circle -->
+  <circle cx="208" cy="200" r="12" fill="white" stroke="#1f4fa3" stroke-width="2"/>
+  <text x="208" y="205" text-anchor="middle" font-size="14" fill="#1f4fa3" font-weight="bold">⊕</text>
+
+  <!-- h1 label and arrow -->
+  <line x1="208" y1="212" x2="208" y2="225" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrd)"/>
+  <text x="218" y="222" font-size="10" fill="#5b6675">h₁</text>
+
+  <!-- LN2 box -->
+  <rect x="158" y="225" width="100" height="28" rx="5" fill="#e0f5f0" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="208" y="244" text-anchor="middle" font-size="11" fill="#0e8a6e" font-weight="bold">LN₂</text>
+
+  <!-- Skip from h1 going right -->
+  <line x1="258" y1="239" x2="340" y2="239" stroke="#5b6675" stroke-width="1.5"/>
+  <line x1="340" y1="239" x2="340" y2="270" stroke="#5b6675" stroke-width="1.5"/>
+
+  <!-- Arrow LN2 → FFN -->
+  <line x1="208" y1="253" x2="208" y2="262" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrd)"/>
+
+  <!-- FFN box -->
+  <rect x="143" y="262" width="130" height="32" rx="5" fill="#fff3e0" stroke="#c77a12" stroke-width="2"/>
+  <text x="208" y="283" text-anchor="middle" font-size="12" font-weight="bold" fill="#c77a12">FFN</text>
+
+  <!-- ⊕ at end, output -->
+  <line x1="208" y1="294" x2="208" y2="298" stroke="#5b6675" stroke-width="1.5"/>
+  <line x1="340" y1="270" x2="340" y2="300" stroke="#5b6675" stroke-width="1.5"/>
+  <line x1="340" y1="300" x2="232" y2="300" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrd)"/>
+  <circle cx="208" cy="300" r="10" fill="white" stroke="#1f4fa3" stroke-width="2"/>
+  <text x="208" y="305" text-anchor="middle" font-size="13" fill="#1f4fa3" font-weight="bold">⊕</text>
+
+  <!-- Output label -->
+  <text x="185" y="300" text-anchor="end" font-size="10" fill="#5b6675">output</text>
+
+  <!-- Annotations -->
+  <rect x="22" y="155" width="105" height="28" rx="4" fill="#fff3e0" stroke="#c77a12" stroke-width="1"/>
+  <text x="74" y="167" text-anchor="middle" font-size="8.5" fill="#c77a12">FFN reads ATTENTION</text>
+  <text x="74" y="178" text-anchor="middle" font-size="8.5" fill="#c77a12">OUTPUT h₁</text>
+  <line x1="127" y1="164" x2="133" y2="164" stroke="#c77a12" stroke-width="1.2" marker-end="url(#arro)"/>
+
+  <rect x="22" y="192" width="105" height="28" rx="4" fill="#e8eef8" stroke="#1f4fa3" stroke-width="1"/>
+  <text x="74" y="204" text-anchor="middle" font-size="8.5" fill="#1f4fa3">2 sequential kernel</text>
+  <text x="74" y="215" text-anchor="middle" font-size="8.5" fill="#1f4fa3">launches</text>
+  <line x1="127" y1="200" x2="145" y2="200" stroke="#1f4fa3" stroke-width="1.2" marker-end="url(#arrb)"/>
+
+  <!-- ==============================
+       RIGHT: Parallel Block
+  ============================== -->
+  <rect x="415" y="32" width="390" height="265" fill="#ffffff" rx="6" stroke="#d0d5dd" stroke-width="1.5"/>
+  <text x="610" y="52" text-anchor="middle" font-size="12" font-weight="bold" fill="#0e8a6e">Parallel Block (GPT-J, PaLM, Falcon)</text>
+
+  <!-- x input box -->
+  <rect x="560" y="62" width="100" height="28" rx="5" fill="#e8eef8" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="610" y="81" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f4fa3">x</text>
+
+  <!-- Arrow x → LN -->
+  <line x1="610" y1="90" x2="610" y2="106" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrd)"/>
+
+  <!-- Single LN box -->
+  <rect x="560" y="106" width="100" height="28" rx="5" fill="#e0f5f0" stroke="#0e8a6e" stroke-width="2"/>
+  <text x="610" y="125" text-anchor="middle" font-size="11" fill="#0e8a6e" font-weight="bold">LN</text>
+
+  <!-- Fork: two branches from LN -->
+  <line x1="610" y1="134" x2="610" y2="148" stroke="#5b6675" stroke-width="1.5"/>
+  <!-- Left branch → Attention -->
+  <line x1="610" y1="148" x2="520" y2="148" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrd)"/>
+  <!-- Right branch → FFN -->
+  <line x1="610" y1="148" x2="700" y2="148" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrd)"/>
+
+  <!-- Attention box (left branch) -->
+  <rect x="430" y="148" width="115" height="34" rx="5" fill="#e8eef8" stroke="#1f4fa3" stroke-width="2"/>
+  <text x="487" y="170" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f4fa3">Attention</text>
+
+  <!-- Δ_attn label and arrow down -->
+  <line x1="487" y1="182" x2="487" y2="210" stroke="#1f4fa3" stroke-width="1.5" marker-end="url(#arrb)"/>
+  <text x="497" y="200" font-size="10" fill="#1f4fa3">Δ_attn</text>
+
+  <!-- FFN box (right branch) -->
+  <rect x="680" y="148" width="100" height="34" rx="5" fill="#fff3e0" stroke="#c77a12" stroke-width="2"/>
+  <text x="730" y="170" text-anchor="middle" font-size="12" font-weight="bold" fill="#c77a12">FFN</text>
+
+  <!-- Δ_ffn label and arrow down -->
+  <line x1="730" y1="182" x2="730" y2="210" stroke="#c77a12" stroke-width="1.5" marker-end="url(#arro)"/>
+  <text x="740" y="200" font-size="10" fill="#c77a12">Δ_ffn</text>
+
+  <!-- Both merge at ⊕ with skip from x -->
+  <!-- Lines from Δ_attn and Δ_ffn to ⊕ at center bottom -->
+  <line x1="487" y1="210" x2="487" y2="230" stroke="#1f4fa3" stroke-width="1.5"/>
+  <line x1="487" y1="230" x2="592" y2="230" stroke="#1f4fa3" stroke-width="1.5" marker-end="url(#arrd)"/>
+  <line x1="730" y1="210" x2="730" y2="230" stroke="#c77a12" stroke-width="1.5"/>
+  <line x1="730" y1="230" x2="632" y2="230" stroke="#c77a12" stroke-width="1.5" marker-end="url(#arro)"/>
+
+  <!-- Skip from x -->
+  <line x1="660" y1="76" x2="770" y2="76" stroke="#5b6675" stroke-width="1.5"/>
+  <line x1="770" y1="76" x2="770" y2="230" stroke="#5b6675" stroke-width="1.5"/>
+  <line x1="770" y1="230" x2="640" y2="230" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrd)"/>
+
+  <!-- ⊕ circle at merge point -->
+  <circle cx="610" cy="230" r="13" fill="white" stroke="#0e8a6e" stroke-width="2"/>
+  <text x="610" y="235" text-anchor="middle" font-size="14" fill="#0e8a6e" font-weight="bold">⊕</text>
+
+  <!-- Output arrow -->
+  <line x1="610" y1="243" x2="610" y2="258" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrd)"/>
+
+  <!-- Output box -->
+  <rect x="560" y="258" width="100" height="28" rx="5" fill="#e0f5f0" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="610" y="277" text-anchor="middle" font-size="11" fill="#0e8a6e" font-weight="bold">output</text>
+
+  <!-- "FFN reads SAME LN(x)" annotation -->
+  <rect x="420" y="230" width="115" height="40" rx="4" fill="#e0f5f0" stroke="#0e8a6e" stroke-width="1"/>
+  <text x="477" y="244" text-anchor="middle" font-size="8.5" fill="#0e8a6e">FFN reads SAME</text>
+  <text x="477" y="255" text-anchor="middle" font-size="8.5" fill="#0e8a6e">LN(x) as Attention</text>
+  <line x1="477" y1="228" x2="487" y2="210" stroke="#0e8a6e" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <!-- "Can fuse into 1 GEMM" annotation -->
+  <rect x="420" y="280" width="155" height="28" rx="4" fill="#e0f5f0" stroke="#0e8a6e" stroke-width="1"/>
+  <text x="497" y="292" text-anchor="middle" font-size="8.5" fill="#0e8a6e" font-weight="bold">Can fuse into 1 GEMM:</text>
+  <text x="497" y="303" text-anchor="middle" font-size="8.5" fill="#0e8a6e">[QKV; W₁] single kernel</text>
+</svg>

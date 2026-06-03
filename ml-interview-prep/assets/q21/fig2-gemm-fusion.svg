@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="820" height="300" viewBox="0 0 820 300" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif">
+  <defs>
+    <marker id="arrMain" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto">
+      <polygon points="0 0, 8 3.5, 0 7" fill="#5b6675"/>
+    </marker>
+    <marker id="arrRed" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto">
+      <polygon points="0 0, 8 3.5, 0 7" fill="#e05252"/>
+    </marker>
+    <marker id="arrGreen" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto">
+      <polygon points="0 0, 8 3.5, 0 7" fill="#0e8a6e"/>
+    </marker>
+    <marker id="arrBlue" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto">
+      <polygon points="0 0, 8 3.5, 0 7" fill="#1f4fa3"/>
+    </marker>
+  </defs>
+
+  <rect width="820" height="300" fill="#f8f9fa" rx="8"/>
+
+  <!-- Title -->
+  <text x="410" y="20" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1f4fa3">Parallel Block: QKV + FFN W₁ Fused into Single GEMM → Better Arithmetic Intensity</text>
+
+  <!-- ==============================
+       LEFT: Sequential — 2 GEMMs
+  ============================== -->
+  <rect x="15" y="28" width="385" height="260" fill="#ffffff" rx="6" stroke="#d0d5dd" stroke-width="1.5"/>
+  <text x="207" y="48" text-anchor="middle" font-size="12" font-weight="bold" fill="#e05252">Sequential — 2 GEMMs</text>
+
+  <!-- Input x -->
+  <rect x="87" y="58" width="220" height="28" rx="5" fill="#e8eef8" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="197" y="77" text-anchor="middle" font-size="11" fill="#1f4fa3">x [1×d]</text>
+
+  <!-- Arrow to GEMM1 box -->
+  <line x1="197" y1="86" x2="197" y2="100" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrMain)"/>
+
+  <!-- GEMM 1 box -->
+  <rect x="42" y="100" width="310" height="42" rx="6" fill="#fde8e8" stroke="#e05252" stroke-width="2"/>
+  <text x="197" y="117" text-anchor="middle" font-size="11" font-weight="bold" fill="#e05252">x[1×d] @ W_QKV[d×3d] = [q,k,v]</text>
+  <text x="197" y="133" text-anchor="middle" font-size="9.5" fill="#e05252">GEMM 1: 3d² FLOPs  ·  Kernel #1</text>
+
+  <!-- GEMM1 label badge -->
+  <rect x="357" y="103" width="36" height="16" rx="3" fill="#e05252"/>
+  <text x="375" y="115" text-anchor="middle" font-size="9" fill="white" font-weight="bold">K#1</text>
+
+  <!-- Arrow and "... attention ..." note -->
+  <line x1="197" y1="142" x2="197" y2="162" stroke="#5b6675" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrMain)"/>
+  <text x="230" y="156" font-size="10" fill="#5b6675" font-style="italic">... attention ops ...</text>
+
+  <!-- h after attention -->
+  <rect x="87" y="162" width="220" height="24" rx="4" fill="#e8eef8" stroke="#5b6675" stroke-width="1"/>
+  <text x="197" y="179" text-anchor="middle" font-size="11" fill="#5b6675">h [1×d]</text>
+
+  <!-- Arrow to GEMM2 -->
+  <line x1="197" y1="186" x2="197" y2="198" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrMain)"/>
+
+  <!-- GEMM 2 box -->
+  <rect x="42" y="198" width="310" height="42" rx="6" fill="#fde8e8" stroke="#e05252" stroke-width="2"/>
+  <text x="197" y="215" text-anchor="middle" font-size="11" font-weight="bold" fill="#e05252">h[1×d] @ W_FFN1[d×4d] = hidden</text>
+  <text x="197" y="231" text-anchor="middle" font-size="9.5" fill="#e05252">GEMM 2: 4d² FLOPs  ·  Kernel #2</text>
+
+  <!-- GEMM2 label badge -->
+  <rect x="357" y="201" width="36" height="16" rx="3" fill="#e05252"/>
+  <text x="375" y="213" text-anchor="middle" font-size="9" fill="white" font-weight="bold">K#2</text>
+
+  <!-- Total cost -->
+  <rect x="42" y="249" width="310" height="28" rx="4" fill="#fff0f0" stroke="#e05252" stroke-width="1"/>
+  <text x="197" y="262" text-anchor="middle" font-size="10" fill="#e05252">Total: 7d² loaded across 2 kernel launches</text>
+  <text x="197" y="273" text-anchor="middle" font-size="10" fill="#e05252" font-weight="bold">2 memory round-trips to HBM</text>
+
+  <!-- Red annotation badge -->
+  <rect x="15" y="249" width="24" height="28" rx="4" fill="#e05252"/>
+  <text x="27" y="267" text-anchor="middle" font-size="9" fill="white" transform="rotate(-90,27,263)">HBM×2</text>
+
+  <!-- ==============================
+       RIGHT: Parallel — 1 fused GEMM
+  ============================== -->
+  <rect x="415" y="28" width="390" height="260" fill="#ffffff" rx="6" stroke="#d0d5dd" stroke-width="1.5"/>
+  <text x="610" y="48" text-anchor="middle" font-size="12" font-weight="bold" fill="#0e8a6e">Parallel — 1 Fused GEMM</text>
+
+  <!-- Input x -->
+  <rect x="495" y="58" width="230" height="28" rx="5" fill="#e8eef8" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="610" y="77" text-anchor="middle" font-size="11" fill="#1f4fa3">x [1×d]</text>
+
+  <!-- Arrow to fused GEMM -->
+  <line x1="610" y1="86" x2="610" y2="100" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrMain)"/>
+
+  <!-- Single large fused GEMM box -->
+  <rect x="430" y="100" width="365" height="60" rx="6" fill="#e0f5f0" stroke="#0e8a6e" stroke-width="2.5"/>
+  <text x="612" y="123" text-anchor="middle" font-size="11" font-weight="bold" fill="#0e8a6e">x[1×d] @ [W_QKV; W_FFN1][d×7d]</text>
+  <text x="612" y="139" text-anchor="middle" font-size="11" font-weight="bold" fill="#0e8a6e">= [q, k, v, hidden]</text>
+  <text x="612" y="153" text-anchor="middle" font-size="9.5" fill="#0e8a6e">GEMM: 7d² FLOPs  ·  ONE Kernel</text>
+
+  <!-- Badge -->
+  <rect x="425" y="103" width="36" height="18" rx="3" fill="#0e8a6e"/>
+  <text x="443" y="116" text-anchor="middle" font-size="9" fill="white" font-weight="bold">K#1</text>
+
+  <!-- Arrow split down to two outputs -->
+  <line x1="610" y1="160" x2="610" y2="178" stroke="#5b6675" stroke-width="1.5"/>
+  <!-- Split fork -->
+  <line x1="610" y1="178" x2="520" y2="178" stroke="#5b6675" stroke-width="1.5"/>
+  <line x1="610" y1="178" x2="700" y2="178" stroke="#5b6675" stroke-width="1.5"/>
+
+  <!-- Left output: [q,k,v] → Attention -->
+  <line x1="520" y1="178" x2="520" y2="192" stroke="#1f4fa3" stroke-width="1.5" marker-end="url(#arrBlue)"/>
+  <rect x="447" y="192" width="145" height="32" rx="5" fill="#e8eef8" stroke="#1f4fa3" stroke-width="2"/>
+  <text x="520" y="208" text-anchor="middle" font-size="11" font-weight="bold" fill="#1f4fa3">Attention</text>
+  <text x="520" y="220" text-anchor="middle" font-size="9" fill="#1f4fa3">[q, k, v]</text>
+
+  <!-- Right output: [hidden] → FFN activation -->
+  <line x1="700" y1="178" x2="700" y2="192" stroke="#c77a12" stroke-width="1.5" marker-end="url(#arrMain)"/>
+  <rect x="615" y="192" width="160" height="32" rx="5" fill="#fff3e0" stroke="#c77a12" stroke-width="2"/>
+  <text x="695" y="208" text-anchor="middle" font-size="11" font-weight="bold" fill="#c77a12">FFN activation</text>
+  <text x="695" y="220" text-anchor="middle" font-size="9" fill="#c77a12">[hidden]</text>
+
+  <!-- Green total cost box -->
+  <rect x="430" y="234" width="365" height="42" rx="4" fill="#e0f5f0" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="612" y="251" text-anchor="middle" font-size="10" fill="#0e8a6e" font-weight="bold">7d² loaded in 1 HBM pass — single kernel launch</text>
+  <text x="612" y="267" text-anchor="middle" font-size="10" fill="#0e8a6e" font-weight="bold">~15% throughput gain (demonstrated on PaLM 540B)</text>
+
+  <!-- Green badge -->
+  <rect x="780" y="234" width="24" height="42" rx="4" fill="#0e8a6e"/>
+  <text x="792" y="260" text-anchor="middle" font-size="8" fill="white" font-weight="bold">HBM×1</text>
+</svg>
