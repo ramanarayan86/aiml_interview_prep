@@ -62,13 +62,17 @@ The analogy extends to architecture: splitting $d_{\text{model}}$ into $h$ subsp
 Scaled dot-product attention is best understood as a soft, differentiable dictionary lookup. Given a query $\mathbf{q}$, a set of keys $K$, and associated values $V$, the output is a weighted blend of values where the weights are proportional to query-key similarity:
 
 $$
+
 \text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{softmax}\!\left(\frac{\mathbf{Q}\mathbf{K}^\top}{\sqrt{d_k}}\right)\mathbf{V}
+
 $$
 
 The $\sqrt{d_k}$ scaling prevents the dot products from growing large enough to push softmax into saturation, which would make gradients vanish. For each token $i$, the output is:
 
 $$
+
 \mathbf{z}_i = \sum_{j=1}^{T} \alpha_{ij} \mathbf{v}_j, \quad \alpha_{ij} = \frac{\exp(\mathbf{q}_i \cdot \mathbf{k}_j / \sqrt{d_k})}{\sum_{j'} \exp(\mathbf{q}_i \cdot \mathbf{k}_{j'} / \sqrt{d_k})}
+
 $$
 
 The weights $\alpha_{ij}$ form a probability simplex: they are non-negative and sum to 1. This is exactly a soft retrieval — token $i$ retrieves a weighted mixture of all values, where proximity in the query-key space determines the mixture weights.
@@ -105,7 +109,9 @@ A single attention head with $d_k = d_{\text{model}}$ has the capacity to attend
 Given input $X \in \mathbb{R}^{T \times d_{\text{model}}}$, multi-head attention computes $h$ attention functions in parallel:
 
 $$
+
 \text{head}_i = \text{Attention}(X W_i^Q,\; X W_i^K,\; X W_i^V)
+
 $$
 
 where $W_i^Q, W_i^K \in \mathbb{R}^{d_{\text{model}} \times d_h}$ and $W_i^V \in \mathbb{R}^{d_{\text{model}} \times d_h}$, with $d_h = d_{\text{model}} / h$.
@@ -113,7 +119,9 @@ where $W_i^Q, W_i^K \in \mathbb{R}^{d_{\text{model}} \times d_h}$ and $W_i^V \in
 The $h$ head outputs are concatenated and linearly projected:
 
 $$
+
 \text{MHA}(X) = \text{Concat}(\text{head}_1, \ldots, \text{head}_h)\, W^O
+
 $$
 
 where $W^O \in \mathbb{R}^{d_{\text{model}} \times d_{\text{model}}}$ mixes the information across heads.

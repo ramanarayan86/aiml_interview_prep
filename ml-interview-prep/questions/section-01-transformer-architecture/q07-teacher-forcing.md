@@ -41,7 +41,9 @@
 An autoregressive model generates a sequence one element at a time, where each new element is predicted conditioned on all previously generated elements. Given an output sequence $\mathbf{y} = (y_1, y_2, \ldots, y_T)$ and an optional conditioning input $\mathbf{x}$ (a source sentence, image, or prompt), the joint probability factorizes as:
 
 $$
+
 p(\mathbf{y} \mid \mathbf{x}) = \prod_{t=1}^{T} p_\theta(y_t \mid y_{<t}, \mathbf{x})
+
 $$
 
 where $y_{<t} = (y_1, \ldots, y_{t-1})$ is the prefix consumed at step $t$, and $\theta$ are the model parameters. This factorization is exact — no conditional independence approximations are made. Sampling a sequence requires $T$ sequential model evaluations; computing the likelihood of a known sequence requires only one forward pass with a causal mask.
@@ -51,7 +53,9 @@ This framework covers a broad swath of modern AI: language modeling (GPT, Llama,
 The training objective is to maximize the log-likelihood of the observed data under this model:
 
 $$
+
 \mathcal{L}(\theta) = \sum_{(\mathbf{x}, \mathbf{y}) \in \mathcal{D}} \sum_{t=1}^{T} \log p_\theta(y_t \mid y_{<t}, \mathbf{x})
+
 $$
 
 Each term in the inner sum is a standard categorical cross-entropy loss between the model's predicted distribution over the vocabulary and a one-hot label for the true token $y_t$. This is maximized stochastically via Adam or similar optimizers over large text corpora.
@@ -132,7 +136,9 @@ Exposure bias (Bengio et al., 2015) is the name for the train-test discrepancy d
 Formally, let $q_t^\theta$ denote the distribution of prefixes actually encountered at step $t$ during inference (a mixture of ground-truth tokens and model predictions), and let $p_{\text{data}}$ denote the training distribution of prefixes. Exposure bias exists because:
 
 $$
+
 q_t^\theta \neq p_{\text{data}} \quad \text{for all } t > 1
+
 $$
 
 The divergence $D_{\text{KL}}(q_t^\theta \| p_{\text{data}})$ grows with $t$ and with model error rate. For a perfect model, the two distributions would coincide and there would be no exposure bias; for all real models, some gap exists.
@@ -454,7 +460,9 @@ Assume the model assigned: $p(\text{sat} \mid \text{cat}) = 0.82$ so it samples 
 **Expected probability under inference** at step 2:
 
 $$
+
 \mathbb{E}[p(\text{mat} \mid \hat{y}_{1:2})] = 0.82 \times 0.79 + 0.18 \times 0.21 = 0.648 + 0.038 = \mathbf{0.686}
+
 $$
 
 Under teacher forcing, the probability is always 0.79. Under free-running inference, the **expected** probability is already degraded to 0.686 — a 13% relative drop after just one step.
@@ -490,7 +498,9 @@ The Transformer architecture (Vaswani et al., 2017) makes teacher forcing especi
 **Causal mask construction.** For a sequence of length $T$, the causal mask $M \in \{0, -\infty\}^{T \times T}$ is:
 
 $$
+
 M_{ij} = \begin{cases} 0 & \text{if } j \leq i \\ -\infty & \text{if } j > i \end{cases}
+
 $$
 
 This mask is added to the attention logits before softmax, setting future-attending weights to zero. The resulting attention pattern is strictly lower-triangular: position $t$ attends only to positions $1, \ldots, t$.

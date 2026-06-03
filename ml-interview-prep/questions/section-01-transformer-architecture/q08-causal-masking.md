@@ -66,13 +66,17 @@ flowchart LR
 Standard (unmasked) self-attention computes three linear projections of the input matrix $X \in \mathbb{R}^{T \times d_{\text{model}}}$:
 
 $$
+
 Q = X W_Q, \quad K = X W_K, \quad V = X W_V
+
 $$
 
 where $W_Q, W_K, W_V \in \mathbb{R}^{d_{\text{model}} \times d_k}$. The attention weights and output are:
 
 $$
+
 \text{Attention}(Q, K, V) = \text{softmax}\!\left(\frac{Q K^\top}{\sqrt{d_k}}\right) V
+
 $$
 
 The resulting weight matrix $A \in \mathbb{R}^{T \times T}$ is fully dense. Entry $A_{ij}$ is the fraction of position $i$'s output that is drawn from position $j$'s value vector. Because every entry $A_{ij}$ can be non-zero, token $i$ can pull information from any position $j$, including positions to the right of $i$.
@@ -92,7 +96,9 @@ This unconstrained global mixing is precisely what makes bidirectional encoders 
 The training objective for a causal language model is:
 
 $$
+
 \mathcal{L} = -\sum_{t=1}^{T} \log P(x_t \mid x_1, \ldots, x_{t-1};\, \theta)
+
 $$
 
 This is an autoregressive factorization of the joint distribution $P(x_1, \ldots, x_T)$. Each conditional depends only on the strictly preceding context. If the model architecture violated this constraint — by allowing attention weights $A_{i,j} > 0$ for $j > i$ — the gradient would flow from future token representations back through the attention layer into position $i$'s output. The model would learn to route information from the answer into the question, producing a form of data leakage.
@@ -111,6 +117,7 @@ The causal mask solves this by making training and inference informationally equ
 For a sequence of length $T = 5$ the causal mask $M$ is the lower-triangular matrix of "keep" positions:
 
 $$
+
 M = \begin{pmatrix}
 1 & 0 & 0 & 0 & 0 \\
 1 & 1 & 0 & 0 & 0 \\
@@ -118,6 +125,7 @@ M = \begin{pmatrix}
 1 & 1 & 1 & 1 & 0 \\
 1 & 1 & 1 & 1 & 1
 \end{pmatrix}
+
 $$
 
 Rows are query positions (what token is being computed). Columns are key positions (which tokens are available to attend to). A $1$ means "this attention logit is kept"; a $0$ means "this attention logit is set to $-\infty$". The diagonal is always $1$ because a token is always allowed to attend to itself.
@@ -125,7 +133,9 @@ Rows are query positions (what token is being computed). Columns are key positio
 The corresponding additive bias matrix $B$ (which is added to logits) is:
 
 $$
+
 B_{ij} = \begin{cases} 0 & j \leq i \\ -\infty & j > i \end{cases}
+
 $$
 
 In practice $-\infty$ is approximated by a large negative constant such as $-10^9$ or the most-negative representable value for the working dtype, though flash-attention kernels handle this analytically.
@@ -143,7 +153,9 @@ In practice $-\infty$ is approximated by a large negative constant such as $-10^
 The complete masked scaled dot-product attention formula is:
 
 $$
+
 \text{CausalAttention}(Q, K, V) = \text{softmax}\!\left(\frac{Q K^\top}{\sqrt{d_k}} + B\right) V
+
 $$
 
 where $B$ is the additive mask bias defined above. The division by $\sqrt{d_k}$ is a temperature scaling that prevents dot products from growing large in high-dimensional spaces, which would push the softmax into a near-one-hot regime and cause vanishing gradients.
@@ -153,7 +165,9 @@ where $B$ is the additive mask bias defined above. The division by $\sqrt{d_k}$ 
 Adding $-\infty$ before the softmax is the only mathematically sound option. The softmax is:
 
 $$
+
 \text{softmax}(z_j) = \frac{e^{z_j}}{\sum_k e^{z_k}}
+
 $$
 
 When $z_j = -\infty$, the numerator $e^{-\infty} = 0$ exactly. The denominator is the sum over all positions, so the zero numerator contributes nothing. The remaining weights renormalize automatically and still sum to 1.
@@ -181,7 +195,9 @@ Two distinct masking concerns coexist in batched Transformer training:
 When combined, a position $(i, j)$ is legal only if it satisfies both constraints simultaneously:
 
 $$
+
 \text{allowed}(i, j) = \underbrace{(j \leq i)}_{\text{causal}} \;\wedge\; \underbrace{(\text{token}_j \neq \text{PAD})}_{\text{padding}}
+
 $$
 
 In practice this means performing a logical AND of the two boolean masks before converting to the additive $-\infty$ form. Many framework bugs arise from applying the masks in the wrong order or forgetting that the causal mask must also block PAD positions that happen to fall within the legal causal window.
@@ -330,7 +346,9 @@ def causal_attention_with_padding(
 Consider the 5-token sequence **"I love deep learning today"** at positions 1–5. Suppose we are computing the output for the query token **"deep"** at position 3. The raw (pre-mask) scaled dot-product attention scores between query 3 and all five keys are:
 
 $$
+
 \text{scores}_3 = \begin{bmatrix} 0.8 & 1.2 & 2.1 & 1.7 & 0.9 \end{bmatrix}
+
 $$
 
 | Key position | Token | Raw score | Mask bias | Masked score | Softmax weight |
@@ -344,13 +362,17 @@ $$
 **Softmax calculation over legal positions only:**
 
 $$
+
 Z = e^{0.8} + e^{1.2} + e^{2.1} = 2.226 + 3.320 + 8.166 = 13.712
+
 $$
 
 $$
+
 a_{3,1} = \frac{2.226}{13.712} = 0.162, \quad
 a_{3,2} = \frac{3.320}{13.712} = 0.242, \quad
 a_{3,3} = \frac{8.166}{13.712} = 0.596
+
 $$
 
 > [!NOTE]
@@ -359,7 +381,9 @@ $$
 The output for position 3 is then:
 
 $$
+
 \text{output}_3 = 0.162 \cdot v_1 + 0.242 \cdot v_2 + 0.596 \cdot v_3
+
 $$
 
 No information from future tokens contaminates this representation.
@@ -524,12 +548,14 @@ good_mask = torch.triu(torch.ones(5, 5), diagonal=1).bool()
 A prefix section of length $p$ is given as unmasked context (bidirectional), followed by a generation section of length $g$ that uses a causal mask within itself. Attention from the generation section to the prefix is fully open. This creates a hybrid attention pattern used in models like GLM and some T5 variants:
 
 $$
+
 M_{ij} = \begin{cases}
 0 & j \leq p \quad \text{(generation attending to prefix — always legal)} \\
 0 & i \leq p \quad \text{(prefix attending to anything — bidirectional)} \\
 0 & i > p \text{ and } j \leq i \quad \text{(causal within generation)} \\
 -\infty & \text{otherwise}
 \end{cases}
+
 $$
 
 ### Sliding-window causal attention
