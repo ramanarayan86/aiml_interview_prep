@@ -76,7 +76,7 @@ Lock in the two key facts:
 
 <div align="center">
 <img src="../../assets/q23/fig1-rope-rotation-geometry.svg" alt="Diagram showing a 2D vector subspace with two vectors q (query at position m) and k (key at position n). Both vectors are shown before and after rotation by their respective angles m*theta and n*theta. The dot product q_rotated · k_rotated equals |q||k|cos(angle between them) = |q||k|cos((m-n)*theta), depending only on the relative offset." width="92%">
-<br><sub><b>Figure 1.</b> RoPE geometry in a single 2D subspace. Query at position $m$ is rotated by $m\theta_i$; key at position $n$ is rotated by $n\theta_i$. Their dot product equals $|q||k|\cos((m-n)\theta_i + \phi)$ for some phase $\phi$ depending on content — the position contribution factors out as the relative offset $(m-n)$.</sub>
+<br><sub><b>Figure 1.</b> RoPE geometry in a single 2D subspace. Query at position m is rotated by mθᵢ; key at position n is rotated by nθᵢ. Their dot product equals |q||k|cos((m−n)θᵢ + φ) for some phase φ depending on content — the position contribution factors out as the relative offset (m-n).</sub>
 </div>
 
 Imagine building a Transformer that must process a sentence with the same attention pattern regardless of where in the document that sentence appears. Token "the" at position 5 relates to "cat" at position 6 the same way as "the" at position 305 relates to "cat" at position 306. The relative offset is 1 in both cases, so the attention score should be similar.
@@ -179,7 +179,7 @@ Pair 0: $\lambda_0 = 2\pi \approx 6.28$ tokens (completes a cycle every ~6 token
 
 <div align="center">
 <img src="../../assets/q23/fig2-rope-long-context-scaling.svg" alt="Four-panel diagram. Panel 1 (Original RoPE): frequency spectrum showing all dimension pairs in-distribution for positions 0-4096. Panel 2 (OOD failure): for position 8192 on a model trained to 4096, high-frequency pairs (small i) are fine but low-frequency pairs are in novel rotation territory. Panel 3 (NTK scaling): rescaling base increases all wavelengths, shifting all pairs inward so even position 8192 falls within known rotation range. Panel 4 (YaRN): three zones shown — high-freq pairs (small i) unchanged, low-freq pairs (large i) fully interpolated, mid-freq pairs blended." width="92%">
-<br><sub><b>Figure 2.</b> Long-context failure and scaling strategies in frequency space. Each column corresponds to a dimension pair group; color indicates whether the pair is in-distribution (green) or out-of-distribution (red) at position $m$ relative to training length $L_\text{train}$. NTK scaling shifts the entire spectrum left; YaRN applies different treatments per zone.</sub>
+<br><sub><b>Figure 2.</b> Long-context failure and scaling strategies in frequency space. Each column corresponds to a dimension pair group; color indicates whether the pair is in-distribution (green) or out-of-distribution (red) at position m relative to training length L_train. NTK scaling shifts the entire spectrum left; YaRN applies different treatments per zone.</sub>
 </div>
 
 The complete RoPE transformation for a single head of dimension $d$ at token position $m$:

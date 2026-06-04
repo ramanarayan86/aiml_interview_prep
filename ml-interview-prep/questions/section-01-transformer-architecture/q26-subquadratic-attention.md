@@ -67,7 +67,7 @@ The $O(N^2)$ wall is why standard Transformers are practically capped around $N 
 
 <div align="center">
 <img src="../../assets/q26/fig1-attention-complexity-landscape.svg" alt="Complexity landscape chart comparing Standard Attention, Linear Attention, Performer, Mamba, and Hybrid architectures along axes of sequence-length complexity (O(N²) to O(N)) on the vertical axis and quality-vs-Transformer on the horizontal axis. Standard Attention sits at top-left (O(N²), best quality). Linear Attention and Performer cluster at bottom-right (O(N), lower quality). Mamba occupies bottom-center (O(N), near-Transformer quality). Hybrids sit in the middle-right (sublinear blend, near-Transformer quality). Arrows indicate the quality-efficiency frontier." width="92%">
-<br><sub><b>Figure 1.</b> The complexity-quality landscape for sequence models. The fundamental tension: every $O(N)$ method must discard information to fit history into a bounded state. Hybrid architectures partly escape this by using full attention selectively.</sub>
+<br><sub><b>Figure 1.</b> The complexity-quality landscape for sequence models. The fundamental tension: every O(N) method must discard information to fit history into a bounded state. Hybrid architectures partly escape this by using full attention selectively.</sub>
 </div>
 
 Imagine trying to train a language model on books — sequences of hundreds of thousands of tokens. Standard attention must compare every token against every other token: a $100{,}000 \times 100{,}000$ matrix, requiring 40\,GB just for the attention logits. Even with the best GPU, this is intractable.

@@ -74,7 +74,7 @@ FlashAttention is not an approximation. It performs **the same floating-point op
 
 <div align="center">
 <img src="../../assets/q24/fig1-flash-attention-tiling.svg" alt="Diagram showing standard attention (left) writing the full N×N matrix S and P to HBM between each of the three matrix multiplications, versus FlashAttention (right) where Q, K, V are divided into tiles that fit in SRAM and the full N×N matrix is never materialized. Blue blocks represent SRAM-resident tiles, red arrows show HBM read/write traffic." width="92%">
-<br><sub><b>Figure 1.</b> Standard attention (left) materializes the full $N \times N$ matrices $S$ and $P$ in HBM between the three GEMMs. Every element of $S$ and $P$ crosses the HBM bus twice (once written, once read), giving $O(N^2)$ HBM reads/writes. FlashAttention (right) tiles Q into row-blocks and streams K, V blocks through SRAM, accumulating the output on-chip. The $N \times N$ matrix never leaves SRAM — only the final $O \in \mathbb{R}^{N \times d}$ is written to HBM.</sub>
+<br><sub><b>Figure 1.</b> Standard attention (left) materializes the full N×N matrices S and P in HBM between the three GEMMs. Every element of S and P crosses the HBM bus twice (once written, once read), giving O(N²) HBM reads/writes. FlashAttention (right) tiles Q into row-blocks and streams K, V blocks through SRAM, accumulating the output on-chip. The N×N matrix never leaves SRAM — only the final O ∈ ℝ^(N×d) is written to HBM.</sub>
 </div>
 
 Imagine writing a naive attention kernel. For a sequence of length $N = 4096$ and $d = 64$:
@@ -221,7 +221,7 @@ At scale (32 layers, 32 heads, batch 4, $N = 8192$): storing all $P$ matrices wo
 
 <div align="center">
 <img src="../../assets/q24/fig2-io-complexity.svg" alt="Roofline model diagram with arithmetic intensity (FLOP/byte) on the x-axis and attainable GFLOPS on the y-axis. A diagonal memory-bandwidth bound line rises from the origin; a horizontal compute-bound ceiling marks peak FLOPS. Standard attention (marked at AI≈16) sits in the memory-bandwidth-bound regime. FlashAttention (same FLOP count, but higher effective AI because HBM reads/writes are reduced) sits closer to the compute-bound ridge. The gap between the two points shows the FlashAttention speedup." width="92%">
-<br><sub><b>Figure 2.</b> Roofline model for attention on A100 (peak FP16 = 312 TFLOPS, HBM bandwidth = 2 TB/s, ridge point ≈ 156 FLOP/byte). Standard attention (arithmetic intensity ≈ $d/4 \approx 16$ FLOP/byte for $d=64$) is far left of the ridge, memory-bandwidth-bound. FlashAttention reduces HBM bytes by $O(N^2) \to O(Nd)$ while keeping the same FLOPs, lifting the effective AI toward the ridge point.</sub>
+<br><sub><b>Figure 2.</b> Roofline model for attention on A100 (peak FP16 = 312 TFLOPS, HBM bandwidth = 2 TB/s, ridge point ≈ 156 FLOP/byte). Standard attention (arithmetic intensity ≈ d/4 ≈ 16 FLOP/byte for d=64) is far left of the ridge, memory-bandwidth-bound. FlashAttention reduces HBM bytes by O(N²) → O(Nd) while keeping the same FLOPs, lifting the effective AI toward the ridge point.</sub>
 </div>
 
 **Standard attention IO:**

@@ -118,7 +118,7 @@ At step $t = W + 1$, token 0 falls out of the window. Every head that was using 
 
 <div align="center">
 <img src="../../assets/q25/fig2-streaming-llm-window.svg" alt="Diagram comparing three KV cache strategies. Top: dense cache — all tokens stored, memory O(sequence length). Middle: sliding window only — recent W tokens, memory O(W), but catastrophic collapse when sink tokens are evicted. Bottom: StreamingLLM — K sink tokens (positions 0 to K-1) kept permanently plus a sliding window of W recent tokens, memory O(K+W), no collapse." width="92%">
-<br><sub><b>Figure 2.</b> KV cache strategies for long/infinite sequences. Dense cache (top) grows unboundedly. Sliding window only (middle) has bounded memory but collapses when the sink token at position 0 is evicted. StreamingLLM (bottom) keeps the initial $K$ sink tokens permanently and a sliding window of $W$ recent tokens, giving bounded $O(K + W)$ memory with stable inference.</sub>
+<br><sub><b>Figure 2.</b> KV cache strategies for long/infinite sequences. Dense cache (top) grows unboundedly. Sliding window only (middle) has bounded memory but collapses when the sink token at position 0 is evicted. StreamingLLM (bottom) keeps the initial K sink tokens permanently and a sliding window of W recent tokens, giving bounded O(K + W) memory with stable inference.</sub>
 </div>
 
 **StreamingLLM** (Xiao et al., 2023, "Efficient Streaming Language Models with Attention Sinks") is a minimal-change approach to enabling infinite-length autoregressive inference. The key insight:
