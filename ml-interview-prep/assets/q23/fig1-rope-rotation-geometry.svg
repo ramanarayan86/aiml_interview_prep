@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 380" width="860" height="380">
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#5b6675"/>
+    </marker>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1f4fa3"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#c0392b"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#0e8a6e"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="860" height="380" fill="#f8f9fa" rx="8"/>
+
+  <!-- Title -->
+  <text x="430" y="26" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+        fill="#1f4fa3" text-anchor="middle">
+    RoPE Rotation Geometry: Position Encoded as Rotation in 2D Subspaces
+  </text>
+
+  <!-- ──────────── LEFT PANEL: Unit circle for one dimension pair ──────────── -->
+  <!-- Panel background -->
+  <rect x="14" y="40" width="280" height="320" rx="6" fill="white" stroke="#dee2e6" stroke-width="1"/>
+  <text x="154" y="58" font-family="Arial, sans-serif" font-size="11" font-weight="bold"
+        fill="#5b6675" text-anchor="middle">Single 2D Subspace (pair i)</text>
+
+  <!-- Unit circle -->
+  <circle cx="154" cy="190" r="110" fill="none" stroke="#dee2e6" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <!-- Axes -->
+  <line x1="44" y1="190" x2="264" y2="190" stroke="#adb5bd" stroke-width="1"/>
+  <line x1="154" y1="80" x2="154" y2="300" stroke="#adb5bd" stroke-width="1"/>
+  <text x="268" y="194" font-family="Arial, sans-serif" font-size="11" fill="#adb5bd">x₂ᵢ</text>
+  <text x="158" y="76" font-family="Arial, sans-serif" font-size="11" fill="#adb5bd">x₂ᵢ₊₁</text>
+
+  <!-- Original content vector q (gray, at angle 30°) -->
+  <line x1="154" y1="190" x2="249" y2="135" stroke="#adb5bd" stroke-width="2"
+        marker-end="url(#arrow)" stroke-dasharray="5,3"/>
+  <text x="255" y="130" font-family="Arial, sans-serif" font-size="11" fill="#adb5bd"
+        font-style="italic">q (content)</text>
+
+  <!-- Rotated query q̃_m at angle 30°+m·θ = ~80° (blue) -->
+  <line x1="154" y1="190" x2="173" y2="81" stroke="#1f4fa3" stroke-width="2.5"
+        marker-end="url(#arrow-blue)"/>
+  <text x="178" y="75" font-family="Arial, sans-serif" font-size="11" fill="#1f4fa3"
+        font-weight="bold">q̃_m = R(mθᵢ)q</text>
+
+  <!-- Rotated key k̃_n at angle ~140° (red) -->
+  <line x1="154" y1="190" x2="69" y2="119" stroke="#c0392b" stroke-width="2.5"
+        marker-end="url(#arrow-red)"/>
+  <text x="14" y="113" font-family="Arial, sans-serif" font-size="11" fill="#c0392b"
+        font-weight="bold">k̃_n = R(nθᵢ)k</text>
+
+  <!-- Arc showing angle between q̃_m and k̃_n = (n-m)θ -->
+  <path d="M 154,190 m 0,-55 a 55,55 0 0,1 -46,-36" fill="none"
+        stroke="#0e8a6e" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="100" y="148" font-family="Arial, sans-serif" font-size="10" fill="#0e8a6e"
+        font-weight="bold">(n−m)θᵢ</text>
+
+  <!-- Score label -->
+  <rect x="44" y="308" width="220" height="44" rx="5" fill="#e8f5e9"/>
+  <text x="154" y="325" font-family="Arial, sans-serif" font-size="11" fill="#0e8a6e"
+        text-anchor="middle">q̃_mᵀ k̃_n = qᵀ R((n−m)θᵢ) k</text>
+  <text x="154" y="344" font-family="Arial, sans-serif" font-size="10" fill="#0e8a6e"
+        text-anchor="middle">Depends only on relative offset (n−m)</text>
+
+  <!-- ──────────── MIDDLE PANEL: Full d-dim block-diagonal structure ──────────── -->
+  <rect x="308" y="40" width="250" height="320" rx="6" fill="white" stroke="#dee2e6" stroke-width="1"/>
+  <text x="433" y="58" font-family="Arial, sans-serif" font-size="11" font-weight="bold"
+        fill="#5b6675" text-anchor="middle">Full Block-Diagonal Rotation Matrix</text>
+
+  <!-- Block-diagonal matrix Rₘ -->
+  <text x="340" y="82" font-family="Arial, sans-serif" font-size="12" fill="#1f4fa3"
+        font-weight="bold">R_m = diag(R(mθ₀), R(mθ₁), ..., R(mθ_{d/2−1}))</text>
+
+  <!-- Matrix blocks visualization -->
+  <rect x="360" y="92" width="60" height="60" rx="3" fill="#dbeafe" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="390" y="118" font-family="Arial, sans-serif" font-size="10" fill="#1f4fa3"
+        text-anchor="middle">R(mθ₀)</text>
+  <text x="390" y="133" font-family="Arial, sans-serif" font-size="9" fill="#5b6675"
+        text-anchor="middle">θ₀≈1.0 rad/tok</text>
+
+  <rect x="430" y="162" width="60" height="60" rx="3" fill="#dbeafe" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="460" y="188" font-family="Arial, sans-serif" font-size="10" fill="#1f4fa3"
+        text-anchor="middle">R(mθ₁)</text>
+  <text x="460" y="203" font-family="Arial, sans-serif" font-size="9" fill="#5b6675"
+        text-anchor="middle">θ₁≈0.79 rad/tok</text>
+
+  <!-- Dots between blocks -->
+  <text x="433" y="245" font-family="Arial, sans-serif" font-size="16" fill="#adb5bd"
+        text-anchor="middle">⋱</text>
+
+  <rect x="446" y="258" width="68" height="60" rx="3" fill="#dbeafe" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="480" y="284" font-family="Arial, sans-serif" font-size="10" fill="#1f4fa3"
+        text-anchor="middle">R(mθ_{d/2−1})</text>
+  <text x="480" y="299" font-family="Arial, sans-serif" font-size="9" fill="#5b6675"
+        text-anchor="middle">θ_{d/2-1}≈10⁻⁴ rad/tok</text>
+
+  <!-- Zeros -->
+  <text x="430" y="120" font-family="Arial, sans-serif" font-size="13" fill="#dee2e6"
+        text-anchor="middle">0</text>
+  <text x="365" y="200" font-family="Arial, sans-serif" font-size="13" fill="#dee2e6"
+        text-anchor="middle">0</text>
+  <text x="365" y="280" font-family="Arial, sans-serif" font-size="13" fill="#dee2e6"
+        text-anchor="middle">0</text>
+  <text x="488" y="145" font-family="Arial, sans-serif" font-size="13" fill="#dee2e6"
+        text-anchor="middle">0</text>
+
+  <!-- Key property -->
+  <rect x="318" y="330" width="230" height="22" rx="4" fill="#1f4fa3"/>
+  <text x="433" y="345" font-family="Arial, sans-serif" font-size="10" fill="white"
+        text-anchor="middle">R(mθ)ᵀ R(nθ) = R((n−m)θ)  [group property]</text>
+
+  <!-- ──────────── RIGHT PANEL: Score decomposition across all pairs ──────────── -->
+  <rect x="572" y="40" width="274" height="320" rx="6" fill="white" stroke="#dee2e6" stroke-width="1"/>
+  <text x="709" y="58" font-family="Arial, sans-serif" font-size="11" font-weight="bold"
+        fill="#5b6675" text-anchor="middle">Score = Sum Across All Dimension Pairs</text>
+
+  <!-- Total score formula -->
+  <text x="580" y="80" font-family="Arial, sans-serif" font-size="11" fill="#333">
+    q̃_mᵀ k̃_n = Σᵢ q[2i:2i+2]ᵀ R((n−m)θᵢ) k[2i:2i+2]
+  </text>
+
+  <!-- Frequency spectrum bars -->
+  <text x="580" y="106" font-family="Arial, sans-serif" font-size="10" fill="#5b6675"
+        font-weight="bold">Wavelength λᵢ = 2π / θᵢ  (base=10000, d=128):</text>
+
+  <!-- Pair bars: i=0,1,...,63; color = wavelength relative to context -->
+  <!-- Short wavelength (local) = blue; long wavelength (global) = orange -->
+  <text x="580" y="124" font-family="Arial, sans-serif" font-size="9" fill="#5b6675">i=0  λ≈6 tok</text>
+  <rect x="640" y="114" width="190" height="12" rx="3" fill="#1f4fa3" opacity="0.9"/>
+  <text x="834" y="124" font-family="Arial, sans-serif" font-size="9" fill="#1f4fa3">local</text>
+
+  <text x="580" y="142" font-family="Arial, sans-serif" font-size="9" fill="#5b6675">i=10 λ≈70 tok</text>
+  <rect x="640" y="132" width="152" height="12" rx="3" fill="#1f4fa3" opacity="0.7"/>
+
+  <text x="580" y="160" font-family="Arial, sans-serif" font-size="9" fill="#5b6675">i=20 λ≈770 tok</text>
+  <rect x="640" y="150" width="100" height="12" rx="3" fill="#c77a12" opacity="0.8"/>
+
+  <text x="580" y="178" font-family="Arial, sans-serif" font-size="9" fill="#5b6675">i=30 λ≈8.5K tok</text>
+  <rect x="640" y="168" width="55" height="12" rx="3" fill="#c77a12" opacity="0.7"/>
+
+  <text x="580" y="196" font-family="Arial, sans-serif" font-size="9" fill="#5b6675">i=40 λ≈95K tok</text>
+  <rect x="640" y="186" width="26" height="12" rx="3" fill="#c0392b" opacity="0.7"/>
+
+  <text x="580" y="214" font-family="Arial, sans-serif" font-size="9" fill="#5b6675">i=63 λ≈63K tok</text>
+  <rect x="640" y="204" width="12" height="12" rx="3" fill="#c0392b" opacity="0.8"/>
+  <text x="834" y="214" font-family="Arial, sans-serif" font-size="9" fill="#c0392b">global</text>
+
+  <!-- Legend -->
+  <rect x="640" y="225" width="14" height="10" rx="2" fill="#1f4fa3"/>
+  <text x="658" y="234" font-family="Arial, sans-serif" font-size="9" fill="#5b6675">high-freq (local)</text>
+  <rect x="640" y="240" width="14" height="10" rx="2" fill="#c77a12"/>
+  <text x="658" y="249" font-family="Arial, sans-serif" font-size="9" fill="#5b6675">mid-freq</text>
+  <rect x="640" y="255" width="14" height="10" rx="2" fill="#c0392b"/>
+  <text x="658" y="264" font-family="Arial, sans-serif" font-size="9" fill="#5b6675">low-freq (global)</text>
+
+  <!-- Efficient implementation note -->
+  <rect x="580" y="278" width="254" height="70" rx="5" fill="#fff3cd"/>
+  <text x="707" y="294" font-family="Arial, sans-serif" font-size="10" fill="#856404"
+        text-anchor="middle" font-weight="bold">Efficient Implementation</text>
+  <text x="707" y="310" font-family="Arial, sans-serif" font-size="10" fill="#856404"
+        text-anchor="middle">x̃ = x ⊙ cos_vec(m) + rotate_pairs(x) ⊙ sin_vec(m)</text>
+  <text x="707" y="326" font-family="Arial, sans-serif" font-size="9" fill="#856404"
+        text-anchor="middle">No explicit d×d matrix — just 2 element-wise mults</text>
+  <text x="707" y="340" font-family="Arial, sans-serif" font-size="9" fill="#856404"
+        text-anchor="middle">and one pair-shuffle. O(d) per token.</text>
+
+</svg>

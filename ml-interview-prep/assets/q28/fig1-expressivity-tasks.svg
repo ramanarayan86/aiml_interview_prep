@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" width="900" height="420">
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#5b6675"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="420" fill="#f8f9fa" rx="8"/>
+
+  <!-- Title -->
+  <text x="450" y="28" font-family="Arial, sans-serif" font-size="15" font-weight="bold"
+        fill="#1f4fa3" text-anchor="middle">Where Transformers and SSMs Differ</text>
+
+  <!-- ── Quadrant grid ── -->
+  <!-- Origin of plot area: x=110, y=50; width=620, height=310 -->
+
+  <!-- Q1: Low retrieval, Short context (bottom-left) — green -->
+  <rect x="110" y="205" width="310" height="155" rx="0" fill="#d4f5e4" stroke="#b2dfca" stroke-width="1.2"/>
+  <!-- Q2: High retrieval, Short context (bottom-right) — yellow -->
+  <rect x="420" y="205" width="310" height="155" rx="0" fill="#fff8d4" stroke="#e8d87a" stroke-width="1.2"/>
+  <!-- Q3: Low retrieval, Long context (top-left) — blue -->
+  <rect x="110" y="50" width="310" height="155" rx="0" fill="#d6eaff" stroke="#93bde8" stroke-width="1.2"/>
+  <!-- Q4: High retrieval, Long context (top-right) — red -->
+  <rect x="420" y="50" width="310" height="155" rx="0" fill="#ffe0df" stroke="#f4a5a3" stroke-width="1.2"/>
+
+  <!-- Quadrant border lines (the cross) -->
+  <line x1="110" y1="50" x2="110" y2="360" stroke="#9aa5b0" stroke-width="1.6"/>
+  <line x1="730" y1="50" x2="730" y2="360" stroke="#9aa5b0" stroke-width="1.6"/>
+  <line x1="110" y1="360" x2="730" y2="360" stroke="#9aa5b0" stroke-width="1.6"/>
+  <line x1="110" y1="50" x2="730" y2="50" stroke="#9aa5b0" stroke-width="1.6"/>
+  <!-- Center dividers -->
+  <line x1="420" y1="50" x2="420" y2="360" stroke="#9aa5b0" stroke-width="1.4" stroke-dasharray="5,3"/>
+  <line x1="110" y1="205" x2="730" y2="205" stroke="#9aa5b0" stroke-width="1.4" stroke-dasharray="5,3"/>
+
+  <!-- ── Quadrant labels and content ── -->
+
+  <!-- Q1: Both Excel (bottom-left) -->
+  <text x="265" y="230" font-family="Arial, sans-serif" font-size="13" font-weight="bold"
+        fill="#1a7a44" text-anchor="middle">Both Excel</text>
+  <text x="265" y="252" font-family="Arial, sans-serif" font-size="10.5" fill="#2d6647" text-anchor="middle">Token prediction</text>
+  <text x="265" y="268" font-family="Arial, sans-serif" font-size="10.5" fill="#2d6647" text-anchor="middle">Local syntax parsing</text>
+  <!-- Badge -->
+  <rect x="200" y="282" width="130" height="22" rx="11" fill="#1a7a44"/>
+  <text x="265" y="297" font-family="Arial, sans-serif" font-size="10" font-weight="bold"
+        fill="white" text-anchor="middle">Transformer + SSM</text>
+
+  <!-- Q2: Both OK (bottom-right) -->
+  <text x="575" y="230" font-family="Arial, sans-serif" font-size="13" font-weight="bold"
+        fill="#8a6a00" text-anchor="middle">Both OK</text>
+  <text x="575" y="252" font-family="Arial, sans-serif" font-size="10.5" fill="#6b5000" text-anchor="middle">Named entity lookup</text>
+  <text x="575" y="268" font-family="Arial, sans-serif" font-size="10.5" fill="#6b5000" text-anchor="middle">(short document)</text>
+  <!-- Badge -->
+  <rect x="512" y="282" width="126" height="22" rx="11" fill="#b89200"/>
+  <text x="575" y="297" font-family="Arial, sans-serif" font-size="10" font-weight="bold"
+        fill="white" text-anchor="middle">Marginal difference</text>
+
+  <!-- Q3: SSM advantage (top-left) -->
+  <text x="265" y="82" font-family="Arial, sans-serif" font-size="13" font-weight="bold"
+        fill="#1249a0" text-anchor="middle">SSM Advantage</text>
+  <text x="265" y="103" font-family="Arial, sans-serif" font-size="10.5" fill="#1a3a80" text-anchor="middle">Long-form generation</text>
+  <text x="265" y="119" font-family="Arial, sans-serif" font-size="10.5" fill="#1a3a80" text-anchor="middle">Audio / speech modeling</text>
+  <text x="265" y="135" font-family="Arial, sans-serif" font-size="10.5" fill="#1a3a80" text-anchor="middle">Time series forecasting</text>
+  <!-- Badge -->
+  <rect x="196" y="150" width="138" height="22" rx="11" fill="#1f4fa3"/>
+  <text x="265" y="165" font-family="Arial, sans-serif" font-size="10" font-weight="bold"
+        fill="white" text-anchor="middle">O(N) memory wins</text>
+
+  <!-- Q4: Transformer needed (top-right) -->
+  <text x="575" y="82" font-family="Arial, sans-serif" font-size="13" font-weight="bold"
+        fill="#b71c1c" text-anchor="middle">Transformer Needed</text>
+  <text x="575" y="103" font-family="Arial, sans-serif" font-size="10.5" fill="#8a1010" text-anchor="middle">Needle-in-haystack retrieval</text>
+  <text x="575" y="119" font-family="Arial, sans-serif" font-size="10.5" fill="#8a1010" text-anchor="middle">Multi-document QA</text>
+  <text x="575" y="135" font-family="Arial, sans-serif" font-size="10.5" fill="#8a1010" text-anchor="middle">In-context learning (many shots)</text>
+  <!-- Badge -->
+  <rect x="505" y="150" width="140" height="22" rx="11" fill="#c0392b"/>
+  <text x="575" y="165" font-family="Arial, sans-serif" font-size="10" font-weight="bold"
+        fill="white" text-anchor="middle">Full attention required</text>
+
+  <!-- ── Axes ── -->
+  <!-- X-axis label (bottom, centered) -->
+  <text x="420" y="390" font-family="Arial, sans-serif" font-size="12" font-weight="bold"
+        fill="#5b6675" text-anchor="middle">Retrieval Demand</text>
+  <text x="155" y="390" font-family="Arial, sans-serif" font-size="10" fill="#9aa5b0" text-anchor="middle">Low</text>
+  <text x="685" y="390" font-family="Arial, sans-serif" font-size="10" fill="#9aa5b0" text-anchor="middle">High</text>
+  <line x1="175" y1="383" x2="395" y2="383" stroke="#9aa5b0" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <line x1="665" y1="383" x2="445" y2="383" stroke="#9aa5b0" stroke-width="1.2" marker-end="url(#arrow)"/>
+
+  <!-- Y-axis label (left, rotated) -->
+  <text x="28" y="210" font-family="Arial, sans-serif" font-size="12" font-weight="bold"
+        fill="#5b6675" text-anchor="middle" transform="rotate(-90, 28, 210)">Context Length</text>
+  <text x="56" y="355" font-family="Arial, sans-serif" font-size="10" fill="#9aa5b0" text-anchor="middle">Short</text>
+  <text x="56" y="65" font-family="Arial, sans-serif" font-size="10" fill="#9aa5b0" text-anchor="middle">Long</text>
+  <line x1="56" y1="335" x2="56" y2="225" stroke="#9aa5b0" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <line x1="56" y1="85" x2="56" y2="188" stroke="#9aa5b0" stroke-width="1.2" marker-end="url(#arrow)"/>
+
+  <!-- ── Architecture icons (right panel) ── -->
+  <!-- Transformer icon -->
+  <rect x="760" y="55" width="120" height="68" rx="7" fill="white" stroke="#1f4fa3" stroke-width="2"/>
+  <circle cx="790" cy="89" r="14" fill="#1f4fa3"/>
+  <text x="790" y="94" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+        fill="white" text-anchor="middle">T</text>
+  <text x="830" y="83" font-family="Arial, sans-serif" font-size="11" font-weight="bold"
+        fill="#1f4fa3">Trans-</text>
+  <text x="830" y="98" font-family="Arial, sans-serif" font-size="11" font-weight="bold"
+        fill="#1f4fa3">former</text>
+  <text x="820" y="116" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">All 4 quadrants</text>
+
+  <!-- SSM/Mamba icon -->
+  <rect x="760" y="148" width="120" height="68" rx="7" fill="white" stroke="#1f4fa3" stroke-width="2" stroke-dasharray="6,3"/>
+  <circle cx="790" cy="182" r="14" fill="#0e8a6e"/>
+  <text x="790" y="187" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+        fill="white" text-anchor="middle">S</text>
+  <text x="830" y="176" font-family="Arial, sans-serif" font-size="11" font-weight="bold"
+        fill="#0e8a6e">SSM /</text>
+  <text x="830" y="191" font-family="Arial, sans-serif" font-size="11" font-weight="bold"
+        fill="#0e8a6e">Mamba</text>
+  <text x="820" y="209" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">Struggles top-right</text>
+
+  <!-- Connector lines from icons to quadrants -->
+  <line x1="760" y1="89" x2="732" y2="127" stroke="#1f4fa3" stroke-width="1" stroke-dasharray="4,2" opacity="0.5"/>
+  <line x1="760" y1="182" x2="732" y2="127" stroke="#0e8a6e" stroke-width="1" stroke-dasharray="4,2" opacity="0.5"/>
+
+  <!-- Bottom note bar -->
+  <rect x="110" y="404" width="620" height="14" rx="3" fill="#1f4fa3" opacity="0.12"/>
+  <text x="420" y="414" font-family="Arial, sans-serif" font-size="9.5" fill="#1f4fa3"
+        text-anchor="middle">Key insight: SSMs compress context into fixed-size state — efficient for smooth signals, lossy for sparse key-value retrieval</text>
+
+</svg>

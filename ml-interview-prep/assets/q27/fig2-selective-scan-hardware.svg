@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380" width="900" height="380">
+
+  <defs>
+    <marker id="arr-grey" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#5b6675"/>
+    </marker>
+    <marker id="arr-red" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#0e8a6e"/>
+    </marker>
+    <marker id="arr-orange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#c77a12"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="380" fill="#f8f9fa" rx="8"/>
+
+  <!-- Title -->
+  <text x="450" y="28" font-family="Arial, sans-serif" font-size="15" font-weight="bold"
+        fill="#1f2a3c" text-anchor="middle">Hardware-Aware Selective Scan</text>
+
+  <!-- ═══════════════ LEFT PANEL: Naive selective scan ═══════════════ -->
+  <rect x="14" y="42" width="406" height="288" rx="8" fill="white" stroke="#c0392b" stroke-width="2"/>
+  <rect x="14" y="42" width="406" height="28" rx="8" fill="#c0392b"/>
+  <rect x="14" y="56" width="406" height="14" fill="#c0392b"/>
+  <text x="217" y="61" font-family="Arial, sans-serif" font-size="12" font-weight="bold"
+        fill="white" text-anchor="middle">Naive Selective Scan</text>
+
+  <!-- GPU chip label -->
+  <text x="30" y="88" font-family="Arial, sans-serif" font-size="10" font-weight="bold"
+        fill="#5b6675">GPU</text>
+
+  <!-- HBM box -->
+  <rect x="28" y="94" width="384" height="180" rx="7" fill="#e8e8e8" stroke="#888" stroke-width="1.8"/>
+  <text x="220" y="114" font-family="Arial, sans-serif" font-size="11" font-weight="bold"
+        fill="#333" text-anchor="middle">HBM  (High-Bandwidth Memory)</text>
+  <text x="220" y="130" font-family="Arial, sans-serif" font-size="10" fill="#555"
+        text-anchor="middle">80 GB  ·  ~2 TB/s</text>
+
+  <!-- State boxes h_0 … h_T inside HBM -->
+  <!-- h_0 -->
+  <rect x="48" y="148" width="42" height="32" rx="4" fill="#f5c6c6" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="69" y="168" font-family="Arial, sans-serif" font-size="11" font-weight="bold"
+        fill="#c0392b" text-anchor="middle" dominant-baseline="middle">h₀</text>
+
+  <!-- h_1 -->
+  <rect x="103" y="148" width="42" height="32" rx="4" fill="#f5c6c6" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="124" y="168" font-family="Arial, sans-serif" font-size="11" font-weight="bold"
+        fill="#c0392b" text-anchor="middle" dominant-baseline="middle">h₁</text>
+
+  <!-- h_2 -->
+  <rect x="158" y="148" width="42" height="32" rx="4" fill="#f5c6c6" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="179" y="168" font-family="Arial, sans-serif" font-size="11" font-weight="bold"
+        fill="#c0392b" text-anchor="middle" dominant-baseline="middle">h₂</text>
+
+  <!-- h_3 -->
+  <rect x="213" y="148" width="42" height="32" rx="4" fill="#f5c6c6" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="234" y="168" font-family="Arial, sans-serif" font-size="11" font-weight="bold"
+        fill="#c0392b" text-anchor="middle" dominant-baseline="middle">h₃</text>
+
+  <!-- ellipsis -->
+  <text x="278" y="168" font-family="Arial, sans-serif" font-size="18" fill="#c0392b"
+        text-anchor="middle" dominant-baseline="middle">…</text>
+
+  <!-- h_T -->
+  <rect x="302" y="148" width="42" height="32" rx="4" fill="#f5c6c6" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="323" y="168" font-family="Arial, sans-serif" font-size="11" font-weight="bold"
+        fill="#c0392b" text-anchor="middle" dominant-baseline="middle">hₜ</text>
+
+  <!-- Red bidirectional arrows: every state written and read back -->
+  <line x1="69" y1="148" x2="69" y2="118" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="75" y1="118" x2="75" y2="148" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <line x1="124" y1="148" x2="124" y2="118" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="130" y1="118" x2="130" y2="148" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <line x1="179" y1="148" x2="179" y2="118" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="185" y1="118" x2="185" y2="148" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <line x1="234" y1="148" x2="234" y2="118" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="240" y1="118" x2="240" y2="148" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <line x1="323" y1="148" x2="323" y2="118" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="329" y1="118" x2="329" y2="148" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- HBM read/write annotation inside -->
+  <text x="220" y="215" font-family="Arial, sans-serif" font-size="10" fill="#c0392b"
+        text-anchor="middle" font-style="italic">← every hₜ written to &amp; read from HBM →</text>
+
+  <!-- Bottleneck label outside HBM box -->
+  <rect x="28" y="284" width="384" height="34" rx="5" fill="#ffe0e0" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="220" y="298" font-family="Arial, sans-serif" font-size="10.5" font-weight="bold"
+        fill="#c0392b" text-anchor="middle">Bottleneck: O(N · d_state) HBM reads/writes</text>
+  <text x="220" y="313" font-family="Arial, sans-serif" font-size="9.5" fill="#5b6675"
+        text-anchor="middle">HBM bandwidth saturates — throughput-limited, not compute-limited</text>
+
+  <!-- ═══════════════ RIGHT PANEL: Hardware-aware Mamba ═══════════════ -->
+  <rect x="480" y="42" width="406" height="288" rx="8" fill="white" stroke="#0e8a6e" stroke-width="2"/>
+  <rect x="480" y="42" width="406" height="28" rx="8" fill="#0e8a6e"/>
+  <rect x="480" y="56" width="406" height="14" fill="#0e8a6e"/>
+  <text x="683" y="61" font-family="Arial, sans-serif" font-size="12" font-weight="bold"
+        fill="white" text-anchor="middle">Hardware-Aware (Mamba)</text>
+
+  <!-- GPU chip label -->
+  <text x="496" y="88" font-family="Arial, sans-serif" font-size="10" font-weight="bold"
+        fill="#5b6675">GPU</text>
+
+  <!-- HBM box (background, right panel) -->
+  <rect x="494" y="94" width="384" height="180" rx="7" fill="#e8e8e8" stroke="#888" stroke-width="1.8"/>
+  <text x="686" y="114" font-family="Arial, sans-serif" font-size="11" font-weight="bold"
+        fill="#333" text-anchor="middle">HBM  (High-Bandwidth Memory)</text>
+  <text x="686" y="130" font-family="Arial, sans-serif" font-size="10" fill="#555"
+        text-anchor="middle">80 GB  ·  ~2 TB/s</text>
+
+  <!-- Chunk boundary boxes in HBM (only boundaries are stored) -->
+  <rect x="510" y="148" width="34" height="32" rx="4" fill="#c8e8e0" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="527" y="168" font-family="Arial, sans-serif" font-size="9" fill="#0e8a6e"
+        text-anchor="middle" dominant-baseline="middle">ĥ₀</text>
+
+  <rect x="620" y="148" width="34" height="32" rx="4" fill="#c8e8e0" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="637" y="168" font-family="Arial, sans-serif" font-size="9" fill="#0e8a6e"
+        text-anchor="middle" dominant-baseline="middle">ĥ_c</text>
+
+  <rect x="730" y="148" width="34" height="32" rx="4" fill="#c8e8e0" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="747" y="168" font-family="Arial, sans-serif" font-size="9" fill="#0e8a6e"
+        text-anchor="middle" dominant-baseline="middle">ĥ_T</text>
+
+  <!-- dots between boundary boxes -->
+  <text x="582" y="168" font-family="Arial, sans-serif" font-size="16" fill="#0e8a6e"
+        text-anchor="middle" dominant-baseline="middle">…</text>
+  <text x="692" y="168" font-family="Arial, sans-serif" font-size="16" fill="#0e8a6e"
+        text-anchor="middle" dominant-baseline="middle">…</text>
+
+  <!-- Only boundary arrows (sparse, green) -->
+  <line x1="527" y1="148" x2="527" y2="130" stroke="#0e8a6e" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="637" y1="148" x2="637" y2="130" stroke="#0e8a6e" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="747" y1="148" x2="747" y2="130" stroke="#0e8a6e" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- SRAM inset box inside HBM area -->
+  <rect x="555" y="148" width="56" height="56" rx="5" fill="#d4f0e7" stroke="#0e8a6e" stroke-width="2"/>
+  <text x="583" y="162" font-family="Arial, sans-serif" font-size="8" font-weight="bold"
+        fill="#0e8a6e" text-anchor="middle">SRAM</text>
+  <text x="583" y="173" font-family="Arial, sans-serif" font-size="7.5" fill="#0e8a6e"
+        text-anchor="middle">100 KB</text>
+  <text x="583" y="184" font-family="Arial, sans-serif" font-size="7.5" fill="#0e8a6e"
+        text-anchor="middle">19 TB/s</text>
+  <!-- mini state boxes inside SRAM -->
+  <rect x="561" y="189" width="12" height="10" rx="2" fill="#0e8a6e"/>
+  <rect x="576" y="189" width="12" height="10" rx="2" fill="#0e8a6e"/>
+  <rect x="591" y="189" width="12" height="10" rx="2" fill="#0e8a6e"/>
+
+  <!-- SRAM annotation -->
+  <text x="686" y="218" font-family="Arial, sans-serif" font-size="9.5" fill="#0e8a6e"
+        text-anchor="middle" font-style="italic">chunk of hₜ computed entirely in SRAM</text>
+  <text x="686" y="233" font-family="Arial, sans-serif" font-size="9.5" fill="#0e8a6e"
+        text-anchor="middle" font-style="italic">only chunk boundaries spill to HBM</text>
+
+  <!-- Saving label outside HBM box -->
+  <rect x="494" y="284" width="384" height="34" rx="5" fill="#d4f0e7" stroke="#0e8a6e" stroke-width="1.2"/>
+  <text x="686" y="298" font-family="Arial, sans-serif" font-size="10.5" font-weight="bold"
+        fill="#0e8a6e" text-anchor="middle">Only O(chunks) HBM writes — ~10–20× less bandwidth</text>
+  <text x="686" y="313" font-family="Arial, sans-serif" font-size="9.5" fill="#5b6675"
+        text-anchor="middle">Kernel fusion: discretize → scan → multiply in one CUDA kernel</text>
+
+  <!-- ═══════════════ VS divider ═══════════════ -->
+  <text x="450" y="192" font-family="Arial, sans-serif" font-size="22" font-weight="bold"
+        fill="#e05252" text-anchor="middle" dominant-baseline="middle">vs</text>
+
+  <!-- Bottom bar -->
+  <rect x="14" y="340" width="872" height="26" rx="4" fill="#1f2a3c"/>
+  <text x="450" y="357" font-family="Arial, sans-serif" font-size="10" font-weight="bold"
+        fill="white" text-anchor="middle" dominant-baseline="middle">
+    Keeping intermediate states in SRAM eliminates the HBM bandwidth bottleneck — making Mamba compute-bound, not memory-bound
+  </text>
+
+</svg>

@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 530" font-family="'Segoe UI', Arial, sans-serif">
+
+  <!-- Background -->
+  <rect width="900" height="530" fill="#f8f9fa" rx="12"/>
+
+  <!-- Title -->
+  <text x="450" y="34" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">Roofline Model: Why Attention is Memory-Bandwidth-Bound</text>
+  <text x="450" y="54" text-anchor="middle" font-size="12" fill="#555">A100 SXM4 · FP16 · Peak = 312 TFLOPS · HBM Bandwidth = 2 TB/s · Ridge = 156 FLOP/byte</text>
+
+  <!-- Plot area -->
+  <rect x="80" y="72" width="720" height="380" fill="white" rx="6" stroke="#ccc" stroke-width="1"/>
+
+  <!-- Grid lines (log scale simulation: x covers ~0.5 to ~500 FLOP/byte, y 0 to 312 TFLOPS) -->
+  <!-- Vertical grid at x=10, 30, 100, 156, 300 (mapped to px) -->
+  <!-- x range: log10(0.5)=-0.3 to log10(500)=2.7 → 3.0 decades → 720px → 240px/decade -->
+  <!-- y range: 0 to 350 TFLOPS → 380px → 1.086px/TFLOPS -->
+
+  <!-- Helper: x_px = 80 + (log10(val) - (-0.3)) / 3.0 * 720 -->
+  <!-- Helper: y_px = 452 - val/350 * 380 -->
+
+  <!-- log10(1)=0 → x_px = 80 + (0+0.3)/3*720 = 80+72 = 152 -->
+  <!-- log10(10)=1 → x_px = 80 + (1+0.3)/3*720 = 80+312 = 392 -->
+  <!-- log10(100)=2 → x_px = 80 + (2+0.3)/3*720 = 80+552 = 632 -->
+  <!-- log10(156)=2.193 → x_px = 80 + (2.193+0.3)/3*720 = 80+598 = 678 -->
+  <!-- log10(0.5)=-0.301 → x_px ≈ 80+0 = 80 (left edge) -->
+  <!-- log10(500)=2.699 → x_px = 80+720 = 800 (right edge) -->
+
+  <!-- Grid lines vertical -->
+  <line x1="152" y1="72" x2="152" y2="452" stroke="#e0e0e0" stroke-width="1"/>
+  <line x1="392" y1="72" x2="392" y2="452" stroke="#e0e0e0" stroke-width="1"/>
+  <line x1="632" y1="72" x2="632" y2="452" stroke="#e0e0e0" stroke-width="1"/>
+
+  <!-- Grid lines horizontal -->
+  <line x1="80" y1="355" x2="800" y2="355" stroke="#e0e0e0" stroke-width="1"/>   <!-- 100 TFLOPS -->
+  <line x1="80" y1="235" x2="800" y2="235" stroke="#e0e0e0" stroke-width="1"/>   <!-- 200 TFLOPS -->
+  <line x1="80" y1="72"  x2="800" y2="72"  stroke="#e0e0e0" stroke-width="0.5"/> <!-- 350 TFLOPS -->
+
+  <!-- X axis labels -->
+  <text x="152" y="470" text-anchor="middle" font-size="12" fill="#555">1</text>
+  <text x="392" y="470" text-anchor="middle" font-size="12" fill="#555">10</text>
+  <text x="632" y="470" text-anchor="middle" font-size="12" fill="#555">100</text>
+  <text x="800" y="470" text-anchor="middle" font-size="12" fill="#555">500</text>
+  <text x="80"  y="470" text-anchor="middle" font-size="12" fill="#555">0.5</text>
+  <text x="440" y="495" text-anchor="middle" font-size="13" fill="#333" font-weight="bold">Arithmetic Intensity (FLOP / byte transferred from HBM)</text>
+
+  <!-- Y axis labels -->
+  <!-- y=452 → 0 TFLOPS; y=72 → 350 TFLOPS -->
+  <text x="70" y="456" text-anchor="end" font-size="12" fill="#555">0</text>
+  <text x="70" y="359" text-anchor="end" font-size="12" fill="#555">100</text>
+  <text x="70" y="239" text-anchor="end" font-size="12" fill="#555">200</text>
+  <text x="70" y="112" text-anchor="end" font-size="12" fill="#555">300</text>
+  <text x="40" y="262" text-anchor="middle" font-size="13" fill="#333" font-weight="bold" transform="rotate(-90,40,262)">Attainable Throughput (TFLOPS)</text>
+
+  <!-- Axes -->
+  <line x1="80" y1="452" x2="800" y2="452" stroke="#333" stroke-width="2"/>
+  <line x1="80" y1="72"  x2="80"  y2="452" stroke="#333" stroke-width="2"/>
+
+  <!-- ═══ ROOFLINE ═══ -->
+  <!-- Memory-bandwidth bound slope: TFLOPS = AI × 2 TB/s -->
+  <!-- At AI=1: 2 TFLOPS → y = 452 - 2/350*380 = 452-2.2=449.8 → x=152 -->
+  <!-- At AI=156: 312 TFLOPS → y = 452 - 312/350*380 = 452-339=113 → x=678 -->
+  <!-- Ridge point: AI=156 → x=678, y=113 -->
+  <!-- Right of ridge: flat at 312 TFLOPS → y=113 -->
+
+  <!-- Memory-bound slope (blue) -->
+  <line x1="80" y1="452" x2="678" y2="113" stroke="#2980b9" stroke-width="3"/>
+
+  <!-- Compute-bound ceiling (green) -->
+  <line x1="678" y1="113" x2="800" y2="113" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Roofline fill (shaded region below roofline) -->
+  <polygon points="80,452 678,113 800,113 800,452" fill="#ecf0f1" opacity="0.4"/>
+
+  <!-- Ridge point marker -->
+  <circle cx="678" cy="113" r="6" fill="#e67e22" stroke="white" stroke-width="2"/>
+  <line x1="678" y1="113" x2="678" y2="452" stroke="#e67e22" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <text x="686" y="108" font-size="11" fill="#e67e22" font-weight="bold">Ridge: 156 FLOP/byte</text>
+  <text x="686" y="122" font-size="11" fill="#e67e22">312 TFLOPS</text>
+
+  <!-- Memory bandwidth label on slope -->
+  <text x="230" y="350" font-size="11" fill="#2980b9" font-weight="bold" transform="rotate(-27,230,350)">Memory Bandwidth Bound (2 TB/s slope)</text>
+
+  <!-- Compute ceiling label -->
+  <text x="710" y="108" font-size="11" fill="#27ae60" font-weight="bold">Compute Bound</text>
+  <text x="710" y="122" font-size="11" fill="#27ae60">(312 TFLOPS peak)</text>
+
+  <!-- ═══ STANDARD ATTENTION POINT ═══ -->
+  <!-- AI ≈ 16 FLOP/byte for d=64 -->
+  <!-- log10(16) = 1.204 → x = 80 + (1.204+0.3)/3*720 = 80 + 361 = 441 -->
+  <!-- At AI=16: attainable = 16 × 2000 = 32 GFLOPS (capped by BW) = 0.032 TFLOPS? No— -->
+  <!-- Roofline gives attainable TFLOPS = min(AI × BW_TFLOPS_per_FLOP_byte, peak) -->
+  <!-- BW = 2 TB/s = 2e12 byte/s. Attainable GFLOPS = AI × 2e12 / 1e12 = AI × 2 TFLOPS -->
+  <!-- At AI=16: 16 × 2 = 32 TFLOPS → y = 452 - 32/350*380 = 452-34.7 = 417 -->
+
+  <circle cx="441" cy="417" r="9" fill="#c0392b" stroke="white" stroke-width="2"/>
+  <text x="452" y="408" font-size="12" fill="#c0392b" font-weight="bold">Standard Attention</text>
+  <text x="452" y="423" font-size="11" fill="#c0392b">AI ≈ 16 FLOP/byte (d=64)</text>
+  <text x="452" y="438" font-size="11" fill="#c0392b">~32 TFLOPS — 10% of peak</text>
+
+  <!-- vertical dashed line from standard attention up to roofline -->
+  <line x1="441" y1="417" x2="441" y2="355" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="447" y="348" font-size="10" fill="#c0392b">~100 TFLOPS</text>
+  <text x="447" y="360" font-size="10" fill="#c0392b">if compute-bound</text>
+
+  <!-- Gap annotation arrow -->
+  <line x1="441" y1="390" x2="678" y2="200" stroke="#e74c3c" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowRed)"/>
+  <text x="540" y="288" font-size="11" fill="#c0392b" font-style="italic">gap = wasted</text>
+  <text x="540" y="302" font-size="11" fill="#c0392b" font-style="italic">GPU cycles</text>
+
+  <!-- ═══ FLASHATTENTION POINT ═══ -->
+  <!-- FA reduces HBM bytes by ~N/d factor. For N=4096, d=64: factor≈64 -->
+  <!-- Effective AI = 16 × 64 ≈ 1024 → compute-bound, so attainable ≈ 200 TFLOPS (realistic) -->
+  <!-- In practice FA2 achieves ~225 TFLOPS on A100 (literature) -->
+  <!-- Plot at AI=200 (post-FA effective): log10(200)=2.301 → x=80+(2.301+0.3)/3*720=80+624=704 -->
+  <!-- y for 225 TFLOPS: y=452-225/350*380=452-244=208 -->
+
+  <circle cx="704" cy="208" r="9" fill="#27ae60" stroke="white" stroke-width="2"/>
+  <text x="715" y="198" font-size="12" fill="#1e8449" font-weight="bold">FlashAttention-2</text>
+  <text x="715" y="213" font-size="11" fill="#1e8449">~200 TFLOPS (A100, N=2048)</text>
+  <text x="715" y="228" font-size="11" fill="#1e8449">Effective AI ≫ ridge</text>
+
+  <!-- ═══ FLASHATTENTION-3 POINT ═══ -->
+  <!-- FA3 on H100: ~750 TFLOPS / H100 FP16 peak ~989 TFLOPS → 75% utilization -->
+  <!-- H100 ridge ≈ 495 FLOP/byte. FA3 reaches near compute-bound regime -->
+  <!-- On H100, plot at ~250 TFLOPS for this A100 chart as representative -->
+  <!-- Actually let's mark FA3 at right side as annotation since it's H100 specific -->
+
+  <!-- FA3 annotation box -->
+  <rect x="535" y="148" width="250" height="50" fill="#1e8449" rx="5" opacity="0.1" stroke="#1e8449" stroke-width="1"/>
+  <text x="660" y="168" text-anchor="middle" font-size="11" fill="#1e5631" font-weight="bold">FlashAttention-3 (H100)</text>
+  <text x="660" y="184" text-anchor="middle" font-size="10" fill="#1e5631">~750 TFLOPS · 75% of H100 FP16 peak</text>
+
+  <!-- Legend -->
+  <rect x="100" y="80" width="280" height="90" fill="white" rx="5" stroke="#ddd" stroke-width="1"/>
+  <text x="115" y="98" font-size="12" font-weight="bold" fill="#333">Legend</text>
+  <line x1="115" y1="110" x2="145" y2="110" stroke="#2980b9" stroke-width="3"/>
+  <text x="155" y="114" font-size="11" fill="#333">Memory-bandwidth bound</text>
+  <line x1="115" y1="128" x2="145" y2="128" stroke="#27ae60" stroke-width="3"/>
+  <text x="155" y="132" font-size="11" fill="#333">Compute bound (peak)</text>
+  <circle cx="130" cy="146" r="6" fill="#c0392b"/>
+  <text x="155" y="150" font-size="11" fill="#333">Standard attention (memory-bound)</text>
+  <circle cx="130" cy="162" r="6" fill="#27ae60"/>
+  <text x="155" y="166" font-size="11" fill="#333">FlashAttention (near compute-bound)</text>
+
+  <!-- Arrow defs -->
+  <defs>
+    <marker id="arrowRed" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#e74c3c"/>
+    </marker>
+  </defs>
+
+  <!-- Log-scale X axis tick labels clarification -->
+  <text x="440" y="515" text-anchor="middle" font-size="11" fill="#777" font-style="italic">X axis is logarithmic. Standard attention at AI≈16 is far left of the ridge (156); FlashAttention shifts it right into compute-bound territory.</text>
+
+</svg>

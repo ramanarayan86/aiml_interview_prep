@@ -12,7 +12,7 @@
 
 ![Questions](https://img.shields.io/badge/questions-42-1f4fa3)
 ![Levels](https://img.shields.io/badge/levels-Basic→Advanced→Applied-0e8a6e)
-![Status](https://img.shields.io/badge/answered-22%2F42-c77a12)
+![Status](https://img.shields.io/badge/answered-28%2F42-c77a12)
 
 </div>
 
@@ -58,12 +58,12 @@ The bedrock section. If you can teach every idea here from first principles, mos
 
 | # | Question | Status |
 |---|----------|:------:|
-| Q23 | Derive RoPE from first principles; long‑context scaling (NTK, YaRN, LongRoPE) | 📝 |
-| Q24 | FlashAttention tiling & IO‑awareness; what changed in v2/v3 | 📝 |
-| Q25 | Attention sinks & StreamingLLM | 📝 |
-| Q26 | Sub‑quadratic attention: Linear Attention, Performer, Mamba, hybrids | 📝 |
-| Q27 | SSMs: selective scan; Mamba‑2 and State Space Duality | 📝 |
-| Q28 | Expressivity gap between Transformers and SSMs | 📝 |
+| Q23 | [Derive RoPE from first principles; long‑context scaling (NTK, YaRN, LongRoPE)](./q23-rope-derivation.md) | ✅ |
+| Q24 | [FlashAttention tiling & IO‑awareness; what changed in v2/v3](./q24-flash-attention.md) | ✅ |
+| Q25 | [Attention sinks & StreamingLLM](./q25-attention-sinks.md) | ✅ |
+| Q26 | [Sub‑quadratic attention: Linear Attention, Performer, Mamba, hybrids](./q26-subquadratic-attention.md) | ✅ |
+| Q27 | [SSMs: selective scan; Mamba‑2 and State Space Duality](./q27-ssm-mamba.md) | ✅ |
+| Q28 | [Expressivity gap between Transformers and SSMs](./q28-expressivity-gap.md) | ✅ |
 | Q29 | Differential Transformer | 📝 |
 | Q30 | Hyena, RetNet, RWKV complexity profiles | 📝 |
 | Q31 | Role of softmax; is softmax‑free attention viable | 📝 |
@@ -93,6 +93,8 @@ The bedrock section. If you can teach every idea here from first principles, mos
 **Interview in 48 hours?** [Q18 — QK‑norm](./q18-qk-norm.md) · [Q11 — Complexity](./q11-attention-complexity.md) · [Q13 — GQA/MQA](./q13-gqa-mqa.md) · [Q6 — FFN](./q06-ffn.md) · [Q12 — MHA Interpretability](./q12-mha-interpretability.md)
 
 **Full Intermediate track:** Q11 → Q12 → Q13 → Q14 → Q15 → Q16 → Q17 → Q18 → Q19 → Q20 → Q21 → Q22
+
+**Advanced track:** [Q23 — RoPE Deep Dive](./q23-rope-derivation.md) · [Q24 — FlashAttention](./q24-flash-attention.md) · [Q25 — Attention Sinks](./q25-attention-sinks.md) · [Q26 — Sub-quadratic Attention](./q26-subquadratic-attention.md) · [Q27 — SSMs / Mamba](./q27-ssm-mamba.md) · [Q28 — Expressivity Gap](./q28-expressivity-gap.md)
 
 ---
 

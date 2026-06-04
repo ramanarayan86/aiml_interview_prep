@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" font-family="'Segoe UI', Arial, sans-serif">
+
+  <!-- Background -->
+  <rect width="960" height="520" fill="#f8f9fa" rx="12"/>
+
+  <!-- Title -->
+  <text x="480" y="38" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">Standard Attention vs FlashAttention: Memory Access Pattern</text>
+
+  <!-- ═══ LEFT SIDE: Standard Attention ═══ -->
+  <text x="235" y="70" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">Standard Attention — O(N²) HBM traffic</text>
+
+  <!-- HBM label left -->
+  <rect x="30" y="80" width="410" height="390" fill="#fff0f0" rx="8" stroke="#e74c3c" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="235" y="100" text-anchor="middle" font-size="11" fill="#c0392b" font-style="italic">HBM (High-Bandwidth Memory, off-chip)</text>
+
+  <!-- Q, K, V matrices -->
+  <rect x="60" y="115" width="70" height="80" fill="#3498db" rx="4" opacity="0.85"/>
+  <text x="95" y="152" text-anchor="middle" font-size="15" font-weight="bold" fill="white">Q</text>
+  <text x="95" y="170" text-anchor="middle" font-size="10" fill="white">N×d</text>
+
+  <rect x="155" y="115" width="70" height="80" fill="#3498db" rx="4" opacity="0.85"/>
+  <text x="190" y="152" text-anchor="middle" font-size="15" font-weight="bold" fill="white">K</text>
+  <text x="190" y="170" text-anchor="middle" font-size="10" fill="white">N×d</text>
+
+  <rect x="250" y="115" width="70" height="80" fill="#3498db" rx="4" opacity="0.85"/>
+  <text x="285" y="152" text-anchor="middle" font-size="15" font-weight="bold" fill="white">V</text>
+  <text x="285" y="170" text-anchor="middle" font-size="10" fill="white">N×d</text>
+
+  <!-- GEMM 1 arrow down -->
+  <line x1="235" y1="200" x2="235" y2="230" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrowR)"/>
+  <text x="248" y="220" font-size="10" fill="#c0392b">write</text>
+
+  <!-- S matrix — big red block -->
+  <rect x="100" y="235" width="110" height="110" fill="#e74c3c" rx="4" opacity="0.75"/>
+  <text x="155" y="288" text-anchor="middle" font-size="16" font-weight="bold" fill="white">S</text>
+  <text x="155" y="308" text-anchor="middle" font-size="10" fill="white">N×N</text>
+  <text x="155" y="323" text-anchor="middle" font-size="9" fill="white">64 MB (N=4096)</text>
+
+  <!-- read S back arrow -->
+  <line x1="235" y1="350" x2="235" y2="375" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrowR)"/>
+  <text x="248" y="367" font-size="10" fill="#c0392b">read</text>
+
+  <!-- P matrix -->
+  <rect x="100" y="378" width="110" height="60" fill="#e74c3c" rx="4" opacity="0.65"/>
+  <text x="155" y="406" text-anchor="middle" font-size="14" font-weight="bold" fill="white">P=softmax(S)</text>
+  <text x="155" y="425" text-anchor="middle" font-size="9" fill="white">N×N · write+read</text>
+
+  <!-- HBM cost annotation -->
+  <rect x="58" y="455" width="360" height="26" fill="#e74c3c" rx="4" opacity="0.15"/>
+  <text x="238" y="472" text-anchor="middle" font-size="12" fill="#c0392b" font-weight="bold">Total HBM r/w: O(N²) — 256 MB at N=4096, d=64</text>
+
+  <!-- ═══ RIGHT SIDE: FlashAttention ═══ -->
+  <text x="715" y="70" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">FlashAttention — O(Nd) HBM traffic</text>
+
+  <!-- HBM region right -->
+  <rect x="510" y="80" width="420" height="390" fill="#f0fff4" rx="8" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="720" y="100" text-anchor="middle" font-size="11" fill="#27ae60" font-style="italic">HBM — inputs read once, output written once</text>
+
+  <!-- Q, K, V in HBM right -->
+  <rect x="535" y="115" width="65" height="75" fill="#2980b9" rx="4" opacity="0.85"/>
+  <text x="567" y="150" text-anchor="middle" font-size="13" font-weight="bold" fill="white">Q</text>
+  <text x="567" y="167" text-anchor="middle" font-size="9" fill="white">N×d</text>
+
+  <rect x="620" y="115" width="65" height="75" fill="#2980b9" rx="4" opacity="0.85"/>
+  <text x="652" y="150" text-anchor="middle" font-size="13" font-weight="bold" fill="white">K</text>
+  <text x="652" y="167" text-anchor="middle" font-size="9" fill="white">N×d</text>
+
+  <rect x="705" y="115" width="65" height="75" fill="#2980b9" rx="4" opacity="0.85"/>
+  <text x="737" y="150" text-anchor="middle" font-size="13" font-weight="bold" fill="white">V</text>
+  <text x="737" y="167" text-anchor="middle" font-size="9" fill="white">N×d</text>
+
+  <!-- SRAM box -->
+  <rect x="535" y="215" width="370" height="180" fill="#d5f5e3" rx="8" stroke="#1e8449" stroke-width="2"/>
+  <text x="720" y="235" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e8449">SRAM (on-chip, ~100 KB)</text>
+
+  <!-- Q tile in SRAM -->
+  <rect x="550" y="248" width="80" height="55" fill="#27ae60" rx="4" opacity="0.9"/>
+  <text x="590" y="273" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Q_i tile</text>
+  <text x="590" y="289" text-anchor="middle" font-size="9" fill="white">B_r × d</text>
+
+  <!-- K tile in SRAM -->
+  <rect x="650" y="248" width="80" height="55" fill="#1e8449" rx="4" opacity="0.85"/>
+  <text x="690" y="273" text-anchor="middle" font-size="11" font-weight="bold" fill="white">K_j tile</text>
+  <text x="690" y="289" text-anchor="middle" font-size="9" fill="white">B_c × d</text>
+
+  <!-- V tile in SRAM -->
+  <rect x="750" y="248" width="80" height="55" fill="#1e8449" rx="4" opacity="0.85"/>
+  <text x="790" y="273" text-anchor="middle" font-size="11" font-weight="bold" fill="white">V_j tile</text>
+  <text x="790" y="289" text-anchor="middle" font-size="9" fill="white">B_c × d</text>
+
+  <!-- accumulator in SRAM -->
+  <rect x="550" y="318" width="280" height="58" fill="#a9dfbf" rx="4"/>
+  <text x="690" y="342" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e5631">Accumulators (on-chip)</text>
+  <text x="690" y="360" text-anchor="middle" font-size="10" fill="#1e5631">(m_i, ℓ_i, O_i)  —  never leave SRAM</text>
+
+  <!-- NO N×N label in center SRAM -->
+  <text x="862" y="295" text-anchor="middle" font-size="10" fill="#c0392b" font-style="italic">S, P never</text>
+  <text x="862" y="310" text-anchor="middle" font-size="10" fill="#c0392b" font-style="italic">written to</text>
+  <text x="862" y="325" text-anchor="middle" font-size="10" fill="#c0392b" font-style="italic">HBM</text>
+
+  <!-- Output O written to HBM -->
+  <rect x="620" y="420" width="200" height="50" fill="#27ae60" rx="4" opacity="0.85"/>
+  <text x="720" y="445" text-anchor="middle" font-size="13" font-weight="bold" fill="white">Output O</text>
+  <text x="720" y="463" text-anchor="middle" font-size="10" fill="white">N×d — one write to HBM</text>
+
+  <!-- Arrow from SRAM to O -->
+  <line x1="720" y1="400" x2="720" y2="416" stroke="#27ae60" stroke-width="2" marker-end="url(#arrowG)"/>
+
+  <!-- Load arrows (HBM to SRAM) -->
+  <line x1="590" y1="193" x2="590" y2="244" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrowG)"/>
+  <line x1="690" y1="193" x2="690" y2="244" stroke="#1e8449" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrowG)"/>
+  <line x1="785" y1="193" x2="785" y2="244" stroke="#1e8449" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrowG)"/>
+
+  <!-- HBM cost annotation right -->
+  <rect x="510" y="455" width="418" height="26" fill="#27ae60" rx="4" opacity="0.15"/>
+  <text x="719" y="472" text-anchor="middle" font-size="12" fill="#27ae60" font-weight="bold">Total HBM r/w: O(Nd) — ~8 MB at N=4096, d=64  (32× less)</text>
+
+  <!-- Arrow defs -->
+  <defs>
+    <marker id="arrowR" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#e74c3c"/>
+    </marker>
+    <marker id="arrowG" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+</svg>

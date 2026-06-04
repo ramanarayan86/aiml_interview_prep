@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380" width="900" height="380">
+
+  <defs>
+    <marker id="arr-grey" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#5b6675"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1a5fa8"/>
+    </marker>
+    <marker id="arr-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#0e8a6e"/>
+    </marker>
+    <marker id="arr-purple" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#6b3fa0"/>
+    </marker>
+    <marker id="arr-bidir-l" markerWidth="10" markerHeight="7" refX="1" refY="3.5" orient="auto">
+      <polygon points="10 0, 0 3.5, 10 7" fill="#888"/>
+    </marker>
+    <marker id="arr-bidir-r" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#888"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="380" fill="#f8f9fa" rx="8"/>
+
+  <!-- Title -->
+  <text x="450" y="28" font-family="Arial, sans-serif" font-size="15" font-weight="bold"
+        fill="#1f2a3c" text-anchor="middle">Three Views of a State Space Model</text>
+
+  <!-- ═══════════════ PANEL 1: Recurrence (blue) ═══════════════ -->
+  <rect x="14" y="42" width="258" height="268" rx="8" fill="white" stroke="#1a5fa8" stroke-width="2"/>
+  <rect x="14" y="42" width="258" height="28" rx="8" fill="#1a5fa8"/>
+  <rect x="14" y="56" width="258" height="14" fill="#1a5fa8"/>
+  <text x="143" y="61" font-family="Arial, sans-serif" font-size="12" font-weight="bold"
+        fill="white" text-anchor="middle">Recurrence</text>
+
+  <!-- State boxes h_0 .. h_3 in a horizontal chain -->
+  <!-- h_0 -->
+  <rect x="28" y="100" width="44" height="32" rx="5" fill="#d6e8f7" stroke="#1a5fa8" stroke-width="1.5"/>
+  <text x="50" y="120" font-family="Arial, sans-serif" font-size="12" font-weight="bold"
+        fill="#1a5fa8" text-anchor="middle" dominant-baseline="middle">h₀</text>
+
+  <!-- arrow h0 → h1 -->
+  <line x1="72" y1="116" x2="94" y2="116" stroke="#1a5fa8" stroke-width="1.6" marker-end="url(#arr-blue)"/>
+
+  <!-- h_1 -->
+  <rect x="96" y="100" width="44" height="32" rx="5" fill="#d6e8f7" stroke="#1a5fa8" stroke-width="1.5"/>
+  <text x="118" y="120" font-family="Arial, sans-serif" font-size="12" font-weight="bold"
+        fill="#1a5fa8" text-anchor="middle" dominant-baseline="middle">h₁</text>
+
+  <!-- arrow h1 → h2 -->
+  <line x1="140" y1="116" x2="162" y2="116" stroke="#1a5fa8" stroke-width="1.6" marker-end="url(#arr-blue)"/>
+
+  <!-- h_2 -->
+  <rect x="164" y="100" width="44" height="32" rx="5" fill="#d6e8f7" stroke="#1a5fa8" stroke-width="1.5"/>
+  <text x="186" y="120" font-family="Arial, sans-serif" font-size="12" font-weight="bold"
+        fill="#1a5fa8" text-anchor="middle" dominant-baseline="middle">h₂</text>
+
+  <!-- arrow h2 → h3 -->
+  <line x1="208" y1="116" x2="230" y2="116" stroke="#1a5fa8" stroke-width="1.6" marker-end="url(#arr-blue)"/>
+
+  <!-- h_3 -->
+  <rect x="232" y="100" width="26" height="32" rx="5" fill="#d6e8f7" stroke="#1a5fa8" stroke-width="1.5"/>
+  <text x="245" y="120" font-family="Arial, sans-serif" font-size="10" font-weight="bold"
+        fill="#1a5fa8" text-anchor="middle" dominant-baseline="middle">…</text>
+
+  <!-- x_t inputs (arrows from below into each h box) -->
+  <line x1="50" y1="155" x2="50" y2="134" stroke="#1a5fa8" stroke-width="1.4" marker-end="url(#arr-blue)"/>
+  <text x="50" y="168" font-family="Arial, sans-serif" font-size="10" fill="#1a5fa8" text-anchor="middle">x₀</text>
+
+  <line x1="118" y1="155" x2="118" y2="134" stroke="#1a5fa8" stroke-width="1.4" marker-end="url(#arr-blue)"/>
+  <text x="118" y="168" font-family="Arial, sans-serif" font-size="10" fill="#1a5fa8" text-anchor="middle">x₁</text>
+
+  <line x1="186" y1="155" x2="186" y2="134" stroke="#1a5fa8" stroke-width="1.4" marker-end="url(#arr-blue)"/>
+  <text x="186" y="168" font-family="Arial, sans-serif" font-size="10" fill="#1a5fa8" text-anchor="middle">x₂</text>
+
+  <!-- y_t outputs (arrows upward from each h box) -->
+  <line x1="50" y1="100" x2="50" y2="84" stroke="#1a5fa8" stroke-width="1.4" marker-end="url(#arr-blue)"/>
+  <text x="50" y="80" font-family="Arial, sans-serif" font-size="10" fill="#1a5fa8" text-anchor="middle">y₀</text>
+
+  <line x1="118" y1="100" x2="118" y2="84" stroke="#1a5fa8" stroke-width="1.4" marker-end="url(#arr-blue)"/>
+  <text x="118" y="80" font-family="Arial, sans-serif" font-size="10" fill="#1a5fa8" text-anchor="middle">y₁</text>
+
+  <line x1="186" y1="100" x2="186" y2="84" stroke="#1a5fa8" stroke-width="1.4" marker-end="url(#arr-blue)"/>
+  <text x="186" y="80" font-family="Arial, sans-serif" font-size="10" fill="#1a5fa8" text-anchor="middle">y₂</text>
+
+  <!-- Recurrence equations -->
+  <rect x="24" y="182" width="240" height="50" rx="5" fill="#eef4fc" stroke="#1a5fa8" stroke-width="1"/>
+  <text x="144" y="198" font-family="Arial, sans-serif" font-size="10.5" font-weight="bold"
+        fill="#1a5fa8" text-anchor="middle">hₜ = Ā hₜ₋₁ + B̄ xₜ</text>
+  <text x="144" y="215" font-family="Arial, sans-serif" font-size="10.5" font-weight="bold"
+        fill="#1a5fa8" text-anchor="middle">yₜ = C hₜ</text>
+  <text x="144" y="228" font-family="Arial, sans-serif" font-size="9" fill="#5b6675"
+        text-anchor="middle">(Ā, B̄ = discretized A, B)</text>
+
+  <rect x="24" y="245" width="240" height="26" rx="4" fill="#ddeeff"/>
+  <text x="144" y="263" font-family="Arial, sans-serif" font-size="10" fill="#1a5fa8"
+        text-anchor="middle" font-weight="bold">O(L) time, O(N) state — sequential</text>
+
+  <text x="144" y="300" font-family="Arial, sans-serif" font-size="9" fill="#5b6675"
+        text-anchor="middle" font-style="italic">Efficient for autoregressive inference</text>
+
+  <!-- ═══════════════ PANEL 2: Convolution (green) ═══════════════ -->
+  <rect x="321" y="42" width="258" height="268" rx="8" fill="white" stroke="#0e8a6e" stroke-width="2"/>
+  <rect x="321" y="42" width="258" height="28" rx="8" fill="#0e8a6e"/>
+  <rect x="321" y="56" width="258" height="14" fill="#0e8a6e"/>
+  <text x="450" y="61" font-family="Arial, sans-serif" font-size="12" font-weight="bold"
+        fill="white" text-anchor="middle">Convolution</text>
+
+  <!-- Input sequence bar -->
+  <rect x="335" y="88" width="230" height="28" rx="5" fill="#d4f0e7" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="450" y="106" font-family="Arial, sans-serif" font-size="11" font-weight="bold"
+        fill="#0e8a6e" text-anchor="middle">x₀  x₁  x₂  …  xₗ</text>
+
+  <!-- arrow down to conv filter -->
+  <line x1="450" y1="116" x2="450" y2="136" stroke="#0e8a6e" stroke-width="1.6" marker-end="url(#arr-green)"/>
+
+  <!-- Conv filter box -->
+  <rect x="335" y="138" width="230" height="48" rx="5" fill="white" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="450" y="158" font-family="Arial, sans-serif" font-size="11" font-weight="bold"
+        fill="#0e8a6e" text-anchor="middle">SSM Kernel  k</text>
+  <text x="450" y="177" font-family="Arial, sans-serif" font-size="9.5" fill="#5b6675"
+        text-anchor="middle">k = [CB̄, CĀB̄, CĀ²B̄, …]</text>
+
+  <!-- arrow down to output -->
+  <line x1="450" y1="186" x2="450" y2="206" stroke="#0e8a6e" stroke-width="1.6" marker-end="url(#arr-green)"/>
+
+  <!-- Output bar -->
+  <rect x="335" y="208" width="230" height="26" rx="5" fill="#d4f0e7" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="450" y="225" font-family="Arial, sans-serif" font-size="11" font-weight="bold"
+        fill="#0e8a6e" text-anchor="middle">y = x ∗ k</text>
+
+  <!-- Callout -->
+  <rect x="335" y="248" width="230" height="26" rx="4" fill="#c8f0e0"/>
+  <text x="450" y="266" font-family="Arial, sans-serif" font-size="10" font-weight="bold"
+        fill="#0e8a6e" text-anchor="middle">O(L log L) via FFT — parallel</text>
+
+  <text x="450" y="300" font-family="Arial, sans-serif" font-size="9" fill="#5b6675"
+        text-anchor="middle" font-style="italic">Efficient for training on full sequences</text>
+
+  <!-- ═══════════════ PANEL 3: Continuous ODE (purple) ═══════════════ -->
+  <rect x="628" y="42" width="258" height="268" rx="8" fill="white" stroke="#6b3fa0" stroke-width="2"/>
+  <rect x="628" y="42" width="258" height="28" rx="8" fill="#6b3fa0"/>
+  <rect x="628" y="56" width="258" height="14" fill="#6b3fa0"/>
+  <text x="757" y="61" font-family="Arial, sans-serif" font-size="12" font-weight="bold"
+        fill="white" text-anchor="middle">Continuous ODE</text>
+
+  <!-- Smooth curve for h(t) -->
+  <path d="M 648 190 C 668 150, 700 140, 720 155 C 740 170, 760 130, 785 118 C 810 106, 840 120, 860 110"
+        fill="none" stroke="#6b3fa0" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <!-- Axis labels -->
+  <line x1="645" y1="205" x2="865" y2="205" stroke="#aaa" stroke-width="1.2" marker-end="url(#arr-grey)"/>
+  <text x="870" y="209" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">t</text>
+  <line x1="645" y1="220" x2="645" y2="85" stroke="#aaa" stroke-width="1.2" marker-end="url(#arr-grey)"/>
+  <text x="638" y="84" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">h</text>
+
+  <!-- dh/dt tangent arrow at one point -->
+  <line x1="755" y1="136" x2="785" y2="116" stroke="#c77a12" stroke-width="2" marker-end="url(#arr-grey)"/>
+  <text x="797" y="128" font-family="Arial, sans-serif" font-size="9.5" fill="#c77a12">dh/dt</text>
+
+  <!-- Label h(t) curve -->
+  <text x="680" y="140" font-family="Arial, sans-serif" font-size="10" font-style="italic"
+        fill="#6b3fa0">h(t)</text>
+
+  <!-- ODE equations -->
+  <rect x="638" y="222" width="238" height="50" rx="5" fill="#efe8f8" stroke="#6b3fa0" stroke-width="1"/>
+  <text x="757" y="241" font-family="Arial, sans-serif" font-size="11" font-weight="bold"
+        fill="#6b3fa0" text-anchor="middle">dh/dt = Ah + Bx</text>
+  <text x="757" y="260" font-family="Arial, sans-serif" font-size="11" font-weight="bold"
+        fill="#6b3fa0" text-anchor="middle">y = Ch</text>
+
+  <!-- ZOH note -->
+  <rect x="638" y="283" width="238" height="20" rx="4" fill="#e0d0f5"/>
+  <text x="757" y="297" font-family="Arial, sans-serif" font-size="9.5" font-weight="bold"
+        fill="#6b3fa0" text-anchor="middle">ZOH discretization → panels 1 &amp; 2</text>
+
+  <!-- ═══════════════ Bidirectional "equivalent" arrows between panels ═══════════════ -->
+  <!-- Arrow between panel 1 and 2 -->
+  <line x1="276" y1="176" x2="318" y2="176" stroke="#888" stroke-width="1.8"
+        marker-start="url(#arr-bidir-l)" marker-end="url(#arr-bidir-r)"/>
+  <text x="297" y="170" font-family="Arial, sans-serif" font-size="9" fill="#5b6675"
+        text-anchor="middle" font-style="italic">equiv.</text>
+
+  <!-- Arrow between panel 2 and 3 -->
+  <line x1="583" y1="176" x2="625" y2="176" stroke="#888" stroke-width="1.8"
+        marker-start="url(#arr-bidir-l)" marker-end="url(#arr-bidir-r)"/>
+  <text x="604" y="170" font-family="Arial, sans-serif" font-size="9" fill="#5b6675"
+        text-anchor="middle" font-style="italic">equiv.</text>
+
+  <!-- Bottom bar -->
+  <rect x="14" y="322" width="872" height="20" rx="4" fill="#1f2a3c"/>
+  <text x="450" y="336" font-family="Arial, sans-serif" font-size="10" font-weight="bold"
+        fill="white" text-anchor="middle" dominant-baseline="middle">
+    All three views describe the same linear SSM — choice of representation determines computational efficiency
+  </text>
+
+  <!-- Caption -->
+  <text x="450" y="366" font-family="Arial, sans-serif" font-size="9" fill="#5b6675"
+        text-anchor="middle" font-style="italic">
+    Ā = exp(Δ A), B̄ = (Δ A)⁻¹ (exp(Δ A) − I) Δ B  under Zero-Order Hold (ZOH) with step size Δ
+  </text>
+
+</svg>

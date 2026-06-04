@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 450" width="900" height="450">
+
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#5b6675"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="450" fill="#f8f9fa" rx="8"/>
+
+  <!-- Title -->
+  <text x="450" y="28" font-family="Arial, sans-serif" font-size="15" font-weight="bold"
+        fill="#1f4fa3" text-anchor="middle">Memory Complexity Landscape</text>
+  <text x="450" y="46" font-family="Arial, sans-serif" font-size="10.5" fill="#5b6675"
+        text-anchor="middle">Attention variants across sequence lengths (log-log scale)</text>
+
+  <!-- Chart area: x=80..820, y=65..390 -->
+  <!-- Chart background -->
+  <rect x="80" y="65" width="740" height="325" fill="white" stroke="#d0d5dd" stroke-width="1.2" rx="4"/>
+
+  <!-- Horizontal grid lines (memory axis, log) -->
+  <!-- 5 grid lines evenly spaced in the 325px chart height -->
+  <line x1="80" y1="130" x2="820" y2="130" stroke="#e8eaed" stroke-width="1"/>
+  <line x1="80" y1="195" x2="820" y2="195" stroke="#e8eaed" stroke-width="1"/>
+  <line x1="80" y1="260" x2="820" y2="260" stroke="#e8eaed" stroke-width="1"/>
+  <line x1="80" y1="325" x2="820" y2="325" stroke="#e8eaed" stroke-width="1"/>
+
+  <!-- Vertical grid lines (sequence length: 512, 1K, 2K, 4K, 8K, 16K, 32K, 64K, 128K, 256K, 512K, 1M) -->
+  <!-- x positions: log2(512)=9, log2(1M)=~20. Range 9..20 = 11 steps. Width 740px. step=67.3px -->
+  <!-- x(N) = 80 + (log2(N)-9) * 740/11 -->
+  <!-- 512→80, 1K→147.3, 2K→214.5, 4K→281.8, 8K→349.1, 16K→416.4, 32K→483.6, 64K→550.9, 128K→618.2, 256K→685.5, 512K→752.7, 1M→820 -->
+  <line x1="147" y1="65" x2="147" y2="390" stroke="#e8eaed" stroke-width="1"/>
+  <line x1="215" y1="65" x2="215" y2="390" stroke="#e8eaed" stroke-width="1"/>
+  <line x1="282" y1="65" x2="282" y2="390" stroke="#e8eaed" stroke-width="1"/>
+  <line x1="349" y1="65" x2="349" y2="390" stroke="#e8eaed" stroke-width="1"/>
+  <line x1="416" y1="65" x2="416" y2="390" stroke="#e8eaed" stroke-width="1"/>
+  <line x1="484" y1="65" x2="484" y2="390" stroke="#e8eaed" stroke-width="1"/>
+  <line x1="551" y1="65" x2="551" y2="390" stroke="#e8eaed" stroke-width="1"/>
+  <line x1="618" y1="65" x2="618" y2="390" stroke="#e8eaed" stroke-width="1"/>
+  <line x1="686" y1="65" x2="686" y2="390" stroke="#e8eaed" stroke-width="1"/>
+  <line x1="753" y1="65" x2="753" y2="390" stroke="#e8eaed" stroke-width="1"/>
+
+  <!-- Vertical dashed line at N=16K (x=416) -->
+  <line x1="416" y1="65" x2="416" y2="390" stroke="#e05252" stroke-width="1.8" stroke-dasharray="6,4"/>
+  <rect x="344" y="67" width="144" height="16" rx="3" fill="#fdf3f3"/>
+  <text x="416" y="79" font-family="Arial, sans-serif" font-size="9.5" fill="#e05252"
+        text-anchor="middle" font-weight="bold">Typical max for O(N²)</text>
+
+  <!-- ===== CURVES =====
+       Y-axis: memory in log scale. Chart height 325px (y: 65 top → 390 bottom).
+       We model memory as proportional to:
+         Standard Attention: N²      → y = 390 - 325*(2*log2(N) - 18) / (2*20 - 18)  [quadratic in N]
+         FlashAttention:     N       → linear, anchored low
+         Linear Attn O(N·d²): N·d²  → linear but offset up (d²≈65536 for d=256)
+         Performer O(N·r):   N·r    → linear, r≈64, between FA and LinearAttn
+         Mamba O(N):         N      → same slope as FlashAttn but pinned lowest
+
+       For clean rendering, define control points at key x-positions.
+
+       X positions (px): 512→80, 1K→147, 2K→215, 4K→282, 8K→349, 16K→416, 32K→484, 64K→551, 128K→618, 256K→686, 512K→753, 1M→820
+
+       Y-axis log scale: map "effective log-memory" linearly to y-pixels.
+       Let's define "log mem" bottom=0 (min), top=1 (max visible).
+       y_px = 390 - 325 * logmem_normalized
+
+       Standard O(N²): log_mem ∝ 2*log2(N). At N=512 → logmem=18, at N=1M → logmem=40.
+         Normalize to [0,1] over range [18,40]:  lm = (2*log2(N) - 18)/22
+         At N=512: lm=0 → y=390; N=4K: lm=(24-18)/22=0.273 → y=301; N=16K: lm=(28-18)/22=0.455 → y=242;
+         N=64K: lm=(32-18)/22=0.636 → y=183; N=256K: lm=(36-18)/22=0.818 → y=124; N=1M: lm=1.0 → y=65
+
+       Linear curves share the same y-scale. We treat FlashAttn as O(N) with c=1:
+         lm_linear_FA(N) = (log2(N) - 9) / 22   [so at N=512 it's 0, at N=1M it's 0.5]
+         At N=512: y=390; 1K: lm=1/22=0.045→y=375; 4K: lm=6/22=0.273→y=301; 16K: lm=7/22=0.318→y=286;
+         64K: lm=8/22=0.364→y=272; 256K: lm=9/22=0.409→y=257; 1M: lm=11/22=0.5→y=227
+
+       Performer O(N·r), r=64 → add log2(64)=6 offset:
+         lm = (log2(N)+6 - 9)/22 = (log2(N)-3)/22
+         At N=512: (9-3)/22=0.273→y=301; 16K: (14-3)/22=0.5→y=227; 1M: (20-3)/22=0.773→y=138
+
+       LinearAttn O(N·d²), d=256→d²=65536→log2=16 offset:
+         lm = (log2(N)+16 - 9)/22 = (log2(N)+7)/22
+         At N=512: (9+7)/22=0.727→y=154; 16K: (14+7)/22=0.955→y=80; 32K+: clips to top (y=65)
+
+       Mamba O(N) but very cache-efficient — shift down by 1 vs FA:
+         lm = (log2(N)-10)/22   (starts below 0 at N=512, clip at y=390)
+         At N=512: -1/22→clip y=390; 1K: 0→y=390; 4K: 5/22=0.227→y=316; 16K: 4/22→(14-10)/22=0.182→y=331;
+         Actually let's use: lm_mamba = (log2(N) - 10)/22
+         N=512: -0.045 → y=390(clip); 1K: 0→y=390; 2K: 0.045→y=375; 4K:0.091→y=360;
+         8K: 0.136→y=346; 16K: 0.182→y=331; 32K:0.227→y=316; 64K:0.273→y=301; 128K:0.318→y=286; 256K:0.364→y=272; 512K:0.409→y=257; 1M:0.455→y=242
+  -->
+
+  <!-- Standard Attention O(N²) - RED - steep curve -->
+  <polyline points="80,390 147,375 215,360 282,338 349,316 416,294 484,264 551,236 618,196 686,154 753,110 820,65"
+            fill="none" stroke="#e05252" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <!-- FlashAttention O(N) - ORANGE - linear, moderate slope -->
+  <polyline points="80,390 147,375 215,360 282,346 349,331 416,316 484,301 551,286 618,272 686,257 753,242 820,227"
+            fill="none" stroke="#f5a623" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <!-- Linear Attention O(N·d²) - YELLOW-GREEN - linear but higher intercept -->
+  <polyline points="80,154 147,139 215,125 282,110 349,95 416,80 484,68 551,65 618,65 686,65 753,65 820,65"
+            fill="none" stroke="#8bc34a" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="7,3"/>
+
+  <!-- Performer O(N·r) - GREEN - linear, between FA and LinearAttn -->
+  <polyline points="80,301 147,286 215,272 282,257 349,242 416,227 484,213 551,198 618,183 686,169 753,154 820,139"
+            fill="none" stroke="#4caf50" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="5,3"/>
+
+  <!-- Mamba O(N) - BLUE - lowest line -->
+  <polyline points="80,390 147,390 215,375 282,360 349,346 416,331 484,316 551,301 618,286 686,272 753,257 820,242"
+            fill="none" stroke="#2196f3" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <!-- Axes -->
+  <!-- X axis -->
+  <line x1="80" y1="390" x2="825" y2="390" stroke="#5b6675" stroke-width="1.8"
+        marker-end="url(#arrowhead)"/>
+  <!-- Y axis -->
+  <line x1="80" y1="390" x2="80" y2="60" stroke="#5b6675" stroke-width="1.8"
+        marker-end="url(#arrowhead)"/>
+
+  <!-- X-axis tick labels -->
+  <text x="80"  y="408" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">512</text>
+  <text x="215" y="408" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">2K</text>
+  <text x="349" y="408" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">8K</text>
+  <text x="416" y="408" font-family="Arial, sans-serif" font-size="9" fill="#e05252" text-anchor="middle" font-weight="bold">16K</text>
+  <text x="484" y="408" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">32K</text>
+  <text x="618" y="408" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">128K</text>
+  <text x="753" y="408" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">512K</text>
+  <text x="820" y="408" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">1M</text>
+
+  <!-- X axis tick marks -->
+  <line x1="80"  y1="390" x2="80"  y2="395" stroke="#5b6675" stroke-width="1"/>
+  <line x1="215" y1="390" x2="215" y2="395" stroke="#5b6675" stroke-width="1"/>
+  <line x1="349" y1="390" x2="349" y2="395" stroke="#5b6675" stroke-width="1"/>
+  <line x1="416" y1="390" x2="416" y2="395" stroke="#e05252" stroke-width="1.5"/>
+  <line x1="484" y1="390" x2="484" y2="395" stroke="#5b6675" stroke-width="1"/>
+  <line x1="618" y1="390" x2="618" y2="395" stroke="#5b6675" stroke-width="1"/>
+  <line x1="753" y1="390" x2="753" y2="395" stroke="#5b6675" stroke-width="1"/>
+  <line x1="820" y1="390" x2="820" y2="395" stroke="#5b6675" stroke-width="1"/>
+
+  <!-- X axis label -->
+  <text x="450" y="430" font-family="Arial, sans-serif" font-size="11.5" font-weight="bold"
+        fill="#5b6675" text-anchor="middle">Sequence Length N  (log scale)</text>
+
+  <!-- Y axis label -->
+  <text x="22" y="228" font-family="Arial, sans-serif" font-size="11.5" font-weight="bold"
+        fill="#5b6675" text-anchor="middle" transform="rotate(-90,22,228)">Memory  (log scale)</text>
+
+  <!-- Y axis tick labels -->
+  <text x="75" y="394" font-family="Arial, sans-serif" font-size="8.5" fill="#5b6675" text-anchor="end">low</text>
+  <text x="75" y="260" font-family="Arial, sans-serif" font-size="8.5" fill="#5b6675" text-anchor="end">mid</text>
+  <text x="75" y="130" font-family="Arial, sans-serif" font-size="8.5" fill="#5b6675" text-anchor="end">high</text>
+
+  <!-- ===== LEGEND BOX ===== -->
+  <rect x="526" y="152" width="285" height="138" rx="6" fill="white" stroke="#d0d5dd" stroke-width="1.4"/>
+  <text x="668" y="170" font-family="Arial, sans-serif" font-size="10" font-weight="bold"
+        fill="#1f4fa3" text-anchor="middle">Legend</text>
+
+  <!-- Standard Attention -->
+  <line x1="540" y1="184" x2="572" y2="184" stroke="#e05252" stroke-width="2.5"/>
+  <text x="578" y="188" font-family="Arial, sans-serif" font-size="10" fill="#1e2533">Standard Attention  O(N²)</text>
+
+  <!-- FlashAttention -->
+  <line x1="540" y1="203" x2="572" y2="203" stroke="#f5a623" stroke-width="2.5"/>
+  <text x="578" y="207" font-family="Arial, sans-serif" font-size="10" fill="#1e2533">FlashAttention  O(N)</text>
+
+  <!-- Linear Attention -->
+  <line x1="540" y1="222" x2="572" y2="222" stroke="#8bc34a" stroke-width="2.5" stroke-dasharray="7,3"/>
+  <text x="578" y="226" font-family="Arial, sans-serif" font-size="10" fill="#1e2533">Linear Attention  O(N·d²)</text>
+
+  <!-- Performer -->
+  <line x1="540" y1="241" x2="572" y2="241" stroke="#4caf50" stroke-width="2.5" stroke-dasharray="5,3"/>
+  <text x="578" y="245" font-family="Arial, sans-serif" font-size="10" fill="#1e2533">Performer  O(N·r)</text>
+
+  <!-- Mamba -->
+  <line x1="540" y1="260" x2="572" y2="260" stroke="#2196f3" stroke-width="2.5"/>
+  <text x="578" y="264" font-family="Arial, sans-serif" font-size="10" fill="#1e2533">Mamba  O(N)</text>
+
+  <!-- Legend footnote -->
+  <text x="668" y="281" font-family="Arial, sans-serif" font-size="8.5" fill="#5b6675"
+        text-anchor="middle" font-style="italic">d = model dim, r = random features</text>
+
+  <!-- End-of-curve annotation labels -->
+  <!-- Standard O(N²) label near top-right -->
+  <text x="826" y="68" font-family="Arial, sans-serif" font-size="9" fill="#e05252" font-weight="bold">O(N²)</text>
+
+  <!-- LinearAttn clips to top -->
+  <text x="826" y="90" font-family="Arial, sans-serif" font-size="9" fill="#8bc34a" font-weight="bold">O(N·d²)</text>
+
+  <!-- Performer -->
+  <text x="826" y="142" font-family="Arial, sans-serif" font-size="9" fill="#4caf50" font-weight="bold">O(N·r)</text>
+
+  <!-- FlashAttn -->
+  <text x="826" y="230" font-family="Arial, sans-serif" font-size="9" fill="#f5a623" font-weight="bold">O(N) FA</text>
+
+  <!-- Mamba -->
+  <text x="826" y="245" font-family="Arial, sans-serif" font-size="9" fill="#2196f3" font-weight="bold">O(N) Mb</text>
+
+  <!-- Bottom bar -->
+  <rect x="80" y="437" width="740" height="10" rx="3" fill="#1f4fa3" opacity="0.12"/>
+  <text x="450" y="447" font-family="Arial, sans-serif" font-size="8.5" fill="#1f4fa3"
+        text-anchor="middle">Sub-quadratic methods unlock long-context inference impossible with standard attention</text>
+
+</svg>

@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 350" width="900" height="350">
+
+  <!-- Background -->
+  <rect width="900" height="350" fill="#f8f9fa" rx="8"/>
+
+  <!-- Title -->
+  <text x="450" y="28" font-family="Arial, sans-serif" font-size="15" font-weight="bold"
+        fill="#1f4fa3" text-anchor="middle">StreamingLLM KV Cache Layout</text>
+
+  <!-- ===== ROW LABELS (left side) ===== -->
+  <text x="14" y="100" font-family="Arial, sans-serif" font-size="10" font-weight="bold"
+        fill="#5b6675">Naive</text>
+  <text x="14" y="113" font-family="Arial, sans-serif" font-size="10" font-weight="bold"
+        fill="#5b6675">sliding</text>
+  <text x="14" y="126" font-family="Arial, sans-serif" font-size="10" font-weight="bold"
+        fill="#5b6675">window</text>
+
+  <text x="14" y="198" font-family="Arial, sans-serif" font-size="10" font-weight="bold"
+        fill="#0e8a6e">Streaming</text>
+  <text x="14" y="211" font-family="Arial, sans-serif" font-size="10" font-weight="bold"
+        fill="#0e8a6e">LLM</text>
+
+  <text x="14" y="296" font-family="Arial, sans-serif" font-size="10" font-weight="bold"
+        fill="#5b6675">Full</text>
+  <text x="14" y="309" font-family="Arial, sans-serif" font-size="10" font-weight="bold"
+        fill="#5b6675">attention</text>
+  <text x="14" y="322" font-family="Arial, sans-serif" font-size="10" font-weight="bold"
+        fill="#5b6675">(baseline)</text>
+
+  <!-- ===== ROW 1: Naive sliding window ===== -->
+  <!-- Row 1 subtitle -->
+  <text x="450" y="58" font-family="Arial, sans-serif" font-size="10" fill="#5b6675"
+        text-anchor="middle" font-style="italic">Sink tokens evicted when window slides — causes collapse</text>
+
+  <!-- Evicted tokens (grayed out with X) -->
+  <!-- tok_0 evicted -->
+  <rect x="82"  y="76" width="52" height="34" rx="5" fill="#e8e8e8" stroke="#c0c0c0" stroke-width="1.2"/>
+  <text x="108" y="96" font-family="Arial, sans-serif" font-size="9" fill="#a0a0a0"
+        text-anchor="middle" dominant-baseline="middle">tok_0</text>
+  <!-- X mark -->
+  <line x1="88"  y1="82" x2="128" y2="104" stroke="#e05252" stroke-width="2"/>
+  <line x1="128" y1="82" x2="88"  y2="104" stroke="#e05252" stroke-width="2"/>
+
+  <!-- tok_1 evicted -->
+  <rect x="138" y="76" width="52" height="34" rx="5" fill="#e8e8e8" stroke="#c0c0c0" stroke-width="1.2"/>
+  <text x="164" y="96" font-family="Arial, sans-serif" font-size="9" fill="#a0a0a0"
+        text-anchor="middle" dominant-baseline="middle">tok_1</text>
+  <line x1="144" y1="82" x2="184" y2="104" stroke="#e05252" stroke-width="2"/>
+  <line x1="184" y1="82" x2="144" y2="104" stroke="#e05252" stroke-width="2"/>
+
+  <!-- tok_2 evicted -->
+  <rect x="194" y="76" width="52" height="34" rx="5" fill="#e8e8e8" stroke="#c0c0c0" stroke-width="1.2"/>
+  <text x="220" y="96" font-family="Arial, sans-serif" font-size="9" fill="#a0a0a0"
+        text-anchor="middle" dominant-baseline="middle">tok_2</text>
+  <line x1="200" y1="82" x2="240" y2="104" stroke="#e05252" stroke-width="2"/>
+  <line x1="240" y1="82" x2="200" y2="104" stroke="#e05252" stroke-width="2"/>
+
+  <!-- tok_3 evicted -->
+  <rect x="250" y="76" width="52" height="34" rx="5" fill="#e8e8e8" stroke="#c0c0c0" stroke-width="1.2"/>
+  <text x="276" y="96" font-family="Arial, sans-serif" font-size="9" fill="#a0a0a0"
+        text-anchor="middle" dominant-baseline="middle">tok_3</text>
+  <line x1="256" y1="82" x2="296" y2="104" stroke="#e05252" stroke-width="2"/>
+  <line x1="296" y1="82" x2="256" y2="104" stroke="#e05252" stroke-width="2"/>
+
+  <!-- Active window tokens (sliding) -->
+  <rect x="310" y="76" width="52" height="34" rx="5" fill="#cddcf9" stroke="#1f4fa3" stroke-width="1.4"/>
+  <text x="336" y="96" font-family="Arial, sans-serif" font-size="9" fill="#1f4fa3"
+        text-anchor="middle" dominant-baseline="middle">tok_W</text>
+
+  <rect x="366" y="76" width="52" height="34" rx="5" fill="#cddcf9" stroke="#1f4fa3" stroke-width="1.4"/>
+  <text x="392" y="96" font-family="Arial, sans-serif" font-size="9" fill="#1f4fa3"
+        text-anchor="middle" dominant-baseline="middle">tok_W+1</text>
+
+  <rect x="422" y="76" width="52" height="34" rx="5" fill="#cddcf9" stroke="#1f4fa3" stroke-width="1.4"/>
+  <text x="448" y="96" font-family="Arial, sans-serif" font-size="9" fill="#1f4fa3"
+        text-anchor="middle" dominant-baseline="middle">tok_W+2</text>
+
+  <rect x="478" y="76" width="52" height="34" rx="5" fill="#b5caf4" stroke="#1f4fa3" stroke-width="1.4"/>
+  <text x="504" y="96" font-family="Arial, sans-serif" font-size="9" fill="#1f4fa3"
+        text-anchor="middle" dominant-baseline="middle">tok_W+3</text>
+
+  <!-- Dots indicating more tokens -->
+  <text x="548" y="96" font-family="Arial, sans-serif" font-size="14" fill="#1f4fa3"
+        dominant-baseline="middle">...</text>
+
+  <!-- Arrow indicating sliding direction -->
+  <defs>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1f4fa3"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#e05252"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#0e8a6e"/>
+    </marker>
+    <marker id="arrow-gray" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#888"/>
+    </marker>
+  </defs>
+  <line x1="565" y1="93" x2="615" y2="93" stroke="#1f4fa3" stroke-width="1.8"
+        marker-end="url(#arrow-blue)"/>
+  <text x="590" y="88" font-family="Arial, sans-serif" font-size="8.5" fill="#1f4fa3"
+        text-anchor="middle">sliding</text>
+
+  <!-- Failure label -->
+  <rect x="636" y="78" width="240" height="30" rx="5" fill="#fdecea" stroke="#e05252" stroke-width="1.2"/>
+  <text x="756" y="91" font-family="Arial, sans-serif" font-size="9.5" font-weight="bold"
+        fill="#e05252" text-anchor="middle" dominant-baseline="middle">
+    Sink evicted → perplexity collapse
+  </text>
+  <text x="756" y="103" font-family="Arial, sans-serif" font-size="8.5"
+        fill="#c0392b" text-anchor="middle" dominant-baseline="middle">
+    Model loses "softmax drain" anchor
+  </text>
+
+  <!-- ===== SEPARATOR ===== -->
+  <line x1="60" y1="128" x2="880" y2="128" stroke="#d0d5de" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- ===== ROW 2: StreamingLLM ===== -->
+  <text x="450" y="152" font-family="Arial, sans-serif" font-size="10" fill="#5b6675"
+        text-anchor="middle" font-style="italic">Keep initial sink tokens forever + recent sliding window = O(K + W) memory</text>
+
+  <!-- Sink tokens region (green) -->
+  <rect x="82"  y="166" width="52" height="38" rx="5" fill="#c8f0e4" stroke="#0e8a6e" stroke-width="1.8"/>
+  <text x="108" y="183" font-family="Arial, sans-serif" font-size="9" font-weight="bold"
+        fill="#0e8a6e" text-anchor="middle">sink_0</text>
+  <text x="108" y="196" font-family="Arial, sans-serif" font-size="7.5" fill="#0e8a6e"
+        text-anchor="middle">(tok 0)</text>
+
+  <rect x="138" y="166" width="52" height="38" rx="5" fill="#c8f0e4" stroke="#0e8a6e" stroke-width="1.8"/>
+  <text x="164" y="183" font-family="Arial, sans-serif" font-size="9" font-weight="bold"
+        fill="#0e8a6e" text-anchor="middle">sink_1</text>
+  <text x="164" y="196" font-family="Arial, sans-serif" font-size="7.5" fill="#0e8a6e"
+        text-anchor="middle">(tok 1)</text>
+
+  <rect x="194" y="166" width="52" height="38" rx="5" fill="#c8f0e4" stroke="#0e8a6e" stroke-width="1.8"/>
+  <text x="220" y="183" font-family="Arial, sans-serif" font-size="9" font-weight="bold"
+        fill="#0e8a6e" text-anchor="middle">sink_2</text>
+  <text x="220" y="196" font-family="Arial, sans-serif" font-size="7.5" fill="#0e8a6e"
+        text-anchor="middle">(tok 2)</text>
+
+  <rect x="250" y="166" width="52" height="38" rx="5" fill="#c8f0e4" stroke="#0e8a6e" stroke-width="1.8"/>
+  <text x="276" y="183" font-family="Arial, sans-serif" font-size="9" font-weight="bold"
+        fill="#0e8a6e" text-anchor="middle">sink_3</text>
+  <text x="276" y="196" font-family="Arial, sans-serif" font-size="7.5" fill="#0e8a6e"
+        text-anchor="middle">(tok 3)</text>
+
+  <!-- Bracket + label for sink region -->
+  <line x1="82"  y1="210" x2="302" y2="210" stroke="#0e8a6e" stroke-width="1.4"/>
+  <line x1="82"  y1="206" x2="82"  y2="214" stroke="#0e8a6e" stroke-width="1.4"/>
+  <line x1="302" y1="206" x2="302" y2="214" stroke="#0e8a6e" stroke-width="1.4"/>
+  <text x="192" y="223" font-family="Arial, sans-serif" font-size="8.5" font-weight="bold"
+        fill="#0e8a6e" text-anchor="middle">Sink tokens — always kept (K=4)</text>
+
+  <!-- Gap dots -->
+  <text x="328" y="190" font-family="Arial, sans-serif" font-size="18" fill="#888"
+        dominant-baseline="middle" text-anchor="middle">···</text>
+  <text x="328" y="210" font-family="Arial, sans-serif" font-size="8" fill="#888"
+        text-anchor="middle">evicted</text>
+
+  <!-- Sliding window tokens (blue) -->
+  <rect x="360" y="166" width="56" height="38" rx="5" fill="#cddcf9" stroke="#1f4fa3" stroke-width="1.8"/>
+  <text x="388" y="183" font-family="Arial, sans-serif" font-size="8.5" font-weight="bold"
+        fill="#1f4fa3" text-anchor="middle">recent</text>
+  <text x="388" y="196" font-family="Arial, sans-serif" font-size="7.5" fill="#1f4fa3"
+        text-anchor="middle">W-4</text>
+
+  <rect x="420" y="166" width="56" height="38" rx="5" fill="#cddcf9" stroke="#1f4fa3" stroke-width="1.8"/>
+  <text x="448" y="183" font-family="Arial, sans-serif" font-size="8.5" font-weight="bold"
+        fill="#1f4fa3" text-anchor="middle">recent</text>
+  <text x="448" y="196" font-family="Arial, sans-serif" font-size="7.5" fill="#1f4fa3"
+        text-anchor="middle">W-3</text>
+
+  <rect x="480" y="166" width="56" height="38" rx="5" fill="#cddcf9" stroke="#1f4fa3" stroke-width="1.8"/>
+  <text x="508" y="183" font-family="Arial, sans-serif" font-size="8.5" font-weight="bold"
+        fill="#1f4fa3" text-anchor="middle">recent</text>
+  <text x="508" y="196" font-family="Arial, sans-serif" font-size="7.5" fill="#1f4fa3"
+        text-anchor="middle">W-2</text>
+
+  <rect x="540" y="166" width="56" height="38" rx="5" fill="#b5caf4" stroke="#1f4fa3" stroke-width="1.8"/>
+  <text x="568" y="183" font-family="Arial, sans-serif" font-size="8.5" font-weight="bold"
+        fill="#1f4fa3" text-anchor="middle">recent</text>
+  <text x="568" y="196" font-family="Arial, sans-serif" font-size="7.5" fill="#1f4fa3"
+        text-anchor="middle">W-1</text>
+
+  <!-- Bracket + label for sliding window -->
+  <line x1="360" y1="210" x2="596" y2="210" stroke="#1f4fa3" stroke-width="1.4"/>
+  <line x1="360" y1="206" x2="360" y2="214" stroke="#1f4fa3" stroke-width="1.4"/>
+  <line x1="596" y1="206" x2="596" y2="214" stroke="#1f4fa3" stroke-width="1.4"/>
+  <text x="478" y="223" font-family="Arial, sans-serif" font-size="8.5" font-weight="bold"
+        fill="#1f4fa3" text-anchor="middle">Sliding window — recent W tokens</text>
+
+  <!-- O(K + W) formula -->
+  <rect x="622" y="164" width="248" height="42" rx="6" fill="#eef8f5" stroke="#0e8a6e" stroke-width="1.8"/>
+  <text x="746" y="182" font-family="Arial, sans-serif" font-size="13" font-weight="bold"
+        fill="#0e8a6e" text-anchor="middle" dominant-baseline="middle">Memory = O(K + W)</text>
+  <text x="746" y="198" font-family="Arial, sans-serif" font-size="9" fill="#5b6675"
+        text-anchor="middle" dominant-baseline="middle">K = # sink tokens kept,  W = window size</text>
+
+  <!-- OK check label -->
+  <text x="746" y="220" font-family="Arial, sans-serif" font-size="9" font-weight="bold"
+        fill="#0e8a6e" text-anchor="middle">Constant memory — infinite streaming enabled</text>
+
+  <!-- ===== SEPARATOR ===== -->
+  <line x1="60" y1="238" x2="880" y2="238" stroke="#d0d5de" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- ===== ROW 3: Full attention baseline ===== -->
+  <text x="450" y="258" font-family="Arial, sans-serif" font-size="10" fill="#5b6675"
+        text-anchor="middle" font-style="italic">KV cache grows with every new token — O(N) memory, not viable for streaming</text>
+
+  <!-- Growing bar representing O(N) KV cache -->
+  <!-- Segmented bar from tok_0 to tok_N in gradient shading -->
+  <rect x="82"  y="270" width="32" height="30" rx="0" fill="#1f4fa3"/>
+  <rect x="114" y="270" width="32" height="30" rx="0" fill="#2a5cbf"/>
+  <rect x="146" y="270" width="32" height="30" rx="0" fill="#3568cc"/>
+  <rect x="178" y="270" width="32" height="30" rx="0" fill="#4074d8"/>
+  <rect x="210" y="270" width="32" height="30" rx="0" fill="#4b80e4"/>
+  <rect x="242" y="270" width="32" height="30" rx="0" fill="#5a8edb"/>
+  <rect x="274" y="270" width="32" height="30" rx="0" fill="#6a9ee4"/>
+  <rect x="306" y="270" width="32" height="30" rx="0" fill="#7aaaec"/>
+  <rect x="338" y="270" width="32" height="30" rx="0" fill="#8ab5f0"/>
+  <rect x="370" y="270" width="32" height="30" rx="0" fill="#9abff3"/>
+  <rect x="402" y="270" width="32" height="30" rx="0" fill="#aacaf5"/>
+  <rect x="434" y="270" width="32" height="30" rx="0" fill="#bad5f8"/>
+  <rect x="466" y="270" width="32" height="30" rx="0" fill="#cadefb"/>
+  <rect x="498" y="270" width="32" height="30" rx="0" fill="#daeafd"/>
+  <rect x="530" y="270" width="32" height="30" rx="0" fill="#e8f2fe"/>
+
+  <!-- Arrow continuing to show growth -->
+  <line x1="562" y1="285" x2="636" y2="285" stroke="#888" stroke-width="2"
+        stroke-dasharray="6,3" marker-end="url(#arrow-gray)"/>
+
+  <!-- Border around the whole bar -->
+  <rect x="82" y="270" width="480" height="30" fill="none" stroke="#1f4fa3" stroke-width="1.2"/>
+
+  <!-- tok_0 and tok_N labels -->
+  <text x="98"  y="309" font-family="Arial, sans-serif" font-size="8.5" fill="#1f4fa3" text-anchor="middle">tok_0</text>
+  <text x="546" y="309" font-family="Arial, sans-serif" font-size="8.5" fill="#888"   text-anchor="middle">tok_N</text>
+
+  <!-- O(N) label -->
+  <rect x="650" y="268" width="220" height="34" rx="6" fill="#fdecea" stroke="#e05252" stroke-width="1.6"/>
+  <text x="760" y="283" font-family="Arial, sans-serif" font-size="13" font-weight="bold"
+        fill="#e05252" text-anchor="middle" dominant-baseline="middle">Memory = O(N)</text>
+  <text x="760" y="296" font-family="Arial, sans-serif" font-size="9" fill="#c0392b"
+        text-anchor="middle" dominant-baseline="middle">Unbounded — not viable for long sequences</text>
+
+  <!-- ===== Bottom summary bar ===== -->
+  <rect x="14" y="332" width="872" height="14" rx="4" fill="#1f4fa3"/>
+  <text x="450" y="342" font-family="Arial, sans-serif" font-size="9" font-weight="bold"
+        fill="white" text-anchor="middle" dominant-baseline="middle">
+    StreamingLLM: pin K sink KV entries + slide a W-token window  →  O(K+W) constant memory with stable perplexity at any sequence length
+  </text>
+
+</svg>
