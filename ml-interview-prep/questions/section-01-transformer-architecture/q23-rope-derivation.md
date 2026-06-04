@@ -67,7 +67,7 @@ RoPE solves this by **operating on the query and key vectors after projection**,
 
 Lock in the two key facts:
 
-1. **Rotation preserves dot-product structure:** $(\mathbf{R}_m q)^\top (\mathbf{R}_n k) = q^\top \mathbf{R}_m^\top \mathbf{R}_n k = q^\top \mathbf{R}_{n-m} k$ — depends only on $n - m$.
+1. **Rotation preserves dot-product structure:** $ (\mathbf{R}_m q)^\top (\mathbf{R}_n k) = q^\top \mathbf{R}_m^\top \mathbf{R}_n k = q^\top \mathbf{R}_{n-m} k $ — depends only on $n - m$.
 2. **Frequency stratification:** Different dimension pairs rotate at different rates $\theta_i$, giving the model access to multiple timescales of relative position.
 
 ---
