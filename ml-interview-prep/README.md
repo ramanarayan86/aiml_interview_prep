@@ -5,8 +5,8 @@
 ### First‑principles answers for senior LLM &amp; VLM interviews — built to read like a webpage, ship as a GitHub repo.
 
 ![Scope](https://img.shields.io/badge/scope-LLMs_&_VLMs-1f4fa3)
-![Sections](https://img.shields.io/badge/sections-22-0e8a6e)
-![Questions](https://img.shields.io/badge/questions-600%2B-6c4fe0)
+![Sections](https://img.shields.io/badge/sections-30-0e8a6e)
+![Questions](https://img.shields.io/badge/questions-800%2B-6c4fe0)
 ![Levels](https://img.shields.io/badge/levels-Basic→Intermediate→Advanced→Applied-c77a12)
 ![Format](https://img.shields.io/badge/format-Markdown_+_SVG_+_LaTeX-16202e)
 
@@ -134,6 +134,14 @@ All 28 answers follow the same first-principles template: 20-second answer → d
 | 20 | Data Engineering and Curation for LLMs | dedup, filtering, mixtures, synthetic data | 📝 |
 | 21 | Frontier Topics and Research Directions | SSMs, world models, test‑time training | 📝 |
 | 22 | Behavioral and Research Leadership | scoping, prioritization, technical leadership | 📝 |
+| 23 | Vector Databases and Search Infrastructure | vector index types, ANN search, filtering, hybrid search, DB selection | 📝 |
+| 24 | Document Digitization and Chunking Strategies | OCR pipelines, semantic chunking, tables/lists/charts, ideal chunk size | 📝 |
+| 25 | Embedding Models and Semantic Search | embedding architectures, long vs short content, domain adaptation, benchmarking | 📝 |
+| 26 | Production LLM Systems and Cost Optimization | latency/throughput tradeoffs, caching, batching, cost modelling, monitoring | 📝 |
+| 27 | Hallucination: Causes, Detection, and Mitigation | taxonomy of hallucinations, grounding, self‑consistency checks, CAD | 📝 |
+| 28 | Prompt Security and Adversarial Inputs | prompt injection, jailbreaks, indirect attacks, defence layers | 📝 |
+| 29 | LLM Application Design Patterns and Case Studies | conversation memory, tool orchestration, multi‑agent pipelines, cost–quality dial | 📝 |
+| 30 | LLM Evaluation in Practice | reference‑free metrics, LLM‑as‑judge, RAG‑specific metrics, evals at scale | 📝 |
 
 ---
 
@@ -151,6 +159,143 @@ All 28 answers follow the same first-principles template: 20-second answer → d
 </div>
 
 ---
+
+---
+
+## New sections — question scaffolds
+
+The eight new sections below extend the bank to cover the applied and production-facing interview topics that are heavily tested at ML engineering and applied scientist roles. Questions are ordered basic → advanced within each section.
+
+---
+
+### Section 23 · Vector Databases and Search Infrastructure
+
+| # | Question | Level |
+|---|----------|:-----:|
+| 23‑01 | What is a vector index, and how does it differ from a vector database and a vector plugin? | Basic |
+| 23‑02 | Walk through the trade-offs between exact nearest‑neighbour search and approximate nearest‑neighbour search — when is ANN unacceptable? | Basic |
+| 23‑03 | Explain how HNSW works; what graph parameters control the quality‑speed tradeoff? | Intermediate |
+| 23‑04 | How does IVF‑Flat clustering work, and when does it fail silently? | Intermediate |
+| 23‑05 | Explain product quantisation (PQ) — what information does it discard and how does that affect recall? | Intermediate |
+| 23‑06 | What is locality‑sensitive hashing and in which regimes does it outperform graph‑based indices? | Intermediate |
+| 23‑07 | How does pre‑filtering differ from post‑filtering in vector search, and which is safer for recall? | Intermediate |
+| 23‑08 | Compare cosine similarity, dot product, and Euclidean distance as retrieval metrics — when should you choose each? | Intermediate |
+| 23‑09 | How would you decide which vector database to use for a given production system? What axes matter most? | Advanced |
+| 23‑10 | A team reports that filtered vector search is returning far fewer results than expected. Walk through your diagnosis. | Applied |
+| 23‑11 | How do you benchmark a vector database before committing to it in production? What does a rigorous eval look like? | Applied |
+| 23‑12 | How would you design a vector search system that must handle 1 billion embeddings at p99 < 50 ms? | Applied |
+
+---
+
+### Section 24 · Document Digitization and Chunking Strategies
+
+| # | Question | Level |
+|---|----------|:-----:|
+| 24‑01 | Why do we chunk documents before embedding, and what goes wrong if we skip it? | Basic |
+| 24‑02 | What factors determine the ideal chunk size for a given retrieval task? | Basic |
+| 24‑03 | Compare fixed‑size, sentence‑boundary, and semantic chunking — when does each break? | Intermediate |
+| 24‑04 | How do you handle multi‑column PDFs, scanned images, and mixed-language documents in a digitization pipeline? | Intermediate |
+| 24‑05 | What strategies exist for chunking tables without destroying their relational structure? | Intermediate |
+| 24‑06 | How would you extract and represent charts and graphs for RAG retrieval? | Intermediate |
+| 24‑07 | Describe a production‑grade document processing pipeline: ingestion → chunking → indexing. What are the failure modes at each stage? | Advanced |
+| 24‑08 | How do you handle list items and hierarchical outlines so that parent context is not lost at retrieval time? | Advanced |
+| 24‑09 | How would you empirically find the optimal chunk size for a specific corpus and set of user queries? | Applied |
+| 24‑10 | A client's RAG system gives fragmented answers despite high retrieval accuracy. You suspect chunking. How do you diagnose and fix it? | Applied |
+
+---
+
+### Section 25 · Embedding Models and Semantic Search
+
+| # | Question | Level |
+|---|----------|:-----:|
+| 25‑01 | What is a vector embedding and what property makes it useful for semantic search? | Basic |
+| 25‑02 | How does a bi‑encoder differ from a cross‑encoder, and when should you use each? | Basic |
+| 25‑03 | Why does embedding long documents with the same model used for short queries degrade retrieval? How do you address it? | Intermediate |
+| 25‑04 | What is matryoshka representation learning (MRL) and why does it matter for production retrieval systems? | Intermediate |
+| 25‑05 | How would you benchmark embedding models on a new domain before deploying them? | Intermediate |
+| 25‑06 | Your embedding model has high recall@10 on general benchmarks but poor accuracy on your domain data. What steps would you take to improve it without full retraining? | Intermediate |
+| 25‑07 | Walk through fine‑tuning a sentence‑transformer model for a specific retrieval task — data, loss function, negatives strategy. | Advanced |
+| 25‑08 | How do late interaction models (ColBERT) differ from bi‑encoders, and what storage and latency trade‑off do they introduce? | Advanced |
+| 25‑09 | How would you design an embedding pipeline that handles code, SQL, and natural language queries under a single index? | Applied |
+
+---
+
+### Section 26 · Production LLM Systems and Cost Optimisation
+
+| # | Question | Level |
+|---|----------|:-----:|
+| 26‑01 | What are the primary cost drivers in a production LLM deployment — where does money actually go? | Basic |
+| 26‑02 | How does the KV cache work, and what is its memory footprint at inference time? | Basic |
+| 26‑03 | Explain continuous batching. How does it improve GPU utilisation over static batching? | Intermediate |
+| 26‑04 | What is speculative decoding, and under what conditions does it give a meaningful speedup? | Intermediate |
+| 26‑05 | How does prefix caching (prompt caching) work, and which workloads benefit most? | Intermediate |
+| 26‑06 | What techniques can you use to reduce output latency without changing the model weights? | Intermediate |
+| 26‑07 | Compare SaaS API costs versus self‑hosted open‑source for a 10 M token/day workload — what drives the cross‑over point? | Intermediate |
+| 26‑08 | How would you monitor a production LLM for quality regressions after a silent model update? | Advanced |
+| 26‑09 | Your LLM endpoint p99 latency spiked 3× overnight without a code deploy. Walk through your investigation. | Applied |
+| 26‑10 | Design an LLM serving architecture for a chatbot that has 500 concurrent users and a hard 2‑second TTFT SLA. | Applied |
+
+---
+
+### Section 27 · Hallucination: Causes, Detection, and Mitigation
+
+| # | Question | Level |
+|---|----------|:-----:|
+| 27‑01 | What is hallucination in LLMs, and what are the main types? | Basic |
+| 27‑02 | Why do instruction‑tuned models sometimes hallucinate more confidently than base models? | Intermediate |
+| 27‑03 | How does retrieval‑augmented generation reduce hallucination, and when does it fail to? | Intermediate |
+| 27‑04 | What is the difference between intrinsic and extrinsic hallucination — give a concrete example of each. | Intermediate |
+| 27‑05 | Explain the chain‑of‑verification (CoVe) approach and its core limitation. | Intermediate |
+| 27‑06 | How would you prompt an LLM to produce an answer only when it has sufficient context, and refuse otherwise? | Intermediate |
+| 27‑07 | What is contrastive decoding and how does it suppress hallucination at the token‑sampling level? | Advanced |
+| 27‑08 | How can you detect hallucination post‑generation without a ground‑truth reference? | Advanced |
+| 27‑09 | Design a multi‑layer hallucination control strategy for a medical QA system. What tradeoffs does each layer introduce? | Applied |
+
+---
+
+### Section 28 · Prompt Security and Adversarial Inputs
+
+| # | Question | Level |
+|---|----------|:-----:|
+| 28‑01 | What is prompt injection, and how does it differ from a jailbreak? | Basic |
+| 28‑02 | Explain indirect prompt injection — how can a user's query be hijacked by malicious content in retrieved documents? | Intermediate |
+| 28‑03 | What are the main categories of jailbreak techniques and what makes them effective? | Intermediate |
+| 28‑04 | What defence layers exist between a user's input and the LLM response, and what does each protect against? | Intermediate |
+| 28‑05 | How do you test a production LLM application for prompt‑injection vulnerabilities before launch? | Advanced |
+| 28‑06 | A deployed RAG system is returning confidential data from other tenants' documents. Diagnose the root cause and propose a fix. | Applied |
+
+---
+
+### Section 29 · LLM Application Design Patterns and Case Studies
+
+| # | Question | Level |
+|---|----------|:-----:|
+| 29‑01 | How does a RAG system differ architecturally from a fine‑tuned LLM for a domain‑specific QA task? When do you choose each? | Basic |
+| 29‑02 | What are the main architecture patterns for giving an LLM access to proprietary data? | Basic |
+| 29‑03 | How do you implement and manage conversation memory in a long‑running chat assistant without blowing past the context window? | Intermediate |
+| 29‑04 | What are the core components of a production‑grade RAG system and what can go wrong in each? | Intermediate |
+| 29‑05 | How do you handle multi‑hop queries that require synthesising information from more than one retrieved passage? | Intermediate |
+| 29‑06 | Explain the ReAct pattern — what problem does it solve and what are its failure modes? | Intermediate |
+| 29‑07 | Compare function‑calling / tool‑use versus free‑form planning in agent systems. When does each break down? | Advanced |
+| 29‑08 | How would you architect a multi‑agent pipeline for a task that requires parallel sub‑tasks with dependencies? | Advanced |
+| 29‑09 | A client's LLM chat assistant is accurate but costs 10× the budget. Walk through your cost‑reduction plan without sacrificing answer quality. | Applied |
+| 29‑10 | Design a document Q&A system over a 500‑page annual report with tables, charts, and footnotes. Cover ingestion, retrieval, generation, and evaluation. | Applied |
+
+---
+
+### Section 30 · LLM Evaluation in Practice
+
+| # | Question | Level |
+|---|----------|:-----:|
+| 30‑01 | What are the standard metrics for evaluating a RAG system's retrieval quality, and when does each metric mislead you? | Basic |
+| 30‑02 | Explain BLEU, ROUGE, and BERTScore — what does each capture and what does each miss? | Basic |
+| 30‑03 | What is LLM‑as‑judge evaluation, and what biases does it introduce? | Intermediate |
+| 30‑04 | How do you evaluate faithfulness vs. relevance in a RAG pipeline? What is the distinction? | Intermediate |
+| 30‑05 | Your RAG system scores well on ROUGE but users are complaining about unhelpful answers. How do you diagnose and close this gap? | Intermediate |
+| 30‑06 | Compare RAGAS, TruLens, and DeepEval as evaluation frameworks — what does each measure and where do they fall short? | Intermediate |
+| 30‑07 | How would you build a reference‑free hallucination detection metric for a domain where no ground truth exists? | Advanced |
+| 30‑08 | How do you design an offline evaluation suite that predicts online user satisfaction? What signals help bridge the gap? | Advanced |
+| 30‑09 | Your team is launching a new LLM feature. Design an A/B testing strategy that safely measures quality without exposing all users to a potentially worse model. | Applied |
 
 ## License & attribution
 
