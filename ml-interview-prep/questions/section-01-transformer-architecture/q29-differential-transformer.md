@@ -32,14 +32,15 @@
 5. [Multi-head differential attention](#5--multi-head-differential-attention)
 6. [Intuition & figures](#6--intuition--figures)
 7. [Variants / comparison](#7--variants--comparison)
-8. [Reference implementation](#8--reference-implementation)
-9. [Where it's used / where it breaks](#9--where-its-used--where-it-breaks)
-10. [Cousins & alternatives](#10--cousins--alternatives)
-11. [Worked numerical example](#11--worked-numerical-example)
-12. [Interview drill](#12--interview-drill)
-13. [Common misconceptions](#13--common-misconceptions)
-14. [One-screen summary](#14--one-screen-summary)
-15. [References](#15--references)
+8. [Algorithm & pseudocode](#8--algorithm--pseudocode)
+9. [Reference implementation](#9--reference-implementation)
+10. [Where it's used / where it breaks](#10--where-its-used--where-it-breaks)
+11. [Cousins & alternatives](#11--cousins--alternatives)
+12. [Worked numerical example](#12--worked-numerical-example)
+13. [Interview drill](#13--interview-drill)
+14. [Common misconceptions](#14--common-misconceptions)
+15. [One-screen summary](#15--one-screen-summary)
+16. [References](#16--references)
 
 ---
 
@@ -177,7 +178,57 @@ $$
 
 ---
 
-## 8 · Reference implementation
+## 8 · Algorithm & pseudocode
+
+**Differential attention (single head):**
+
+```text
+INPUT : X        # [T, d_model] — input tokens
+        W_Q1, W_K1, W_V  # first attention head projections
+        W_Q2, W_K2        # second attention head projections
+        λ_q1, λ_k1        # learnable lambda scalars (init ~0.8)
+        λ_q2, λ_k2
+
+1.  # Project queries and keys for both heads
+    Q1 = X @ W_Q1    # [T, d_head]
+    K1 = X @ W_K1    # [T, d_head]
+    Q2 = X @ W_Q2    # [T, d_head]
+    K2 = X @ W_K2    # [T, d_head]
+    V  = X @ W_V     # [T, 2·d_head]
+
+2.  # Compute raw attention scores
+    A1 = softmax(Q1 @ K1.T / sqrt(d_head))    # [T, T]
+    A2 = softmax(Q2 @ K2.T / sqrt(d_head))    # [T, T]
+
+3.  # Differential attention map
+    λ = exp(λ_q1 · λ_k1) - exp(λ_q2 · λ_k2)  # scalar in (0, 1)
+    A_diff = A1 - λ · A2                        # [T, T] — noise cancels
+
+4.  # Weighted sum over values
+    out = A_diff @ V         # [T, 2·d_head]
+
+5.  # Layer norm and output projection
+    out = GroupNorm(out)     # applied per-head over 2·d_head
+    out = out @ W_O          # [T, d_model]
+RETURN out
+```
+
+**Multi-head differential attention:**
+
+```text
+INPUT : X         # [B, T, d_model], H heads
+        λ_init = 0.8  # initial lambda (decreases with depth)
+
+1.  Split W_Q, W_K into H pairs [W_Q1^h, W_Q2^h], [W_K1^h, W_K2^h]
+2.  FOR h = 1 to H:
+        out_h = DiffAttn(X, W_Q1^h, W_Q2^h, W_K1^h, W_K2^h, W_V^h, λ^h)
+3.  output = concat(out_1, ..., out_H) @ W_O    # [B, T, d_model]
+RETURN output
+```
+
+---
+
+## 9 · Reference implementation
 
 ```python
 import torch
@@ -246,7 +297,7 @@ class DifferentialAttentionHead(nn.Module):
 
 ---
 
-## 9 · Where it's used / where it breaks
+## 10 · Where it's used / where it breaks
 
 **Works well:**
 - Long-context tasks (needle-in-a-haystack, multi-hop QA).
@@ -262,7 +313,7 @@ class DifferentialAttentionHead(nn.Module):
 
 ---
 
-## 10 · Cousins & alternatives
+## 11 · Cousins & alternatives
 
 Differential attention sits in a family of methods that all try to reduce attention noise or improve selectivity:
 
@@ -282,7 +333,7 @@ Differential attention sits in a family of methods that all try to reduce attent
 
 ---
 
-## 11 · Worked numerical example
+## 12 · Worked numerical example
 
 We trace a single differential attention head with $d = 4$ (so each sub-head has $d/2 = 2$) and $N = 4$ tokens to make the subtraction mechanics concrete.
 
@@ -347,7 +398,7 @@ The subtraction has collapsed the near-zero "noise floor" of positions 2–3 tow
 
 ---
 
-## 12 · Interview drill
+## 13 · Interview drill
 
 <details><summary><b>Q: Why does subtracting two softmax maps reduce noise rather than just introducing negative weights?</b></summary>
 
@@ -386,7 +437,7 @@ For the same model dimension $d_\text{model}$ and the same number of heads $h$, 
 
 ---
 
-## 13 · Common misconceptions
+## 14 · Common misconceptions
 
 | Misconception | Reality |
 |---|---|
@@ -397,7 +448,7 @@ For the same model dimension $d_\text{model}$ and the same number of heads $h$, 
 
 ---
 
-## 14 · One-screen summary
+## 15 · One-screen summary
 
 > **What:** Compute two independent softmax attention maps $(A_1, A_2)$ and output $(A_1 - \lambda A_2)V$ with a learnable $\lambda$. **Problem solved:** Softmax attention noise — weak but non-zero weights on irrelevant tokens that blur retrieval and cause hallucination. **Why it works:** Common-mode noise is identical in both maps and cancels; signal tokens are differential and survive. **Caveats:** Needs custom kernels for efficiency; trained from scratch; negative weights complicate interpretation.
 >
@@ -405,7 +456,7 @@ For the same model dimension $d_\text{model}$ and the same number of heads $h$, 
 
 ---
 
-## 15 · References
+## 16 · References
 
 1. **Ye, T., Dong, L., Xia, Y., Sun, Y., Zhu, Y., Huang, G., Wei, F.** "Differential Transformer." arXiv:2410.05258, October 2024. Accepted as Oral at ICLR 2025. [https://arxiv.org/abs/2410.05258](https://arxiv.org/abs/2410.05258)
 

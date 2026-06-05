@@ -32,13 +32,14 @@
 5. [Merrill and Sabharwal (2023) — log-precision limits](#5--merrill-and-sabharwal-2023--log-precision-limits)
 6. [The precision hierarchy](#6--the-precision-hierarchy)
 7. [Practical implications](#7--practical-implications)
-8. [Worked numerical example](#8--worked-numerical-example)
-9. [Where it's used / where it breaks](#9--where-its-used--where-it-breaks)
-10. [Cousins & alternatives](#10--cousins--alternatives)
-11. [Interview drill](#11--interview-drill)
-12. [Common misconceptions](#12--common-misconceptions)
-13. [One-screen summary](#13--one-screen-summary)
-14. [References](#14--references)
+8. [Algorithm & pseudocode](#8--algorithm--pseudocode)
+9. [Worked numerical example](#9--worked-numerical-example)
+10. [Where it's used / where it breaks](#10--where-its-used--where-it-breaks)
+11. [Cousins & alternatives](#11--cousins--alternatives)
+12. [Interview drill](#12--interview-drill)
+13. [Common misconceptions](#13--common-misconceptions)
+14. [One-screen summary](#14--one-screen-summary)
+15. [References](#15--references)
 
 ---
 
@@ -199,7 +200,57 @@ $$
 
 ---
 
-## 8 · Worked numerical example
+## 8 · Algorithm & pseudocode
+
+**Simulating a Turing machine with a Transformer (Pérez et al. conceptual sketch):**
+
+```text
+INPUT : tape    # sequence of symbols [s_1, ..., s_T] including blank padding
+        state   # current TM state (encoded as a one-hot position in tape)
+
+PRECONDITION: Arbitrary-precision arithmetic (IEEE float64 is a practical proxy).
+
+1.  # Step function: at each Transformer forward pass t →
+    # head state = token encoding TM head position and current state
+    # content = tape contents at each cell
+
+2.  FOR each simulation step:
+        # Attention layer: locate head position
+        alpha = softmax(Q·K^T/√d)  # Q = head-state token, K = all tape positions
+        v_read = alpha @ V          # reads tape symbol at head position
+
+        # FFN layer: compute transition function δ(state, symbol) → (new_state, write, direction)
+        (q', s', dir) = FFN(v_read)   # one look-up table per TM transition
+
+        # Update head position in residual stream
+        head_pos += dir               # +1 (right) or -1 (left)
+
+3.  # Halting: Transformer detects HALT state via attention to sentinel token
+    IF q' == HALT: STOP
+RETURN tape contents (accept/reject string)
+
+NOTE: Requires O(T) depth (one layer per step), not fixed-depth.
+      Fixed-depth Transformers compute in TC⁰ (log-uniform circuit) not PSPACE.
+```
+
+**Parity (TC⁰ vs regular languages):**
+
+```text
+INPUT : x = [x_1, ..., x_T]   # binary string
+
+# Single-layer Transformer can compute parity via threshold circuit:
+1.  count_ones = sum(x)        # computed by uniform attention over the sequence
+2.  parity = (count_ones mod 2)  # via threshold/sign activation in FFN
+RETURN parity
+
+NOTE: Regular language recognition (finite automaton) is strictly in TC⁰.
+      Parity is NOT in AC⁰ (no constant-depth AND/OR circuits can compute it),
+      but IS in TC⁰ (one threshold gate suffices). Transformers can compute parity.
+```
+
+---
+
+## 9 · Worked numerical example
 
 We trace the parity function (does the input contain an even or odd number of 1s?) to make the log-precision TC⁰ bound concrete.
 
@@ -242,7 +293,7 @@ This is exactly the TC⁰ impossibility: parity requires $\Omega(\log N)$ bits j
 
 ---
 
-## 9 · Where it's used / where it breaks
+## 10 · Where it's used / where it breaks
 
 **Where the theory matters in practice:**
 
@@ -272,7 +323,7 @@ This is exactly the TC⁰ impossibility: parity requires $\Omega(\log N)$ bits j
 
 ---
 
-## 10 · Cousins & alternatives
+## 11 · Cousins & alternatives
 
 | Model / result | Expressivity class | Key assumption | Practical? |
 |---|---|---|---|
@@ -288,7 +339,7 @@ This is exactly the TC⁰ impossibility: parity requires $\Omega(\log N)$ bits j
 
 ---
 
-## 11 · Interview drill
+## 12 · Interview drill
 
 <details><summary><b>Q: What is the key assumption that makes the Pérez 2021 result non-practical?</b></summary>
 
@@ -327,7 +378,7 @@ They are complementary, not contradictory. Bhattamishra et al. (2020) showed tha
 
 ---
 
-## 12 · Common misconceptions
+## 13 · Common misconceptions
 
 | Misconception | Reality |
 |---|---|
@@ -339,7 +390,7 @@ They are complementary, not contradictory. Bhattamishra et al. (2020) showed tha
 
 ---
 
-## 13 · One-screen summary
+## 14 · One-screen summary
 
 > **The claim:** Transformers with hard attention and arbitrary precision are Turing complete (Pérez et al., JMLR 2021). **The key assumptions:** hardmax (not softmax) + arbitrary precision — both unrealistic. **The realistic bound:** Log-precision Transformers (softmax, $O(\log N)$ precision) are exactly FO(M) / TC$^0$ — a strict subset of Turing-computable functions (Merrill & Sabharwal, NeurIPS 2023). **Practical takeaway:** Transformers have no categorical computational blind spots in theory, but finite precision and depth limit what they can *reliably compute*; chain-of-thought unlocks additional computational power beyond one forward pass.
 >
@@ -347,7 +398,7 @@ They are complementary, not contradictory. Bhattamishra et al. (2020) showed tha
 
 ---
 
-## 14 · References
+## 15 · References
 
 1. **Pérez, J., Barceló, P., Marinkovic, J.** "Attention is Turing Complete." Journal of Machine Learning Research, Volume 22, 2021. [https://jmlr.org/papers/v22/20-302.html](https://jmlr.org/papers/v22/20-302.html)
 

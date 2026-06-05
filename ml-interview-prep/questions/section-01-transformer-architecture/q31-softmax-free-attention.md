@@ -34,13 +34,14 @@
 7. [Quality gap analysis](#7--quality-gap-analysis)
 8. [Comparison table](#8--comparison-table)
 9. [When softmax-free attention is viable](#9--when-softmax-free-attention-is-viable)
-10. [Worked numerical example](#10--worked-numerical-example)
-11. [Where it's used / where it breaks](#11--where-its-used--where-it-breaks)
-12. [Cousins & alternatives](#12--cousins--alternatives)
-13. [Interview drill](#13--interview-drill)
-14. [Common misconceptions](#14--common-misconceptions)
-15. [One-screen summary](#15--one-screen-summary)
-16. [References](#16--references)
+10. [Algorithm & pseudocode](#10--algorithm--pseudocode)
+11. [Worked numerical example](#11--worked-numerical-example)
+12. [Where it's used / where it breaks](#12--where-its-used--where-it-breaks)
+13. [Cousins & alternatives](#13--cousins--alternatives)
+14. [Interview drill](#14--interview-drill)
+15. [Common misconceptions](#15--common-misconceptions)
+16. [One-screen summary](#16--one-screen-summary)
+17. [References](#17--references)
 
 ---
 
@@ -270,7 +271,53 @@ The gap narrows significantly at large scale and with architectural improvements
 
 ---
 
-## 10 · Worked numerical example
+## 10 · Algorithm & pseudocode
+
+**Standard softmax attention (baseline):**
+
+```text
+INPUT : Q, K, V    # [T, d_head]
+
+1.  scores = Q @ K.T / sqrt(d_head)   # [T, T] — raw logits
+2.  weights = softmax(scores, dim=-1)  # row-wise normalization, output sums to 1
+3.  output = weights @ V               # [T, d_head]
+RETURN output
+```
+
+**Linear attention (ELU+1 kernel — softmax-free):**
+
+```text
+INPUT : Q, K, V    # [T, d_head]
+        φ          # feature map: φ(x) = ELU(x) + 1
+
+1.  Q' = φ(Q)      # [T, d_head] — all positive via ELU+1
+2.  K' = φ(K)      # [T, d_head]
+
+3.  # Reorder: compute (K'^T V) first — O(T·d²) not O(T²·d)
+    S = K'.T @ V            # [d_head, d_head] — context aggregator
+    Z = K'.T @ ones(T)      # [d_head] — normalizer
+
+4.  output[t] = (Q'[t] @ S) / (Q'[t] @ Z)   # O(d²) per token
+RETURN output                                  # [T, d_head]
+```
+
+**Cosine attention (Swin Transformer v2):**
+
+```text
+INPUT : Q, K, V    # [T, d_head]
+        τ          # learnable temperature scalar (init=1)
+
+1.  Q_norm = Q / ||Q||_2    # L2-normalize queries
+2.  K_norm = K / ||K||_2    # L2-normalize keys
+3.  scores = (Q_norm @ K_norm.T) / τ   # cosine similarity, bounded [-1/τ, 1/τ]
+4.  weights = softmax(scores, dim=-1)   # note: softmax still used here
+5.  output = weights @ V
+RETURN output
+```
+
+---
+
+## 11 · Worked numerical example
 
 We compare softmax attention and ELU+1 linear attention on a 4-token sequence with $d = 2$ to make the kernel trick concrete.
 
@@ -327,7 +374,7 @@ The outputs differ: linear attention is a weaker approximation of softmax ($\Del
 
 ---
 
-## 11 · Where it's used / where it breaks
+## 12 · Where it's used / where it breaks
 
 **Methods in production / wide use:**
 
@@ -352,7 +399,7 @@ The outputs differ: linear attention is a weaker approximation of softmax ($\Del
 
 ---
 
-## 12 · Cousins & alternatives
+## 13 · Cousins & alternatives
 
 | Method | Similarity function | Normalization | O(N²)? | Key property |
 |---|---|---|---|---|
@@ -369,7 +416,7 @@ The outputs differ: linear attention is a weaker approximation of softmax ($\Del
 
 ---
 
-## 13 · Interview drill
+## 14 · Interview drill
 
 <details><summary><b>Q: What does the ELU+1 feature map do for linear attention?</b></summary>
 
@@ -408,7 +455,7 @@ No — this is a common misconception. Swin v2 uses $\text{softmax}(\tau \cdot \
 
 ---
 
-## 14 · Common misconceptions
+## 15 · Common misconceptions
 
 | Misconception | Reality |
 |---|---|
@@ -420,7 +467,7 @@ No — this is a common misconception. Swin v2 uses $\text{softmax}(\tau \cdot \
 
 ---
 
-## 15 · One-screen summary
+## 16 · One-screen summary
 
 > **Role of softmax:** Normalizes scores to a probability distribution; provides non-linear sharpening (spiky attention) that enables precise token retrieval. **Softmax-free options:** (a) Linear attention via feature maps — $O(N)$, significant quality gap; (b) SOFT via Gaussian kernel + low-rank — $O(N)$, viable for vision; (c) Cosine attention (Swin v2) — keeps softmax, changes similarity metric for stability. **Verdict:** Softmax-free is viable for efficiency-dominated settings at large scale or on vision tasks; for highest-quality language modeling, softmax attention remains the standard.
 >
@@ -428,7 +475,7 @@ No — this is a common misconception. Swin v2 uses $\text{softmax}(\tau \cdot \
 
 ---
 
-## 16 · References
+## 17 · References
 
 1. **Vaswani, A., et al.** "Attention Is All You Need." NeurIPS 2017. — Original softmax attention.
 

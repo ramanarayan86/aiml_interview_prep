@@ -32,14 +32,15 @@
 5. [The random feature decomposition](#5--the-random-feature-decomposition)
 6. [Connection to Gaussian processes and RBF kernels](#6--connection-to-gaussian-processes-and-rbf-kernels)
 7. [Comparison table](#7--comparison-table)
-8. [Reference implementation](#8--reference-implementation)
-9. [Worked numerical example](#9--worked-numerical-example)
-10. [Where it's used / where it breaks](#10--where-its-used--where-it-breaks)
-11. [Cousins & alternatives](#11--cousins--alternatives)
-12. [Interview drill](#12--interview-drill)
-13. [Common misconceptions](#13--common-misconceptions)
-14. [One-screen summary](#14--one-screen-summary)
-15. [References](#15--references)
+8. [Algorithm & pseudocode](#8--algorithm--pseudocode)
+9. [Reference implementation](#9--reference-implementation)
+10. [Worked numerical example](#10--worked-numerical-example)
+11. [Where it's used / where it breaks](#11--where-its-used--where-it-breaks)
+12. [Cousins & alternatives](#12--cousins--alternatives)
+13. [Interview drill](#13--interview-drill)
+14. [Common misconceptions](#14--common-misconceptions)
+15. [One-screen summary](#15--one-screen-summary)
+16. [References](#16--references)
 
 ---
 
@@ -236,7 +237,61 @@ which is related to the **arc-cosine kernel** and the **von Mises–Fisher distr
 
 ---
 
-## 8 · Reference implementation
+## 8 · Algorithm & pseudocode
+
+**Standard (kernel) softmax attention — the O(N²) baseline:**
+
+```text
+INPUT : Q, K, V    # [T, d_head]
+
+1.  # Kernel form: softmax attention uses kernel k(q,k) = exp(q·k/√d)
+    K_mat[i,j] = exp(Q[i] · K[j] / sqrt(d))   # [T, T] — full kernel matrix
+2.  weights[i] = K_mat[i] / sum(K_mat[i])      # row normalization
+3.  output = weights @ V
+RETURN output                                   # O(T²·d) time and space
+```
+
+**Linear attention via kernel decomposition — O(T·d²):**
+
+```text
+INPUT : Q, K, V    # [T, d_head]
+        φ          # positive feature map, φ: R^d → R^r, k(q,k) ≈ φ(q)·φ(k)
+
+1.  Q' = φ(Q)      # [T, r]
+2.  K' = φ(K)      # [T, r]
+
+3.  # REORDER the computation (key trick):
+    #   Standard:   (Q' (K'^T V))   — outer first: [T,T]
+    #   Efficient:  Q' (K'^T V)     — inner first: [r,d] then [T,d]
+    S = K'.T @ V               # [r, d] — accumulated context matrix
+    Z = K'.T @ ones(T, 1)      # [r, 1] — normalizer
+4.  output = (Q' @ S) / (Q' @ Z)   # [T, d] — O(T·r·d)
+RETURN output
+```
+
+**FAVOR+ random feature approximation:**
+
+```text
+INPUT : Q, K, V    # [T, d_head]
+        m          # number of random features (e.g. m=256)
+        ω          # m random vectors drawn from N(0, I_d)  [d, m]
+
+1.  # Positive orthogonal random features (PORF):
+    h(x) = exp(x·ω - ||x||²/2) / sqrt(m)    # [m] — unbiased estimator of exp(q·k)
+
+2.  Q' = h(Q / sqrt(sqrt(d)))    # [T, m] — rescaled for stability
+    K' = h(K / sqrt(sqrt(d)))    # [T, m]
+
+3.  # Same O(Tm·d) computation as linear attention:
+    S = K'.T @ V                 # [m, d]
+    Z = sum(K', dim=0)           # [m]
+    output = (Q' @ S) / (Q' @ Z.unsqueeze(-1) + ε)
+RETURN output                    # O(T·m·d) ≪ O(T²·d) when m ≪ T
+```
+
+---
+
+## 9 · Reference implementation
 
 ```python
 import torch
@@ -292,7 +347,7 @@ def performers_attention(Q, K, V, num_features=256):
 
 ---
 
-## 9 · Worked numerical example
+## 10 · Worked numerical example
 
 We verify the FAVOR+ estimator on a $2 \times 2$ attention problem with $r = 3$ random features to make the approximation error concrete.
 
@@ -351,7 +406,7 @@ With $r = 3$ features the approximation error is ~0.10 (15% relative). With $r =
 
 ---
 
-## 10 · Where it's used / where it breaks
+## 11 · Where it's used / where it breaks
 
 **Deployed or actively used:**
 
@@ -375,7 +430,7 @@ With $r = 3$ features the approximation error is ~0.10 (15% relative). With $r =
 
 ---
 
-## 11 · Cousins & alternatives
+## 12 · Cousins & alternatives
 
 | Method | Kernel / similarity | Feature map $\phi$ | Cost | Unbiased? |
 |---|---|---|---|---|
@@ -392,7 +447,7 @@ With $r = 3$ features the approximation error is ~0.10 (15% relative). With $r =
 
 ---
 
-## 12 · Interview drill
+## 13 · Interview drill
 
 <details><summary><b>Q: Why must the feature map be non-negative for FAVOR+ to work?</b></summary>
 
@@ -431,7 +486,7 @@ Yes, through the Nadaraya-Watson interpretation. In Nadaraya-Watson kernel regre
 
 ---
 
-## 13 · Common misconceptions
+## 14 · Common misconceptions
 
 | Misconception | Reality |
 |---|---|
@@ -443,7 +498,7 @@ Yes, through the Nadaraya-Watson interpretation. In Nadaraya-Watson kernel regre
 
 ---
 
-## 14 · One-screen summary
+## 15 · One-screen summary
 
 > **Kernel view:** Softmax attention = kernel regression with $K(q,k) = \exp(q \cdot k/\sqrt{d})$, related to the RBF kernel. **Kernel trick:** Approximate $K(q,k) = \phi(q)^\top \phi(k)$, compute $(K'^\top V)$ first to avoid the $N \times N$ matrix — cost drops from $O(N^2 d)$ to $O(Nrd)$. **FAVOR+:** Positive orthogonal random features that unbiasedly approximate the softmax kernel with convergence guarantees independent of $N$. **Linear attention:** Fixed feature map ($\phi = \text{elu}+1$), same trick, larger quality gap. **Use when:** $N > 8\text{k}$ and approximation quality $r \sim 256$ is acceptable.
 >
@@ -451,7 +506,7 @@ Yes, through the Nadaraya-Watson interpretation. In Nadaraya-Watson kernel regre
 
 ---
 
-## 15 · References
+## 16 · References
 
 1. **Choromanski, K., et al.** "Rethinking Attention with Performers." ICLR 2021 (Oral). arXiv:2009.14794. [https://arxiv.org/abs/2009.14794](https://arxiv.org/abs/2009.14794)
 

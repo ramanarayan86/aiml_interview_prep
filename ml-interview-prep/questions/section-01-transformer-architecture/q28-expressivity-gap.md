@@ -36,14 +36,15 @@
 9. [The state-size expansion trick and its limits](#9--the-state-size-expansion-trick-and-its-limits)
 10. [Hybrid models as the resolution](#10--hybrid-models-as-the-resolution)
 11. [Theoretical framework — circuit complexity](#11--theoretical-framework--circuit-complexity)
-12. [Reference implementation (PyTorch benchmark)](#12--reference-implementation-pytorch-benchmark)
-13. [Worked numerical example](#13--worked-numerical-example)
-14. [Interview drill](#14--interview-drill)
-15. [Where it's used / where it breaks](#15--where-its-used--where-it-breaks)
-16. [Cousins & alternatives](#16--cousins--alternatives)
-17. [Common misconceptions](#17--common-misconceptions)
-18. [One-screen summary](#18--one-screen-summary)
-19. [References](#19--references)
+12. [Algorithm & pseudocode](#12--algorithm--pseudocode)
+13. [Reference implementation (PyTorch benchmark)](#13--reference-implementation-pytorch-benchmark)
+14. [Worked numerical example](#14--worked-numerical-example)
+15. [Interview drill](#15--interview-drill)
+16. [Where it's used / where it breaks](#16--where-its-used--where-it-breaks)
+17. [Cousins & alternatives](#17--cousins--alternatives)
+18. [Common misconceptions](#18--common-misconceptions)
+19. [One-screen summary](#19--one-screen-summary)
+20. [References](#20--references)
 
 ---
 
@@ -312,7 +313,59 @@ $$\text{Functions(SSM, fixed state)} \subsetneq \text{Functions(SSM, state } \pr
 
 ---
 
-## 12 · Reference implementation (PyTorch benchmark)
+## 12 · Algorithm & pseudocode
+
+**Associative recall task (the canonical benchmark):**
+
+```text
+INPUT : tokens     # sequence of (key, value, query) tokens
+        vocab      # vocabulary mapping keys ↔ values
+        T          # sequence length
+
+1.  # Construct input sequence
+    FOR i = 1 to K:                     # K key-value pairs at positions 1..K
+        tokens[i] = concat(key_i, sep, value_i)
+    tokens[K+1] = query_key             # the probe: "what is the value of key_j?"
+
+2.  # Transformer forward pass
+    FOR each layer l:
+        h = attention(h) + h           # self-attention: can attend to all prior tokens
+        h = FFN(h) + h
+
+3.  # Read out at final position
+    logits = output_head(h[T])
+    prediction = argmax(logits)        # should match value_j paired with query_key
+
+EXPECTED: prediction == value_j
+NOTE: Transformers solve this in O(1) layers via direct key-query matching.
+      SSMs must compress all K pairs into fixed state h ∈ R^{d×N};
+      fails when K > N (state bottleneck).
+```
+
+**State-capacity argument:**
+
+```text
+INPUT : key-value pairs {(k_i, v_i)}_{i=1}^K
+        SSM hidden state h ∈ R^{d_inner × d_state}
+
+1.  FOR each pair i:
+        h = A_bar · h + B_bar · k_i    # recurrent update (Mamba discretized)
+        # v_i is "written" into h implicitly via B_bar
+
+2.  At query time:
+        answer = C · h                  # linear readout
+        # C must linearly recover v_j from superposition of K writes
+
+3.  # Capacity limit
+    IF K > d_state:
+        FAIL — too many pairs compressed into same state vector
+        (analogous to rank-K matrix approximation error)
+RETURN answer (reliable only when K ≤ d_state)
+```
+
+---
+
+## 13 · Reference implementation (PyTorch benchmark)
 
 ```python
 """
@@ -642,7 +695,7 @@ INTERPRETATION
 
 ---
 
-## 13 · Worked numerical example
+## 14 · Worked numerical example
 
 We trace associative recall for both architectures with $M = 2$ key-value pairs and $d = 4$ to make the mechanics concrete.
 
@@ -711,7 +764,7 @@ This exponential decay is the mechanism of the expressivity gap in practice. Eve
 
 ---
 
-## 14 · Interview drill
+## 15 · Interview drill
 
 <details>
 <summary><b>Q: What is the fundamental source of the Transformer-SSM expressivity gap?</b></summary>
@@ -757,7 +810,7 @@ SSMs are preferred for: (1) **continuous signal modeling** (audio, time series, 
 
 ---
 
-## 15 · Where it's used / where it breaks
+## 16 · Where it's used / where it breaks
 
 **Relevance in practice:**
 
@@ -783,7 +836,7 @@ SSMs are preferred for: (1) **continuous signal modeling** (audio, time series, 
 
 ---
 
-## 16 · Cousins & alternatives
+## 17 · Cousins & alternatives
 
 | Method | Expressivity vs. Transformer | Notes |
 |---|---|---|
@@ -800,7 +853,7 @@ SSMs are preferred for: (1) **continuous signal modeling** (audio, time series, 
 
 ---
 
-## 17 · Common misconceptions
+## 18 · Common misconceptions
 
 | Misconception | Reality |
 |---|---|
@@ -812,7 +865,7 @@ SSMs are preferred for: (1) **continuous signal modeling** (audio, time series, 
 
 ---
 
-## 18 · One-screen summary
+## 19 · One-screen summary
 
 > **Core asymmetry:** A Transformer with $N$ tokens maintains $O(N)$-size KV cache — every past token is directly addressable. An SSM maintains $O(d_\text{state})$ state — fixed regardless of $N$. This creates an expressivity gap on retrieval tasks.
 >
@@ -830,7 +883,7 @@ SSMs are preferred for: (1) **continuous signal modeling** (audio, time series, 
 
 ---
 
-## 19 · References
+## 20 · References
 
 1. Gu, A. & Dao, T. — **Mamba: Linear-Time Sequence Modeling with Selective State Spaces** (2023). *arXiv:2312.00752.* — Introduces selective scan (input-dependent SSM parameters); the primary practical SSM model showing competitive language modeling perplexity.
 2. Dao, T. & Gu, A. — **Transformers are SSMs: Generalized Models and Efficient Algorithms Through Structured State Space Duality** (Mamba-2) (2024). *ICML 2024 / arXiv:2405.21060.* — State Space Duality framework; increases $d_\text{state}$ and connects SSMs to attention.

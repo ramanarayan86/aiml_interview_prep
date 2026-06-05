@@ -36,14 +36,15 @@
 9. [Mamba-2 and State Space Duality](#9--mamba-2-and-state-space-duality)
 10. [SSD: the matrix formulation](#10--ssd-the-matrix-formulation)
 11. [Variants and comparison table](#11--variants-and-comparison-table)
-12. [Reference implementation (PyTorch)](#12--reference-implementation-pytorch)
-13. [Worked numerical example](#13--worked-numerical-example)
-14. [Where it's used / where it breaks](#14--where-its-used--where-it-breaks)
-15. [Cousins & alternatives](#15--cousins--alternatives)
-16. [Interview drill](#16--interview-drill)
-17. [Common misconceptions](#17--common-misconceptions)
-18. [One-screen summary](#18--one-screen-summary)
-19. [References](#19--references)
+12. [Algorithm & pseudocode](#12--algorithm--pseudocode)
+13. [Reference implementation (PyTorch)](#13--reference-implementation-pytorch)
+14. [Worked numerical example](#14--worked-numerical-example)
+15. [Where it's used / where it breaks](#15--where-its-used--where-it-breaks)
+16. [Cousins & alternatives](#16--cousins--alternatives)
+17. [Interview drill](#17--interview-drill)
+18. [Common misconceptions](#18--common-misconceptions)
+19. [One-screen summary](#19--one-screen-summary)
+20. [References](#20--references)
 
 ---
 
@@ -355,7 +356,61 @@ This gives Mamba-2 better practical throughput than Mamba-1's pure scan approach
 
 ---
 
-## 12 · Reference implementation (PyTorch)
+## 12 · Algorithm & pseudocode
+
+**Selective scan (Mamba core loop):**
+
+```text
+INPUT : x            # [B, T, d_model] — input sequence
+        Δ_proj       # linear projection for log-step size
+        A, B_proj    # SSM matrices (A fixed init, B input-dependent)
+        C_proj       # output projection for C
+        D            # skip-connection scalar
+
+1.  # Project inputs to SSM dimension
+    u = expand_proj(x)           # [B, T, d_inner]
+    z = gate_proj(x)             # [B, T, d_inner] — gating branch
+
+2.  # Compute input-dependent parameters
+    delta = softplus(Δ_proj(u))  # [B, T, d_inner] — step size per token
+    B = B_proj(u)                # [B, T, d_state]
+    C = C_proj(u)                # [B, T, d_state]
+
+3.  # Discretize A using ZOH rule
+    A_bar = exp(delta ⊗ A)       # [B, T, d_inner, d_state] — discrete A
+
+4.  # Selective scan (recurrent form)
+    h_0 = zeros(B, d_inner, d_state)
+    FOR t = 1 to T:
+        h_t = A_bar[:, t] ⊙ h_{t-1} + delta[:, t] ⊙ B[:, t] ⊗ u[:, t]
+        y_t = C[:, t] · h_t      # dot over d_state → scalar per channel
+
+5.  # Gated output
+    output = (y + D ⊙ u) ⊙ silu(z)
+
+6.  # Project back to d_model
+    out = out_proj(output)       # [B, T, d_model]
+RETURN out
+```
+
+**Mamba block (full layer):**
+
+```text
+INPUT : x     # [B, T, d_model] — residual stream
+        norm  # RMSNorm
+        ssm   # selective scan module above
+        conv1d  # causal depthwise convolution
+
+1.  x_norm = norm(x)
+2.  u = silu(conv1d(in_proj(x_norm)))   # local mixing before SSM
+3.  delta = selective_scan(u)           # steps 1–6 above
+4.  output = x + out_proj(delta)        # residual connection
+RETURN output
+```
+
+---
+
+## 13 · Reference implementation (PyTorch)
 
 ```python
 """
@@ -704,7 +759,7 @@ Expected output:
 
 ---
 
-## 13 · Worked numerical example
+## 14 · Worked numerical example
 
 We trace a 4-step selective SSM with $N = 2$ state dimensions, $D = 1$ channel, to see how selectivity works.
 
@@ -778,7 +833,7 @@ The non-selective model is 10× weaker in response amplitude (small constant $\D
 
 ---
 
-## 14 · Where it's used / where it breaks
+## 15 · Where it's used / where it breaks
 
 **Deployed or heavily used:**
 
@@ -804,7 +859,7 @@ The non-selective model is 10× weaker in response amplitude (small constant $\D
 
 ---
 
-## 15 · Cousins & alternatives
+## 16 · Cousins & alternatives
 
 | Method | Key idea | Relation to Mamba |
 |---|---|---|
@@ -820,7 +875,7 @@ The non-selective model is 10× weaker in response amplitude (small constant $\D
 
 ---
 
-## 16 · Interview drill
+## 17 · Interview drill
 
 <details>
 <summary><b>Q: What is the fundamental limitation of LTI (classic) SSMs, and how does Mamba fix it?</b></summary>
@@ -866,7 +921,7 @@ The bottleneck is **HBM (high-bandwidth memory) bandwidth**. A naive parallel sc
 
 ---
 
-## 17 · Common misconceptions
+## 18 · Common misconceptions
 
 | Misconception | Reality |
 |---|---|
@@ -878,7 +933,7 @@ The bottleneck is **HBM (high-bandwidth memory) bandwidth**. A naive parallel sc
 
 ---
 
-## 18 · One-screen summary
+## 19 · One-screen summary
 
 > **Linear time-invariant (LTI) SSMs** maintain $h_t = \bar{A} h_{t-1} + \bar{B} x_t$, $y_t = C h_t$ with fixed $\bar{A}$, $\bar{B}$, $C$ — enabling FFT-based $O(N \log N)$ training but incapable of selective memory.
 >
@@ -894,7 +949,7 @@ The bottleneck is **HBM (high-bandwidth memory) bandwidth**. A naive parallel sc
 
 ---
 
-## 19 · References
+## 20 · References
 
 1. Gu, A., Goel, K., Ré, C. — **Efficiently Modeling Long Sequences with Structured State Spaces (S4)** (2021). *ICLR 2022 / arXiv:2111.00396.* — introduces S4 with HiPPO initialization, DPLR parameterization of A, and the recurrence–convolution duality.
 2. Gu, A., Dao, T. — **Mamba: Linear-Time Sequence Modeling with Selective State Spaces** (2023). *arXiv:2312.00752.* — introduces selective scan, input-dependent B/C/Δ, hardware-aware scan in SRAM; the core Mamba paper.

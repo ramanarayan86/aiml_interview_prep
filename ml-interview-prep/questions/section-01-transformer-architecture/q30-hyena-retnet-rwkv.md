@@ -31,14 +31,15 @@
 4. [RWKV — reinventing RNNs for the Transformer era](#4--rwkv--reinventing-rnns-for-the-transformer-era)
 5. [Complexity comparison table](#5--complexity-comparison-table)
 6. [When to use each](#6--when-to-use-each)
-7. [Reference implementations (sketches)](#7--reference-implementations-sketches)
-8. [Worked numerical example](#8--worked-numerical-example)
-9. [Where it's used / where it breaks](#9--where-its-used--where-it-breaks)
-10. [Cousins & alternatives](#10--cousins--alternatives)
-11. [Interview drill](#11--interview-drill)
-12. [Common misconceptions](#12--common-misconceptions)
-13. [One-screen summary](#13--one-screen-summary)
-14. [References](#14--references)
+7. [Algorithm & pseudocode](#7--algorithm--pseudocode)
+8. [Reference implementations (sketches)](#8--reference-implementations-sketches)
+9. [Worked numerical example](#9--worked-numerical-example)
+10. [Where it's used / where it breaks](#10--where-its-used--where-it-breaks)
+11. [Cousins & alternatives](#11--cousins--alternatives)
+12. [Interview drill](#12--interview-drill)
+13. [Common misconceptions](#13--common-misconceptions)
+14. [One-screen summary](#14--one-screen-summary)
+15. [References](#15--references)
 
 ---
 
@@ -289,7 +290,68 @@ $N$ = sequence length, $d$ = model dimension, $T$ = sequence length (RWKV notati
 
 ---
 
-## 7 · Reference implementations (sketches)
+## 7 · Algorithm & pseudocode
+
+**Hyena operator (implicit long convolution):**
+
+```text
+INPUT : u     # [B, T, d] — input sequence
+        h     # implicit filter (parameterised MLP over positions)
+        order # number of projections (default 2)
+
+1.  v1, v2 = linear_proj(u)             # split into two feature streams
+2.  k = h(positions 0..T-1)             # [T, d] — learned filter, position-dependent
+3.  y = v1 ⊛ k                          # long convolution via FFT: O(T log T)
+    # ⊛ is causal convolution
+4.  output = v2 ⊙ y                     # element-wise gating
+RETURN output                           # [B, T, d]
+```
+
+**RetNet parallel (training) form:**
+
+```text
+INPUT : X        # [B, T, d_model]
+        γ        # per-head decay scalar ∈ (0, 1)
+
+1.  Q, K, V = X @ W_Q, X @ W_K, X @ W_V
+2.  # Causal decay mask
+    D[i,j] = γ^{i-j}  if i >= j, else 0    # [T, T]
+3.  retention = (Q @ K.T) ⊙ D              # [T, T] — decayed attention
+4.  output = retention @ V
+RETURN output
+```
+
+**RetNet recurrent (inference) form:**
+
+```text
+INPUT : x_t     # single token [d_model]
+        s_{t-1} # recurrent state [d_key, d_value]
+        γ       # decay scalar
+
+1.  q_t = x_t @ W_Q,  k_t = x_t @ W_K,  v_t = x_t @ W_V
+2.  s_t = γ · s_{t-1} + k_t.T ⊗ v_t    # outer product update
+3.  y_t = q_t · s_t                      # retrieval via dot product
+RETURN y_t, s_t
+```
+
+**RWKV time-mix (WKV operator):**
+
+```text
+INPUT : x_t       # [d_model] — current token
+        u, w      # time-first (u) and decay (w) vectors, learnable
+        num, den  # running numerator and denominator (recurrent state)
+
+1.  k_t = exp(u + w_t + log(x_t))  # key score
+2.  v_t = x_t @ W_V
+3.  num_t = exp(-w) · num_{t-1} + exp(k_t) · v_t
+4.  den_t = exp(-w) · den_{t-1} + exp(k_t)
+5.  wkv_t = num_t / den_t
+RETURN wkv_t, num_t, den_t
+```
+
+---
+
+## 8 · Reference implementations (sketches)
 
 ### Hyena (pseudocode)
 ```python
@@ -330,7 +392,7 @@ def rwkv_step(x_t, x_prev, a, b, w, u):
 
 ---
 
-## 8 · Worked numerical example
+## 9 · Worked numerical example
 
 We trace a single RetNet recurrent step with $d = 4$, $\gamma = 0.9$, and $N = 3$ tokens to make the retention mechanics concrete.
 
@@ -390,7 +452,7 @@ Different heads naturally focus on different temporal scales — short-range syn
 
 ---
 
-## 9 · Where it's used / where it breaks
+## 10 · Where it's used / where it breaks
 
 **Deployed or in active use:**
 
@@ -414,7 +476,7 @@ Different heads naturally focus on different temporal scales — short-range syn
 
 ---
 
-## 10 · Cousins & alternatives
+## 11 · Cousins & alternatives
 
 | Method | Mechanism | Training | Inference/token | Quality gap |
 |---|---|---|---|---|
@@ -436,7 +498,7 @@ Different heads naturally focus on different temporal scales — short-range syn
 
 ---
 
-## 11 · Interview drill
+## 12 · Interview drill
 
 <details><summary><b>Q: Why does RetNet have three computation modes rather than one?</b></summary>
 
@@ -475,7 +537,7 @@ RWKV-4 uses a scalar time-decay $w \in \mathbb{R}^d$ (one decay value per channe
 
 ---
 
-## 12 · Common misconceptions
+## 13 · Common misconceptions
 
 | Misconception | Reality |
 |---|---|
@@ -487,7 +549,7 @@ RWKV-4 uses a scalar time-decay $w \in \mathbb{R}^d$ (one decay value per channe
 
 ---
 
-## 13 · One-screen summary
+## 14 · One-screen summary
 
 > **Hyena:** $O(N \log N)$ via implicit FFT convolutions; best for very long sequence training. **RetNet:** Three computation modes (parallel/recurrent/chunked); $O(N^2)$ training, $O(1)$ inference per token via geometric decay state. **RWKV:** WKV time-decay operator; parallelizable at training ($O(Td^2)$), true $O(d)$ RNN at inference. All three sacrifice some associative-recall quality for inference efficiency. Choose based on deployment constraints.
 >
@@ -495,7 +557,7 @@ RWKV-4 uses a scalar time-decay $w \in \mathbb{R}^d$ (one decay value per channe
 
 ---
 
-## 14 · References
+## 15 · References
 
 1. **Poli, M., Massaroli, S., Nguyen, E., Fu, D.Y., Dao, T., Baccus, S., Bengio, Y., Ermon, S., Ré, C.** "Hyena Hierarchy: Towards Larger Convolutional Language Models." ICML 2023. arXiv:2302.10866. [https://arxiv.org/abs/2302.10866](https://arxiv.org/abs/2302.10866)
 

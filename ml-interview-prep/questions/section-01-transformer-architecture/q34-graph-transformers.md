@@ -32,14 +32,15 @@
 5. [Comparison table](#5--comparison-table)
 6. [Key results](#6--key-results)
 7. [Intuition and design choices](#7--intuition-and-design-choices)
-8. [Reference implementations (sketches)](#8--reference-implementations-sketches)
-9. [Worked numerical example](#9--worked-numerical-example)
-10. [Where it's used / where it breaks](#10--where-its-used--where-it-breaks)
-11. [Cousins & alternatives](#11--cousins--alternatives)
-12. [Interview drill](#12--interview-drill)
-13. [Common misconceptions](#13--common-misconceptions)
-14. [One-screen summary](#14--one-screen-summary)
-15. [References](#15--references)
+8. [Algorithm & pseudocode](#8--algorithm--pseudocode)
+9. [Reference implementations (sketches)](#9--reference-implementations-sketches)
+10. [Worked numerical example](#10--worked-numerical-example)
+11. [Where it's used / where it breaks](#11--where-its-used--where-it-breaks)
+12. [Cousins & alternatives](#12--cousins--alternatives)
+13. [Interview drill](#13--interview-drill)
+14. [Common misconceptions](#14--common-misconceptions)
+15. [One-screen summary](#15--one-screen-summary)
+16. [References](#16--references)
 
 ---
 
@@ -257,7 +258,62 @@ Laplacian eigenvectors are theoretically motivated (they are the "graph Fourier 
 
 ---
 
-## 8 · Reference implementations (sketches)
+## 8 · Algorithm & pseudocode
+
+**Graphormer attention (structural bias injection):**
+
+```text
+INPUT : G = (V, E)    # graph: nodes V, edges E
+        X             # [N, d] — node feature matrix
+        A             # [N, N] — adjacency matrix
+
+1.  # Compute structural encodings
+    deg_bias[v] = embedding(in_degree[v]) + embedding(out_degree[v])
+                                           # [d] — centrality encoding per node
+    FOR each pair (i, j):
+        sp_bias[i,j] = embedding(shortest_path_distance(i, j))
+                                           # [1] — spatial encoding
+        edge_bias[i,j] = mean(W_E · features(edges on shortest path i→j))
+                                           # [1] — edge encoding
+
+2.  # Add degree bias to input embeddings
+    H = X + deg_bias                       # [N, d]
+
+3.  # Graphormer attention layer
+    Q, K, V = H @ W_Q, H @ W_K, H @ W_V   # [N, d_head]
+    scores[i,j] = (Q[i] · K[j] / sqrt(d_head)) + sp_bias[i,j] + edge_bias[i,j]
+    weights = softmax(scores, dim=-1)      # [N, N]
+    output = weights @ V                   # [N, d_head]
+RETURN output
+```
+
+**GraphGPS layer (local + global + PE combination):**
+
+```text
+INPUT : G = (V, E)      # graph
+        H               # [N, d] — node embeddings
+        PE              # [N, k] — positional encodings (RWPE, LapPE, etc.)
+
+1.  # Fuse positional encodings into node features
+    H = H + MLP_PE(PE)                  # [N, d]
+
+2.  # LOCAL message passing (MPNN — e.g. GatedGCN)
+    H_local = MPNN(H, E)                # aggregates over 1-hop neighbors
+
+3.  # GLOBAL self-attention (Transformer, Performer, or BigBird)
+    H_global = MultiHeadAttn(H, H, H)  # all-pairs attention [N, N]
+
+4.  # Combine local and global
+    H = H + dropout(H_local) + dropout(H_global)
+    H = LayerNorm(H)
+    H = H + FFN(H)
+    H = LayerNorm(H)
+RETURN H                                # [N, d]
+```
+
+---
+
+## 9 · Reference implementations (sketches)
 
 ### Graphormer spatial encoding
 ```python
@@ -305,7 +361,7 @@ class GPSLayer(nn.Module):
 
 ---
 
-## 9 · Worked numerical example
+## 10 · Worked numerical example
 
 We compute Graphormer's attention score for two node pairs on a small 4-node graph to make the three structural encodings concrete.
 
@@ -371,7 +427,7 @@ Despite A and C having identical raw features (dot product favoring A-C), the sp
 
 ---
 
-## 10 · Where it's used / where it breaks
+## 11 · Where it's used / where it breaks
 
 **Deployed or benchmark-leading:**
 
@@ -398,7 +454,7 @@ Despite A and C having identical raw features (dot product favoring A-C), the sp
 
 ---
 
-## 11 · Cousins & alternatives
+## 12 · Cousins & alternatives
 
 | Model | Structural encoding | Complexity | Best for |
 |---|---|---|---|
@@ -415,7 +471,7 @@ Despite A and C having identical raw features (dot product favoring A-C), the sp
 
 ---
 
-## 12 · Interview drill
+## 13 · Interview drill
 
 <details><summary><b>Q: Why is permutation equivariance important for graph models?</b></summary>
 
@@ -454,7 +510,7 @@ Over-squashing occurs in deep MPNNs when information from exponentially many nod
 
 ---
 
-## 13 · Common misconceptions
+## 14 · Common misconceptions
 
 | Misconception | Reality |
 |---|---|
@@ -466,7 +522,7 @@ Over-squashing occurs in deep MPNNs when information from exponentially many nod
 
 ---
 
-## 14 · One-screen summary
+## 15 · One-screen summary
 
 > **Problem:** Vanilla Transformers can't handle graphs — no permutation equivariance, no awareness of graph topology, no edge features, and quadratic cost is prohibitive for large graphs. **Graphormer (NeurIPS 2021):** Add degree centrality to node embeddings; add SPD-based learnable scalar bias to attention logits; add edge encoding bias — all permutation invariant. State-of-the-art on molecular benchmarks; $O(N^2)$ cost limits scale. **GraphGPS (NeurIPS 2022):** Modular GPS layer = MPNN (local) + global attention + PE; $O(N+E)$ with linear attention; SOTA on 16 benchmarks including long-range tasks. **Key design rule:** Encode graph structure via graph-property-dependent (not index-dependent) features injected into attention as biases.
 >
@@ -474,7 +530,7 @@ Over-squashing occurs in deep MPNNs when information from exponentially many nod
 
 ---
 
-## 15 · References
+## 16 · References
 
 1. **Ying, C., Cai, T., Luo, S., Zheng, S., Ke, G., He, D., Shen, Y., Liu, T.-Y.** "Do Transformers Really Perform Bad for Graph Representation?" NeurIPS 2021. arXiv:2106.05234. [https://arxiv.org/abs/2106.05234](https://arxiv.org/abs/2106.05234)
 
