@@ -11,14 +11,15 @@
 <div align="center">
 
 ![Questions](https://img.shields.io/badge/questions-42-1f4fa3)
-![Levels](https://img.shields.io/badge/levels-Basic→Advanced→Applied-0e8a6e)
-![Status](https://img.shields.io/badge/answered-34%2F42-c77a12)
+![Levels](https://img.shields.io/badge/levels-Basic→Intermediate→Advanced→Applied-0e8a6e)
+![Answered](https://img.shields.io/badge/answered-34%2F42-c77a12)
+![Scaffolded](https://img.shields.io/badge/scaffolded-8%2F42-6c4fe0)
 
 </div>
 
 The bedrock section. If you can teach every idea here from first principles, most of the rest of the bank becomes derivative. Questions are grouped by depth; each links to a standalone page built from the [shared answer template](../../_TEMPLATE.md).
 
-> **Legend** &nbsp; ✅ full answer published &nbsp;·&nbsp; 📝 planned (same template)
+> **Legend** &nbsp; ✅ full answer published &nbsp;·&nbsp; 📝 scaffolded (template stub, awaiting write-up)
 
 ---
 
@@ -80,7 +81,7 @@ The bedrock section. If you can teach every idea here from first principles, mos
 | Q37 | Migrating post‑norm → pre‑norm without full retrain | 📝 |
 | Q38 | Experiments to require before swapping in sub‑quadratic attention | 📝 |
 | Q39 | Extend 4K → 128K context in a 2‑week budget | 📝 |
-| Q40 | Intermittent NaNs in attention kernels under concurrency | 📝 |
+| Q40 | [Intermittent NaNs in attention kernels under high concurrency — debug](./q40-nan-debugging.md) | 📝 |
 | Q41 | GQA‑8 vs GQA‑4 for a 70B model — how to decide | 📝 |
 | Q42 | One layer = 40% of inference latency — investigate | 📝 |
 

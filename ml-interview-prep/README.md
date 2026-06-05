@@ -72,37 +72,70 @@ ml-interview-prep/
 │   ├── q25/  fig1-attention-sink-pattern.svg  fig2-streaming-llm-window.svg
 │   ├── q26/  fig1-attention-complexity-landscape.svg  fig2-linear-attention-recurrence.svg
 │   ├── q27/  fig1-ssm-recurrence-vs-convolution.svg  fig2-selective-scan-hardware.svg
-│   └── q28/  fig1-expressivity-tasks.svg  fig2-state-size-tradeoff.svg
+│   ├── q28/  fig1-expressivity-tasks.svg  fig2-state-size-tradeoff.svg
+│   ├── q29/  fig1-differential-attention-mechanism.svg  fig2-lambda-sparsity-effect.svg
+│   ├── q30/  fig1-complexity-comparison.svg  fig2-retnet-three-modes.svg
+│   ├── q31/  fig1-softmax-role.svg  fig2-softmax-free-spectrum.svg
+│   ├── q32/  fig1-turing-completeness-hierarchy.svg  fig2-precision-complexity-classes.svg
+│   ├── q33/  fig1-kernel-trick-attention.svg  fig2-favor-plus-random-features.svg
+│   └── q34/  fig1-graphormer-encodings.svg  fig2-graphgps-layer.svg
 └── questions/
     └── section-01-transformer-architecture/
-        ├── README.md                ← section index (all 42 questions)
-        ├── q01-transformer-block.md
-        ├── q02-scaled-attention.md
-        ├── ...  (Q1–Q34 fully answered, Q35–Q42 scaffolded)
-        ├── q29-differential-transformer.md
-        ├── q30-hyena-retnet-rwkv.md
-        ├── q31-softmax-free-attention.md
-        ├── q32-attention-turing-complete.md
-        ├── q33-attention-kernel-method.md
-        └── q34-graph-transformers.md
+        ├── README.md                ← section index (42 questions, 34 answered)
+        ├── q01-transformer-block.md          ✅
+        ├── q02-scaled-attention.md           ✅
+        ├── q03-layernorm-batchnorm.md        ✅
+        ├── q04-prenorm-postnorm.md           ✅
+        ├── q05-positional-encodings.md       ✅
+        ├── q06-ffn.md                        ✅
+        ├── q07-teacher-forcing.md            ✅
+        ├── q08-causal-masking.md             ✅
+        ├── q09-multi-head-attention.md       ✅
+        ├── q10-encoder-decoder.md            ✅
+        ├── q11-attention-complexity.md       ✅
+        ├── q12-mha-interpretability.md       ✅
+        ├── q13-gqa-mqa.md                    ✅
+        ├── q14-rmsnorm-vs-layernorm.md       ✅
+        ├── q15-swiglu-geglu.md               ✅
+        ├── q16-weight-tying.md               ✅
+        ├── q17-dropout.md                    ✅
+        ├── q18-qk-norm.md                    ✅  ← reference standard
+        ├── q19-position-encodings.md         ✅
+        ├── q20-alibi.md                      ✅
+        ├── q21-parallel-attention-ffn.md     ✅
+        ├── q22-no-bias.md                    ✅
+        ├── q23-rope-derivation.md            ✅
+        ├── q24-flash-attention.md            ✅
+        ├── q25-attention-sinks.md            ✅
+        ├── q26-subquadratic-attention.md     ✅
+        ├── q27-ssm-mamba.md                  ✅
+        ├── q28-expressivity-gap.md           ✅
+        ├── q29-differential-transformer.md   ✅
+        ├── q30-hyena-retnet-rwkv.md          ✅
+        ├── q31-softmax-free-attention.md     ✅
+        ├── q32-attention-turing-complete.md  ✅
+        ├── q33-attention-kernel-method.md    ✅
+        ├── q34-graph-transformers.md         ✅
+        └── q40-nan-debugging.md              📝 (scaffold)
+        (Q35–Q39, Q41–Q42 scaffolded — no file yet)
 ```
 
-Each section is a folder with its own index; each question is one Markdown file; figures live under `assets/qNN/` — exactly 2–3 SVGs per question. Adding a new question never touches any existing file.
+Each section is a folder with its own index; each question is one Markdown file; figures live under `assets/qNN/` — exactly 2 SVGs per question for Q23–Q34. Adding a new question never touches any existing file.
 
 ---
 
-## ⭐ Answered so far — Section 1 (34 / 42)
+## ⭐ Current status — Section 1 (34 answered · 8 scaffolded · 0 remaining)
 
-All 34 answers follow the same first-principles template: 20-second answer → derivation → figures → pseudocode → PyTorch code → worked example → interview drills.
+All 34 full answers follow the same first-principles template: 20-second answer → first principles → mechanism → algorithm & pseudocode → PyTorch reference implementation → worked numerical example → 7-question interview drill → common misconceptions → one-screen summary → references.
 
-| Group | Questions answered |
-|---|---|
-| **[Basic (Q1–Q10)](#-basic)** | [Q1 — Transformer block](./questions/section-01-transformer-architecture/q01-transformer-block.md) · [Q2 — √d_k scaling](./questions/section-01-transformer-architecture/q02-scaled-attention.md) · [Q3 — LayerNorm vs BatchNorm](./questions/section-01-transformer-architecture/q03-layernorm-batchnorm.md) · [Q4 — Pre/Post-norm](./questions/section-01-transformer-architecture/q04-prenorm-postnorm.md) · [Q5 — Positional encodings](./questions/section-01-transformer-architecture/q05-positional-encodings.md) · [Q6 — FFN](./questions/section-01-transformer-architecture/q06-ffn.md) · [Q7 — Teacher forcing](./questions/section-01-transformer-architecture/q07-teacher-forcing.md) · [Q8 — Causal masking](./questions/section-01-transformer-architecture/q08-causal-masking.md) · [Q9 — Multi-head attention](./questions/section-01-transformer-architecture/q09-multi-head-attention.md) · [Q10 — Encoder/Decoder](./questions/section-01-transformer-architecture/q10-encoder-decoder.md) |
-| **[Intermediate (Q11–Q22)](#-intermediate)** | [Q11 — Attention complexity O(n²)](./questions/section-01-transformer-architecture/q11-attention-complexity.md) · [Q12 — MHA & interpretability](./questions/section-01-transformer-architecture/q12-mha-interpretability.md) · [Q13 — GQA & MQA](./questions/section-01-transformer-architecture/q13-gqa-mqa.md) · [Q14 — RMSNorm vs LayerNorm](./questions/section-01-transformer-architecture/q14-rmsnorm-vs-layernorm.md) · [Q15 — SwiGLU & GeGLU](./questions/section-01-transformer-architecture/q15-swiglu-geglu.md) · [Q16 — Weight tying](./questions/section-01-transformer-architecture/q16-weight-tying.md) · [Q17 — Dropout](./questions/section-01-transformer-architecture/q17-dropout.md) · [**Q18 — QK‑norm ⭐**](./questions/section-01-transformer-architecture/q18-qk-norm.md) · [Q19 — RoPE extrapolation](./questions/section-01-transformer-architecture/q19-position-encodings.md) · [Q20 — ALiBi](./questions/section-01-transformer-architecture/q20-alibi.md) · [Q21 — Parallel Attn+FFN](./questions/section-01-transformer-architecture/q21-parallel-attention-ffn.md) · [Q22 — No-bias Transformers](./questions/section-01-transformer-architecture/q22-no-bias.md) |
-| **[Advanced (Q23–Q34)](#-advanced)** | [Q23 — RoPE deep dive](./questions/section-01-transformer-architecture/q23-rope-derivation.md) · [Q24 — FlashAttention v1/v2/v3](./questions/section-01-transformer-architecture/q24-flash-attention.md) · [Q25 — Attention sinks](./questions/section-01-transformer-architecture/q25-attention-sinks.md) · [Q26 — Sub-quadratic attention](./questions/section-01-transformer-architecture/q26-subquadratic-attention.md) · [Q27 — SSMs & Mamba-2](./questions/section-01-transformer-architecture/q27-ssm-mamba.md) · [Q28 — Expressivity gap](./questions/section-01-transformer-architecture/q28-expressivity-gap.md) · [Q29 — Differential Transformer](./questions/section-01-transformer-architecture/q29-differential-transformer.md) · [Q30 — Hyena/RetNet/RWKV](./questions/section-01-transformer-architecture/q30-hyena-retnet-rwkv.md) · [Q31 — Softmax-free attention](./questions/section-01-transformer-architecture/q31-softmax-free-attention.md) · [Q32 — Turing completeness](./questions/section-01-transformer-architecture/q32-attention-turing-complete.md) · [Q33 — Attention as kernel](./questions/section-01-transformer-architecture/q33-attention-kernel-method.md) · [Q34 — Graph Transformers](./questions/section-01-transformer-architecture/q34-graph-transformers.md) |
-| **[Applied (Q35–Q42)](#-practical--applied)** | Q35–Q42 📝 scaffolded |
+| Group | Questions | Status |
+|---|---|:---:|
+| **[🟢 Basic (Q1–Q10)](#-basic)** | [Q1](./questions/section-01-transformer-architecture/q01-transformer-block.md) · [Q2](./questions/section-01-transformer-architecture/q02-scaled-attention.md) · [Q3](./questions/section-01-transformer-architecture/q03-layernorm-batchnorm.md) · [Q4](./questions/section-01-transformer-architecture/q04-prenorm-postnorm.md) · [Q5](./questions/section-01-transformer-architecture/q05-positional-encodings.md) · [Q6](./questions/section-01-transformer-architecture/q06-ffn.md) · [Q7](./questions/section-01-transformer-architecture/q07-teacher-forcing.md) · [Q8](./questions/section-01-transformer-architecture/q08-causal-masking.md) · [Q9](./questions/section-01-transformer-architecture/q09-multi-head-attention.md) · [Q10](./questions/section-01-transformer-architecture/q10-encoder-decoder.md) | ✅ 10/10 |
+| **[🟡 Intermediate (Q11–Q22)](#-intermediate)** | [Q11](./questions/section-01-transformer-architecture/q11-attention-complexity.md) · [Q12](./questions/section-01-transformer-architecture/q12-mha-interpretability.md) · [Q13](./questions/section-01-transformer-architecture/q13-gqa-mqa.md) · [Q14](./questions/section-01-transformer-architecture/q14-rmsnorm-vs-layernorm.md) · [Q15](./questions/section-01-transformer-architecture/q15-swiglu-geglu.md) · [Q16](./questions/section-01-transformer-architecture/q16-weight-tying.md) · [Q17](./questions/section-01-transformer-architecture/q17-dropout.md) · [**Q18 ⭐**](./questions/section-01-transformer-architecture/q18-qk-norm.md) · [Q19](./questions/section-01-transformer-architecture/q19-position-encodings.md) · [Q20](./questions/section-01-transformer-architecture/q20-alibi.md) · [Q21](./questions/section-01-transformer-architecture/q21-parallel-attention-ffn.md) · [Q22](./questions/section-01-transformer-architecture/q22-no-bias.md) | ✅ 12/12 |
+| **[🔴 Advanced (Q23–Q34)](#-advanced)** | [Q23](./questions/section-01-transformer-architecture/q23-rope-derivation.md) · [Q24](./questions/section-01-transformer-architecture/q24-flash-attention.md) · [Q25](./questions/section-01-transformer-architecture/q25-attention-sinks.md) · [Q26](./questions/section-01-transformer-architecture/q26-subquadratic-attention.md) · [Q27](./questions/section-01-transformer-architecture/q27-ssm-mamba.md) · [Q28](./questions/section-01-transformer-architecture/q28-expressivity-gap.md) · [Q29](./questions/section-01-transformer-architecture/q29-differential-transformer.md) · [Q30](./questions/section-01-transformer-architecture/q30-hyena-retnet-rwkv.md) · [Q31](./questions/section-01-transformer-architecture/q31-softmax-free-attention.md) · [Q32](./questions/section-01-transformer-architecture/q32-attention-turing-complete.md) · [Q33](./questions/section-01-transformer-architecture/q33-attention-kernel-method.md) · [Q34](./questions/section-01-transformer-architecture/q34-graph-transformers.md) | ✅ 12/12 |
+| **[🔵 Applied (Q35–Q42)](#-practical--applied)** | Q35 · Q36 · Q37 · Q38 · Q39 · [Q40 📝](./questions/section-01-transformer-architecture/q40-nan-debugging.md) · Q41 · Q42 | 📝 0/8 |
 
-> **Reference standard:** [Q18 — QK‑norm](./questions/section-01-transformer-architecture/q18-qk-norm.md) — softmax temperature, attention‑logit explosion, entropy collapse, ℓ₂ vs RMSNorm variants, MLA incompatibility, and the σReparam / soft‑cap / μP family — with four original SVG figures.
+> **Reference standard:** [Q18 — QK‑norm](./questions/section-01-transformer-architecture/q18-qk-norm.md) — softmax temperature, attention‑logit explosion, entropy collapse, ℓ₂ vs RMSNorm variants, MLA incompatibility, and the σReparam / soft‑cap / μP family — with four original SVG figures and the full 16-section template.
 
 ---
 
@@ -112,7 +145,7 @@ All 34 answers follow the same first-principles template: 20-second answer → d
 
 | # | Section | Focus | Questions | Status |
 |---|---------|-------|:---------:|:------:|
-| 1 | [**Transformer Architecture Fundamentals**](./questions/section-01-transformer-architecture/README.md) | attention, norms, position, FFN, variants | 42 | ✅ |
+| 1 | [**Transformer Architecture Fundamentals**](./questions/section-01-transformer-architecture/README.md) | attention, norms, position, FFN, variants | 42 | ✅ 34/42 · 📝 8/42 |
 | 2 | [Tokenization and Embeddings](#section-2--tokenization-and-embeddings) | BPE/WordPiece/Unigram, byte‑level, glitch tokens | 10 | 📝 |
 | 3 | [Pretraining and Scaling Laws](#section-3--pretraining-and-scaling-laws) | Chinchilla, data/compute optima, emergence | 10 | 📝 |
 | 4 | [Post‑training: SFT, RLHF, DPO and Beyond](#section-4--post-training-sft-rlhf-dpo-and-beyond) | reward models, PPO, DPO/IPO/KTO | 10 | 📝 |
@@ -155,7 +188,7 @@ A quick-reference map across all 30 sections. Jump straight to the depth you nee
 | Section | Representative questions |
 |---------|--------------------------|
 | [§1 Transformer Architecture](./questions/section-01-transformer-architecture/README.md) | [Q1 Transformer block](./questions/section-01-transformer-architecture/q01-transformer-block.md) · [Q2 √d_k scaling](./questions/section-01-transformer-architecture/q02-scaled-attention.md) · [Q3 LayerNorm vs BatchNorm](./questions/section-01-transformer-architecture/q03-layernorm-batchnorm.md) · [Q5 Positional encodings](./questions/section-01-transformer-architecture/q05-positional-encodings.md) · [Q6 FFN role](./questions/section-01-transformer-architecture/q06-ffn.md) · [Q8 Causal masking](./questions/section-01-transformer-architecture/q08-causal-masking.md) · [Q9 Multi-head attention](./questions/section-01-transformer-architecture/q09-multi-head-attention.md) · [Q10 Encoder/Decoder](./questions/section-01-transformer-architecture/q10-encoder-decoder.md) |
-| [§23 Vector Databases](#section-23--vector-databases-and-search-infrastructure) | Vector index vs DB vs plugin · exact vs ANN search tradeoffs |
+| [§23 Vector Databases](#section-23--vector-databases-and-search-infrastructure) | Vector index vs DB vs plugin · exact vs ANN tradeoffs |
 | [§24 Chunking](#section-24--document-digitization-and-chunking-strategies) | Why we chunk · factors determining chunk size |
 | [§25 Embeddings](#section-25--embedding-models-and-semantic-search) | What is a vector embedding · bi-encoder vs cross-encoder |
 | [§26 Production Systems](#section-26--production-llm-systems-and-cost-optimization) | Primary LLM cost drivers · KV cache memory footprint |
@@ -198,7 +231,7 @@ A quick-reference map across all 30 sections. Jump straight to the depth you nee
 
 | Section | Representative questions |
 |---------|--------------------------|
-| [§1 Transformer Architecture](./questions/section-01-transformer-architecture/README.md) | [Q35 Debug 35% MFU on H100](./questions/section-01-transformer-architecture/README.md#-practical--applied) · [Q39 4K → 128K context](./questions/section-01-transformer-architecture/README.md#-practical--applied) · [Q40 Intermittent NaNs](./questions/section-01-transformer-architecture/README.md#-practical--applied) |
+| [§1 Transformer Architecture](./questions/section-01-transformer-architecture/README.md) | [Q35 Debug 35% MFU on H100](./questions/section-01-transformer-architecture/README.md#-practical--applied) · [Q39 4K → 128K context](./questions/section-01-transformer-architecture/README.md#-practical--applied) · [Q40 Intermittent NaNs](./questions/section-01-transformer-architecture/q40-nan-debugging.md) |
 | [§23 Vector Databases](#section-23--vector-databases-and-search-infrastructure) | Diagnose filtered-search returning no results · benchmark before commit · 1B embeddings at p99 < 50 ms |
 | [§24 Chunking](#section-24--document-digitization-and-chunking-strategies) | Production ingestion → chunking → indexing pipeline · empirically find optimal chunk size |
 | [§25 Embeddings](#section-25--embedding-models-and-semantic-search) | Multi-modal single-index (code + SQL + NL) pipeline design |
@@ -212,14 +245,15 @@ A quick-reference map across all 30 sections. Jump straight to the depth you nee
 
 ## Section 1 at a glance
 
-34 of 42 questions answered — all Basic (Q1–Q10), all Intermediate (Q11–Q22), and all current Advanced (Q23–Q34). [**Open Section 1 →**](./questions/section-01-transformer-architecture/README.md)
+34 answered · 8 scaffolded · 0 remaining — [**Open Section 1 →**](./questions/section-01-transformer-architecture/README.md)
 
 <div align="center">
 
-| [Basic](#-basic) | [Intermediate](#-intermediate) | [Advanced](#-advanced) | [Applied](#-practical--applied) |
+| [🟢 Basic](#-basic) | [🟡 Intermediate](#-intermediate) | [🔴 Advanced](#-advanced) | [🔵 Applied](#-practical--applied) |
 |:---:|:---:|:---:|:---:|
-| Q1–Q10 ✅ | Q11–Q22 ✅ | Q23–Q34 ✅ | Q35–Q42 📝 |
-| forward pass · √d_k · norms · position · FFN · masking · heads · architectures | complexity · GQA/MQA · RMSNorm · SwiGLU · weight tying · dropout · **QK‑norm** · RoPE · ALiBi · parallel block · no-bias | **RoPE derivation** · **FlashAttention v1/v2/v3** · **attention sinks** · **sub‑quadratic** · **Mamba/SSD** · **expressivity gap** · diff Transformer · RetNet · softmax-free · Turing completeness · FAVOR+ · Graph Transformers | MFU debugging · repetition · norm migration · 128K context · NaNs · GQA tradeoff |
+| ✅ **10/10** | ✅ **12/12** | ✅ **12/12** | 📝 **0/8** |
+| Q1–Q10 | Q11–Q22 | Q23–Q34 | Q35–Q42 |
+| forward pass · √d_k · norms · position · FFN · masking · heads · architectures | complexity · GQA/MQA · RMSNorm · SwiGLU · weight tying · dropout · **QK‑norm** · RoPE · ALiBi · parallel block · no-bias | **RoPE derivation** · **FlashAttention v1/v2/v3** · **attention sinks** · **sub‑quadratic** · **Mamba/SSD** · **expressivity gap** · diff Transformer · Hyena/RetNet/RWKV · softmax-free · Turing completeness · FAVOR+ · Graph Transformers | MFU debugging · repetition · norm migration · 128K context · NaNs · GQA tradeoff · latency profiling |
 
 </div>
 
@@ -227,7 +261,7 @@ A quick-reference map across all 30 sections. Jump straight to the depth you nee
 
 ## New sections — question scaffolds
 
-The eight new sections below extend the bank to cover applied and production-facing interview topics heavily tested at ML engineering and applied scientist roles. Questions are ordered Basic → Advanced → Applied within each section.
+The eight sections below extend the bank to cover applied and production-facing topics heavily tested at ML engineering and applied scientist roles. Questions are ordered Basic → Advanced → Applied within each section.
 
 ---
 
