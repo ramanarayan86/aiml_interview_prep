@@ -33,10 +33,11 @@
 6. [Key results](#6--key-results)
 7. [Intuition and design choices](#7--intuition-and-design-choices)
 8. [Reference implementations (sketches)](#8--reference-implementations-sketches)
-9. [Interview drill](#9--interview-drill)
-10. [Common misconceptions](#10--common-misconceptions)
-11. [One-screen summary](#11--one-screen-summary)
-12. [References](#12--references)
+9. [Worked numerical example](#9--worked-numerical-example)
+10. [Interview drill](#10--interview-drill)
+11. [Common misconceptions](#11--common-misconceptions)
+12. [One-screen summary](#12--one-screen-summary)
+13. [References](#13--references)
 
 ---
 
@@ -302,7 +303,73 @@ class GPSLayer(nn.Module):
 
 ---
 
-## 9 · Interview drill
+## 9 · Worked numerical example
+
+We compute Graphormer's attention score for two node pairs on a small 4-node graph to make the three structural encodings concrete.
+
+**Graph setup.** Four nodes A, B, C, D with edges A-B, B-C, B-D (star from B).
+
+| Node | Degree (undirected) | Features $x_i \in \mathbb{R}^2$ |
+|---|---|---|
+| A | 1 | $[1, 0]$ |
+| B | 3 | $[0, 1]$ |
+| C | 1 | $[1, 0]$ |
+| D | 1 | $[1, 0]$ |
+
+**Structural encodings** (all learnable; we use illustrative scalar values):
+
+**(1) Degree centrality.** Learnable degree embedding $z(\text{deg})$:
+
+$$z(1) = 0.1, \quad z(3) = 0.5 \quad (\text{scalar illustration; in practice} \in \mathbb{R}^d)$$
+
+Node embeddings after centrality encoding:
+$$h_A = x_A + z(1) = [1, 0] + 0.1 = [1.1, 0.1], \quad h_B = x_B + z(3) = [0, 1] + 0.5 = [0.5, 1.5]$$
+
+**(2) Spatial encoding.** Shortest-path distances (SPD) and learnable bias $b_\phi(\text{SPD})$:
+
+| Pair | SPD | $b_\phi(\text{SPD})$ |
+|---|---|---|
+| (A, B) | 1 | $0.8$ |
+| (A, C) | 2 | $0.3$ |
+| (A, D) | 2 | $0.3$ |
+| (B, C) | 1 | $0.8$ |
+| (A, A) | 0 | $1.0$ (self) |
+
+**(3) Edge encoding.** A-B edge feature $e_{AB} = [1]$ (one edge type), weight $w_1 = 0.6$: $c_{AB} = e_{AB} \cdot w_1 = 0.6$.
+
+**Full attention score** for pair (A, B):
+
+$$A_{AB} = \underbrace{(q_A \cdot k_B) / \sqrt{2}}_{\text{standard}} + \underbrace{b_\phi(\text{SPD}(A,B))}_{\text{spatial}} + \underbrace{c_{AB}}_{\text{edge}}$$
+
+With simplified projections $W_Q = W_K = I$:
+
+$$q_A = h_A = [1.1, 0.1], \quad k_B = h_B = [0.5, 1.5]$$
+
+$$q_A \cdot k_B = 1.1 \times 0.5 + 0.1 \times 1.5 = 0.55 + 0.15 = 0.70$$
+
+$$A_{AB} = 0.70/\sqrt{2} + 0.8 + 0.6 = 0.495 + 0.8 + 0.6 = \mathbf{1.895}$$
+
+**Pair (A, C)** — two hops, no direct edge ($c_{AC} = 0$):
+
+$$q_A \cdot k_C = [1.1, 0.1] \cdot [1.1, 0.1] = 1.21 + 0.01 = 1.22 \quad (C = A \text{ in features})$$
+
+$$A_{AC} = 1.22/\sqrt{2} + 0.3 + 0 = 0.863 + 0.3 = \mathbf{1.163}$$
+
+**Comparison:**
+
+| Pair | Dot product / √d | Spatial bias | Edge bias | Total |
+|---|---|---|---|---|
+| (A, B) | 0.495 | 0.8 | 0.6 | **1.895** |
+| (A, C) | 0.863 | 0.3 | 0.0 | **1.163** |
+| (A, A) | $\|h_A\|^2/\sqrt{2} = 0.864$ | 1.0 | 0.0 | **1.864** |
+
+Despite A and C having identical raw features (dot product favoring A-C), the spatial encoding ($0.8 > 0.3$) and edge encoding ($0.6 > 0$) push A-B to the highest attention score — correctly reflecting the graph topology. Without structural encodings, attention would treat A and C as more similar to each other than to B.
+
+**Key insight:** The structural biases steer attention toward topologically relevant nodes even when raw feature similarity points elsewhere.
+
+---
+
+## 10 · Interview drill
 
 <details><summary><b>Q: Why is permutation equivariance important for graph models?</b></summary>
 
@@ -324,9 +391,24 @@ Graphormer requires all-pairs SPD computation ($O(N^3)$ preprocessing) and $O(N^
 Tasks requiring **long-range dependencies** — where information must flow across many hops — benefit most. Examples: (1) Molecular property prediction where distant functional groups interact (long-range electronic effects); (2) Graph regression where global topology determines the label; (3) Tasks on social/citation graphs where distant nodes are semantically related. Pure MPNNs over-squash exponentially many paths into fixed-size vectors at deep layers, losing long-range information.
 </details>
 
+<details><summary><b>Q: How does Graphormer handle graphs that are too large for all-pairs attention?</b></summary>
+
+Graphormer's vanilla formulation is $O(N^2)$ in both time and memory — the same as standard Transformers — plus $O(N^3)$ preprocessing to compute all-pairs shortest paths. For large graphs (thousands of nodes), this is prohibitive. Graphormer addresses this through: (1) **subgraph sampling**: apply Graphormer to sampled subgraphs of bounded size (used in the OGB-LSC setting); (2) **approximate SPD**: use BFS distance truncated at a maximum hop count; (3) **GraphGPS as the scalable successor**: replaces all-pairs encoding with local MPNN + linear attention ($O(N+E)$). In practice, Graphormer is suited for small-to-medium molecular graphs (≤100 atoms) where $O(N^2)$ is tractable; GraphGPS is preferred for larger graphs.
+</details>
+
+<details><summary><b>Q: What is Laplacian positional encoding (LapPE), and why is it graph-appropriate?</b></summary>
+
+LapPE uses the $k$ smallest non-trivial eigenvectors of the graph Laplacian $L = D - A$ as positional encodings for each node. The Laplacian eigenvectors form a spectral basis for the graph: eigenvectors with small eigenvalues (close to 0) capture global, smooth structure (connected components, clusters); eigenvectors with large eigenvalues capture local, oscillatory structure. Unlike positional encodings for sequences (sinusoidal, RoPE), Laplacian PE is permutation-equivariant by construction — swapping two nodes swaps their PE, which is consistent with graph isomorphism. The main challenge: eigenvectors are only unique up to sign flips (for simple eigenvalues), so random sign augmentation is used during training. LapPE can be precomputed once per graph and is used in GraphGPS and many subsequent graph Transformers.
+</details>
+
+<details><summary><b>Q: What is over-squashing in MPNNs, and how do graph Transformers address it?</b></summary>
+
+Over-squashing occurs in deep MPNNs when information from exponentially many nodes must be compressed into a fixed-size message at each aggregation step. After $k$ MPNN layers, each node has an $O(r^k)$-neighborhood (where $r$ is average degree), but the representation has fixed dimension $d$. For large $k$, information from distant nodes is diluted and eventually lost. This is particularly harmful for tasks requiring long-range dependencies (e.g., functional group interactions in molecules). Graph Transformers address over-squashing by adding global attention: every node attends directly to every other node, bypassing the multi-hop bottleneck. In GraphGPS, the global attention module provides direct all-pairs communication, while the local MPNN handles edge-featured local structure. The combination eliminates over-squashing for graph-level tasks while keeping $O(N+E)$ complexity via linear attention.
+</details>
+
 ---
 
-## 10 · Common misconceptions
+## 11 · Common misconceptions
 
 | Misconception | Reality |
 |---|---|
@@ -338,13 +420,15 @@ Tasks requiring **long-range dependencies** — where information must flow acro
 
 ---
 
-## 11 · One-screen summary
+## 12 · One-screen summary
 
 > **Problem:** Vanilla Transformers can't handle graphs — no permutation equivariance, no awareness of graph topology, no edge features, and quadratic cost is prohibitive for large graphs. **Graphormer (NeurIPS 2021):** Add degree centrality to node embeddings; add SPD-based learnable scalar bias to attention logits; add edge encoding bias — all permutation invariant. State-of-the-art on molecular benchmarks; $O(N^2)$ cost limits scale. **GraphGPS (NeurIPS 2022):** Modular GPS layer = MPNN (local) + global attention + PE; $O(N+E)$ with linear attention; SOTA on 16 benchmarks including long-range tasks. **Key design rule:** Encode graph structure via graph-property-dependent (not index-dependent) features injected into attention as biases.
+>
+> **Interview rule of thumb:** For small molecular graphs (≤100 nodes) where structural encodings matter and $O(N^2)$ is affordable, Graphormer is the gold standard. For larger graphs (proteins, social networks, citation graphs with thousands of nodes), GraphGPS with linear attention ($O(N+E)$) and LapPE/RWSE is the practical choice. The key principle: always inject topology — an attention model that ignores graph structure reduces to a bag-of-nodes model regardless of depth.
 
 ---
 
-## 12 · References
+## 13 · References
 
 1. **Ying, C., Cai, T., Luo, S., Zheng, S., Ke, G., He, D., Shen, Y., Liu, T.-Y.** "Do Transformers Really Perform Bad for Graph Representation?" NeurIPS 2021. arXiv:2106.05234. [https://arxiv.org/abs/2106.05234](https://arxiv.org/abs/2106.05234)
 
@@ -365,6 +449,6 @@ Tasks requiring **long-range dependencies** — where information must flow acro
 
 [⬅️ Q33 — Attention as Kernel Method](./q33-attention-kernel-method.md) &nbsp;|&nbsp; [📚 Back to Section 1](./README.md) &nbsp;|&nbsp; [🏠 Home](../../README.md)
 
-<sub>Found an error? See <a href="../../CONTRIBUTING.md">CONTRIBUTING</a>.</sub>
+<sub>Found an error or have a sharper intuition? See <a href="../../CONTRIBUTING.md">CONTRIBUTING</a> — answers follow the <a href="../../_TEMPLATE.md">answer template</a>.</sub>
 
 </div>

@@ -34,10 +34,11 @@
 7. [Quality gap analysis](#7--quality-gap-analysis)
 8. [Comparison table](#8--comparison-table)
 9. [When softmax-free attention is viable](#9--when-softmax-free-attention-is-viable)
-10. [Interview drill](#10--interview-drill)
-11. [Common misconceptions](#11--common-misconceptions)
-12. [One-screen summary](#12--one-screen-summary)
-13. [References](#13--references)
+10. [Worked numerical example](#10--worked-numerical-example)
+11. [Interview drill](#11--interview-drill)
+12. [Common misconceptions](#12--common-misconceptions)
+13. [One-screen summary](#13--one-screen-summary)
+14. [References](#14--references)
 
 ---
 
@@ -267,7 +268,64 @@ The gap narrows significantly at large scale and with architectural improvements
 
 ---
 
-## 10 · Interview drill
+## 10 · Worked numerical example
+
+We compare softmax attention and ELU+1 linear attention on a 4-token sequence with $d = 2$ to make the kernel trick concrete.
+
+**Setup.** $N = 4$ tokens, $d_\text{head} = 2$. Queries, keys, values (rows):
+
+$$Q = K = \begin{bmatrix}1&0\\0&1\\1&1\\0&0\end{bmatrix}, \quad V = \begin{bmatrix}1&0\\0&1\\1&1\\0.5&0.5\end{bmatrix}$$
+
+**Standard softmax attention** — compute full $4 \times 4$ matrix, $\text{scale} = 1/\sqrt{2}$:
+
+Raw scores $QK^\top / \sqrt{2}$:
+
+$$S = \begin{bmatrix}
+0.707 & 0 & 0.707 & 0 \\
+0 & 0.707 & 0.707 & 0 \\
+0.707 & 0.707 & 1.414 & 0 \\
+0 & 0 & 0 & 0
+\end{bmatrix}$$
+
+Softmax row 0: $[e^{0.707}, e^0, e^{0.707}, e^0]/Z = [2.028, 1.0, 2.028, 1.0]/6.056 \approx [0.335, 0.165, 0.335, 0.165]$
+
+Output row 0: $0.335 \cdot [1,0] + 0.165 \cdot [0,1] + 0.335 \cdot [1,1] + 0.165 \cdot [0.5, 0.5]$
+$\approx [0.335+0.335+0.083,\ 0.165+0.335+0.083] = [0.752,\ 0.582]$
+
+**ELU+1 linear attention** — feature map $\phi(x) = \text{elu}(x) + 1$ (elementwise):
+
+$$\phi(Q) = \phi(K) = \begin{bmatrix}1.718&1\\1&1.718\\1.718&1.718\\1&1\end{bmatrix} \quad (\text{elu}(x)+1: \text{elu}(1)+1=1.718,\ \text{elu}(0)+1=1)$$
+
+**Kernel trick: compute $\phi(K)^\top V$ first** (size $2 \times 2$, independent of $N$):
+
+$$\phi(K)^\top V = \begin{bmatrix}1.718&1&1.718&1\\1&1.718&1.718&1\end{bmatrix} \begin{bmatrix}1&0\\0&1\\1&1\\0.5&0.5\end{bmatrix}$$
+
+$$= \begin{bmatrix}1.718\cdot1+1\cdot0+1.718\cdot1+1\cdot0.5 & 1.718\cdot0+1\cdot1+1.718\cdot1+1\cdot0.5\\1\cdot1+1.718\cdot0+1.718\cdot1+1\cdot0.5 & 1\cdot0+1.718\cdot1+1.718\cdot1+1\cdot0.5\end{bmatrix} = \begin{bmatrix}3.936 & 3.218\\3.218 & 3.936\end{bmatrix}$$
+
+**Normalization** $\phi(K)^\top \mathbf{1}$: $[1.718+1+1.718+1, 1+1.718+1.718+1] = [5.436, 5.436]$
+
+**Output row 0** (query $\phi(q_0) = [1.718, 1]$):
+
+$$y_0 = \phi(q_0) \cdot (\phi(K)^\top V) / (\phi(q_0) \cdot (\phi(K)^\top \mathbf{1}))$$
+
+Numerator: $[1.718, 1] \cdot \begin{bmatrix}3.936&3.218\\3.218&3.936\end{bmatrix} = [1.718\cdot3.936+1\cdot3.218,\ 1.718\cdot3.218+1\cdot3.936] = [9.985,\ 9.465]$
+
+Denominator: $[1.718, 1] \cdot [5.436, 5.436] = 9.333 + 5.436 = 14.768$
+
+$$y_0^{\text{linear}} \approx [9.985/14.768,\ 9.465/14.768] \approx [0.676,\ 0.641]$$
+
+**Comparison:**
+
+| Method | Output row 0 | Cost |
+|---|---|---|
+| Softmax | $[0.752, 0.582]$ | $O(N^2 d)$ — 4×4 matrix computed |
+| ELU+1 linear | $[0.676, 0.641]$ | $O(Nd^2)$ — 2×2 intermediate only |
+
+The outputs differ: linear attention is a weaker approximation of softmax ($\Delta \approx 0.08$ per coordinate here). This is the quality gap in miniature. The key computational saving: the $\phi(K)^\top V$ intermediate has size $d \times d = 2 \times 2$ — never grows with $N$.
+
+---
+
+## 11 · Interview drill
 
 <details><summary><b>Q: What does the ELU+1 feature map do for linear attention?</b></summary>
 
@@ -284,9 +342,29 @@ In language modeling, sharp retrieval of specific tokens is crucial (e.g., retri
 Yes, but only via a recurrent formulation. Maintain a running state $S_i = \sum_{j \leq i} \phi(k_j) v_j^\top \in \mathbb{R}^{r \times d}$. At each position $i$: update $S_i = S_{i-1} + \phi(k_i) v_i^\top$, then output $o_i = \phi(q_i)^\top S_i / \phi(q_i)^\top z_i$ where $z_i = \sum_{j \leq i} \phi(k_j)$. This is $O(rd)$ per step — linear in sequence length.
 </details>
 
+<details><summary><b>Q: What is the quality gap in practice, and at what scale does it close?</b></summary>
+
+On language modeling benchmarks, ELU+1 linear attention suffers a perplexity gap of 4–6 points on WikiText-103 versus softmax attention at the same parameter count. Qin et al. (arXiv:2310.11685, 2023) systematically analyzed this gap and found: at small scale ($\leq$1B parameters) the gap is large; at ≥7B parameters with architectural improvements (normalization, better feature maps, positional encodings), the gap narrows substantially. RWKV-6 and RetNet, which replace softmax with structured alternatives (time-decay recurrence), match or approach Transformer perplexity at 7B+ parameters. The honest answer: as of 2024, no pure softmax-free method fully closes the gap at all scales and tasks.
+</details>
+
+<details><summary><b>Q: Why is causal masking harder for linear attention than for softmax attention?</b></summary>
+
+Softmax attention with causal masking simply masks out future positions before the softmax: $\text{softmax}(QK^\top \odot M)$ where $M$ is a lower-triangular mask. The masked positions contribute 0 weight after softmax. For linear attention, the kernel trick requires computing $\phi(K)^\top V$ as a single sum over all $N$ keys — this inherently includes future keys. To enforce causality, you must compute a separate cumulative sum $\sum_{j \leq i} \phi(k_j) v_j^\top$ for each query position $i$, which requires sequential processing (prefix scans). While prefix scan is $O(N \log N)$ work and $O(\log N)$ depth, it breaks the simple "compute $\phi(K)^\top V$ once" trick and makes batched training more complex. FlashLinearAttention (arXiv:2312.06635) addresses this via chunkwise prefix scans.
+</details>
+
+<details><summary><b>Q: What distinguishes SOFT's Gaussian kernel from ELU+1 linear attention?</b></summary>
+
+ELU+1 uses the feature map $\phi(x) = \text{elu}(x)+1$ to approximate $\exp(q^\top k)$ — a scaled dot-product kernel. SOFT (Lu et al., NeurIPS 2021) instead approximates the Gaussian (RBF) kernel $K(q, k) = \exp(-\|q-k\|^2 / 2\sigma^2)$ using a low-rank decomposition via the Nyström method. Key differences: (1) RBF kernel is always in $[0,1]$ — stable normalization; (2) Nyström selects $m$ landmark points and approximates the $N \times N$ kernel matrix as a rank-$m$ product — $O(Nm)$ cost; (3) SOFT was designed for vision (ViT), where softmax attention is already less critical than in language, so the quality gap is less pronounced. The main limitation: Nyström landmark selection adds complexity, and the RBF kernel has a different inductive bias than the dot-product kernel softmax implicitly uses.
+</details>
+
+<details><summary><b>Q: Is cosine attention (Swin v2) actually "softmax-free"?</b></summary>
+
+No — this is a common misconception. Swin v2 uses $\text{softmax}(\tau \cdot \text{cosine}(q_i, k_j))$ where $\tau$ is a learnable scalar temperature per head. Softmax is still applied; what changes is the similarity function from dot product to cosine (normalized dot product). The motivation was numerical stability: large window sizes caused dot-product logits to grow unboundedly, creating training instability. Cosine attention bounds logits to $[-\tau, +\tau]$. So Swin v2 is "dot-product-free" but not "softmax-free." The $O(N^2)$ complexity is unchanged.
+</details>
+
 ---
 
-## 11 · Common misconceptions
+## 12 · Common misconceptions
 
 | Misconception | Reality |
 |---|---|
@@ -298,13 +376,15 @@ Yes, but only via a recurrent formulation. Maintain a running state $S_i = \sum_
 
 ---
 
-## 12 · One-screen summary
+## 13 · One-screen summary
 
 > **Role of softmax:** Normalizes scores to a probability distribution; provides non-linear sharpening (spiky attention) that enables precise token retrieval. **Softmax-free options:** (a) Linear attention via feature maps — $O(N)$, significant quality gap; (b) SOFT via Gaussian kernel + low-rank — $O(N)$, viable for vision; (c) Cosine attention (Swin v2) — keeps softmax, changes similarity metric for stability. **Verdict:** Softmax-free is viable for efficiency-dominated settings at large scale or on vision tasks; for highest-quality language modeling, softmax attention remains the standard.
+>
+> **Interview rule of thumb:** If you need true O(N) inference with a trained model, ELU+1 linear attention or RWKV are the clearest paths — accept a quality gap at <7B scale. If you need to keep quality while eliminating the N×N matrix in the forward pass but can keep O(N²) compute, FAVOR+ (Performers) is the right choice. If the task is vision and stability matters more than raw speed, cosine attention is a safe drop-in.
 
 ---
 
-## 13 · References
+## 14 · References
 
 1. **Vaswani, A., et al.** "Attention Is All You Need." NeurIPS 2017. — Original softmax attention.
 
@@ -327,6 +407,6 @@ Yes, but only via a recurrent formulation. Maintain a running state $S_i = \sum_
 
 [⬅️ Q30 — Hyena / RetNet / RWKV](./q30-hyena-retnet-rwkv.md) &nbsp;|&nbsp; [📚 Back to Section 1](./README.md) &nbsp;|&nbsp; [🏠 Home](../../README.md) &nbsp;|&nbsp; [Q32 — Attention Turing Complete ➡️](./q32-attention-turing-complete.md)
 
-<sub>Found an error? See <a href="../../CONTRIBUTING.md">CONTRIBUTING</a>.</sub>
+<sub>Found an error or have a sharper intuition? See <a href="../../CONTRIBUTING.md">CONTRIBUTING</a> — answers follow the <a href="../../_TEMPLATE.md">answer template</a>.</sub>
 
 </div>

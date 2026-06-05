@@ -34,10 +34,11 @@
 7. [Variants / comparison](#7--variants--comparison)
 8. [Reference implementation](#8--reference-implementation)
 9. [Where it's used / where it breaks](#9--where-its-used--where-it-breaks)
-10. [Interview drill](#10--interview-drill)
-11. [Common misconceptions](#11--common-misconceptions)
-12. [One-screen summary](#12--one-screen-summary)
-13. [References](#13--references)
+10. [Worked numerical example](#10--worked-numerical-example)
+11. [Interview drill](#11--interview-drill)
+12. [Common misconceptions](#12--common-misconceptions)
+13. [One-screen summary](#13--one-screen-summary)
+14. [References](#14--references)
 
 ---
 
@@ -260,7 +261,72 @@ class DifferentialAttentionHead(nn.Module):
 
 ---
 
-## 10 · Interview drill
+## 10 · Worked numerical example
+
+We trace a single differential attention head with $d = 4$ (so each sub-head has $d/2 = 2$) and $N = 4$ tokens to make the subtraction mechanics concrete.
+
+**Setup.** Token embeddings (rows of $X \in \mathbb{R}^{4 \times 4}$):
+
+| Pos | Token | Embedding |
+|---|---|---|
+| 0 | query | $[1, 0, 0, 0]$ |
+| 1 | relevant | $[0, 1, 0, 0]$ |
+| 2 | noise A | $[0, 0, 1, 0]$ |
+| 3 | noise B | $[0, 0, 0, 1]$ |
+
+We compute the output at position 0.
+
+**Projections.** With simplified projections $W_{Q_1} = W_{K_1} = W_{Q_2} = W_{K_2} = W_V = I$ (identity, for illustration) and split dimension $d/2 = 2$, the first two dims feed sub-head 1 and the last two dims feed sub-head 2. In this toy, all keys and queries are the first two dimensions:
+
+$$Q_1 = Q_2 = K_1 = K_2 = X[:,0{:}2] = \begin{bmatrix} 1&0 \\ 0&1 \\ 0&0 \\ 0&0 \end{bmatrix}$$
+
+**Sub-head 1 raw scores** (query at pos 0 vs all keys, $/ \sqrt{2}$):
+
+$$e^{(1)}_{0,j} = q^{(1)}_0 \cdot k^{(1)}_j / \sqrt{2} \Rightarrow [1/\sqrt{2},\ 0,\ 0,\ 0]$$
+
+Softmax: $\alpha^{(1)} \approx [0.576,\ 0.141,\ 0.141,\ 0.141]$
+
+**Sub-head 2 raw scores** (identical projections, so same logits):
+
+$$\alpha^{(2)} \approx [0.576,\ 0.141,\ 0.141,\ 0.141]$$
+
+**Differential weights** with $\lambda = 0.5$:
+
+$$\tilde{\alpha}_j = \alpha^{(1)}_j - \lambda \cdot \alpha^{(2)}_j$$
+
+$$\tilde{\alpha} = [0.576 - 0.5 \cdot 0.576,\ 0.141 - 0.5 \cdot 0.141,\ \ldots] = [0.288,\ 0.071,\ 0.071,\ 0.071]$$
+
+> These are un-normalized. In practice the denominator $\sum_j \tilde{\alpha}_j = 0.288 + 3 \times 0.071 = 0.501$ is used for normalization.
+
+**Normalized differential weights:**
+
+$$\hat{\alpha} = \tilde{\alpha} / 0.501 \approx [0.575,\ 0.142,\ 0.142,\ 0.142]$$
+
+**Observation.** In this symmetric toy the differential weights resemble the original softmax. The mechanism's power emerges when the two projection pairs produce *slightly different* distributions — their common-mode noise cancels while the differential signal persists.
+
+**Asymmetric example.** Now let $Q_2$ point slightly toward noise:
+
+$$e^{(2)}_{0,j} = [0.3,\ 0.4,\ 0.2,\ 0.1] \Rightarrow \alpha^{(2)} \approx [0.268,\ 0.296,\ 0.243,\ 0.194]$$
+
+Differential weights ($\lambda = 0.5$):
+
+$$\tilde{\alpha} = [0.576 - 0.134,\ 0.141 - 0.148,\ 0.141 - 0.122,\ 0.141 - 0.097]$$
+$$= [0.442,\ -0.007,\ 0.019,\ 0.044]$$
+
+After zeroing negatives (or ReLU + normalize in practice):
+
+| Position | Differential weight | Interpretation |
+|---|---|---|
+| 0 (query itself) | 0.442 | dominant — correctly attended |
+| 1 (relevant) | ~0 | de-emphasized |
+| 2 (noise A) | 0.019 | suppressed |
+| 3 (noise B) | 0.044 | suppressed |
+
+The subtraction has collapsed the near-zero "noise floor" of positions 2–3 toward zero and concentrated weight. This is the attention noise cancellation mechanism.
+
+---
+
+## 11 · Interview drill
 
 <details><summary><b>Q: Why does subtracting two softmax maps reduce noise rather than just introducing negative weights?</b></summary>
 
@@ -282,9 +348,24 @@ Sparse attention pre-specifies which tokens can attend to which (via sliding win
 Two Q/K projections double the cost of QK projection, but if you halve the number of heads (keeping total parameters similar), the overall FLOPs are comparable. The paper reports matched-FLOP comparisons.
 </details>
 
+<details><summary><b>Q: How does differential attention affect gradient flow during training?</b></summary>
+
+The subtraction $\alpha^{(1)} - \lambda \alpha^{(2)}$ combined with RMSNorm per head creates two gradient pathways. Gradients flow back through both softmax branches, and since the branches share the same backpropagation graph structure, the gradient magnitude is roughly doubled compared to a single softmax head of the same parameter count. In practice the paper reports that differential attention converges in fewer steps than standard MHA to the same loss, consistent with stronger gradient signal. The $(1 - \lambda_{\text{init}})$ scaling in the RMSNorm prevents the output scale from collapsing when $\lambda$ is large.
+</details>
+
+<details><summary><b>Q: What happens if $\lambda$ is initialized too large (close to 1)?</b></summary>
+
+If $\lambda \to 1$, the differential map $\alpha^{(1)} - \alpha^{(2)} \to 0$ for all positions whenever the two projection pairs produce similar distributions. The head effectively outputs a near-zero weighted sum of values before the RMSNorm rescaling. In practice, the layer-dependent initialization $\lambda_{\text{init}} = 0.8 - 0.6 e^{-0.3(l-1)}$ keeps early layers near $\lambda \approx 0.2$ (mild cancellation) and deeper layers near $\lambda \approx 0.8$ (aggressive cancellation). The $(1 - \lambda_{\text{init}})$ factor in the RMSNorm output scaling also compensates — smaller output scale for larger $\lambda$ — preventing training instability.
+</details>
+
+<details><summary><b>Q: How does the parameter count of DiffAttn compare to standard MHA for the same hidden dimension?</b></summary>
+
+For the same model dimension $d_\text{model}$ and the same number of heads $h$, each differential head has two sets of Q/K projections instead of one, each of dimension $d_\text{model} \times (d_\text{head}/2)$. The total Q/K parameter count is therefore the same as standard MHA (two half-dimension projections equal one full-dimension projection). The V and output projections are identical. $\lambda$ is a single scalar per head — negligible. Total parameter count: essentially the same as standard MHA with matched FLOPs. The improvement in quality comes at no extra cost.
+</details>
+
 ---
 
-## 11 · Common misconceptions
+## 12 · Common misconceptions
 
 | Misconception | Reality |
 |---|---|
@@ -295,13 +376,15 @@ Two Q/K projections double the cost of QK projection, but if you halve the numbe
 
 ---
 
-## 12 · One-screen summary
+## 13 · One-screen summary
 
 > **What:** Compute two independent softmax attention maps $(A_1, A_2)$ and output $(A_1 - \lambda A_2)V$ with a learnable $\lambda$. **Problem solved:** Softmax attention noise — weak but non-zero weights on irrelevant tokens that blur retrieval and cause hallucination. **Why it works:** Common-mode noise is identical in both maps and cancels; signal tokens are differential and survive. **Caveats:** Needs custom kernels for efficiency; trained from scratch; negative weights complicate interpretation.
+>
+> **Interview rule of thumb:** Ask whether the task requires retrieving a specific past token (long-context QA, RAG, needle-in-a-haystack) or broad contextual averaging. If retrieval with long context: differential attention is a strong choice — it reduces hallucination by concentrating attention. If short-context or smooth aggregation: standard MHA is equally effective and slightly simpler.
 
 ---
 
-## 13 · References
+## 14 · References
 
 1. **Ye, T., Dong, L., Xia, Y., Sun, Y., Zhu, Y., Huang, G., Wei, F.** "Differential Transformer." arXiv:2410.05258, October 2024. Accepted as Oral at ICLR 2025. [https://arxiv.org/abs/2410.05258](https://arxiv.org/abs/2410.05258)
 
@@ -320,6 +403,6 @@ Two Q/K projections double the cost of QK projection, but if you halve the numbe
 
 [⬅️ Q28 — Expressivity Gap](./q28-expressivity-gap.md) &nbsp;|&nbsp; [📚 Back to Section 1](./README.md) &nbsp;|&nbsp; [🏠 Home](../../README.md) &nbsp;|&nbsp; [Q30 — Hyena / RetNet / RWKV ➡️](./q30-hyena-retnet-rwkv.md)
 
-<sub>Found an error? See <a href="../../CONTRIBUTING.md">CONTRIBUTING</a>.</sub>
+<sub>Found an error or have a sharper intuition? See <a href="../../CONTRIBUTING.md">CONTRIBUTING</a> — answers follow the <a href="../../_TEMPLATE.md">answer template</a>.</sub>
 
 </div>

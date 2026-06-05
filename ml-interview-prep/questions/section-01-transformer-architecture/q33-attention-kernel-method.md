@@ -33,10 +33,11 @@
 6. [Connection to Gaussian processes and RBF kernels](#6--connection-to-gaussian-processes-and-rbf-kernels)
 7. [Comparison table](#7--comparison-table)
 8. [Reference implementation](#8--reference-implementation)
-9. [Interview drill](#9--interview-drill)
-10. [Common misconceptions](#10--common-misconceptions)
-11. [One-screen summary](#11--one-screen-summary)
-12. [References](#12--references)
+9. [Worked numerical example](#9--worked-numerical-example)
+10. [Interview drill](#10--interview-drill)
+11. [Common misconceptions](#11--common-misconceptions)
+12. [One-screen summary](#12--one-screen-summary)
+13. [References](#13--references)
 
 ---
 
@@ -289,7 +290,66 @@ def performers_attention(Q, K, V, num_features=256):
 
 ---
 
-## 9 · Interview drill
+## 9 · Worked numerical example
+
+We verify the FAVOR+ estimator on a $2 \times 2$ attention problem with $r = 3$ random features to make the approximation error concrete.
+
+**Setup.** $N = 2$ tokens, $d = 2$, scaling $1/\sqrt{d} = 1/\sqrt{2}$.
+
+$$Q = K = \begin{bmatrix}1 & 0\\ 0 & 1\end{bmatrix}, \quad V = \begin{bmatrix}1 & 0\\ 0 & 1\end{bmatrix}$$
+
+**Exact softmax attention** (small $N$, compute directly):
+
+$$A = \text{softmax}\left(\frac{QK^\top}{\sqrt{2}}\right) = \text{softmax}\begin{bmatrix}1/\sqrt{2} & 0 \\ 0 & 1/\sqrt{2}\end{bmatrix}$$
+
+Row 0: $\text{softmax}([0.707, 0]) = [e^{0.707}/(e^{0.707}+1),\ 1/(e^{0.707}+1)] \approx [0.670, 0.330]$
+
+Row 1 (symmetric): $[0.330, 0.670]$
+
+$$\text{Exact output: } AV = \begin{bmatrix}0.670 & 0.330\\ 0.330 & 0.670\end{bmatrix}$$
+
+**FAVOR+ approximation.** Feature map: $\phi(x)_j = \frac{1}{\sqrt{r}} \exp(w_j^\top x - \|x\|^2/2)$ for $r$ random features $w_j \sim \mathcal{N}(0, I)$.
+
+With $r = 3$ and illustrative weights $w_1=[1,0], w_2=[0,1], w_3=[1,1]/\sqrt{2}$:
+
+For $q_1 = [1, 0]$ (query 0), $\|q_1\|^2 = 1$:
+$$\phi(q_1) = \frac{1}{\sqrt{3}}[e^{1-0.5}, e^{0-0.5}, e^{0.707-0.5}] = \frac{1}{\sqrt{3}}[e^{0.5}, e^{-0.5}, e^{0.207}]$$
+$$\approx \frac{1}{1.732}[1.649, 0.607, 1.230] \approx [0.952, 0.350, 0.710]$$
+
+For $q_2 = [0, 1]$ (symmetric, same norm): $\phi(q_2) \approx [0.350, 0.952, 0.710]$
+
+**Compute $\phi(K)^\top V$** ($K = Q$, $V = I$):
+
+$$\phi(K)^\top V = \begin{bmatrix}0.952 & 0.350 \\ 0.350 & 0.952 \\ 0.710 & 0.710\end{bmatrix} \cdot \begin{bmatrix}1&0\\0&1\end{bmatrix} = \begin{bmatrix}0.952 & 0.350 \\ 0.350 & 0.952 \\ 0.710 & 0.710\end{bmatrix}$$
+
+**Normalization** $\phi(K)^\top \mathbf{1} = [1.302, 1.302, 1.420]$ ... (col sums of $\phi(K)$ treated as $r \times 1$ normalization vector):
+
+Actually the normalization is $Z_i = \phi(q_i) \cdot (\phi(K)^\top \mathbf{1})$ where $\phi(K)^\top \mathbf{1}$ is the sum over all keys.
+
+$\phi(K)^\top \mathbf{1}_{N=2} = \phi(k_1) + \phi(k_2) = [0.952+0.350, 0.350+0.952, 0.710+0.710] = [1.302, 1.302, 1.420]$
+
+$Z_0 = \phi(q_1) \cdot [1.302, 1.302, 1.420] = 0.952\cdot1.302 + 0.350\cdot1.302 + 0.710\cdot1.420$
+$= 1.239 + 0.456 + 1.008 = 2.703$
+
+**FAVOR+ output row 0:**
+
+Numerator: $\phi(q_1) \cdot \phi(K)^\top V = [0.952\cdot0.952+0.350\cdot0.350+0.710\cdot0.710,\ 0.952\cdot0.350+0.350\cdot0.952+0.710\cdot0.710]$
+$= [0.906+0.123+0.504,\ 0.333+0.333+0.504] = [1.533, 1.170]$
+
+$y_0^\text{FAVOR+} = [1.533/2.703,\ 1.170/2.703] \approx [0.567, 0.433]$
+
+**Error vs. exact:**
+
+| | Exact | FAVOR+ ($r=3$) | Error |
+|---|---|---|---|
+| $y_{0,0}$ | 0.670 | 0.567 | 0.103 |
+| $y_{0,1}$ | 0.330 | 0.433 | 0.103 |
+
+With $r = 3$ features the approximation error is ~0.10 (15% relative). With $r = 64$ (typical in practice for $d = 64$), this error drops to $O(d \cdot \log(d) / r) \approx 0.006$. The cost saving: $O(N r d)$ vs $O(N^2 d)$ — for $N = 4096$ and $r = 64$, that is $4096 \times 64 \times 64 = 16.7$M vs $4096^2 \times 64 = 1.07$B ops — **64× speedup**.
+
+---
+
+## 10 · Interview drill
 
 <details><summary><b>Q: Why must the feature map be non-negative for FAVOR+ to work?</b></summary>
 
@@ -311,9 +371,24 @@ The FAVOR+ convergence theorem requires $r = O(d \cdot \log(d/\varepsilon) / \va
 Attention is a Nadaraya-Watson kernel regression: the output at query $q$ is $\hat{f}(q) = \sum_j K(q, k_j) v_j / \sum_j K(q, k_j)$, a kernel-weighted average of the values $v_j$. This is exactly the GP posterior mean for a noise-free GP with kernel $K$ and training pairs $(k_j, v_j)$. The attention kernel $\exp(q \cdot k)$ is positive definite, making the analogy mathematically precise.
 </details>
 
+<details><summary><b>Q: What is the relationship between FAVOR+ and the Nyström method?</b></summary>
+
+Both approximate a large kernel matrix. The **Nyström method** (used in SOFT) selects $m$ landmark points from the data, computes the $N \times m$ and $m \times m$ kernel sub-matrices exactly, and reconstructs the full $N \times N$ matrix as a rank-$m$ approximation. **FAVOR+** instead uses data-*independent* random features drawn from a distribution induced by Bochner's theorem. Key differences: (1) Nyström is deterministic given landmarks, FAVOR+ is randomized; (2) Nyström landmarks can adapt to the data distribution (lower error for the same $m$), but require a data-dependent landmark selection pass; (3) FAVOR+ is unbiased (the expectation over random features equals the exact kernel value) while Nyström is a biased approximation. In practice, FAVOR+ is preferred when the feature map must be applied to streaming data (no global data pass possible).
+</details>
+
+<details><summary><b>Q: Why is the ELU+1 feature map not a valid approximation of the softmax kernel?</b></summary>
+
+The softmax attention kernel is $K(q, k) = \exp(q^\top k / \sqrt{d})$, which is a scaled exponential kernel. A valid kernel decomposition requires $K(q, k) = \phi(q)^\top \phi(k)$ with $\phi(x) \geq 0$ (for numerical stability) and the product to approximate the exponential. The ELU+1 feature map $\phi(x) = [\text{elu}(x_1)+1, \ldots, \text{elu}(x_d)+1]$ computes $\phi(q)^\top \phi(k) = \sum_j (\text{elu}(q_j)+1)(\text{elu}(k_j)+1)$, which is NOT equal to $\exp(q^\top k)$ — it is a crude polynomial approximation. The theoretical justification for ELU+1 is simply that it is positive and cheap to compute, not that it approximates the correct kernel. FAVOR+ provides a principled Monte Carlo estimator of $\exp(q^\top k)$ with a provable error bound; ELU+1 has no such guarantee.
+</details>
+
+<details><summary><b>Q: Can the kernel view of attention explain why attention is good at in-context learning?</b></summary>
+
+Yes, through the Nadaraya-Watson interpretation. In Nadaraya-Watson kernel regression, the estimate at query point $q$ is $\hat{f}(q) = \sum_j K(q, k_j) v_j / \sum_j K(q, k_j)$, where $(k_j, v_j)$ are training examples. Attention is exactly this: keys are "training inputs," values are "training outputs," and the softmax attention output is the kernel-weighted average of values. In-context learning corresponds to passing new $(k_j, v_j)$ pairs as the context — the model can immediately perform kernel regression over this new distribution without weight updates. The kernel bandwidth (controlled by temperature $1/\sqrt{d}$) determines how sharply the model interpolates: lower temperature $=$ kernel regression with a sharper peak $=$ more exact retrieval.
+</details>
+
 ---
 
-## 10 · Common misconceptions
+## 11 · Common misconceptions
 
 | Misconception | Reality |
 |---|---|
@@ -325,13 +400,15 @@ Attention is a Nadaraya-Watson kernel regression: the output at query $q$ is $\h
 
 ---
 
-## 11 · One-screen summary
+## 12 · One-screen summary
 
 > **Kernel view:** Softmax attention = kernel regression with $K(q,k) = \exp(q \cdot k/\sqrt{d})$, related to the RBF kernel. **Kernel trick:** Approximate $K(q,k) = \phi(q)^\top \phi(k)$, compute $(K'^\top V)$ first to avoid the $N \times N$ matrix — cost drops from $O(N^2 d)$ to $O(Nrd)$. **FAVOR+:** Positive orthogonal random features that unbiasedly approximate the softmax kernel with convergence guarantees independent of $N$. **Linear attention:** Fixed feature map ($\phi = \text{elu}+1$), same trick, larger quality gap. **Use when:** $N > 8\text{k}$ and approximation quality $r \sim 256$ is acceptable.
+>
+> **Interview rule of thumb:** When asked "why is attention O(N²)?", the kernel answer is clearest: computing every pairwise kernel value $K(q_i, k_j) = \exp(q_i^\top k_j/\sqrt{d})$ costs $O(N^2 d)$. The fix is a feature map $\phi$ such that $K(q,k) = \phi(q)^\top \phi(k)$ — then compute $(\phi(K)^\top V)$ first for $O(Nrd)$. FAVOR+ is the right choice when you need an unbiased estimator with provable error bounds; ELU+1 is a fast heuristic with no guarantees.
 
 ---
 
-## 12 · References
+## 13 · References
 
 1. **Choromanski, K., et al.** "Rethinking Attention with Performers." ICLR 2021 (Oral). arXiv:2009.14794. [https://arxiv.org/abs/2009.14794](https://arxiv.org/abs/2009.14794)
 
@@ -352,6 +429,6 @@ Attention is a Nadaraya-Watson kernel regression: the output at query $q$ is $\h
 
 [⬅️ Q32 — Attention Turing Complete](./q32-attention-turing-complete.md) &nbsp;|&nbsp; [📚 Back to Section 1](./README.md) &nbsp;|&nbsp; [🏠 Home](../../README.md) &nbsp;|&nbsp; [Q34 — Graph Transformers ➡️](./q34-graph-transformers.md)
 
-<sub>Found an error? See <a href="../../CONTRIBUTING.md">CONTRIBUTING</a>.</sub>
+<sub>Found an error or have a sharper intuition? See <a href="../../CONTRIBUTING.md">CONTRIBUTING</a> — answers follow the <a href="../../_TEMPLATE.md">answer template</a>.</sub>
 
 </div>

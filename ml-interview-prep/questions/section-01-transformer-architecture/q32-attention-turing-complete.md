@@ -32,10 +32,11 @@
 5. [Merrill and Sabharwal (2023) — log-precision limits](#5--merrill-and-sabharwal-2023--log-precision-limits)
 6. [The precision hierarchy](#6--the-precision-hierarchy)
 7. [Practical implications](#7--practical-implications)
-8. [Interview drill](#8--interview-drill)
-9. [Common misconceptions](#9--common-misconceptions)
-10. [One-screen summary](#10--one-screen-summary)
-11. [References](#11--references)
+8. [Worked numerical example](#8--worked-numerical-example)
+9. [Interview drill](#9--interview-drill)
+10. [Common misconceptions](#10--common-misconceptions)
+11. [One-screen summary](#11--one-screen-summary)
+12. [References](#12--references)
 
 ---
 
@@ -196,7 +197,50 @@ $$
 
 ---
 
-## 8 · Interview drill
+## 8 · Worked numerical example
+
+We trace the parity function (does the input contain an even or odd number of 1s?) to make the log-precision TC⁰ bound concrete.
+
+**Why parity is hard for a constant-depth Transformer.**
+
+Consider an input $x = (x_1, \ldots, x_N)$ where each $x_i \in \{0, 1\}$, and the task is to compute $\text{parity}(x) = \bigoplus_{i=1}^N x_i = (\sum_i x_i) \bmod 2$.
+
+**Attempt 1: direct sum via attention.**
+
+A standard "mean pooling" attention head can compute $\frac{1}{N}\sum_i x_i$ (the fraction of 1s) in one layer by attending uniformly. With $N = 6$ inputs:
+
+$$x = [1, 0, 1, 1, 0, 1] \Rightarrow \text{mean} = 4/6 \approx 0.667$$
+
+To recover parity, we need to know whether $\sum x_i$ is odd or even — i.e., whether $0.667 \times 6 = 4$ is divisible by 2. But with float32 arithmetic, $0.667 \times 6 = 3.999...$ — the multiplication introduces rounding error. With $N = 2^{16}$ and float32 (23-bit mantissa), the error in $\text{mean} \times N$ exceeds 0.5, making parity unrecoverable.
+
+**Quantitative precision bound.**
+
+Float32 has 23 bits of mantissa $\Rightarrow$ relative error $\epsilon \approx 2^{-23} \approx 1.2 \times 10^{-7}$.
+
+For a sum of $N$ values each in $\{0,1\}$, the sum lies in $\{0, 1, \ldots, N\}$. The smallest gap between an even and odd sum is 1. To distinguish parities we need:
+
+$$\text{absolute error} < 0.5 \Rightarrow N \cdot \epsilon < 0.5 \Rightarrow N < 0.5 / (1.2 \times 10^{-7}) \approx 4 \times 10^6$$
+
+So float32 attention can solve parity for $N < 4 \times 10^6$ but fails for larger $N$.
+
+**Log-precision analysis.** With $O(\log N)$ bits of precision (e.g., for $N = 65536 = 2^{16}$, use 16-bit precision), relative error $\epsilon = 2^{-16}$:
+
+$$N \cdot \epsilon = 2^{16} \cdot 2^{-16} = 1.0 \Rightarrow \text{absolute error} = 1.0 \geq 0.5 \quad \text{fails}$$
+
+This is exactly the TC⁰ impossibility: parity requires $\Omega(\log N)$ bits just to represent intermediate counts, and a constant-depth circuit (one Transformer forward pass) cannot compute parity for general $N$ in log-precision — consistent with Merrill & Sabharwal (2023).
+
+**Chain-of-thought escape.** With $K$ forward passes (CoT steps), each pass can halve the problem: compute parity of pairs, then parity of those results, etc. With $K = \log_2 N$ steps, the circuit depth is $O(\log N)$, escaping TC⁰. This is why CoT enables tasks that a single-pass Transformer cannot solve.
+
+| Setting | Parity solvable? | Constraint |
+|---|---|---|
+| Fixed precision, 1 pass | No (for large $N$) | Rounding error accumulates |
+| Log-precision, 1 pass | No | TC⁰ lower bound |
+| Log-precision, $O(\log N)$ passes (CoT) | Yes | Depth increased by CoT |
+| Arbitrary precision, 1 pass (hardmax) | Yes | Theoretical only |
+
+---
+
+## 9 · Interview drill
 
 <details><summary><b>Q: What is the key assumption that makes the Pérez 2021 result non-practical?</b></summary>
 
@@ -218,9 +262,24 @@ Each forward pass of a Transformer is bounded in depth (and hence in TC$^0$). By
 No. Bhattamishra et al. (2020) showed that self-attention alone (without FFN) cannot recognize some regular languages. The combination of attention + FFN is necessary, and even then, depth is required for complex languages. A single layer with softmax attention and finite precision can only recognize a limited class of patterns.
 </details>
 
+<details><summary><b>Q: Does the Turing completeness result imply that a Transformer can learn to solve any problem given enough data?</b></summary>
+
+No — Turing completeness is a statement about *representational capacity* (what functions can be expressed), not about *learnability* (whether gradient descent will find the correct weights). A Transformer can theoretically represent the computation of any Turing machine with hard attention and arbitrary precision, but: (1) the required precision grows with the computation, (2) the required depth grows with the number of computation steps, and (3) gradient descent on finite data with standard training may not find the correct weights even if they exist. Turing completeness is a necessary condition for solving a class of problems, not a sufficient one for a practical learning system.
+</details>
+
+<details><summary><b>Q: What is the formal language class that finite-precision Transformers are believed to capture?</b></summary>
+
+Merrill & Sabharwal (2023) showed that log-precision Transformers (with $O(\log N)$ bits per activation) are characterized by the circuit complexity class **TC⁰** (threshold circuits of constant depth and polynomial size). TC⁰ strictly contains AC⁰ (regular languages, parenthesis matching without counting) and can compute integer addition, sorting, and majority. It cannot compute matrix permanent or general PTIME problems. Practically, this means a single-pass Transformer can perform tasks requiring threshold functions over $N$ inputs — e.g., "does the majority of the input satisfy X?" — but cannot perform tasks requiring $\Omega(\log N)$ sequential steps of unbounded communication.
+</details>
+
+<details><summary><b>Q: How does the Bhattamishra (2020) result relate to the Pérez (2021) result — are they contradictory?</b></summary>
+
+They are complementary, not contradictory. Bhattamishra et al. (2020) showed that Transformers with standard positional encodings can **simulate** any Turing machine — but this requires an unbounded number of layers (one per step of the Turing computation) and standard (softmax) attention. The simulation uses the positional encoding to track tape head position. Pérez et al. (2021) showed Turing completeness in a **fixed-depth** network, but requires hard (argmax) attention rather than softmax. The key distinction: Bhattamishra's result allows depth to grow with computation length; Pérez's result is fixed-depth but requires an unrealizable attention operator. Neither result says a practical finite-depth, softmax, float32 Transformer is Turing complete.
+</details>
+
 ---
 
-## 9 · Common misconceptions
+## 10 · Common misconceptions
 
 | Misconception | Reality |
 |---|---|
@@ -232,13 +291,15 @@ No. Bhattamishra et al. (2020) showed that self-attention alone (without FFN) ca
 
 ---
 
-## 10 · One-screen summary
+## 11 · One-screen summary
 
 > **The claim:** Transformers with hard attention and arbitrary precision are Turing complete (Pérez et al., JMLR 2021). **The key assumptions:** hardmax (not softmax) + arbitrary precision — both unrealistic. **The realistic bound:** Log-precision Transformers (softmax, $O(\log N)$ precision) are exactly FO(M) / TC$^0$ — a strict subset of Turing-computable functions (Merrill & Sabharwal, NeurIPS 2023). **Practical takeaway:** Transformers have no categorical computational blind spots in theory, but finite precision and depth limit what they can *reliably compute*; chain-of-thought unlocks additional computational power beyond one forward pass.
+>
+> **Interview rule of thumb:** When asked about Transformer expressivity, lead with the practical answer: real float32 Transformers are bounded by TC⁰ (Merrill & Sabharwal 2023) — they can add, sort, and do majority but cannot compute parity for large $N$ in one pass. The Turing completeness result (Pérez 2021) is theoretically important but relies on unrealizable assumptions (hardmax + arbitrary precision). Chain-of-thought gives practical escape from these limits.
 
 ---
 
-## 11 · References
+## 12 · References
 
 1. **Pérez, J., Barceló, P., Marinkovic, J.** "Attention is Turing Complete." Journal of Machine Learning Research, Volume 22, 2021. [https://jmlr.org/papers/v22/20-302.html](https://jmlr.org/papers/v22/20-302.html)
 
@@ -261,6 +322,6 @@ No. Bhattamishra et al. (2020) showed that self-attention alone (without FFN) ca
 
 [⬅️ Q31 — Softmax-Free Attention](./q31-softmax-free-attention.md) &nbsp;|&nbsp; [📚 Back to Section 1](./README.md) &nbsp;|&nbsp; [🏠 Home](../../README.md) &nbsp;|&nbsp; [Q33 — Attention as Kernel Method ➡️](./q33-attention-kernel-method.md)
 
-<sub>Found an error? See <a href="../../CONTRIBUTING.md">CONTRIBUTING</a>.</sub>
+<sub>Found an error or have a sharper intuition? See <a href="../../CONTRIBUTING.md">CONTRIBUTING</a> — answers follow the <a href="../../_TEMPLATE.md">answer template</a>.</sub>
 
 </div>

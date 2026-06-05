@@ -32,10 +32,11 @@
 5. [Complexity comparison table](#5--complexity-comparison-table)
 6. [When to use each](#6--when-to-use-each)
 7. [Reference implementations (sketches)](#7--reference-implementations-sketches)
-8. [Interview drill](#8--interview-drill)
-9. [Common misconceptions](#9--common-misconceptions)
-10. [One-screen summary](#10--one-screen-summary)
-11. [References](#11--references)
+8. [Worked numerical example](#8--worked-numerical-example)
+9. [Interview drill](#9--interview-drill)
+10. [Common misconceptions](#10--common-misconceptions)
+11. [One-screen summary](#11--one-screen-summary)
+12. [References](#12--references)
 
 ---
 
@@ -327,7 +328,67 @@ def rwkv_step(x_t, x_prev, a, b, w, u):
 
 ---
 
-## 8 · Interview drill
+## 8 · Worked numerical example
+
+We trace a single RetNet recurrent step with $d = 4$, $\gamma = 0.9$, and $N = 3$ tokens to make the retention mechanics concrete.
+
+**Setup.** Single-head RetNet, dimension $d = 4$. Input tokens (rows of $X$):
+
+| Step $n$ | Token | $x_n \in \mathbb{R}^4$ |
+|---|---|---|
+| 1 | "the" | $[1, 0, 0, 0]$ |
+| 2 | "cat" | $[0, 1, 0, 0]$ |
+| 3 | "sat" | $[0, 0, 1, 0]$ |
+
+Projection matrices simplified to identity: $W_Q = W_K = W_V = I$.
+
+**Recurrent mode** — compute state $S_n = \gamma S_{n-1} + k_n^\top v_n$ and output $y_n = q_n S_n$.
+
+**Step 1 ($n=1$):**
+
+$$k_1 = v_1 = x_1 = [1,0,0,0]$$
+
+$$S_1 = \gamma S_0 + k_1^\top v_1 = 0 + [1,0,0,0]^\top [1,0,0,0] = \begin{bmatrix}1&0&0&0\\0&0&0&0\\0&0&0&0\\0&0&0&0\end{bmatrix}$$
+
+$$y_1 = q_1 S_1 = [1,0,0,0] \cdot S_1 = [1,0,0,0]$$
+
+**Step 2 ($n=2$):**
+
+$$S_2 = 0.9 \cdot S_1 + k_2^\top v_2 = 0.9 \begin{bmatrix}1&0\\0&0\end{bmatrix} + \begin{bmatrix}0&0\\1&0\end{bmatrix} = \begin{bmatrix}0.9&0\\1.0&0\end{bmatrix} \quad (\text{top-left } 2\times2 \text{ shown})$$
+
+$$y_2 = q_2 S_2 = [0,1,0,0] \cdot S_2 = [1.0, 0, \ldots]$$
+
+Token "cat" retrieves the "cat" entry in the state (weight 1.0) and the decayed "the" entry (weight 0.9 on the row it contributed). The decay factor $\gamma = 0.9$ reduces older information.
+
+**Step 3 ($n=3$):**
+
+$$S_3 = 0.9 \cdot S_2 + k_3^\top v_3$$
+
+After 3 steps, $S_1$'s contribution has been multiplied by $0.9^2 = 0.81$. $S_2$'s contribution has been multiplied by $0.9^1 = 0.9$.
+
+**Decay schedule** for $\gamma = 0.9$:
+
+| Steps back | Retention factor | % retained |
+|---|---|---|
+| 1 | $0.9^1 = 0.900$ | 90% |
+| 2 | $0.9^2 = 0.810$ | 81% |
+| 5 | $0.9^5 = 0.590$ | 59% |
+| 10 | $0.9^{10} = 0.349$ | 35% |
+| 20 | $0.9^{20} = 0.122$ | 12% |
+
+**Multi-scale intuition.** With $H$ heads using $\gamma_h = 1 - 2^{-5-h}$:
+
+| Head | $\gamma_h$ | Half-life (steps) |
+|---|---|---|
+| $h=1$ | $1 - 2^{-6} \approx 0.984$ | $\approx 43$ |
+| $h=4$ | $1 - 2^{-9} \approx 0.998$ | $\approx 347$ |
+| $h=8$ | $1 - 2^{-13} \approx 0.9999$ | $\approx 5765$ |
+
+Different heads naturally focus on different temporal scales — short-range syntax to long-range topic coherence — without any explicit positional encoding.
+
+---
+
+## 9 · Interview drill
 
 <details><summary><b>Q: Why does RetNet have three computation modes rather than one?</b></summary>
 
@@ -349,9 +410,24 @@ Hyena struggles on tasks requiring sharp associative recall — retrieving a spe
 Empirically, at sequence lengths below $\sim 6\text{k}$ tokens, highly optimized FlashAttention is faster. At $N = 100\text{k}$, Hyena is approximately 100× faster. The exact crossover depends on hardware and implementation.
 </details>
 
+<details><summary><b>Q: Why can't Hyena use standard convolution rather than FFT-based implicit convolution?</b></summary>
+
+Standard convolution with an explicit filter of length $N$ costs $O(N^2)$ — the same as attention — because computing each of $N$ output positions requires summing over up to $N$ filter taps. Hyena avoids this by parameterizing the filter *implicitly* as the output of a small neural network evaluated at positional coordinates, then computing the convolution via FFT in $O(N \log N)$. The filter is "implicit" in the sense that it is never materialized as a length-$N$ vector; instead, FFT enables the circular convolution in the frequency domain where pointwise multiplication replaces the $O(N^2)$ sliding window sum. This is equivalent to what FlashFFT (Dao et al. 2023) computes for the Hyena operator.
+</details>
+
+<details><summary><b>Q: In RWKV, what role does the time bonus $u$ play, and why is it necessary?</b></summary>
+
+The WKV operator computes $\text{wkv}_t = \frac{\sum_{i<t} e^{-(t-1-i)w + k_i} v_i + e^{u+k_t} v_t}{\sum_{i<t} e^{-(t-1-i)w + k_i} + e^{u+k_t}}$. The current-step term $e^{u+k_t} v_t$ (numerator) and $e^{u+k_t}$ (denominator) use the bonus $u$ rather than the time-decay $w$. This is necessary because applying $w = 0$ to the current step would be equivalent to treating the current token as if it arrived an infinite time ago (decay $e^0 = 1$), while using $w > 0$ (the decay for older tokens) would penalize it. The bonus $u$ is a learned parameter that allows the model to weight the current token appropriately regardless of the decay schedule for past tokens. Without $u$, the model would systematically under- or over-weight the present.
+</details>
+
+<details><summary><b>Q: What is the key architectural difference between RWKV-4 and RWKV-6, and why does it matter?</b></summary>
+
+RWKV-4 uses a scalar time-decay $w \in \mathbb{R}^d$ (one decay value per channel, shared across positions). RWKV-6 (Finch) introduces **data-dependent recurrence**: $w_t$ and the mixing ratios are functions of the input $x_t$, computed via small linear interpolation (lerp) gates. This is analogous to the step from fixed-A SSMs (S4) to Mamba's input-dependent $\bar{A}$. The practical impact: RWKV-6 can selectively retain or discard information based on content (e.g., retain entity names, discard function words), closing much of the associative recall gap while remaining recurrent at inference time. Benchmark scores show RWKV-6 matching or exceeding Mamba on language modeling at equivalent parameter counts.
+</details>
+
 ---
 
-## 9 · Common misconceptions
+## 10 · Common misconceptions
 
 | Misconception | Reality |
 |---|---|
@@ -363,13 +439,15 @@ Empirically, at sequence lengths below $\sim 6\text{k}$ tokens, highly optimized
 
 ---
 
-## 10 · One-screen summary
+## 11 · One-screen summary
 
 > **Hyena:** $O(N \log N)$ via implicit FFT convolutions; best for very long sequence training. **RetNet:** Three computation modes (parallel/recurrent/chunked); $O(N^2)$ training, $O(1)$ inference per token via geometric decay state. **RWKV:** WKV time-decay operator; parallelizable at training ($O(Td^2)$), true $O(d)$ RNN at inference. All three sacrifice some associative-recall quality for inference efficiency. Choose based on deployment constraints.
+>
+> **Interview rule of thumb:** For sequences up to ~6K tokens at training time, FlashAttention is simpler and competitive. Beyond ~6K and especially for streaming/edge inference, RetNet (recurrent mode) or RWKV eliminate the growing KV cache. For ultra-long audio or genomics (>100K), Hyena's $O(N \log N)$ training is compelling. Hybrid (attention + SSM) is the current production best-practice.
 
 ---
 
-## 11 · References
+## 12 · References
 
 1. **Poli, M., Massaroli, S., Nguyen, E., Fu, D.Y., Dao, T., Baccus, S., Bengio, Y., Ermon, S., Ré, C.** "Hyena Hierarchy: Towards Larger Convolutional Language Models." ICML 2023. arXiv:2302.10866. [https://arxiv.org/abs/2302.10866](https://arxiv.org/abs/2302.10866)
 
@@ -388,6 +466,6 @@ Empirically, at sequence lengths below $\sim 6\text{k}$ tokens, highly optimized
 
 [⬅️ Q29 — Differential Transformer](./q29-differential-transformer.md) &nbsp;|&nbsp; [📚 Back to Section 1](./README.md) &nbsp;|&nbsp; [🏠 Home](../../README.md) &nbsp;|&nbsp; [Q31 — Softmax-Free Attention ➡️](./q31-softmax-free-attention.md)
 
-<sub>Found an error? See <a href="../../CONTRIBUTING.md">CONTRIBUTING</a>.</sub>
+<sub>Found an error or have a sharper intuition? See <a href="../../CONTRIBUTING.md">CONTRIBUTING</a> — answers follow the <a href="../../_TEMPLATE.md">answer template</a>.</sub>
 
 </div>
