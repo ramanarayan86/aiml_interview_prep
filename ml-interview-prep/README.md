@@ -4,11 +4,11 @@
 
 ### First‑principles answers for senior LLM &amp; VLM interviews — built to read like a webpage, ship as a GitHub repo.
 
-![Scope](https://img.shields.io/badge/scope-LLMs_&_VLMs-1f4fa3)
-![Sections](https://img.shields.io/badge/sections-30-0e8a6e)
-![Questions](https://img.shields.io/badge/questions-800%2B-6c4fe0)
-![Levels](https://img.shields.io/badge/levels-Basic→Intermediate→Advanced→Applied-c77a12)
-![Format](https://img.shields.io/badge/format-Markdown_+_SVG_+_LaTeX-16202e)
+[![Scope](https://img.shields.io/badge/scope-LLMs_&_VLMs-1f4fa3)](#table-of-contents)
+[![Sections](https://img.shields.io/badge/sections-30-0e8a6e)](#table-of-contents)
+[![Questions](https://img.shields.io/badge/questions-800%2B-6c4fe0)](#questions-by-level)
+[![Levels](https://img.shields.io/badge/levels-Basic→Intermediate→Advanced→Applied-c77a12)](#questions-by-level)
+[![Format](https://img.shields.io/badge/format-Markdown_+_SVG_+_LaTeX-16202e)](#repository-layout)
 
 *Architecture · Pretraining · Post‑training · Reasoning · Inference · Quantization · VLMs · RAG · MoE · Agents · Safety · Diffusion · Systems*
 
@@ -78,29 +78,29 @@ ml-interview-prep/
         ├── README.md                ← section index (all 42 questions)
         ├── q01-transformer-block.md
         ├── q02-scaled-attention.md
-        ├── ...  (Q1–Q28 fully answered, Q29–Q42 scaffolded)
-        ├── q22-no-bias.md
-        ├── q23-rope-derivation.md
-        ├── q24-flash-attention.md
-        ├── q25-attention-sinks.md
-        ├── q26-subquadratic-attention.md
-        ├── q27-ssm-mamba.md
-        └── q28-expressivity-gap.md
+        ├── ...  (Q1–Q34 fully answered, Q35–Q42 scaffolded)
+        ├── q29-differential-transformer.md
+        ├── q30-hyena-retnet-rwkv.md
+        ├── q31-softmax-free-attention.md
+        ├── q32-attention-turing-complete.md
+        ├── q33-attention-kernel-method.md
+        └── q34-graph-transformers.md
 ```
 
 Each section is a folder with its own index; each question is one Markdown file; figures live under `assets/qNN/` — exactly 2–3 SVGs per question. Adding a new question never touches any existing file.
 
 ---
 
-## ⭐ Answered so far — Section 1 (28 / 42)
+## ⭐ Answered so far — Section 1 (34 / 42)
 
-All 28 answers follow the same first-principles template: 20-second answer → derivation → figures → PyTorch code → worked example → interview drills.
+All 34 answers follow the same first-principles template: 20-second answer → derivation → figures → pseudocode → PyTorch code → worked example → interview drills.
 
 | Group | Questions answered |
 |---|---|
-| **Basic (Q1–Q10)** | [Q1 — Transformer block](./questions/section-01-transformer-architecture/q01-transformer-block.md) · [Q2 — √d_k scaling](./questions/section-01-transformer-architecture/q02-scaled-attention.md) · [Q3 — LayerNorm vs BatchNorm](./questions/section-01-transformer-architecture/q03-layernorm-batchnorm.md) · [Q4 — Pre/Post-norm](./questions/section-01-transformer-architecture/q04-prenorm-postnorm.md) · [Q5 — Positional encodings](./questions/section-01-transformer-architecture/q05-positional-encodings.md) · [Q6 — FFN](./questions/section-01-transformer-architecture/q06-ffn.md) · [Q7 — Teacher forcing](./questions/section-01-transformer-architecture/q07-teacher-forcing.md) · [Q8 — Causal masking](./questions/section-01-transformer-architecture/q08-causal-masking.md) · [Q9 — Multi-head attention](./questions/section-01-transformer-architecture/q09-multi-head-attention.md) · [Q10 — Encoder/Decoder](./questions/section-01-transformer-architecture/q10-encoder-decoder.md) |
-| **Intermediate (Q11–Q22)** | [Q11 — Attention complexity O(n²)](./questions/section-01-transformer-architecture/q11-attention-complexity.md) · [Q12 — MHA & interpretability](./questions/section-01-transformer-architecture/q12-mha-interpretability.md) · [Q13 — GQA & MQA](./questions/section-01-transformer-architecture/q13-gqa-mqa.md) · [Q14 — RMSNorm vs LayerNorm](./questions/section-01-transformer-architecture/q14-rmsnorm-vs-layernorm.md) · [Q15 — SwiGLU & GeGLU](./questions/section-01-transformer-architecture/q15-swiglu-geglu.md) · [Q16 — Weight tying](./questions/section-01-transformer-architecture/q16-weight-tying.md) · [Q17 — Dropout](./questions/section-01-transformer-architecture/q17-dropout.md) · [**Q18 — QK‑norm ⭐**](./questions/section-01-transformer-architecture/q18-qk-norm.md) · [Q19 — RoPE extrapolation](./questions/section-01-transformer-architecture/q19-position-encodings.md) · [Q20 — ALiBi](./questions/section-01-transformer-architecture/q20-alibi.md) · [Q21 — Parallel Attn+FFN](./questions/section-01-transformer-architecture/q21-parallel-attention-ffn.md) · [Q22 — No-bias Transformers](./questions/section-01-transformer-architecture/q22-no-bias.md) |
-| **Advanced (Q23–Q28)** | [Q23 — RoPE deep dive + NTK/YaRN/LongRoPE](./questions/section-01-transformer-architecture/q23-rope-derivation.md) · [Q24 — FlashAttention v1/v2/v3](./questions/section-01-transformer-architecture/q24-flash-attention.md) · [Q25 — Attention sinks & StreamingLLM](./questions/section-01-transformer-architecture/q25-attention-sinks.md) · [Q26 — Sub-quadratic attention](./questions/section-01-transformer-architecture/q26-subquadratic-attention.md) · [Q27 — SSMs & Mamba-2 / SSD](./questions/section-01-transformer-architecture/q27-ssm-mamba.md) · [Q28 — Expressivity gap: Transformers vs SSMs](./questions/section-01-transformer-architecture/q28-expressivity-gap.md) |
+| **[Basic (Q1–Q10)](#-basic)** | [Q1 — Transformer block](./questions/section-01-transformer-architecture/q01-transformer-block.md) · [Q2 — √d_k scaling](./questions/section-01-transformer-architecture/q02-scaled-attention.md) · [Q3 — LayerNorm vs BatchNorm](./questions/section-01-transformer-architecture/q03-layernorm-batchnorm.md) · [Q4 — Pre/Post-norm](./questions/section-01-transformer-architecture/q04-prenorm-postnorm.md) · [Q5 — Positional encodings](./questions/section-01-transformer-architecture/q05-positional-encodings.md) · [Q6 — FFN](./questions/section-01-transformer-architecture/q06-ffn.md) · [Q7 — Teacher forcing](./questions/section-01-transformer-architecture/q07-teacher-forcing.md) · [Q8 — Causal masking](./questions/section-01-transformer-architecture/q08-causal-masking.md) · [Q9 — Multi-head attention](./questions/section-01-transformer-architecture/q09-multi-head-attention.md) · [Q10 — Encoder/Decoder](./questions/section-01-transformer-architecture/q10-encoder-decoder.md) |
+| **[Intermediate (Q11–Q22)](#-intermediate)** | [Q11 — Attention complexity O(n²)](./questions/section-01-transformer-architecture/q11-attention-complexity.md) · [Q12 — MHA & interpretability](./questions/section-01-transformer-architecture/q12-mha-interpretability.md) · [Q13 — GQA & MQA](./questions/section-01-transformer-architecture/q13-gqa-mqa.md) · [Q14 — RMSNorm vs LayerNorm](./questions/section-01-transformer-architecture/q14-rmsnorm-vs-layernorm.md) · [Q15 — SwiGLU & GeGLU](./questions/section-01-transformer-architecture/q15-swiglu-geglu.md) · [Q16 — Weight tying](./questions/section-01-transformer-architecture/q16-weight-tying.md) · [Q17 — Dropout](./questions/section-01-transformer-architecture/q17-dropout.md) · [**Q18 — QK‑norm ⭐**](./questions/section-01-transformer-architecture/q18-qk-norm.md) · [Q19 — RoPE extrapolation](./questions/section-01-transformer-architecture/q19-position-encodings.md) · [Q20 — ALiBi](./questions/section-01-transformer-architecture/q20-alibi.md) · [Q21 — Parallel Attn+FFN](./questions/section-01-transformer-architecture/q21-parallel-attention-ffn.md) · [Q22 — No-bias Transformers](./questions/section-01-transformer-architecture/q22-no-bias.md) |
+| **[Advanced (Q23–Q34)](#-advanced)** | [Q23 — RoPE deep dive](./questions/section-01-transformer-architecture/q23-rope-derivation.md) · [Q24 — FlashAttention v1/v2/v3](./questions/section-01-transformer-architecture/q24-flash-attention.md) · [Q25 — Attention sinks](./questions/section-01-transformer-architecture/q25-attention-sinks.md) · [Q26 — Sub-quadratic attention](./questions/section-01-transformer-architecture/q26-subquadratic-attention.md) · [Q27 — SSMs & Mamba-2](./questions/section-01-transformer-architecture/q27-ssm-mamba.md) · [Q28 — Expressivity gap](./questions/section-01-transformer-architecture/q28-expressivity-gap.md) · [Q29 — Differential Transformer](./questions/section-01-transformer-architecture/q29-differential-transformer.md) · [Q30 — Hyena/RetNet/RWKV](./questions/section-01-transformer-architecture/q30-hyena-retnet-rwkv.md) · [Q31 — Softmax-free attention](./questions/section-01-transformer-architecture/q31-softmax-free-attention.md) · [Q32 — Turing completeness](./questions/section-01-transformer-architecture/q32-attention-turing-complete.md) · [Q33 — Attention as kernel](./questions/section-01-transformer-architecture/q33-attention-kernel-method.md) · [Q34 — Graph Transformers](./questions/section-01-transformer-architecture/q34-graph-transformers.md) |
+| **[Applied (Q35–Q42)](#-practical--applied)** | Q35–Q42 📝 scaffolded |
 
 > **Reference standard:** [Q18 — QK‑norm](./questions/section-01-transformer-architecture/q18-qk-norm.md) — softmax temperature, attention‑logit explosion, entropy collapse, ℓ₂ vs RMSNorm variants, MLA incompatibility, and the σReparam / soft‑cap / μP family — with four original SVG figures.
 
@@ -108,66 +108,130 @@ All 28 answers follow the same first-principles template: 20-second answer → d
 
 ## Table of contents
 
-> **Legend** &nbsp; ✅ has published answers &nbsp;·&nbsp; 📝 scaffolded (template ready)
+> **Legend** &nbsp; ✅ full answers published &nbsp;·&nbsp; 📝 question scaffolds ready
 
-| # | Section | Focus | Status |
-|---|---------|-------|:------:|
-| 1 | [**Transformer Architecture Fundamentals**](./questions/section-01-transformer-architecture/README.md) | attention, norms, position, FFN, variants | ✅ |
-| 2 | Tokenization and Embeddings | BPE/WordPiece/Unigram, byte‑level, glitch tokens | 📝 |
-| 3 | Pretraining and Scaling Laws | Chinchilla, data/compute optima, emergence | 📝 |
-| 4 | Post‑training: SFT, RLHF, DPO and Beyond | reward models, PPO, DPO/IPO/KTO | 📝 |
-| 5 | Reasoning, CoT, and Inference‑Time Compute | CoT, self‑consistency, search, o‑series | 📝 |
-| 6 | Efficient Inference and Serving | KV cache, batching, speculative decoding | 📝 |
-| 7 | Quantization and Model Compression | INT8/FP8/FP4, GPTQ/AWQ, MXFP, distillation | 📝 |
-| 8 | Vision‑Language Models (VLMs) | connectors, resolution, any‑res, evaluation | 📝 |
-| 9 | Retrieval, RAG, and Long Context | chunking, rerankers, long‑context attention | 📝 |
-| 10 | Mixture of Experts (MoE) | routing, load balancing, capacity factor | 📝 |
-| 11 | Agents, Tool Use, and Code Generation | function calling, planning, sandboxes | 📝 |
-| 12 | Evaluation, Safety, and Interpretability | benchmarks, red‑teaming, SAEs, probes | 📝 |
-| 13 | Diffusion, DiT, and Generative Modeling | DDPM, score matching, DiT, flow matching | 📝 |
-| 14 | Systems and Hardware | GPU memory hierarchy, MFU, kernels, NCCL | 📝 |
-| 15 | Mathematical Foundations and Probability | linear algebra, information theory, optimization | 📝 |
-| 16 | Distributed Training and Optimization | DP/TP/PP/FSDP, ZeRO, optimizer states | 📝 |
-| 17 | Fine‑Tuning, PEFT, and Adaptation | LoRA/QLoRA, adapters, prefix tuning | 📝 |
-| 18 | Speech, Audio, and Multimodal Beyond Vision | tokenizing audio, ASR/TTS, unified models | 📝 |
-| 19 | Prompt Engineering, ICL, and Steering | in‑context learning, activation steering | 📝 |
-| 20 | Data Engineering and Curation for LLMs | dedup, filtering, mixtures, synthetic data | 📝 |
-| 21 | Frontier Topics and Research Directions | SSMs, world models, test‑time training | 📝 |
-| 22 | Behavioral and Research Leadership | scoping, prioritization, technical leadership | 📝 |
-| 23 | Vector Databases and Search Infrastructure | vector index types, ANN search, filtering, hybrid search, DB selection | 📝 |
-| 24 | Document Digitization and Chunking Strategies | OCR pipelines, semantic chunking, tables/lists/charts, ideal chunk size | 📝 |
-| 25 | Embedding Models and Semantic Search | embedding architectures, long vs short content, domain adaptation, benchmarking | 📝 |
-| 26 | Production LLM Systems and Cost Optimization | latency/throughput tradeoffs, caching, batching, cost modelling, monitoring | 📝 |
-| 27 | Hallucination: Causes, Detection, and Mitigation | taxonomy of hallucinations, grounding, self‑consistency checks, CAD | 📝 |
-| 28 | Prompt Security and Adversarial Inputs | prompt injection, jailbreaks, indirect attacks, defence layers | 📝 |
-| 29 | LLM Application Design Patterns and Case Studies | conversation memory, tool orchestration, multi‑agent pipelines, cost–quality dial | 📝 |
-| 30 | LLM Evaluation in Practice | reference‑free metrics, LLM‑as‑judge, RAG‑specific metrics, evals at scale | 📝 |
+| # | Section | Focus | Questions | Status |
+|---|---------|-------|:---------:|:------:|
+| 1 | [**Transformer Architecture Fundamentals**](./questions/section-01-transformer-architecture/README.md) | attention, norms, position, FFN, variants | 42 | ✅ |
+| 2 | [Tokenization and Embeddings](#section-2--tokenization-and-embeddings) | BPE/WordPiece/Unigram, byte‑level, glitch tokens | 10 | 📝 |
+| 3 | [Pretraining and Scaling Laws](#section-3--pretraining-and-scaling-laws) | Chinchilla, data/compute optima, emergence | 10 | 📝 |
+| 4 | [Post‑training: SFT, RLHF, DPO and Beyond](#section-4--post-training-sft-rlhf-dpo-and-beyond) | reward models, PPO, DPO/IPO/KTO | 10 | 📝 |
+| 5 | [Reasoning, CoT, and Inference‑Time Compute](#section-5--reasoning-cot-and-inference-time-compute) | CoT, self‑consistency, search, o‑series | 10 | 📝 |
+| 6 | [Efficient Inference and Serving](#section-6--efficient-inference-and-serving) | KV cache, batching, speculative decoding | 10 | 📝 |
+| 7 | [Quantization and Model Compression](#section-7--quantization-and-model-compression) | INT8/FP8/FP4, GPTQ/AWQ, MXFP, distillation | 10 | 📝 |
+| 8 | [Vision‑Language Models (VLMs)](#section-8--vision-language-models-vlms) | connectors, resolution, any‑res, evaluation | 10 | 📝 |
+| 9 | [Retrieval, RAG, and Long Context](#section-9--retrieval-rag-and-long-context) | chunking, rerankers, long‑context attention | 10 | 📝 |
+| 10 | [Mixture of Experts (MoE)](#section-10--mixture-of-experts-moe) | routing, load balancing, capacity factor | 8 | 📝 |
+| 11 | [Agents, Tool Use, and Code Generation](#section-11--agents-tool-use-and-code-generation) | function calling, planning, sandboxes | 10 | 📝 |
+| 12 | [Evaluation, Safety, and Interpretability](#section-12--evaluation-safety-and-interpretability) | benchmarks, red‑teaming, SAEs, probes | 10 | 📝 |
+| 13 | [Diffusion, DiT, and Generative Modeling](#section-13--diffusion-dit-and-generative-modeling) | DDPM, score matching, DiT, flow matching | 10 | 📝 |
+| 14 | [Systems and Hardware](#section-14--systems-and-hardware) | GPU memory hierarchy, MFU, kernels, NCCL | 10 | 📝 |
+| 15 | [Mathematical Foundations and Probability](#section-15--mathematical-foundations-and-probability) | linear algebra, information theory, optimization | 10 | 📝 |
+| 16 | [Distributed Training and Optimization](#section-16--distributed-training-and-optimization) | DP/TP/PP/FSDP, ZeRO, optimizer states | 10 | 📝 |
+| 17 | [Fine‑Tuning, PEFT, and Adaptation](#section-17--fine-tuning-peft-and-adaptation) | LoRA/QLoRA, adapters, prefix tuning | 10 | 📝 |
+| 18 | [Speech, Audio, and Multimodal Beyond Vision](#section-18--speech-audio-and-multimodal-beyond-vision) | tokenizing audio, ASR/TTS, unified models | 8 | 📝 |
+| 19 | [Prompt Engineering, ICL, and Steering](#section-19--prompt-engineering-icl-and-steering) | in‑context learning, activation steering | 10 | 📝 |
+| 20 | [Data Engineering and Curation for LLMs](#section-20--data-engineering-and-curation-for-llms) | dedup, filtering, mixtures, synthetic data | 10 | 📝 |
+| 21 | [Frontier Topics and Research Directions](#section-21--frontier-topics-and-research-directions) | SSMs, world models, test‑time training | 10 | 📝 |
+| 22 | [Behavioral and Research Leadership](#section-22--behavioral-and-research-leadership) | scoping, prioritization, technical leadership | 8 | 📝 |
+| 23 | [Vector Databases and Search Infrastructure](#section-23--vector-databases-and-search-infrastructure) | vector index types, ANN search, filtering, hybrid search, DB selection | 12 | 📝 |
+| 24 | [Document Digitization and Chunking Strategies](#section-24--document-digitization-and-chunking-strategies) | OCR pipelines, semantic chunking, tables/lists/charts, ideal chunk size | 10 | 📝 |
+| 25 | [Embedding Models and Semantic Search](#section-25--embedding-models-and-semantic-search) | embedding architectures, long vs short content, domain adaptation, benchmarking | 9 | 📝 |
+| 26 | [Production LLM Systems and Cost Optimization](#section-26--production-llm-systems-and-cost-optimization) | latency/throughput tradeoffs, caching, batching, cost modelling, monitoring | 10 | 📝 |
+| 27 | [Hallucination: Causes, Detection, and Mitigation](#section-27--hallucination-causes-detection-and-mitigation) | taxonomy of hallucinations, grounding, self‑consistency checks, CAD | 9 | 📝 |
+| 28 | [Prompt Security and Adversarial Inputs](#section-28--prompt-security-and-adversarial-inputs) | prompt injection, jailbreaks, indirect attacks, defence layers | 6 | 📝 |
+| 29 | [LLM Application Design Patterns and Case Studies](#section-29--llm-application-design-patterns-and-case-studies) | conversation memory, tool orchestration, multi‑agent pipelines, cost–quality dial | 10 | 📝 |
+| 30 | [LLM Evaluation in Practice](#section-30--llm-evaluation-in-practice) | reference‑free metrics, LLM‑as‑judge, RAG‑specific metrics, evals at scale | 9 | 📝 |
+
+---
+
+## Questions by level
+
+A quick-reference map across all 30 sections. Jump straight to the depth you need.
+
+### 🟢 Basic
+*Foundational concepts; expected at every interview level.*
+
+| Section | Representative questions |
+|---------|--------------------------|
+| [§1 Transformer Architecture](./questions/section-01-transformer-architecture/README.md) | [Q1 Transformer block](./questions/section-01-transformer-architecture/q01-transformer-block.md) · [Q2 √d_k scaling](./questions/section-01-transformer-architecture/q02-scaled-attention.md) · [Q3 LayerNorm vs BatchNorm](./questions/section-01-transformer-architecture/q03-layernorm-batchnorm.md) · [Q5 Positional encodings](./questions/section-01-transformer-architecture/q05-positional-encodings.md) · [Q6 FFN role](./questions/section-01-transformer-architecture/q06-ffn.md) · [Q8 Causal masking](./questions/section-01-transformer-architecture/q08-causal-masking.md) · [Q9 Multi-head attention](./questions/section-01-transformer-architecture/q09-multi-head-attention.md) · [Q10 Encoder/Decoder](./questions/section-01-transformer-architecture/q10-encoder-decoder.md) |
+| [§23 Vector Databases](#section-23--vector-databases-and-search-infrastructure) | Vector index vs DB vs plugin · exact vs ANN search tradeoffs |
+| [§24 Chunking](#section-24--document-digitization-and-chunking-strategies) | Why we chunk · factors determining chunk size |
+| [§25 Embeddings](#section-25--embedding-models-and-semantic-search) | What is a vector embedding · bi-encoder vs cross-encoder |
+| [§26 Production Systems](#section-26--production-llm-systems-and-cost-optimization) | Primary LLM cost drivers · KV cache memory footprint |
+| [§27 Hallucination](#section-27--hallucination-causes-detection-and-mitigation) | Hallucination types and taxonomy |
+| [§28 Prompt Security](#section-28--prompt-security-and-adversarial-inputs) | Prompt injection vs jailbreak distinction |
+| [§29 App Design](#section-29--llm-application-design-patterns-and-case-studies) | RAG vs fine-tune decision · proprietary data architecture patterns |
+| [§30 Evaluation](#section-30--llm-evaluation-in-practice) | Retrieval quality metrics · BLEU/ROUGE/BERTScore |
+
+### 🟡 Intermediate
+*Expected at senior engineer / ML scientist level.*
+
+| Section | Representative questions |
+|---------|--------------------------|
+| [§1 Transformer Architecture](./questions/section-01-transformer-architecture/README.md) | [Q11 O(n²) complexity](./questions/section-01-transformer-architecture/q11-attention-complexity.md) · [Q13 GQA/MQA](./questions/section-01-transformer-architecture/q13-gqa-mqa.md) · [Q14 RMSNorm](./questions/section-01-transformer-architecture/q14-rmsnorm-vs-layernorm.md) · [Q15 SwiGLU](./questions/section-01-transformer-architecture/q15-swiglu-geglu.md) · [Q18 QK‑norm ⭐](./questions/section-01-transformer-architecture/q18-qk-norm.md) · [Q19 RoPE](./questions/section-01-transformer-architecture/q19-position-encodings.md) · [Q20 ALiBi](./questions/section-01-transformer-architecture/q20-alibi.md) |
+| [§23 Vector Databases](#section-23--vector-databases-and-search-infrastructure) | HNSW parameters · IVF clustering · PQ recall · LSH regimes · pre vs post filtering |
+| [§24 Chunking](#section-24--document-digitization-and-chunking-strategies) | Fixed vs sentence vs semantic chunking · multi-column PDFs · table chunking |
+| [§25 Embeddings](#section-25--embedding-models-and-semantic-search) | Long vs short document embedding · MRL · domain benchmarking · MTEB gap |
+| [§26 Production Systems](#section-26--production-llm-systems-and-cost-optimization) | Continuous batching · speculative decoding · prefix caching · latency vs cost |
+| [§27 Hallucination](#section-27--hallucination-causes-detection-and-mitigation) | Intrinsic vs extrinsic · instruction-tuned overconfidence · CoVe · grounding prompts |
+| [§28 Prompt Security](#section-28--prompt-security-and-adversarial-inputs) | Indirect injection · jailbreak categories · defence layers |
+| [§29 App Design](#section-29--llm-application-design-patterns-and-case-studies) | Conversation memory management · production RAG components · ReAct pattern |
+| [§30 Evaluation](#section-30--llm-evaluation-in-practice) | LLM-as-judge biases · faithfulness vs relevance · ROUGE vs user satisfaction gap |
+
+### 🔴 Advanced
+*Expected at staff / research / frontier-lab level.*
+
+| Section | Representative questions |
+|---------|--------------------------|
+| [§1 Transformer Architecture](./questions/section-01-transformer-architecture/README.md) | [Q23 RoPE derivation + NTK/YaRN](./questions/section-01-transformer-architecture/q23-rope-derivation.md) · [Q24 FlashAttention IO-awareness](./questions/section-01-transformer-architecture/q24-flash-attention.md) · [Q27 Selective scan / Mamba-2](./questions/section-01-transformer-architecture/q27-ssm-mamba.md) · [Q28 Expressivity gap](./questions/section-01-transformer-architecture/q28-expressivity-gap.md) · [Q32 Turing completeness](./questions/section-01-transformer-architecture/q32-attention-turing-complete.md) · [Q33 FAVOR+](./questions/section-01-transformer-architecture/q33-attention-kernel-method.md) |
+| [§23 Vector Databases](#section-23--vector-databases-and-search-infrastructure) | DB selection criteria · billion-scale system design |
+| [§25 Embeddings](#section-25--embedding-models-and-semantic-search) | Sentence-transformer fine-tuning (negatives strategy) · ColBERT late interaction |
+| [§26 Production Systems](#section-26--production-llm-systems-and-cost-optimization) | Quality regression monitoring · TTFT SLA architecture |
+| [§27 Hallucination](#section-27--hallucination-causes-detection-and-mitigation) | Contrastive decoding · reference-free detection |
+| [§28 Prompt Security](#section-28--prompt-security-and-adversarial-inputs) | Pre-launch injection testing |
+| [§29 App Design](#section-29--llm-application-design-patterns-and-case-studies) | Function-calling vs free-form planning · multi-agent dependency graphs |
+| [§30 Evaluation](#section-30--llm-evaluation-in-practice) | Reference-free hallucination metrics · offline → online evaluation bridge |
+
+### 🔵 Applied / System Design
+*Scenario and design questions; expected at lead / principal / applied scientist level.*
+
+| Section | Representative questions |
+|---------|--------------------------|
+| [§1 Transformer Architecture](./questions/section-01-transformer-architecture/README.md) | [Q35 Debug 35% MFU on H100](./questions/section-01-transformer-architecture/README.md#-practical--applied) · [Q39 4K → 128K context](./questions/section-01-transformer-architecture/README.md#-practical--applied) · [Q40 Intermittent NaNs](./questions/section-01-transformer-architecture/README.md#-practical--applied) |
+| [§23 Vector Databases](#section-23--vector-databases-and-search-infrastructure) | Diagnose filtered-search returning no results · benchmark before commit · 1B embeddings at p99 < 50 ms |
+| [§24 Chunking](#section-24--document-digitization-and-chunking-strategies) | Production ingestion → chunking → indexing pipeline · empirically find optimal chunk size |
+| [§25 Embeddings](#section-25--embedding-models-and-semantic-search) | Multi-modal single-index (code + SQL + NL) pipeline design |
+| [§26 Production Systems](#section-26--production-llm-systems-and-cost-optimization) | p99 latency spike investigation · 500-user chatbot at 2 s TTFT |
+| [§27 Hallucination](#section-27--hallucination-causes-detection-and-mitigation) | Multi-layer hallucination control for medical QA |
+| [§28 Prompt Security](#section-28--prompt-security-and-adversarial-inputs) | Tenant data leakage in RAG — root cause and fix |
+| [§29 App Design](#section-29--llm-application-design-patterns-and-case-studies) | Cost 10× over budget — reduction plan · 500-page annual report Q&A design |
+| [§30 Evaluation](#section-30--llm-evaluation-in-practice) | A/B testing strategy for LLM feature launch |
 
 ---
 
 ## Section 1 at a glance
 
-28 of 42 questions answered — all of Basic (Q1–Q10), all 12 Intermediate (Q11–Q22), and first 6 Advanced (Q23–Q28). [**Open Section 1 →**](./questions/section-01-transformer-architecture/README.md)
+34 of 42 questions answered — all Basic (Q1–Q10), all Intermediate (Q11–Q22), and all current Advanced (Q23–Q34). [**Open Section 1 →**](./questions/section-01-transformer-architecture/README.md)
 
 <div align="center">
 
-| Basic | Intermediate | Advanced | Applied |
+| [Basic](#-basic) | [Intermediate](#-intermediate) | [Advanced](#-advanced) | [Applied](#-practical--applied) |
 |:---:|:---:|:---:|:---:|
-| Q1–Q10 ✅ | Q11–Q22 ✅ | Q23–Q28 ✅ · Q29–Q34 📝 | Q35–Q42 📝 |
-| forward pass, √d_k, norms, position, FFN, masking, heads, architectures | complexity, GQA/MQA, RMSNorm, SwiGLU, weight tying, dropout, **QK‑norm**, RoPE, ALiBi, parallel block, no-bias | **RoPE derivation**, **FlashAttention v1/v2/v3**, **attention sinks**, **sub‑quadratic**, **Mamba/SSD**, **expressivity gap** · diff Transformer, RetNet, softmax-free, Turing completeness | MFU debugging, repetition, norm migration, 128K context, NaNs |
+| Q1–Q10 ✅ | Q11–Q22 ✅ | Q23–Q34 ✅ | Q35–Q42 📝 |
+| forward pass · √d_k · norms · position · FFN · masking · heads · architectures | complexity · GQA/MQA · RMSNorm · SwiGLU · weight tying · dropout · **QK‑norm** · RoPE · ALiBi · parallel block · no-bias | **RoPE derivation** · **FlashAttention v1/v2/v3** · **attention sinks** · **sub‑quadratic** · **Mamba/SSD** · **expressivity gap** · diff Transformer · RetNet · softmax-free · Turing completeness · FAVOR+ · Graph Transformers | MFU debugging · repetition · norm migration · 128K context · NaNs · GQA tradeoff |
 
 </div>
 
 ---
 
----
-
 ## New sections — question scaffolds
 
-The eight new sections below extend the bank to cover the applied and production-facing interview topics that are heavily tested at ML engineering and applied scientist roles. Questions are ordered basic → advanced within each section.
+The eight new sections below extend the bank to cover applied and production-facing interview topics heavily tested at ML engineering and applied scientist roles. Questions are ordered Basic → Advanced → Applied within each section.
 
 ---
 
+<a id="section-23--vector-databases-and-search-infrastructure"></a>
 ### Section 23 · Vector Databases and Search Infrastructure
 
 | # | Question | Level |
@@ -187,6 +251,7 @@ The eight new sections below extend the bank to cover the applied and production
 
 ---
 
+<a id="section-24--document-digitization-and-chunking-strategies"></a>
 ### Section 24 · Document Digitization and Chunking Strategies
 
 | # | Question | Level |
@@ -204,6 +269,7 @@ The eight new sections below extend the bank to cover the applied and production
 
 ---
 
+<a id="section-25--embedding-models-and-semantic-search"></a>
 ### Section 25 · Embedding Models and Semantic Search
 
 | # | Question | Level |
@@ -220,7 +286,8 @@ The eight new sections below extend the bank to cover the applied and production
 
 ---
 
-### Section 26 · Production LLM Systems and Cost Optimisation
+<a id="section-26--production-llm-systems-and-cost-optimization"></a>
+### Section 26 · Production LLM Systems and Cost Optimization
 
 | # | Question | Level |
 |---|----------|:-----:|
@@ -237,6 +304,7 @@ The eight new sections below extend the bank to cover the applied and production
 
 ---
 
+<a id="section-27--hallucination-causes-detection-and-mitigation"></a>
 ### Section 27 · Hallucination: Causes, Detection, and Mitigation
 
 | # | Question | Level |
@@ -253,6 +321,7 @@ The eight new sections below extend the bank to cover the applied and production
 
 ---
 
+<a id="section-28--prompt-security-and-adversarial-inputs"></a>
 ### Section 28 · Prompt Security and Adversarial Inputs
 
 | # | Question | Level |
@@ -266,6 +335,7 @@ The eight new sections below extend the bank to cover the applied and production
 
 ---
 
+<a id="section-29--llm-application-design-patterns-and-case-studies"></a>
 ### Section 29 · LLM Application Design Patterns and Case Studies
 
 | # | Question | Level |
@@ -283,6 +353,7 @@ The eight new sections below extend the bank to cover the applied and production
 
 ---
 
+<a id="section-30--llm-evaluation-in-practice"></a>
 ### Section 30 · LLM Evaluation in Practice
 
 | # | Question | Level |
@@ -296,6 +367,8 @@ The eight new sections below extend the bank to cover the applied and production
 | 30‑07 | How would you build a reference‑free hallucination detection metric for a domain where no ground truth exists? | Advanced |
 | 30‑08 | How do you design an offline evaluation suite that predicts online user satisfaction? What signals help bridge the gap? | Advanced |
 | 30‑09 | Your team is launching a new LLM feature. Design an A/B testing strategy that safely measures quality without exposing all users to a potentially worse model. | Applied |
+
+---
 
 ## License & attribution
 
