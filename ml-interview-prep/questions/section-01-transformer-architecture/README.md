@@ -12,7 +12,7 @@
 
 ![Questions](https://img.shields.io/badge/questions-42-1f4fa3)
 ![Levels](https://img.shields.io/badge/levels-Basic→Advanced→Applied-0e8a6e)
-![Status](https://img.shields.io/badge/answered-28%2F42-c77a12)
+![Status](https://img.shields.io/badge/answered-34%2F42-c77a12)
 
 </div>
 
@@ -64,12 +64,12 @@ The bedrock section. If you can teach every idea here from first principles, mos
 | Q26 | [Sub‑quadratic attention: Linear Attention, Performer, Mamba, hybrids](./q26-subquadratic-attention.md) | ✅ |
 | Q27 | [SSMs: selective scan; Mamba‑2 and State Space Duality](./q27-ssm-mamba.md) | ✅ |
 | Q28 | [Expressivity gap between Transformers and SSMs](./q28-expressivity-gap.md) | ✅ |
-| Q29 | Differential Transformer | 📝 |
-| Q30 | Hyena, RetNet, RWKV complexity profiles | 📝 |
-| Q31 | Role of softmax; is softmax‑free attention viable | 📝 |
-| Q32 | Is attention Turing complete | 📝 |
-| Q33 | Attention as a kernel method | 📝 |
-| Q34 | Transformers on graphs (Graphormer, GraphGPS) | 📝 |
+| Q29 | [Differential Transformer — differential attention, lambda, noise cancellation](./q29-differential-transformer.md) | ✅ |
+| Q30 | [Hyena, RetNet, RWKV — complexity profiles and mechanisms](./q30-hyena-retnet-rwkv.md) | ✅ |
+| Q31 | [Role of softmax; is softmax‑free attention viable](./q31-softmax-free-attention.md) | ✅ |
+| Q32 | [Is attention Turing complete — Pérez 2021, Merrill 2023, log-precision](./q32-attention-turing-complete.md) | ✅ |
+| Q33 | [Attention as a kernel method — Performers, FAVOR+, linear attention](./q33-attention-kernel-method.md) | ✅ |
+| Q34 | [Transformers on graphs — Graphormer, GraphGPS](./q34-graph-transformers.md) | ✅ |
 
 ### 🔵 Practical / Applied
 
@@ -94,7 +94,7 @@ The bedrock section. If you can teach every idea here from first principles, mos
 
 **Full Intermediate track:** Q11 → Q12 → Q13 → Q14 → Q15 → Q16 → Q17 → Q18 → Q19 → Q20 → Q21 → Q22
 
-**Advanced track:** [Q23 — RoPE Deep Dive](./q23-rope-derivation.md) · [Q24 — FlashAttention](./q24-flash-attention.md) · [Q25 — Attention Sinks](./q25-attention-sinks.md) · [Q26 — Sub-quadratic Attention](./q26-subquadratic-attention.md) · [Q27 — SSMs / Mamba](./q27-ssm-mamba.md) · [Q28 — Expressivity Gap](./q28-expressivity-gap.md)
+**Advanced track:** [Q23 — RoPE Deep Dive](./q23-rope-derivation.md) · [Q24 — FlashAttention](./q24-flash-attention.md) · [Q25 — Attention Sinks](./q25-attention-sinks.md) · [Q26 — Sub-quadratic Attention](./q26-subquadratic-attention.md) · [Q27 — SSMs / Mamba](./q27-ssm-mamba.md) · [Q28 — Expressivity Gap](./q28-expressivity-gap.md) · [Q29 — Differential Transformer](./q29-differential-transformer.md) · [Q30 — Hyena/RetNet/RWKV](./q30-hyena-retnet-rwkv.md) · [Q31 — Softmax-Free Attention](./q31-softmax-free-attention.md) · [Q32 — Turing Completeness](./q32-attention-turing-complete.md) · [Q33 — Attention as Kernel](./q33-attention-kernel-method.md) · [Q34 — Graph Transformers](./q34-graph-transformers.md)
 
 ---
 
