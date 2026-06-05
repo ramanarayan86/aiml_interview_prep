@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" width="900" height="400">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#5b6675"/>
+    </marker>
+    <marker id="arr-b" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1a5fa8"/>
+    </marker>
+    <marker id="arr-g" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1a7a44"/>
+    </marker>
+    <marker id="arr-p" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#6a3abf"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="400" fill="#f8f9fa" rx="8"/>
+  <text x="450" y="26" font-family="Arial, sans-serif" font-size="15" font-weight="bold"
+        fill="#1f4fa3" text-anchor="middle">GraphGPS Layer: Local MPNN + Global Attention + FFN</text>
+
+  <!-- Input: node features X, edge features E -->
+  <rect x="20" y="48" width="140" height="72" rx="6" fill="#dce8fa" stroke="#1a5fa8" stroke-width="1.5"/>
+  <text x="90" y="70" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1a5fa8" text-anchor="middle">Input</text>
+  <text x="90" y="86" font-family="Arial, sans-serif" font-size="10.5" fill="#5b6675" text-anchor="middle">X ∈ ℝᴺˣᵈ</text>
+  <text x="90" y="100" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">node features</text>
+  <text x="90" y="113" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">E ∈ ℝᴱˣᵈ edge</text>
+
+  <!-- Arrow to layer -->
+  <line x1="162" y1="84" x2="196" y2="84" stroke="#5b6675" stroke-width="1.8" marker-end="url(#arr)"/>
+
+  <!-- GPS Layer box — outer frame -->
+  <rect x="198" y="38" width="565" height="245" rx="10" fill="white" stroke="#1f4fa3" stroke-width="2"/>
+  <text x="480" y="57" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#1f4fa3" text-anchor="middle">GPS Layer</text>
+
+  <!-- Branch 1: MPNN (local) -->
+  <rect x="215" y="68" width="240" height="120" rx="7" fill="#fff5ee" stroke="#e8b49a" stroke-width="1.5"/>
+  <rect x="215" y="68" width="240" height="26" rx="7" fill="#b5321a"/>
+  <text x="335" y="85" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="white" text-anchor="middle">① Local: MPNN</text>
+
+  <text x="230" y="112" font-family="Arial, sans-serif" font-size="10.5" fill="#b5321a" font-weight="bold">Message passing over edges:</text>
+  <text x="230" y="130" font-family="Arial, sans-serif" font-size="10.5" fill="#5b6675">m_{ij} = MsgFn(h_i, h_j, e_{ij})</text>
+  <text x="230" y="148" font-family="Arial, sans-serif" font-size="10.5" fill="#5b6675">h'_i = Update(h_i, Agg{m_{ij}})</text>
+  <text x="230" y="166" font-family="Arial, sans-serif" font-size="10" fill="#9aa5b0">O(E) per layer — sparse, edge-aware</text>
+  <text x="230" y="180" font-family="Arial, sans-serif" font-size="9.5" fill="#b5321a">local neighbourhood only</text>
+
+  <!-- Branch 2: Global Attention -->
+  <rect x="505" y="68" width="240" height="120" rx="7" fill="#eefbf3" stroke="#7abf9a" stroke-width="1.5"/>
+  <rect x="505" y="68" width="240" height="26" rx="7" fill="#1a7a44"/>
+  <text x="625" y="85" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="white" text-anchor="middle">② Global: Attention</text>
+
+  <text x="520" y="112" font-family="Arial, sans-serif" font-size="10.5" fill="#1a7a44" font-weight="bold">All-pairs Transformer attention:</text>
+  <text x="520" y="130" font-family="Arial, sans-serif" font-size="10.5" fill="#5b6675">h''_i = MHA(h_i, H, H)</text>
+  <text x="520" y="148" font-family="Arial, sans-serif" font-size="10.5" fill="#5b6675">plug-in: full, linear, Performer</text>
+  <text x="520" y="166" font-family="Arial, sans-serif" font-size="10" fill="#9aa5b0">O(N²) or O(N) — global receptive</text>
+  <text x="520" y="180" font-family="Arial, sans-serif" font-size="9.5" fill="#1a7a44">no distance limit, PE injected</text>
+
+  <!-- Merge / combine -->
+  <rect x="340" y="210" width="200" height="52" rx="7" fill="#f0eaff" stroke="#6a3abf" stroke-width="1.5"/>
+  <text x="440" y="231" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#6a3abf" text-anchor="middle">③ Merge + Norm</text>
+  <text x="440" y="249" font-family="Arial, sans-serif" font-size="10.5" fill="#5b6675" text-anchor="middle">ĥ_i = LN(h_i + h'_i + h''_i)</text>
+
+  <!-- Arrows into merge -->
+  <line x1="335" y1="168" x2="380" y2="209" stroke="#b5321a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="545" y1="168" x2="500" y2="209" stroke="#1a7a44" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Arrow from input to both branches -->
+  <line x1="197" y1="84" x2="215" y2="108" stroke="#1a5fa8" stroke-width="1.3" stroke-dasharray="4,2"/>
+  <line x1="197" y1="84" x2="505" y2="108" stroke="#1a5fa8" stroke-width="1.3" stroke-dasharray="4,2"/>
+
+  <!-- Arrow out of GPS layer -->
+  <line x1="763" y1="84" x2="795" y2="84" stroke="#5b6675" stroke-width="1.8" marker-end="url(#arr)"/>
+
+  <!-- FFN outside GPS layer -->
+  <rect x="797" y="48" width="83" height="72" rx="6" fill="#d4f5e4" stroke="#1a7a44" stroke-width="1.5"/>
+  <text x="838" y="72" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1a7a44" text-anchor="middle">④ FFN</text>
+  <text x="838" y="87" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">LN(ĥ +</text>
+  <text x="838" y="100" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">FFN(ĥ))</text>
+  <text x="838" y="114" font-family="Arial, sans-serif" font-size="9.5" fill="#9aa5b0" text-anchor="middle">O(N·d²)</text>
+
+  <!-- Output label -->
+  <text x="838" y="135" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1a5fa8" text-anchor="middle">Output</text>
+  <text x="838" y="148" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">X' ∈ ℝᴺˣᵈ</text>
+
+  <!-- Positional encodings box -->
+  <rect x="20" y="138" width="140" height="145" rx="6" fill="#f0eaff" stroke="#b09ada" stroke-width="1.5"/>
+  <text x="90" y="160" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#6a3abf" text-anchor="middle">Pos. Encodings</text>
+  <text x="90" y="180" font-family="Arial, sans-serif" font-size="10.5" fill="#5b6675" text-anchor="middle">Injected at input:</text>
+
+  <text x="35" y="200" font-family="Arial, sans-serif" font-size="10" fill="#6a3abf">LapPE:</text>
+  <text x="35" y="213" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">  eigvecs of</text>
+  <text x="35" y="226" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">  Laplacian</text>
+  <text x="35" y="246" font-family="Arial, sans-serif" font-size="10" fill="#6a3abf">RWSE:</text>
+  <text x="35" y="259" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">  walk landing</text>
+  <text x="35" y="272" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">  probabilities</text>
+
+  <!-- Arrow from PE to GPS input -->
+  <line x1="162" y1="200" x2="196" y2="120" stroke="#6a3abf" stroke-width="1.3" stroke-dasharray="4,2" marker-end="url(#arr-p)"/>
+
+  <!-- Complexity & stackability info -->
+  <rect x="20" y="296" width="860" height="88" rx="6" fill="white" stroke="#dde3ea" stroke-width="1.2"/>
+  <text x="450" y="314" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1f4fa3" text-anchor="middle">Complexity &amp; Design Properties</text>
+
+  <!-- Three columns -->
+  <text x="150" y="334" font-family="Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#b5321a" text-anchor="middle">MPNN (local)</text>
+  <text x="150" y="350" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">O(E·d) per layer</text>
+  <text x="150" y="365" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">edge features, E &lt;&lt; N²</text>
+  <text x="150" y="379" font-family="Arial, sans-serif" font-size="9.5" fill="#9aa5b0" text-anchor="middle">sparse graphs: efficient</text>
+
+  <line x1="300" y1="305" x2="300" y2="378" stroke="#eee" stroke-width="1"/>
+
+  <text x="450" y="334" font-family="Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#1a7a44" text-anchor="middle">Global Attention (plug-in)</text>
+  <text x="450" y="350" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">O(N²) or O(N) with linear attn</text>
+  <text x="450" y="365" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">any-pair long-range dependencies</text>
+  <text x="450" y="379" font-family="Arial, sans-serif" font-size="9.5" fill="#9aa5b0" text-anchor="middle">oversmoothing prevented</text>
+
+  <line x1="600" y1="305" x2="600" y2="378" stroke="#eee" stroke-width="1"/>
+
+  <text x="750" y="334" font-family="Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#6a3abf" text-anchor="middle">GPS Layer stack</text>
+  <text x="750" y="350" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">L layers, each adds residuals</text>
+  <text x="750" y="365" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">modular — swap MPNN or Attn</text>
+  <text x="750" y="379" font-family="Arial, sans-serif" font-size="9.5" fill="#9aa5b0" text-anchor="middle">Rampášek et al. NeurIPS 2022</text>
+
+  <text x="450" y="394" font-family="Arial, sans-serif" font-size="10" fill="#9aa5b0" text-anchor="middle">
+    Rampášek et al. "Recipe for a General, Powerful, Scalable Graph Transformer" — NeurIPS 2022 (arXiv:2205.12454)
+  </text>
+</svg>

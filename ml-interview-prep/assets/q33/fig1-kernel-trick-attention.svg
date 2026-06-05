@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" width="900" height="420">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#5b6675"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1a5fa8"/>
+    </marker>
+    <marker id="arr-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1a7a44"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="420" fill="#f8f9fa" rx="8"/>
+  <text x="450" y="26" font-family="Arial, sans-serif" font-size="15" font-weight="bold"
+        fill="#1f4fa3" text-anchor="middle">Kernel Trick for Attention: From O(N²) to O(N)</text>
+
+  <!-- TOP: Standard attention (quadratic) -->
+  <rect x="20" y="40" width="860" height="165" rx="8" fill="#fff5ee" stroke="#e8b49a" stroke-width="1.5"/>
+  <text x="450" y="60" font-family="Arial, sans-serif" font-size="12" font-weight="bold"
+        fill="#b5321a" text-anchor="middle">Standard Softmax Attention — O(N²d)</text>
+
+  <!-- Step 1: Q, K -->
+  <rect x="45" y="72" width="60" height="90" rx="4" fill="#faddcc" stroke="#e8b49a" stroke-width="1"/>
+  <text x="75" y="90" font-family="Arial, sans-serif" font-size="10" fill="#b5321a" text-anchor="middle" font-weight="bold">Q</text>
+  <text x="75" y="103" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">N × d</text>
+  <text x="75" y="148" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">queries</text>
+
+  <text x="130" y="118" font-family="Arial, sans-serif" font-size="16" fill="#5b6675" text-anchor="middle">×</text>
+
+  <rect x="148" y="72" width="90" height="60" rx="4" fill="#faddcc" stroke="#e8b49a" stroke-width="1"/>
+  <text x="193" y="90" font-family="Arial, sans-serif" font-size="10" fill="#b5321a" text-anchor="middle" font-weight="bold">Kᵀ</text>
+  <text x="193" y="103" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">d × N</text>
+
+  <!-- Arrow -->
+  <line x1="245" y1="107" x2="278" y2="107" stroke="#b5321a" stroke-width="1.8" marker-end="url(#arr)"/>
+
+  <!-- Attention matrix N x N — the bottleneck -->
+  <rect x="280" y="72" width="90" height="90" rx="4" fill="#b5321a" opacity="0.15" stroke="#b5321a" stroke-width="2"/>
+  <text x="325" y="105" font-family="Arial, sans-serif" font-size="10.5" fill="#b5321a" text-anchor="middle" font-weight="bold">QKᵀ</text>
+  <text x="325" y="120" font-family="Arial, sans-serif" font-size="9.5" fill="#b5321a" text-anchor="middle">N × N</text>
+  <text x="325" y="148" font-family="Arial, sans-serif" font-size="9" fill="#b5321a" text-anchor="middle">⚠ BOTTLENECK</text>
+  <!-- Red border emphasis -->
+  <rect x="280" y="72" width="90" height="90" rx="4" fill="none" stroke="#b5321a" stroke-width="2.5" stroke-dasharray="0"/>
+
+  <text x="398" y="107" font-family="Arial, sans-serif" font-size="16" fill="#5b6675" text-anchor="middle">→</text>
+  <text x="398" y="120" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">softmax</text>
+
+  <!-- Softmax(QKT) -->
+  <rect x="418" y="72" width="90" height="90" rx="4" fill="#e8803a" opacity="0.2" stroke="#e8803a" stroke-width="1.5"/>
+  <text x="463" y="105" font-family="Arial, sans-serif" font-size="10" fill="#e8803a" text-anchor="middle">softmax(</text>
+  <text x="463" y="118" font-family="Arial, sans-serif" font-size="10" fill="#e8803a" text-anchor="middle">QKᵀ/√d)</text>
+  <text x="463" y="148" font-family="Arial, sans-serif" font-size="9" fill="#e8803a" text-anchor="middle">N × N</text>
+
+  <text x="536" y="107" font-family="Arial, sans-serif" font-size="16" fill="#5b6675" text-anchor="middle">×</text>
+
+  <!-- V -->
+  <rect x="550" y="72" width="60" height="90" rx="4" fill="#faddcc" stroke="#e8b49a" stroke-width="1"/>
+  <text x="580" y="105" font-family="Arial, sans-serif" font-size="10" fill="#b5321a" text-anchor="middle" font-weight="bold">V</text>
+  <text x="580" y="118" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">N × d</text>
+
+  <text x="636" y="107" font-family="Arial, sans-serif" font-size="16" fill="#5b6675" text-anchor="middle">=</text>
+
+  <!-- Output -->
+  <rect x="650" y="72" width="60" height="90" rx="4" fill="#1a7a44" opacity="0.15" stroke="#1a7a44" stroke-width="1.5"/>
+  <text x="680" y="105" font-family="Arial, sans-serif" font-size="10" fill="#1a7a44" text-anchor="middle" font-weight="bold">Output</text>
+  <text x="680" y="118" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">N × d</text>
+
+  <rect x="730" y="80" width="130" height="50" rx="5" fill="#fff0e8" stroke="#e8b49a" stroke-width="1"/>
+  <text x="795" y="100" font-family="Arial, sans-serif" font-size="11" fill="#b5321a" text-anchor="middle" font-weight="bold">Cost: O(N²d)</text>
+  <text x="795" y="116" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">N×N matrix must be</text>
+  <text x="795" y="128" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">materialized</text>
+
+  <!-- BOTTOM: Kernel trick attention (linear) -->
+  <rect x="20" y="222" width="860" height="165" rx="8" fill="#eefbf3" stroke="#7abf9a" stroke-width="1.5"/>
+  <text x="450" y="242" font-family="Arial, sans-serif" font-size="12" font-weight="bold"
+        fill="#1a7a44" text-anchor="middle">Kernel Trick Attention — O(Nrd)</text>
+  <text x="450" y="256" font-family="Arial, sans-serif" font-size="10.5" fill="#5b6675" text-anchor="middle">
+    K(q,k) ≈ φ(q)ᵀφ(k)  →  compute (Kᵀ V) first: size r×d (independent of N!)
+  </text>
+
+  <!-- Q' -->
+  <rect x="45" y="270" width="65" height="90" rx="4" fill="#d4f5e4" stroke="#7abf9a" stroke-width="1"/>
+  <text x="77" y="292" font-family="Arial, sans-serif" font-size="10" fill="#1a7a44" text-anchor="middle" font-weight="bold">φ(Q)</text>
+  <text x="77" y="305" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">N × r</text>
+  <text x="77" y="350" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">r &lt;&lt; N</text>
+
+  <!-- Step 1: K'T V (computed first!) -->
+  <rect x="148" y="270" width="65" height="50" rx="4" fill="#d4f5e4" stroke="#7abf9a" stroke-width="1"/>
+  <text x="180" y="290" font-family="Arial, sans-serif" font-size="10" fill="#1a7a44" text-anchor="middle" font-weight="bold">φ(K)ᵀ</text>
+  <text x="180" y="303" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">r × N</text>
+
+  <text x="240" y="305" font-family="Arial, sans-serif" font-size="16" fill="#5b6675" text-anchor="middle">×</text>
+
+  <rect x="255" y="270" width="60" height="90" rx="4" fill="#d4f5e4" stroke="#7abf9a" stroke-width="1"/>
+  <text x="285" y="305" font-family="Arial, sans-serif" font-size="10" fill="#1a7a44" text-anchor="middle" font-weight="bold">V</text>
+  <text x="285" y="318" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">N × d</text>
+
+  <!-- Arrow + cost label -->
+  <line x1="322" y1="305" x2="362" y2="305" stroke="#1a7a44" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <text x="342" y="295" font-family="Arial, sans-serif" font-size="9" fill="#1a7a44" text-anchor="middle">O(Nrd)</text>
+
+  <!-- Result: r x d intermediate -->
+  <rect x="365" y="280" width="70" height="50" rx="4" fill="#1a7a44" opacity="0.15" stroke="#1a7a44" stroke-width="2"/>
+  <text x="400" y="300" font-family="Arial, sans-serif" font-size="10.5" fill="#1a7a44" text-anchor="middle" font-weight="bold">φ(K)ᵀV</text>
+  <text x="400" y="315" font-family="Arial, sans-serif" font-size="9.5" fill="#1a7a44" text-anchor="middle">r × d</text>
+  <!-- Key insight annotation -->
+  <rect x="365" y="337" width="70" height="32" rx="3" fill="#d4f5e4" stroke="#7abf9a" stroke-width="1"/>
+  <text x="400" y="351" font-family="Arial, sans-serif" font-size="9" fill="#1a7a44" text-anchor="middle">★ does NOT</text>
+  <text x="400" y="362" font-family="Arial, sans-serif" font-size="9" fill="#1a7a44" text-anchor="middle">grow with N!</text>
+
+  <!-- Step 2: Q' x (K'T V) -->
+  <text x="462" y="310" font-family="Arial, sans-serif" font-size="16" fill="#5b6675" text-anchor="middle">×</text>
+  <text x="462" y="322" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">O(Nrd)</text>
+
+  <line x1="480" y1="305" x2="520" y2="305" stroke="#1a7a44" stroke-width="1.8" marker-end="url(#arr-green)"/>
+
+  <!-- Output -->
+  <rect x="522" y="270" width="65" height="90" rx="4" fill="#1a7a44" opacity="0.18" stroke="#1a7a44" stroke-width="1.5"/>
+  <text x="554" y="305" font-family="Arial, sans-serif" font-size="10" fill="#1a7a44" text-anchor="middle" font-weight="bold">Output</text>
+  <text x="554" y="318" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">N × d</text>
+
+  <!-- Cost box -->
+  <rect x="620" y="278" width="240" height="72" rx="5" fill="#d4f5e4" stroke="#1a7a44" stroke-width="1.5"/>
+  <text x="740" y="298" font-family="Arial, sans-serif" font-size="11" fill="#1a7a44" text-anchor="middle" font-weight="bold">Cost: O(N·r·d)</text>
+  <text x="740" y="315" font-family="Arial, sans-serif" font-size="10.5" fill="#5b6675" text-anchor="middle">r = number of random features</text>
+  <text x="740" y="330" font-family="Arial, sans-serif" font-size="10.5" fill="#5b6675" text-anchor="middle">r ∝ d · log(d/ε) — independent of N</text>
+  <text x="740" y="345" font-family="Arial, sans-serif" font-size="10" fill="#1a7a44" text-anchor="middle">N×N matrix NEVER materialized ✓</text>
+
+  <!-- Middle arrow / label -->
+  <line x1="450" y1="205" x2="450" y2="220" stroke="#5b6675" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="450" y="215" font-family="Arial, sans-serif" font-size="10.5" fill="#1a7a44" text-anchor="middle">kernel trick: φ(q)ᵀφ(k) + associativity</text>
+
+  <text x="450" y="400" font-family="Arial, sans-serif" font-size="10" fill="#9aa5b0" text-anchor="middle">
+    Katharopoulos et al. 2020 (arXiv:2006.16236) · Choromanski et al. 2021 FAVOR+ (arXiv:2009.14794)
+  </text>
+</svg>

@@ -68,6 +68,11 @@ The attention kernel drops the $\|q\|^2, \|k\|^2$ normalization terms (they canc
 
 ## 2 · The kernel trick — avoiding the N×N matrix
 
+<div align="center">
+<img src="../../assets/q33/fig1-kernel-trick-attention.svg" alt="Two-panel diagram: standard O(N²) attention materializing N×N matrix vs kernel trick O(Nrd) computing φ(K)ᵀV first, an r×d matrix independent of N" width="92%">
+<br><sub><b>Figure 1.</b> The key insight of linear attention: by associativity of matrix multiplication, computing φ(K)ᵀV first (size r×d, independent of N) avoids ever materializing the N×N attention matrix. Total cost drops from O(N²d) to O(Nrd).</sub>
+</div>
+
 In kernel methods, the **kernel trick** avoids computing the full $N \times N$ Gram matrix by working in a feature space where $K(q, k) = \langle \phi(q), \phi(k) \rangle$ for some feature map $\phi: \mathbb{R}^d \to \mathcal{H}$ (possibly infinite-dimensional).
 
 For attention, if $K(q_i, k_j) = \phi(q_i)^\top \phi(k_j)$, then:
@@ -214,11 +219,17 @@ which is related to the **arc-cosine kernel** and the **von Mises–Fisher distr
 | Method | Kernel / similarity | Feature map $\phi$ | Complexity | Unbiased? | Quality |
 |---|---|---|---|---|---|
 | Softmax attention | $\exp(q \cdot k / \sqrt{d})$ | Exact (no approximation) | $O(N^2 d)$ | Exact | Reference |
+
 | Linear attention (Katharopoulos 2020) | $(\text{elu}(q)+1) \cdot (\text{elu}(k)+1)$ | $\text{elu}(x)+1 \in \mathbb{R}^d$ | $O(Nd^2)$ | No (poor approx) | Significant gap |
 | Performers FAVOR+ (Choromanski 2021) | $\exp(q \cdot k)$ approximated | Positive random features $\phi^+ \in \mathbb{R}^r$ | $O(Nrd)$ | Yes (unbiased) | Good at $r \gg d$ |
 | FAVOR+ with ORF | Same as above | Orthogonal random features | $O(Nrd)$ | Nearly unbiased | Better variance |
 | Random Fourier features (Rahimi 2007) | RBF kernel | $\cos(\omega^\top x + b)$ | $O(Nrd)$ | Yes (but signed) | N/A for attention |
 | SOFT (Lu 2021) | Gaussian kernel (low-rank) | Nyström approximation | $O(N)$ | Approximate | Vision tasks |
+
+<div align="center">
+<img src="../../assets/q33/fig2-favor-plus-random-features.svg" alt="FAVOR+ pipeline: input q → random projection W → Wq projections → exp feature map φ(q) → positive r-dimensional features; complexity and orthogonality benefit summary" width="92%">
+<br><sub><b>Figure 2.</b> FAVOR+ feature construction pipeline. Random Gaussian rows are orthogonalized (QR decomposition), projected onto the query/key vectors, then exponentiated and scaled to produce all-positive features φ(q) ∈ ℝ⁺ʳ. Positivity prevents sign-flip instability; orthogonality reduces estimator variance.</sub>
+</div>
 
 ---
 

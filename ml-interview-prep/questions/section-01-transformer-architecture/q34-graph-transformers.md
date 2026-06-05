@@ -65,6 +65,11 @@ The classical alternative — message-passing GNNs (MPNNs) — aggregate informa
 
 ## 2 · The key design challenge — encoding graph structure
 
+<div align="center">
+<img src="../../assets/q34/fig1-graphormer-encodings.svg" alt="Graphormer's three structural encodings: degree centrality (node embedding), spatial SPD encoding (attention bias), and edge path encoding (attention bias), with complete attention formula" width="92%">
+<br><sub><b>Figure 1.</b> Graphormer injects graph structure via three additive terms: degree centrality bias in node embeddings, shortest-path distance (SPD) as an attention score bias b_φ(SPD(i,j)), and edge-path features averaged over the shortest path as an additional bias c_{ij}. All three are learnable and preserve permutation equivariance.</sub>
+</div>
+
 Any graph Transformer must solve: **how do you encode graph structure (topology, distances, edge features) into the attention mechanism without breaking permutation equivariance?**
 
 The answer has three categories:
@@ -194,6 +199,11 @@ For sparse graphs ($E \ll N^2$), the total is effectively linear in $N$.
 ---
 
 ## 5 · Comparison table
+
+<div align="center">
+<img src="../../assets/q34/fig2-graphgps-layer.svg" alt="GraphGPS layer diagram: local MPNN branch + global attention branch → merge + LayerNorm → FFN, with positional encodings (LapPE, RWSE) injected at input" width="92%">
+<br><sub><b>Figure 2.</b> A GraphGPS layer combines a local MPNN (O(E) — edge-aware, sparse) and a global attention module (O(N²) or O(N) with linear attention) in parallel, then merges via LayerNorm and an FFN. Structural positional encodings (LapPE, RWSE) are injected at the input to both branches.</sub>
+</div>
 
 | Dimension | Vanilla Transformer | Graphormer | GraphGPS |
 |---|---|---|---|

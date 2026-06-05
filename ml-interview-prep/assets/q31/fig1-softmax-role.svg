@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" width="900" height="400">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#5b6675"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="400" fill="#f8f9fa" rx="8"/>
+  <text x="450" y="26" font-family="Arial, sans-serif" font-size="15" font-weight="bold"
+        fill="#1f4fa3" text-anchor="middle">What Softmax Does in Attention — and What Is Lost Without It</text>
+
+  <!-- LEFT: With softmax -->
+  <rect x="20" y="42" width="415" height="318" rx="8" fill="#eefbf3" stroke="#7abf9a" stroke-width="2"/>
+  <rect x="20" y="42" width="415" height="30" rx="8" fill="#1a7a44"/>
+  <text x="227" y="62" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white" text-anchor="middle">✓ With Softmax</text>
+
+  <!-- Score bar chart — spiky -->
+  <text x="50" y="92" font-family="Arial, sans-serif" font-size="10.5" fill="#1a7a44">Attention weights — 8 tokens:</text>
+  <!-- Bars -->
+  <rect x="40" y="170" width="28" height="10"  fill="#d4f5e4" stroke="#7abf9a" stroke-width="0.8"/>
+  <rect x="75" y="130" width="28" height="50"  fill="#7abf9a" stroke="#7abf9a" stroke-width="0.8"/>
+  <rect x="110" y="100" width="28" height="80" fill="#1a7a44"/>
+  <rect x="145" y="165" width="28" height="15" fill="#d4f5e4" stroke="#7abf9a" stroke-width="0.8"/>
+  <rect x="180" y="170" width="28" height="10" fill="#d4f5e4" stroke="#7abf9a" stroke-width="0.8"/>
+  <rect x="215" y="168" width="28" height="12" fill="#d4f5e4" stroke="#7abf9a" stroke-width="0.8"/>
+  <rect x="250" y="172" width="28" height="8"  fill="#d4f5e4" stroke="#7abf9a" stroke-width="0.8"/>
+  <rect x="285" y="170" width="28" height="10" fill="#d4f5e4" stroke="#7abf9a" stroke-width="0.8"/>
+
+  <!-- baseline -->
+  <line x1="35" y1="180" x2="325" y2="180" stroke="#9aa5b0" stroke-width="1"/>
+  <text x="335" y="184" font-family="Arial, sans-serif" font-size="9" fill="#9aa5b0">sum=1</text>
+  <!-- token labels -->
+  <text x="54"  y="192" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">t₁</text>
+  <text x="89"  y="192" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">t₂</text>
+  <text x="124" y="192" font-family="Arial, sans-serif" font-size="9" fill="#1a7a44" text-anchor="middle" font-weight="bold">t₃★</text>
+  <text x="159" y="192" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">t₄</text>
+  <text x="194" y="192" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">t₅</text>
+  <text x="229" y="192" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">t₆</text>
+  <text x="264" y="192" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">t₇</text>
+  <text x="299" y="192" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">t₈</text>
+
+  <!-- Properties -->
+  <rect x="35" y="205" width="380" height="140" rx="5" fill="white" stroke="#7abf9a" stroke-width="1"/>
+  <text x="225" y="224" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1a7a44" text-anchor="middle">Three Properties Softmax Provides</text>
+  <text x="55" y="244" font-family="Arial, sans-serif" font-size="10.5" fill="#1a7a44">① Normalization: weights sum to 1 → convex combination of V</text>
+  <text x="55" y="262" font-family="Arial, sans-serif" font-size="10.5" fill="#1a7a44">② Non-linear sharpening: exp amplifies score differences</text>
+  <text x="55" y="278" font-family="Arial, sans-serif" font-size="10.5" fill="#1a7a44">   → spiky, low-entropy weights (good for retrieval)</text>
+  <text x="55" y="296" font-family="Arial, sans-serif" font-size="10.5" fill="#1a7a44">③ Boundedness: all weights ∈ (0,1) → stable gradients</text>
+  <text x="55" y="315" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">Score ratio: if e_{ij₁} − e_{ij₂} = Δ → α_{j₁}/α_{j₂} = e^Δ</text>
+  <text x="55" y="330" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">e.g. Δ=3 → token t₃ gets ~20× weight of nearest competitor</text>
+
+  <!-- RIGHT: Without softmax -->
+  <rect x="465" y="42" width="415" height="318" rx="8" fill="#fff5ee" stroke="#e8b49a" stroke-width="2"/>
+  <rect x="465" y="42" width="415" height="30" rx="8" fill="#b5321a"/>
+  <text x="672" y="62" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white" text-anchor="middle">⚠ Without Softmax (Linear Attention)</text>
+
+  <!-- Score bar chart — flat -->
+  <text x="495" y="92" font-family="Arial, sans-serif" font-size="10.5" fill="#b5321a">Attention weights — φ(q)ᵀφ(k) feature map:</text>
+  <!-- Bars — more uniform -->
+  <rect x="485" y="140" width="28" height="40" fill="#f5cbb0" stroke="#e8b49a" stroke-width="0.8"/>
+  <rect x="520" y="135" width="28" height="45" fill="#f5cbb0" stroke="#e8b49a" stroke-width="0.8"/>
+  <rect x="555" y="120" width="28" height="60" fill="#e8803a"/>
+  <rect x="590" y="138" width="28" height="42" fill="#f5cbb0" stroke="#e8b49a" stroke-width="0.8"/>
+  <rect x="625" y="143" width="28" height="37" fill="#f5cbb0" stroke="#e8b49a" stroke-width="0.8"/>
+  <rect x="660" y="137" width="28" height="43" fill="#f5cbb0" stroke="#e8b49a" stroke-width="0.8"/>
+  <rect x="695" y="145" width="28" height="35" fill="#f5cbb0" stroke="#e8b49a" stroke-width="0.8"/>
+  <rect x="730" y="140" width="28" height="40" fill="#f5cbb0" stroke="#e8b49a" stroke-width="0.8"/>
+
+  <!-- baseline -->
+  <line x1="480" y1="180" x2="770" y2="180" stroke="#9aa5b0" stroke-width="1"/>
+  <!-- token labels -->
+  <text x="499" y="192" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">t₁</text>
+  <text x="534" y="192" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">t₂</text>
+  <text x="569" y="192" font-family="Arial, sans-serif" font-size="9" fill="#b5321a" text-anchor="middle" font-weight="bold">t₃★</text>
+  <text x="604" y="192" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">t₄</text>
+  <text x="639" y="192" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">t₅</text>
+  <text x="674" y="192" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">t₆</text>
+  <text x="709" y="192" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">t₇</text>
+  <text x="744" y="192" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">t₈</text>
+
+  <!-- What is lost -->
+  <rect x="480" y="205" width="380" height="140" rx="5" fill="white" stroke="#e8b49a" stroke-width="1"/>
+  <text x="670" y="224" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#b5321a" text-anchor="middle">What Is Lost Without Softmax</text>
+  <text x="500" y="244" font-family="Arial, sans-serif" font-size="10.5" fill="#b5321a">① No guaranteed normalization → output scale unbounded</text>
+  <text x="500" y="262" font-family="Arial, sans-serif" font-size="10.5" fill="#b5321a">② No non-linear sharpening → flatter, high-entropy weights</text>
+  <text x="500" y="278" font-family="Arial, sans-serif" font-size="10.5" fill="#b5321a">   → blurry retrieval, especially for long contexts</text>
+  <text x="500" y="296" font-family="Arial, sans-serif" font-size="10.5" fill="#b5321a">③ Monotonicity may break → ranking of tokens disrupted</text>
+  <text x="500" y="315" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">LM quality gap: +4–6 ppl on WikiText-103 (Katharopoulos 2020)</text>
+  <text x="500" y="330" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">Narrows at scale ≥7B params with design improvements</text>
+
+  <text x="450" y="376" font-family="Arial, sans-serif" font-size="10" fill="#9aa5b0" text-anchor="middle">
+    Vaswani et al. 2017 · Katharopoulos et al. 2020 (arXiv:2006.16236) · Qin et al. 2023 (arXiv:2310.11685)
+  </text>
+</svg>

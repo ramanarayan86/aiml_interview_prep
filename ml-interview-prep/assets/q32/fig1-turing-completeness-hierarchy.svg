@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" width="900" height="400">
+  <rect width="900" height="400" fill="#f8f9fa" rx="8"/>
+  <text x="450" y="26" font-family="Arial, sans-serif" font-size="15" font-weight="bold"
+        fill="#1f4fa3" text-anchor="middle">Expressivity Hierarchy of Transformer Variants</text>
+
+  <!-- Nested ovals (from outer=most powerful to inner=least) -->
+
+  <!-- Turing complete (outermost) — theoretical -->
+  <ellipse cx="450" cy="210" rx="390" ry="155" fill="#fff8f0" stroke="#b5321a" stroke-width="2.5" stroke-dasharray="8,4"/>
+  <text x="450" y="68" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#b5321a" text-anchor="middle">All Turing-Computable Functions</text>
+  <text x="450" y="84" font-family="Arial, sans-serif" font-size="10.5" fill="#b5321a" text-anchor="middle">(requires infinite tape / unbounded computation)</text>
+
+  <!-- Hardmax + arbitrary precision -->
+  <ellipse cx="450" cy="215" rx="330" ry="128" fill="#fdf0e8" stroke="#e8803a" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="108" y="145" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#e8803a">Hard-attention Transformer</text>
+  <text x="108" y="159" font-family="Arial, sans-serif" font-size="10" fill="#e8803a">+ arbitrary precision</text>
+  <text x="108" y="173" font-family="Arial, sans-serif" font-size="10" fill="#e8803a">= Turing complete</text>
+  <text x="108" y="187" font-family="Arial, sans-serif" font-size="9.5" fill="#9aa5b0">(Pérez et al., JMLR 2021)</text>
+
+  <!-- Log-precision softmax — TC0 -->
+  <ellipse cx="450" cy="218" rx="255" ry="100" fill="#eef3fb" stroke="#1a5fa8" stroke-width="2"/>
+  <text x="450" y="135" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1a5fa8" text-anchor="middle">Log-Precision Transformer (softmax)</text>
+  <text x="450" y="150" font-family="Arial, sans-serif" font-size="10.5" fill="#1a5fa8" text-anchor="middle">= FO(M) / TC⁰</text>
+  <text x="450" y="164" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">Can: integer add/compare, sorting</text>
+  <text x="450" y="177" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">Cannot: matrix permanent, general PTIME</text>
+  <text x="450" y="192" font-family="Arial, sans-serif" font-size="9.5" fill="#9aa5b0" text-anchor="middle">(Merrill &amp; Sabharwal, NeurIPS 2023)</text>
+
+  <!-- Fixed precision float32 -->
+  <ellipse cx="450" cy="240" rx="170" ry="68" fill="#dce8fa" stroke="#1a5fa8" stroke-width="1.5"/>
+  <text x="450" y="220" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1a5fa8" text-anchor="middle">Float32 Transformer</text>
+  <text x="450" y="234" font-family="Arial, sans-serif" font-size="10" fill="#1a5fa8" text-anchor="middle">Fixed precision</text>
+  <text x="450" y="248" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">⊂ constant-depth circuits</text>
+  <text x="450" y="262" font-family="Arial, sans-serif" font-size="9.5" fill="#9aa5b0" text-anchor="middle">practical real-world models</text>
+
+  <!-- Chain-of-thought annotation -->
+  <rect x="635" y="185" width="235" height="72" rx="6" fill="#d4f5e4" stroke="#1a7a44" stroke-width="1.5"/>
+  <text x="752" y="204" font-family="Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#1a7a44" text-anchor="middle">Chain-of-thought</text>
+  <text x="752" y="220" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">Each CoT step = one forward pass</text>
+  <text x="752" y="234" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">K steps → escapes TC⁰</text>
+  <text x="752" y="248" font-family="Arial, sans-serif" font-size="9.5" fill="#9aa5b0" text-anchor="middle">(Merrill &amp; Sabharwal, ICLR 2024)</text>
+  <!-- Arrow pointing inward -->
+  <line x1="635" y1="221" x2="605" y2="230" stroke="#1a7a44" stroke-width="1.4" stroke-dasharray="4,2"/>
+
+  <!-- Key assumptions box -->
+  <rect x="25" y="295" width="850" height="80" rx="6" fill="white" stroke="#dde3ea" stroke-width="1.2"/>
+  <text x="450" y="314" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1f4fa3" text-anchor="middle">Critical Assumptions for Turing Completeness (Pérez et al.)</text>
+  <text x="110" y="334" font-family="Arial, sans-serif" font-size="10.5" fill="#b5321a">❶ Hard attention (argmax)</text>
+  <text x="110" y="350" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">   Real models use softmax — does not select exactly one position</text>
+  <text x="370" y="334" font-family="Arial, sans-serif" font-size="10.5" fill="#b5321a">❷ Arbitrary precision arithmetic</text>
+  <text x="370" y="350" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">   Real models: float32/bfloat16 — finite, bounded</text>
+  <text x="660" y="334" font-family="Arial, sans-serif" font-size="10.5" fill="#b5321a">❸ Multiple passes</text>
+  <text x="660" y="350" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">   One pass ≠ Turing complete</text>
+  <text x="450" y="368" font-family="Arial, sans-serif" font-size="9.5" fill="#9aa5b0" text-anchor="middle">
+    Pérez, Barceló, Marinkovic — JMLR 2021 · Merrill &amp; Sabharwal — NeurIPS 2023
+  </text>
+</svg>

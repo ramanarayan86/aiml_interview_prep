@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" width="900" height="420">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#5b6675"/>
+    </marker>
+    <marker id="arr-p" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#6a3abf"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="420" fill="#f8f9fa" rx="8"/>
+  <text x="450" y="26" font-family="Arial, sans-serif" font-size="15" font-weight="bold"
+        fill="#1f4fa3" text-anchor="middle">FAVOR+: Fast Attention Via Positive Orthogonal Random Features</text>
+
+  <!-- Step-by-step pipeline (horizontal) -->
+  <!-- Step 1: Input q (N x d) -->
+  <rect x="20" y="52" width="120" height="90" rx="6" fill="#dce8fa" stroke="#1a5fa8" stroke-width="1.5"/>
+  <text x="80" y="74" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1a5fa8" text-anchor="middle">q ∈ ℝᵈ</text>
+  <text x="80" y="90" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">query vector</text>
+  <text x="80" y="130" font-family="Arial, sans-serif" font-size="9" fill="#9aa5b0" text-anchor="middle">(same for k)</text>
+
+  <line x1="142" y1="97" x2="175" y2="97" stroke="#5b6675" stroke-width="1.8" marker-end="url(#arr)"/>
+
+  <!-- Step 2: Random projection W (r x d) -->
+  <rect x="177" y="52" width="150" height="90" rx="6" fill="#e8dafa" stroke="#6a3abf" stroke-width="1.5"/>
+  <text x="252" y="74" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#6a3abf" text-anchor="middle">Random matrix</text>
+  <text x="252" y="88" font-family="Arial, sans-serif" font-size="11" fill="#6a3abf" text-anchor="middle">W ∈ ℝʳˣᵈ</text>
+  <text x="252" y="106" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">r rows drawn from</text>
+  <text x="252" y="120" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">N(0, Iᵈ)</text>
+  <!-- Orthogonal note -->
+  <rect x="185" y="130" width="134" height="22" rx="3" fill="#f0eaff" stroke="#6a3abf" stroke-width="0.8"/>
+  <text x="252" y="145" font-family="Arial, sans-serif" font-size="9.5" fill="#6a3abf" text-anchor="middle">★ rows orthogonalized (QR)</text>
+
+  <line x1="329" y1="97" x2="362" y2="97" stroke="#5b6675" stroke-width="1.8" marker-end="url(#arr)"/>
+
+  <!-- Step 3: Project → wⱼᵀq -->
+  <rect x="364" y="52" width="145" height="90" rx="6" fill="#faf0e8" stroke="#e8803a" stroke-width="1.5"/>
+  <text x="436" y="70" font-family="Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#e8803a" text-anchor="middle">Project: Wq ∈ ℝʳ</text>
+  <text x="436" y="86" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">r dot products</text>
+  <text x="436" y="100" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">wⱼᵀq  for j=1…r</text>
+  <text x="436" y="115" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">O(rd) per token</text>
+  <text x="436" y="135" font-family="Arial, sans-serif" font-size="9.5" fill="#e8803a" text-anchor="middle">random projections</text>
+
+  <line x1="511" y1="97" x2="544" y2="97" stroke="#5b6675" stroke-width="1.8" marker-end="url(#arr)"/>
+
+  <!-- Step 4: Apply exp + scale -->
+  <rect x="546" y="52" width="155" height="90" rx="6" fill="#d4f5e4" stroke="#1a7a44" stroke-width="1.5"/>
+  <text x="623" y="70" font-family="Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#1a7a44" text-anchor="middle">Feature map φ(q)</text>
+  <text x="623" y="86" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">exp(wⱼᵀq − ‖q‖²/2)</text>
+  <text x="623" y="102" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">scaled by 1/√r</text>
+  <text x="623" y="118" font-family="Arial, sans-serif" font-size="10" fill="#1a7a44" text-anchor="middle">all entries positive!</text>
+  <text x="623" y="135" font-family="Arial, sans-serif" font-size="9.5" fill="#1a7a44" text-anchor="middle">(no negative weights)</text>
+
+  <line x1="703" y1="97" x2="736" y2="97" stroke="#5b6675" stroke-width="1.8" marker-end="url(#arr)"/>
+
+  <!-- Step 5: Output φ(q) -->
+  <rect x="738" y="52" width="140" height="90" rx="6" fill="#f0eaff" stroke="#6a3abf" stroke-width="1.5"/>
+  <text x="808" y="70" font-family="Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#6a3abf" text-anchor="middle">φ(q) ∈ ℝʳ₊</text>
+  <text x="808" y="86" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">r positive features</text>
+  <text x="808" y="102" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">E[φ(q)ᵀφ(k)] =</text>
+  <text x="808" y="116" font-family="Arial, sans-serif" font-size="10" fill="#6a3abf" text-anchor="middle">exp(qᵀk/√d)</text>
+  <text x="808" y="132" font-family="Arial, sans-serif" font-size="9.5" fill="#9aa5b0" text-anchor="middle">unbiased estimator</text>
+
+  <!-- Section divider -->
+  <line x1="20" y1="168" x2="880" y2="168" stroke="#dde3ea" stroke-width="1.2" stroke-dasharray="5,3"/>
+  <text x="450" y="164" font-family="Arial, sans-serif" font-size="10" fill="#9aa5b0" text-anchor="middle">— feature map construction —</text>
+
+  <!-- Why positive features matter -->
+  <rect x="20" y="178" width="410" height="110" rx="6" fill="#fff5ee" stroke="#e8b49a" stroke-width="1.2"/>
+  <text x="225" y="196" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#b5321a" text-anchor="middle">Why Positivity Is Critical</text>
+  <text x="35" y="215" font-family="Arial, sans-serif" font-size="10.5" fill="#5b6675">• Naïve random features (sin/cos) → negative values</text>
+  <text x="35" y="232" font-family="Arial, sans-serif" font-size="10.5" fill="#5b6675">  → attention normalization can flip sign → instability</text>
+  <text x="35" y="250" font-family="Arial, sans-serif" font-size="10.5" fill="#1a7a44">• Positive features (exp) → normalizer always &gt; 0</text>
+  <text x="35" y="267" font-family="Arial, sans-serif" font-size="10.5" fill="#1a7a44">  → numerically stable, lower variance estimator</text>
+  <text x="35" y="284" font-family="Arial, sans-serif" font-size="10" fill="#9aa5b0">  (Choromanski et al., ICLR 2021 Oral — arXiv:2009.14794)</text>
+
+  <!-- Why orthogonality helps -->
+  <rect x="450" y="178" width="430" height="110" rx="6" fill="#eefbf3" stroke="#7abf9a" stroke-width="1.2"/>
+  <text x="665" y="196" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1a7a44" text-anchor="middle">Why Orthogonal Features Help</text>
+  <text x="465" y="215" font-family="Arial, sans-serif" font-size="10.5" fill="#5b6675">• Independent Gaussian rows → correlated features</text>
+  <text x="465" y="232" font-family="Arial, sans-serif" font-size="10.5" fill="#5b6675">  → higher variance of estimator</text>
+  <text x="465" y="250" font-family="Arial, sans-serif" font-size="10.5" fill="#1a7a44">• Orthogonal rows → spread uniform sphere coverage</text>
+  <text x="465" y="267" font-family="Arial, sans-serif" font-size="10.5" fill="#1a7a44">  → provably lower MSE for same r</text>
+  <text x="465" y="284" font-family="Arial, sans-serif" font-size="10" fill="#9aa5b0">  variance: Var(orth) ≤ Var(iid) always holds</text>
+
+  <!-- Complexity comparison table -->
+  <rect x="20" y="302" width="860" height="90" rx="6" fill="white" stroke="#dde3ea" stroke-width="1.2"/>
+  <text x="450" y="320" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1f4fa3" text-anchor="middle">Complexity Summary</text>
+  <!-- header -->
+  <text x="120" y="338" font-family="Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#5b6675" text-anchor="middle">Method</text>
+  <text x="320" y="338" font-family="Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#5b6675" text-anchor="middle">Time</text>
+  <text x="500" y="338" font-family="Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#5b6675" text-anchor="middle">Space</text>
+  <text x="720" y="338" font-family="Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#5b6675" text-anchor="middle">Notes</text>
+
+  <line x1="30" y1="342" x2="870" y2="342" stroke="#dde3ea" stroke-width="1"/>
+
+  <text x="120" y="358" font-family="Arial, sans-serif" font-size="10" fill="#b5321a" text-anchor="middle">Vanilla Attention</text>
+  <text x="320" y="358" font-family="Arial, sans-serif" font-size="10" fill="#b5321a" text-anchor="middle">O(N²d)</text>
+  <text x="500" y="358" font-family="Arial, sans-serif" font-size="10" fill="#b5321a" text-anchor="middle">O(N²)</text>
+  <text x="720" y="358" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">N×N matrix materialized</text>
+
+  <text x="120" y="376" font-family="Arial, sans-serif" font-size="10" fill="#1a7a44" text-anchor="middle">FAVOR+ (Performers)</text>
+  <text x="320" y="376" font-family="Arial, sans-serif" font-size="10" fill="#1a7a44" text-anchor="middle">O(Nrd)</text>
+  <text x="500" y="376" font-family="Arial, sans-serif" font-size="10" fill="#1a7a44" text-anchor="middle">O(Nr + rd)</text>
+  <text x="720" y="376" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">r ≈ d·log(d/ε), unbiased</text>
+
+  <text x="450" y="406" font-family="Arial, sans-serif" font-size="10" fill="#9aa5b0" text-anchor="middle">
+    Choromanski et al. "Rethinking Attention with Performers" — ICLR 2021 Oral (arXiv:2009.14794)
+  </text>
+</svg>

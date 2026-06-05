@@ -54,6 +54,11 @@ For neural networks, Turing completeness is usually proved by **construction**: 
 
 ## 2 · The Pérez et al. (2021) result
 
+<div align="center">
+<img src="../../assets/q32/fig1-turing-completeness-hierarchy.svg" alt="Nested oval diagram showing Fixed-precision ⊂ Log-precision (TC⁰) ⊂ Arbitrary-precision (Turing complete), with chain-of-thought annotation" width="92%">
+<br><sub><b>Figure 1.</b> Expressivity hierarchy of Transformer variants by precision model. Real float32 models sit in the innermost oval; log-precision Transformers are bounded by TC⁰; only the theoretical hardmax + arbitrary-precision model is Turing complete. Chain-of-thought enables multiple forward passes, escaping the single-pass TC⁰ bound.</sub>
+</div>
+
 **Paper:** "Attention is Turing Complete"
 **Authors:** Jorge Pérez, Pablo Barceló, Javier Marinkovic
 **Venue:** Journal of Machine Learning Research (JMLR), Volume 22, 2021
@@ -155,6 +160,11 @@ This means log-precision Transformers are contained in the circuit complexity cl
 ---
 
 ## 6 · The precision hierarchy
+
+<div align="center">
+<img src="../../assets/q32/fig2-precision-complexity-classes.svg" alt="Three-column comparison table: Fixed-precision, Log-precision (TC⁰), and Arbitrary-precision Transformer capabilities" width="92%">
+<br><sub><b>Figure 2.</b> What each precision regime can and cannot compute. Fixed (float32) sits in constant-depth circuits; log-precision equals TC⁰ (Merrill & Sabharwal 2023), capturing sorting and integer arithmetic but not matrix permanent or general PTIME; arbitrary precision + hardmax = Turing complete (Pérez et al. 2021).</sub>
+</div>
 
 $$
 \text{Fixed (float32)} \subsetneq \text{Log-precision} \subsetneq \text{Arbitrary precision}

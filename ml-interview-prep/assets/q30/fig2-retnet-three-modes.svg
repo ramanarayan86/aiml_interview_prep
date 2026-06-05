@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380" width="900" height="380">
+
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#5b6675"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1a5fa8"/>
+    </marker>
+    <marker id="arr-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1a7a44"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="380" fill="#f8f9fa" rx="8"/>
+  <text x="450" y="26" font-family="Arial, sans-serif" font-size="15" font-weight="bold"
+        fill="#1f4fa3" text-anchor="middle">RetNet: Three Equivalent Computation Modes</text>
+  <text x="450" y="42" font-family="Arial, sans-serif" font-size="11" fill="#5b6675" text-anchor="middle">Same mathematical object — chosen by deployment context</text>
+
+  <!-- ── Panel 1: Parallel ── -->
+  <rect x="20" y="55" width="265" height="280" rx="8" fill="#eef3fb" stroke="#1a5fa8" stroke-width="2"/>
+  <rect x="20" y="55" width="265" height="32" rx="8" fill="#1a5fa8"/>
+  <text x="152" y="75" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white" text-anchor="middle">① Parallel</text>
+
+  <text x="152" y="105" font-family="Arial, sans-serif" font-size="11" fill="#1a5fa8" text-anchor="middle" font-style="italic">For training</text>
+
+  <!-- Matrix illustration -->
+  <rect x="60" y="115" width="185" height="90" rx="4" fill="white" stroke="#93bde8" stroke-width="1.2"/>
+  <text x="152" y="132" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">Ret(X) = (QKᵀ ⊙ D) V</text>
+  <!-- Small matrix grid -->
+  <rect x="70" y="140" width="75" height="55" rx="2" fill="#dce8fa"/>
+  <text x="107" y="160" font-family="Arial, sans-serif" font-size="9" fill="#1a5fa8" text-anchor="middle">N×N decay</text>
+  <text x="107" y="173" font-family="Arial, sans-serif" font-size="9" fill="#1a5fa8" text-anchor="middle">mask D</text>
+  <text x="107" y="186" font-family="Arial, sans-serif" font-size="9" fill="#1a5fa8" text-anchor="middle">D_nm = γ^(n−m)</text>
+  <rect x="158" y="140" width="75" height="55" rx="2" fill="#d4f5e4"/>
+  <text x="195" y="164" font-family="Arial, sans-serif" font-size="9" fill="#1a7a44" text-anchor="middle">× V</text>
+  <text x="195" y="178" font-family="Arial, sans-serif" font-size="9" fill="#1a7a44" text-anchor="middle">N×d</text>
+
+  <!-- Stats -->
+  <rect x="40" y="218" width="205" height="100" rx="5" fill="#fff" stroke="#93bde8" stroke-width="1"/>
+  <text x="142" y="235" font-family="Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#1a5fa8" text-anchor="middle">Complexity</text>
+  <text x="55" y="252" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">Time:</text>
+  <text x="245" y="252" font-family="Arial, sans-serif" font-size="10" fill="#b5321a" text-anchor="end">O(N²d)</text>
+  <text x="55" y="267" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">Memory:</text>
+  <text x="245" y="267" font-family="Arial, sans-serif" font-size="10" fill="#b5321a" text-anchor="end">O(N²)</text>
+  <text x="55" y="282" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">Use case:</text>
+  <text x="245" y="282" font-family="Arial, sans-serif" font-size="10" fill="#1a7a44" text-anchor="end">GPU training</text>
+  <text x="55" y="297" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">Benefit:</text>
+  <text x="245" y="297" font-family="Arial, sans-serif" font-size="10" fill="#1a7a44" text-anchor="end">Full parallelism</text>
+  <text x="55" y="312" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">Like:</text>
+  <text x="245" y="312" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="end">Transformer (same infra)</text>
+
+  <!-- ── Panel 2: Recurrent ── -->
+  <rect x="318" y="55" width="265" height="280" rx="8" fill="#eefbf3" stroke="#1a7a44" stroke-width="2"/>
+  <rect x="318" y="55" width="265" height="32" rx="8" fill="#1a7a44"/>
+  <text x="450" y="75" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white" text-anchor="middle">② Recurrent</text>
+
+  <text x="450" y="105" font-family="Arial, sans-serif" font-size="11" fill="#1a7a44" text-anchor="middle" font-style="italic">For inference (per-token)</text>
+
+  <!-- State diagram -->
+  <rect x="358" y="115" width="185" height="90" rx="4" fill="white" stroke="#7abf9a" stroke-width="1.2"/>
+  <text x="450" y="133" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">S_n = γ·S_{n−1} + kₙᵀvₙ</text>
+  <text x="450" y="147" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">Ret(xₙ) = qₙ · Sₙ</text>
+
+  <!-- State box chain -->
+  <rect x="365" y="155" width="50" height="35" rx="4" fill="#d4f5e4" stroke="#7abf9a" stroke-width="1"/>
+  <text x="390" y="170" font-family="Arial, sans-serif" font-size="9" fill="#1a7a44" text-anchor="middle">S_{n-1}</text>
+  <text x="390" y="182" font-family="Arial, sans-serif" font-size="8" fill="#1a7a44" text-anchor="middle">d×d</text>
+  <line x1="415" y1="172" x2="432" y2="172" stroke="#1a7a44" stroke-width="1.4" marker-end="url(#arr-green)"/>
+  <rect x="432" y="155" width="50" height="35" rx="4" fill="#1a7a44"/>
+  <text x="457" y="170" font-family="Arial, sans-serif" font-size="9" fill="white" text-anchor="middle">S_n</text>
+  <text x="457" y="182" font-family="Arial, sans-serif" font-size="8" fill="white" text-anchor="middle">d×d</text>
+  <text x="424" y="152" font-family="Arial, sans-serif" font-size="8" fill="#5b6675" text-anchor="middle">×γ + kₙvₙᵀ</text>
+
+  <!-- Stats -->
+  <rect x="338" y="218" width="205" height="100" rx="5" fill="#fff" stroke="#7abf9a" stroke-width="1"/>
+  <text x="440" y="235" font-family="Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#1a7a44" text-anchor="middle">Complexity</text>
+  <text x="353" y="252" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">Time per token:</text>
+  <text x="543" y="252" font-family="Arial, sans-serif" font-size="10" fill="#1a7a44" text-anchor="end">O(d²)</text>
+  <text x="353" y="267" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">Memory:</text>
+  <text x="543" y="267" font-family="Arial, sans-serif" font-size="10" fill="#1a7a44" text-anchor="end">O(d²) — fixed!</text>
+  <text x="353" y="282" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">Use case:</text>
+  <text x="543" y="282" font-family="Arial, sans-serif" font-size="10" fill="#1a7a44" text-anchor="end">Streaming inference</text>
+  <text x="353" y="297" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">Benefit:</text>
+  <text x="543" y="297" font-family="Arial, sans-serif" font-size="10" fill="#1a7a44" text-anchor="end">No KV cache growth</text>
+  <text x="353" y="312" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">Like:</text>
+  <text x="543" y="312" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="end">SSM / RWKV inference</text>
+
+  <!-- ── Panel 3: Chunked ── -->
+  <rect x="616" y="55" width="265" height="280" rx="8" fill="#f5eefb" stroke="#6a3abf" stroke-width="2"/>
+  <rect x="616" y="55" width="265" height="32" rx="8" fill="#6a3abf"/>
+  <text x="748" y="75" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white" text-anchor="middle">③ Chunked</text>
+
+  <text x="748" y="105" font-family="Arial, sans-serif" font-size="11" fill="#6a3abf" text-anchor="middle" font-style="italic">For throughput balance</text>
+
+  <!-- Chunk illustration -->
+  <rect x="656" y="115" width="185" height="90" rx="4" fill="white" stroke="#b09ada" stroke-width="1.2"/>
+  <text x="748" y="133" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">Divide N into chunks of size C</text>
+
+  <!-- Chunk boxes -->
+  <rect x="662" y="142" width="40" height="28" rx="3" fill="#e8dafa" stroke="#b09ada" stroke-width="1"/>
+  <text x="682" y="160" font-family="Arial, sans-serif" font-size="9" fill="#6a3abf" text-anchor="middle">C×C</text>
+  <line x1="702" y1="156" x2="714" y2="156" stroke="#6a3abf" stroke-width="1.2" marker-end="url(#arr)"/>
+  <rect x="714" y="142" width="40" height="28" rx="3" fill="#e8dafa" stroke="#b09ada" stroke-width="1"/>
+  <text x="734" y="160" font-family="Arial, sans-serif" font-size="9" fill="#6a3abf" text-anchor="middle">C×C</text>
+  <line x1="754" y1="156" x2="766" y2="156" stroke="#6a3abf" stroke-width="1.2" marker-end="url(#arr)"/>
+  <rect x="766" y="142" width="40" height="28" rx="3" fill="#6a3abf"/>
+  <text x="786" y="160" font-family="Arial, sans-serif" font-size="9" fill="white" text-anchor="middle">C×C</text>
+  <text x="748" y="193" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">Parallel within chunk; recurrent across</text>
+
+  <!-- Stats -->
+  <rect x="636" y="218" width="205" height="100" rx="5" fill="#fff" stroke="#b09ada" stroke-width="1"/>
+  <text x="738" y="235" font-family="Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#6a3abf" text-anchor="middle">Complexity</text>
+  <text x="651" y="252" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">Time:</text>
+  <text x="841" y="252" font-family="Arial, sans-serif" font-size="10" fill="#6a3abf" text-anchor="end">O(N·C·d)</text>
+  <text x="651" y="267" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">Memory:</text>
+  <text x="841" y="267" font-family="Arial, sans-serif" font-size="10" fill="#6a3abf" text-anchor="end">O(C² + d²)</text>
+  <text x="651" y="282" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">Use case:</text>
+  <text x="841" y="282" font-family="Arial, sans-serif" font-size="10" fill="#1a7a44" text-anchor="end">Long-seq throughput</text>
+  <text x="651" y="297" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">Benefit:</text>
+  <text x="841" y="297" font-family="Arial, sans-serif" font-size="10" fill="#1a7a44" text-anchor="end">Cache-friendly; balanced</text>
+  <text x="651" y="312" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">Like:</text>
+  <text x="841" y="312" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="end">Flash-style tiling</text>
+
+  <!-- Equivalence note -->
+  <text x="450" y="354" font-family="Arial, sans-serif" font-size="11" font-weight="bold"
+        fill="#1f4fa3" text-anchor="middle">All three modes are mathematically equivalent — choose by deployment context</text>
+  <text x="450" y="370" font-family="Arial, sans-serif" font-size="10" fill="#9aa5b0" text-anchor="middle">
+    Sun et al., "Retentive Network," arXiv:2307.08621 (2023)
+  </text>
+</svg>

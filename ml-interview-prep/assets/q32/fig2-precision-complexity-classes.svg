@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" width="900" height="360">
+  <rect width="900" height="360" fill="#f8f9fa" rx="8"/>
+  <text x="450" y="26" font-family="Arial, sans-serif" font-size="15" font-weight="bold"
+        fill="#1f4fa3" text-anchor="middle">Transformer Expressivity vs. Precision Model</text>
+
+  <!-- Three columns: Fixed / Log-precision / Arbitrary -->
+  <!-- Column headers -->
+  <rect x="30" y="45" width="250" height="36" rx="6" fill="#dce8fa" stroke="#93bde8" stroke-width="1.5"/>
+  <text x="155" y="68" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#1a5fa8" text-anchor="middle">Fixed Precision (float32)</text>
+
+  <rect x="325" y="45" width="250" height="36" rx="6" fill="#e8dafa" stroke="#b09ada" stroke-width="1.5"/>
+  <text x="450" y="68" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#6a3abf" text-anchor="middle">Log-Precision (O(log N) bits)</text>
+
+  <rect x="620" y="45" width="250" height="36" rx="6" fill="#faddcc" stroke="#e8b49a" stroke-width="1.5"/>
+  <text x="745" y="68" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#b5321a" text-anchor="middle">Arbitrary Precision</text>
+
+  <!-- Divider lines -->
+  <line x1="305" y1="45" x2="305" y2="295" stroke="#dde3ea" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <line x1="600" y1="45" x2="600" y2="295" stroke="#dde3ea" stroke-width="1.5" stroke-dasharray="5,3"/>
+
+  <!-- Fixed column content -->
+  <rect x="40" y="95" width="230" height="185" rx="5" fill="white" stroke="#dce8fa" stroke-width="1"/>
+  <text x="155" y="115" font-family="Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#1a5fa8" text-anchor="middle">Complexity class</text>
+  <text x="155" y="132" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1a5fa8" text-anchor="middle">⊆ constant-depth circuits</text>
+  <text x="155" y="158" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">Can do:</text>
+  <text x="155" y="172" font-family="Arial, sans-serif" font-size="10" fill="#1a7a44" text-anchor="middle">· Local pattern matching</text>
+  <text x="155" y="186" font-family="Arial, sans-serif" font-size="10" fill="#1a7a44" text-anchor="middle">· Fixed-window n-gram stats</text>
+  <text x="155" y="200" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">Cannot do:</text>
+  <text x="155" y="214" font-family="Arial, sans-serif" font-size="10" fill="#b5321a" text-anchor="middle">· Exact position indexing</text>
+  <text x="155" y="228" font-family="Arial, sans-serif" font-size="10" fill="#b5321a" text-anchor="middle">· Uniform attention (1/N)</text>
+  <text x="155" y="244" font-family="Arial, sans-serif" font-size="10" fill="#9aa5b0" text-anchor="middle">Realistic: yes</text>
+  <text x="155" y="258" font-family="Arial, sans-serif" font-size="10" fill="#9aa5b0" text-anchor="middle">Turing complete: no</text>
+  <text x="155" y="270" font-family="Arial, sans-serif" font-size="9" fill="#9aa5b0" text-anchor="middle">actual GPT/Claude models</text>
+
+  <!-- Log-precision column content -->
+  <rect x="335" y="95" width="230" height="185" rx="5" fill="white" stroke="#e8dafa" stroke-width="1"/>
+  <text x="450" y="115" font-family="Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#6a3abf" text-anchor="middle">Complexity class</text>
+  <text x="450" y="132" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#6a3abf" text-anchor="middle">FO(M) ≡ TC⁰</text>
+  <text x="450" y="158" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">Can do:</text>
+  <text x="450" y="172" font-family="Arial, sans-serif" font-size="10" fill="#1a7a44" text-anchor="middle">· Integer add, compare, sort</text>
+  <text x="450" y="186" font-family="Arial, sans-serif" font-size="10" fill="#1a7a44" text-anchor="middle">· Majority voting</text>
+  <text x="450" y="200" font-family="Arial, sans-serif" font-size="10" fill="#1a7a44" text-anchor="middle">· Uniform attention (1/N)</text>
+  <text x="450" y="214" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">Cannot do:</text>
+  <text x="450" y="228" font-family="Arial, sans-serif" font-size="10" fill="#b5321a" text-anchor="middle">· Matrix permanent</text>
+  <text x="450" y="242" font-family="Arial, sans-serif" font-size="10" fill="#b5321a" text-anchor="middle">· General PTIME tasks</text>
+  <text x="450" y="258" font-family="Arial, sans-serif" font-size="10" fill="#9aa5b0" text-anchor="middle">Realistic: approximately</text>
+  <text x="450" y="270" font-family="Arial, sans-serif" font-size="10" fill="#9aa5b0" text-anchor="middle">Merrill &amp; Sabharwal 2023</text>
+
+  <!-- Arbitrary precision column content -->
+  <rect x="630" y="95" width="230" height="185" rx="5" fill="white" stroke="#faddcc" stroke-width="1"/>
+  <text x="745" y="115" font-family="Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#b5321a" text-anchor="middle">Complexity class</text>
+  <text x="745" y="132" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#b5321a" text-anchor="middle">Turing complete</text>
+  <text x="745" y="148" font-family="Arial, sans-serif" font-size="10" fill="#b5321a" text-anchor="middle">(hard attention only)</text>
+  <text x="745" y="172" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">Can do:</text>
+  <text x="745" y="186" font-family="Arial, sans-serif" font-size="10" fill="#1a7a44" text-anchor="middle">· Any computable function</text>
+  <text x="745" y="200" font-family="Arial, sans-serif" font-size="10" fill="#1a7a44" text-anchor="middle">· Simulate Turing machines</text>
+  <text x="745" y="214" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">Cannot do:</text>
+  <text x="745" y="228" font-family="Arial, sans-serif" font-size="10" fill="#b5321a" text-anchor="middle">· Nothing (by definition)</text>
+  <text x="745" y="244" font-family="Arial, sans-serif" font-size="10" fill="#b5321a" text-anchor="middle">· But: requires hardmax!</text>
+  <text x="745" y="260" font-family="Arial, sans-serif" font-size="10" fill="#9aa5b0" text-anchor="middle">Realistic: no</text>
+  <text x="745" y="274" font-family="Arial, sans-serif" font-size="10" fill="#9aa5b0" text-anchor="middle">Pérez et al. JMLR 2021</text>
+
+  <!-- Practical implication bar -->
+  <rect x="30" y="300" width="840" height="42" rx="6" fill="#d4f5e4" stroke="#1a7a44" stroke-width="1.2"/>
+  <text x="450" y="318" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1a7a44" text-anchor="middle">
+    Practical takeaway: finite precision = TC⁰ boundary explains failures on parity, length generalization, matrix operations
+  </text>
+  <text x="450" y="334" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">
+    Chain-of-thought = extra forward passes → escapes fixed-pass TC⁰ bound
+  </text>
+</svg>

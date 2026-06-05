@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" width="900" height="420">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#5b6675"/>
+    </marker>
+    <marker id="arr-b" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1a5fa8"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="420" fill="#f8f9fa" rx="8"/>
+  <text x="450" y="26" font-family="Arial, sans-serif" font-size="15" font-weight="bold"
+        fill="#1f4fa3" text-anchor="middle">Graphormer: Three Structural Encodings Injected into Attention</text>
+
+  <!-- Example graph: 5 nodes -->
+  <!-- Left panel: graph -->
+  <rect x="20" y="42" width="220" height="240" rx="8" fill="white" stroke="#dde3ea" stroke-width="1.5"/>
+  <text x="130" y="62" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1f4fa3" text-anchor="middle">Example Graph</text>
+
+  <!-- Nodes -->
+  <circle cx="130" cy="105" r="18" fill="#1a5fa8" opacity="0.9"/>
+  <text x="130" y="110" font-family="Arial, sans-serif" font-size="11" fill="white" text-anchor="middle" font-weight="bold">A</text>
+
+  <circle cx="75" cy="165" r="18" fill="#1a5fa8" opacity="0.9"/>
+  <text x="75" y="170" font-family="Arial, sans-serif" font-size="11" fill="white" text-anchor="middle" font-weight="bold">B</text>
+
+  <circle cx="185" cy="165" r="18" fill="#1a5fa8" opacity="0.9"/>
+  <text x="185" y="170" font-family="Arial, sans-serif" font-size="11" fill="white" text-anchor="middle" font-weight="bold">C</text>
+
+  <circle cx="75" cy="235" r="18" fill="#6a3abf" opacity="0.9"/>
+  <text x="75" y="240" font-family="Arial, sans-serif" font-size="11" fill="white" text-anchor="middle" font-weight="bold">D</text>
+
+  <circle cx="185" cy="235" r="18" fill="#1a5fa8" opacity="0.9"/>
+  <text x="185" y="240" font-family="Arial, sans-serif" font-size="11" fill="white" text-anchor="middle" font-weight="bold">E</text>
+
+  <!-- Edges with labels -->
+  <line x1="115" y1="117" x2="90" y2="150" stroke="#9aa5b0" stroke-width="1.8"/>
+  <line x1="145" y1="117" x2="170" y2="150" stroke="#9aa5b0" stroke-width="1.8"/>
+  <line x1="93" y1="165" x2="167" y2="165" stroke="#9aa5b0" stroke-width="1.8"/>
+  <line x1="75" y1="183" x2="75" y2="217" stroke="#9aa5b0" stroke-width="1.8"/>
+  <line x1="185" y1="183" x2="185" y2="217" stroke="#9aa5b0" stroke-width="1.8"/>
+
+  <!-- Degree labels -->
+  <text x="155" y="108" font-family="Arial, sans-serif" font-size="9" fill="#b5321a">deg=2</text>
+  <text x="37" y="165" font-family="Arial, sans-serif" font-size="9" fill="#b5321a">deg=3</text>
+  <text x="197" y="165" font-family="Arial, sans-serif" font-size="9" fill="#b5321a">deg=2</text>
+  <text x="37" y="237" font-family="Arial, sans-serif" font-size="9" fill="#b5321a">deg=1</text>
+  <text x="197" y="237" font-family="Arial, sans-serif" font-size="9" fill="#b5321a">deg=2</text>
+
+  <!-- Three encoding panels -->
+  <!-- Panel 1: Degree Centrality Encoding -->
+  <rect x="258" y="42" width="195" height="240" rx="8" fill="#fff5ee" stroke="#e8b49a" stroke-width="1.5"/>
+  <rect x="258" y="42" width="195" height="28" rx="8" fill="#b5321a"/>
+  <text x="355" y="60" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="white" text-anchor="middle">① Degree Centrality</text>
+
+  <text x="274" y="90" font-family="Arial, sans-serif" font-size="10.5" fill="#b5321a" font-weight="bold">Node embedding input:</text>
+  <text x="274" y="108" font-family="Arial, sans-serif" font-size="10.5" fill="#5b6675">h_i = x_i</text>
+  <text x="274" y="123" font-family="Arial, sans-serif" font-size="10.5" fill="#5b6675">    + z_in(deg_in(i))</text>
+  <text x="274" y="138" font-family="Arial, sans-serif" font-size="10.5" fill="#5b6675">    + z_out(deg_out(i))</text>
+
+  <text x="274" y="162" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">degree → learnable</text>
+  <text x="274" y="176" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">embedding lookup</text>
+  <text x="274" y="190" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">(separate in/out)</text>
+
+  <!-- Example node A: degree 2 -->
+  <rect x="274" y="202" width="165" height="65" rx="4" fill="white" stroke="#e8b49a" stroke-width="1"/>
+  <text x="356" y="220" font-family="Arial, sans-serif" font-size="10" fill="#b5321a" text-anchor="middle" font-weight="bold">Node A (deg=2):</text>
+  <text x="356" y="236" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">h_A = feat_A + z(2)</text>
+  <text x="356" y="252" font-family="Arial, sans-serif" font-size="9.5" fill="#9aa5b0" text-anchor="middle">each degree has its own</text>
+  <text x="356" y="264" font-family="Arial, sans-serif" font-size="9.5" fill="#9aa5b0" text-anchor="middle">learnable vector</text>
+
+  <!-- Panel 2: Spatial / SPD Encoding -->
+  <rect x="470" y="42" width="195" height="240" rx="8" fill="#eefbf3" stroke="#7abf9a" stroke-width="1.5"/>
+  <rect x="470" y="42" width="195" height="28" rx="8" fill="#1a7a44"/>
+  <text x="567" y="60" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="white" text-anchor="middle">② Spatial (SPD) Encoding</text>
+
+  <text x="486" y="90" font-family="Arial, sans-serif" font-size="10.5" fill="#1a7a44" font-weight="bold">Attention bias:</text>
+  <text x="486" y="108" font-family="Arial, sans-serif" font-size="10.5" fill="#5b6675">A_{ij} = (qᵢkⱼᵀ/√d)</text>
+  <text x="486" y="123" font-family="Arial, sans-serif" font-size="10.5" fill="#5b6675">         + b_φ(SPD(i,j))</text>
+
+  <text x="486" y="147" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">SPD(i,j) = shortest</text>
+  <text x="486" y="161" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">path distance</text>
+  <text x="486" y="175" font-family="Arial, sans-serif" font-size="10" fill="#1a7a44">φ: distance → scalar</text>
+  <text x="486" y="189" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">(learnable lookup)</text>
+
+  <!-- SPD matrix mini example -->
+  <rect x="486" y="202" width="165" height="65" rx="4" fill="white" stroke="#7abf9a" stroke-width="1"/>
+  <text x="568" y="218" font-family="Arial, sans-serif" font-size="10" fill="#1a7a44" text-anchor="middle" font-weight="bold">SPD examples:</text>
+  <text x="568" y="234" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">SPD(A,B)=1  SPD(A,D)=2</text>
+  <text x="568" y="249" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">SPD(B,E)=2  SPD(A,E)=2</text>
+  <text x="568" y="264" font-family="Arial, sans-serif" font-size="9.5" fill="#9aa5b0" text-anchor="middle">unreachable → special token</text>
+
+  <!-- Panel 3: Edge Encoding -->
+  <rect x="682" y="42" width="198" height="240" rx="8" fill="#f0eaff" stroke="#b09ada" stroke-width="1.5"/>
+  <rect x="682" y="42" width="198" height="28" rx="8" fill="#6a3abf"/>
+  <text x="781" y="60" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="white" text-anchor="middle">③ Edge (Path) Encoding</text>
+
+  <text x="698" y="90" font-family="Arial, sans-serif" font-size="10.5" fill="#6a3abf" font-weight="bold">Attention bias:</text>
+  <text x="698" y="108" font-family="Arial, sans-serif" font-size="10.5" fill="#5b6675">c_{ij} = (1/N_ij) ·</text>
+  <text x="698" y="123" font-family="Arial, sans-serif" font-size="10.5" fill="#5b6675">  Σ xₑₙ · wₙ</text>
+
+  <text x="698" y="147" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">Path i→j has N_ij edges</text>
+  <text x="698" y="161" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">each edge feature xₑ</text>
+  <text x="698" y="175" font-family="Arial, sans-serif" font-size="10" fill="#6a3abf">dotted with wₙ (weight)</text>
+  <text x="698" y="189" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">averaged over path</text>
+
+  <rect x="698" y="202" width="168" height="65" rx="4" fill="white" stroke="#b09ada" stroke-width="1"/>
+  <text x="781" y="218" font-family="Arial, sans-serif" font-size="10" fill="#6a3abf" text-anchor="middle" font-weight="bold">Attention: Q·Kᵀ + SPD + Edge</text>
+  <text x="781" y="234" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">All three biases summed</text>
+  <text x="781" y="249" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">before softmax</text>
+  <text x="781" y="264" font-family="Arial, sans-serif" font-size="9.5" fill="#9aa5b0" text-anchor="middle">no structural info lost</text>
+
+  <!-- Bottom bar: formula + citation -->
+  <rect x="20" y="296" width="860" height="95" rx="6" fill="white" stroke="#dde3ea" stroke-width="1.2"/>
+  <text x="450" y="316" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1f4fa3" text-anchor="middle">Complete Graphormer Attention Score</text>
+  <text x="450" y="336" font-family="Arial, sans-serif" font-size="12" fill="#1f4fa3" text-anchor="middle">A_{ij} = (q_i · k_j) / √d  +  b_φ(SPD(i,j))  +  c_{ij}</text>
+  <line x1="40" y1="342" x2="860" y2="342" stroke="#eee" stroke-width="1"/>
+  <text x="156" y="360" font-family="Arial, sans-serif" font-size="10.5" fill="#b5321a" text-anchor="middle">q_i · k_j / √d</text>
+  <text x="156" y="374" font-family="Arial, sans-serif" font-size="9.5" fill="#9aa5b0" text-anchor="middle">standard query-key score</text>
+  <text x="450" y="360" font-family="Arial, sans-serif" font-size="10.5" fill="#1a7a44" text-anchor="middle">b_φ(SPD(i,j))</text>
+  <text x="450" y="374" font-family="Arial, sans-serif" font-size="9.5" fill="#9aa5b0" text-anchor="middle">spatial encoding bias</text>
+  <text x="745" y="360" font-family="Arial, sans-serif" font-size="10.5" fill="#6a3abf" text-anchor="middle">c_{ij}</text>
+  <text x="745" y="374" font-family="Arial, sans-serif" font-size="9.5" fill="#9aa5b0" text-anchor="middle">edge encoding bias</text>
+  <text x="450" y="390" font-family="Arial, sans-serif" font-size="10" fill="#9aa5b0" text-anchor="middle">
+    Ying et al. "Do Transformers Really Perform Bad for Graph Representation?" NeurIPS 2021 (arXiv:2106.05234)
+  </text>
+  <text x="450" y="404" font-family="Arial, sans-serif" font-size="10" fill="#9aa5b0" text-anchor="middle">
+    Won KDD Cup 2021 molecular property prediction, OGB-LSC leaderboard
+  </text>
+</svg>

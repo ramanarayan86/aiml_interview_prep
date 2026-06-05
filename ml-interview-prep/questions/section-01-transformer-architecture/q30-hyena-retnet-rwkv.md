@@ -55,6 +55,11 @@ The three approaches below replace the attention operation with sub-quadratic pr
 
 ## 2 · Hyena — implicit long convolutions
 
+<div align="center">
+<img src="../../assets/q30/fig1-complexity-comparison.svg" alt="Log-log chart of training cost vs sequence length for Transformer, FlashAttention, Hyena, RetNet, RWKV with crossover at ~6K tokens" width="92%">
+<br><sub><b>Figure 1.</b> Training time scaling with sequence length N. Hyena (O(N log N)) and RetNet/RWKV (linear modes) become faster than FlashAttention above ~6 000 tokens, a key motivation for sub-quadratic architectures.</sub>
+</div>
+
 **Paper:** "Hyena Hierarchy: Towards Larger Convolutional Language Models"
 **Authors:** Michael Poli, Stefano Massaroli, Eric Nguyen, Daniel Y. Fu, Tri Dao, Stephen Baccus, Yoshua Bengio, Stefano Ermon, Christopher Ré
 **Venue:** ICML 2023
@@ -246,6 +251,11 @@ The follow-up paper (Peng et al., 2024; arXiv:2404.05892) introduces:
 ---
 
 ## 5 · Complexity comparison table
+
+<div align="center">
+<img src="../../assets/q30/fig2-retnet-three-modes.svg" alt="RetNet three modes: Parallel O(N²), Recurrent O(d²) per token, Chunked O(NC) training" width="92%">
+<br><sub><b>Figure 2.</b> RetNet's three computation modes. Parallel mode (training): O(N²d), identical complexity to standard attention. Recurrent mode (inference): O(d²) per token, constant KV cache. Chunked mode (efficient training): interpolates between the two.</sub>
+</div>
 
 | Model | Training time | Training memory | Inference / token | State size |
 |---|---|---|---|---|

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380" width="900" height="380">
+
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#5b6675"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="380" fill="#f8f9fa" rx="8"/>
+
+  <!-- Title -->
+  <text x="450" y="28" font-family="Arial, sans-serif" font-size="15" font-weight="bold"
+        fill="#1f4fa3" text-anchor="middle">Effect of λ on Attention Sparsity and Noise Cancellation</text>
+
+  <!-- ── Left: Standard attention heatmap ── -->
+  <rect x="30" y="45" width="380" height="295" rx="8" fill="#eef3fb" stroke="#93bde8" stroke-width="1.5"/>
+  <text x="220" y="66" font-family="Arial, sans-serif" font-size="12" font-weight="bold"
+        fill="#1a5fa8" text-anchor="middle">Standard Softmax Attention Map</text>
+  <text x="220" y="82" font-family="Arial, sans-serif" font-size="10.5" fill="#5b6675" text-anchor="middle">(diffuse, high-entropy weights)</text>
+
+  <!-- 8x8 attention heatmap — warm = high weight, cool = low -->
+  <!-- Row labels -->
+  <text x="58" y="115" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="end">Q₁</text>
+  <text x="58" y="140" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="end">Q₂</text>
+  <text x="58" y="165" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="end">Q₃</text>
+  <text x="58" y="190" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="end">Q₄</text>
+  <text x="58" y="215" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="end">Q₅</text>
+  <text x="58" y="240" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="end">Q₆</text>
+  <text x="58" y="265" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="end">Q₇</text>
+  <text x="58" y="290" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="end">Q₈</text>
+
+  <!-- Col labels -->
+  <text x="80" y="102" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">K₁</text>
+  <text x="105" y="102" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">K₂</text>
+  <text x="130" y="102" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">K₃</text>
+  <text x="155" y="102" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">K₄</text>
+  <text x="180" y="102" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">K₅</text>
+  <text x="205" y="102" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">K₆</text>
+  <text x="230" y="102" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">K₇</text>
+  <text x="255" y="102" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">K₈</text>
+
+  <!-- Heatmap cells — standard (moderately spread weights) -->
+  <!-- Row 1: signal at K3 -->
+  <rect x="63" y="105" width="22" height="22" fill="#ffe5cc"/><rect x="88" y="105" width="22" height="22" fill="#ffd5a8"/>
+  <rect x="113" y="105" width="22" height="22" fill="#e85a14" opacity="0.85"/><rect x="138" y="105" width="22" height="22" fill="#ffd5a8"/>
+  <rect x="163" y="105" width="22" height="22" fill="#ffe5cc"/><rect x="188" y="105" width="22" height="22" fill="#fff0e0"/>
+  <rect x="213" y="105" width="22" height="22" fill="#ffe5cc"/><rect x="238" y="105" width="22" height="22" fill="#fff0e0"/>
+  <!-- Row 2: spread across K1,K2,K5 -->
+  <rect x="63" y="130" width="22" height="22" fill="#e06030" opacity="0.7"/><rect x="88" y="130" width="22" height="22" fill="#ffc880"/>
+  <rect x="113" y="130" width="22" height="22" fill="#ffe5cc"/><rect x="138" y="130" width="22" height="22" fill="#ffd5a8"/>
+  <rect x="163" y="130" width="22" height="22" fill="#e06030" opacity="0.7"/><rect x="188" y="130" width="22" height="22" fill="#ffd5a8"/>
+  <rect x="213" y="130" width="22" height="22" fill="#ffe5cc"/><rect x="238" y="130" width="22" height="22" fill="#fff0e0"/>
+  <!-- Row 3: spread -->
+  <rect x="63" y="155" width="22" height="22" fill="#fff0e0"/><rect x="88" y="155" width="22" height="22" fill="#ffe5cc"/>
+  <rect x="113" y="155" width="22" height="22" fill="#ffd5a8"/><rect x="138" y="155" width="22" height="22" fill="#e85a14" opacity="0.8"/>
+  <rect x="163" y="155" width="22" height="22" fill="#ffc880"/><rect x="188" y="155" width="22" height="22" fill="#ffe5cc"/>
+  <rect x="213" y="155" width="22" height="22" fill="#fff0e0"/><rect x="238" y="155" width="22" height="22" fill="#fff0e0"/>
+  <!-- Row 4 -->
+  <rect x="63" y="180" width="22" height="22" fill="#ffe5cc"/><rect x="88" y="180" width="22" height="22" fill="#fff0e0"/>
+  <rect x="113" y="180" width="22" height="22" fill="#ffd5a8"/><rect x="138" y="180" width="22" height="22" fill="#ffc880"/>
+  <rect x="163" y="180" width="22" height="22" fill="#ffd5a8"/><rect x="188" y="180" width="22" height="22" fill="#e85a14" opacity="0.75"/>
+  <rect x="213" y="180" width="22" height="22" fill="#ffd5a8"/><rect x="238" y="180" width="22" height="22" fill="#ffe5cc"/>
+  <!-- Row 5-8: similar spread -->
+  <rect x="63" y="205" width="22" height="22" fill="#ffc880"/><rect x="88" y="205" width="22" height="22" fill="#ffe5cc"/>
+  <rect x="113" y="205" width="22" height="22" fill="#fff0e0"/><rect x="138" y="205" width="22" height="22" fill="#ffd5a8"/>
+  <rect x="163" y="205" width="22" height="22" fill="#ffc880"/><rect x="188" y="205" width="22" height="22" fill="#ffd5a8"/>
+  <rect x="213" y="205" width="22" height="22" fill="#e85a14" opacity="0.7"/><rect x="238" y="205" width="22" height="22" fill="#ffd5a8"/>
+
+  <rect x="63" y="230" width="22" height="22" fill="#ffe5cc"/><rect x="88" y="230" width="22" height="22" fill="#ffd5a8"/>
+  <rect x="113" y="230" width="22" height="22" fill="#ffe5cc"/><rect x="138" y="230" width="22" height="22" fill="#fff0e0"/>
+  <rect x="163" y="230" width="22" height="22" fill="#ffd5a8"/><rect x="188" y="230" width="22" height="22" fill="#ffc880"/>
+  <rect x="213" y="230" width="22" height="22" fill="#ffc880"/><rect x="238" y="230" width="22" height="22" fill="#e85a14" opacity="0.7"/>
+
+  <rect x="63" y="255" width="22" height="22" fill="#e85a14" opacity="0.6"/><rect x="88" y="255" width="22" height="22" fill="#ffd5a8"/>
+  <rect x="113" y="255" width="22" height="22" fill="#ffc880"/><rect x="138" y="255" width="22" height="22" fill="#ffd5a8"/>
+  <rect x="163" y="255" width="22" height="22" fill="#ffe5cc"/><rect x="188" y="255" width="22" height="22" fill="#fff0e0"/>
+  <rect x="213" y="255" width="22" height="22" fill="#ffd5a8"/><rect x="238" y="255" width="22" height="22" fill="#ffc880"/>
+
+  <rect x="63" y="280" width="22" height="22" fill="#fff0e0"/><rect x="88" y="280" width="22" height="22" fill="#ffe5cc"/>
+  <rect x="113" y="280" width="22" height="22" fill="#ffd5a8"/><rect x="138" y="280" width="22" height="22" fill="#ffc880"/>
+  <rect x="163" y="280" width="22" height="22" fill="#e85a14" opacity="0.65"/><rect x="188" y="280" width="22" height="22" fill="#ffd5a8"/>
+  <rect x="213" y="280" width="22" height="22" fill="#ffe5cc"/><rect x="238" y="280" width="22" height="22" fill="#ffd5a8"/>
+
+  <text x="220" y="318" font-family="Arial, sans-serif" font-size="10" fill="#b5321a" text-anchor="middle">High entropy — many tokens get weight</text>
+  <text x="220" y="332" font-family="Arial, sans-serif" font-size="10" fill="#b5321a" text-anchor="middle">Noise floor ≈ 1/N per token</text>
+
+  <!-- ── Right: Differential attention heatmap ── -->
+  <rect x="490" y="45" width="380" height="295" rx="8" fill="#eefbf3" stroke="#7abf9a" stroke-width="1.5"/>
+  <text x="680" y="66" font-family="Arial, sans-serif" font-size="12" font-weight="bold"
+        fill="#1a7a44" text-anchor="middle">Differential Attention Map</text>
+  <text x="680" y="82" font-family="Arial, sans-serif" font-size="10.5" fill="#5b6675" text-anchor="middle">(sparse, low-entropy — noise cancelled)</text>
+
+  <!-- Row labels -->
+  <text x="518" y="115" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="end">Q₁</text>
+  <text x="518" y="140" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="end">Q₂</text>
+  <text x="518" y="165" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="end">Q₃</text>
+  <text x="518" y="190" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="end">Q₄</text>
+  <text x="518" y="215" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="end">Q₅</text>
+  <text x="518" y="240" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="end">Q₆</text>
+  <text x="518" y="265" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="end">Q₇</text>
+  <text x="518" y="290" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="end">Q₈</text>
+
+  <!-- Col labels -->
+  <text x="540" y="102" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">K₁</text>
+  <text x="565" y="102" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">K₂</text>
+  <text x="590" y="102" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">K₃</text>
+  <text x="615" y="102" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">K₄</text>
+  <text x="640" y="102" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">K₅</text>
+  <text x="665" y="102" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">K₆</text>
+  <text x="690" y="102" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">K₇</text>
+  <text x="715" y="102" font-family="Arial, sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">K₈</text>
+
+  <!-- Heatmap cells — differential: sparse, strong peaks, near-zero elsewhere -->
+  <!-- Row 1: clear peak at K3 -->
+  <rect x="523" y="105" width="22" height="22" fill="#f0faf4"/><rect x="548" y="105" width="22" height="22" fill="#f0faf4"/>
+  <rect x="573" y="105" width="22" height="22" fill="#1a7a44" opacity="0.92"/><rect x="598" y="105" width="22" height="22" fill="#f0faf4"/>
+  <rect x="623" y="105" width="22" height="22" fill="#f0faf4"/><rect x="648" y="105" width="22" height="22" fill="#f0faf4"/>
+  <rect x="673" y="105" width="22" height="22" fill="#f0faf4"/><rect x="698" y="105" width="22" height="22" fill="#f0faf4"/>
+  <!-- Row 2: peak at K1 -->
+  <rect x="523" y="130" width="22" height="22" fill="#1a7a44" opacity="0.90"/><rect x="548" y="130" width="22" height="22" fill="#f0faf4"/>
+  <rect x="573" y="130" width="22" height="22" fill="#f0faf4"/><rect x="598" y="130" width="22" height="22" fill="#f0faf4"/>
+  <rect x="623" y="130" width="22" height="22" fill="#f0faf4"/><rect x="648" y="130" width="22" height="22" fill="#f0faf4"/>
+  <rect x="673" y="130" width="22" height="22" fill="#f0faf4"/><rect x="698" y="130" width="22" height="22" fill="#f0faf4"/>
+  <!-- Row 3: peak at K4 -->
+  <rect x="523" y="155" width="22" height="22" fill="#f0faf4"/><rect x="548" y="155" width="22" height="22" fill="#f0faf4"/>
+  <rect x="573" y="155" width="22" height="22" fill="#f0faf4"/><rect x="598" y="155" width="22" height="22" fill="#1a7a44" opacity="0.88"/>
+  <rect x="623" y="155" width="22" height="22" fill="#d4f0e4"/><rect x="648" y="155" width="22" height="22" fill="#f0faf4"/>
+  <rect x="673" y="155" width="22" height="22" fill="#f0faf4"/><rect x="698" y="155" width="22" height="22" fill="#f0faf4"/>
+  <!-- Row 4: K6 -->
+  <rect x="523" y="180" width="22" height="22" fill="#f0faf4"/><rect x="548" y="180" width="22" height="22" fill="#f0faf4"/>
+  <rect x="573" y="180" width="22" height="22" fill="#f0faf4"/><rect x="598" y="180" width="22" height="22" fill="#f0faf4"/>
+  <rect x="623" y="180" width="22" height="22" fill="#f0faf4"/><rect x="648" y="180" width="22" height="22" fill="#1a7a44" opacity="0.87"/>
+  <rect x="673" y="180" width="22" height="22" fill="#f0faf4"/><rect x="698" y="180" width="22" height="22" fill="#f0faf4"/>
+  <!-- Row 5: K5 -->
+  <rect x="523" y="205" width="22" height="22" fill="#f0faf4"/><rect x="548" y="205" width="22" height="22" fill="#f0faf4"/>
+  <rect x="573" y="205" width="22" height="22" fill="#f0faf4"/><rect x="598" y="205" width="22" height="22" fill="#f0faf4"/>
+  <rect x="623" y="205" width="22" height="22" fill="#1a7a44" opacity="0.85"/><rect x="648" y="205" width="22" height="22" fill="#f0faf4"/>
+  <rect x="673" y="205" width="22" height="22" fill="#f0faf4"/><rect x="698" y="205" width="22" height="22" fill="#f0faf4"/>
+  <!-- Row 6: K8 -->
+  <rect x="523" y="230" width="22" height="22" fill="#f0faf4"/><rect x="548" y="230" width="22" height="22" fill="#f0faf4"/>
+  <rect x="573" y="230" width="22" height="22" fill="#f0faf4"/><rect x="598" y="230" width="22" height="22" fill="#f0faf4"/>
+  <rect x="623" y="230" width="22" height="22" fill="#f0faf4"/><rect x="648" y="230" width="22" height="22" fill="#f0faf4"/>
+  <rect x="673" y="230" width="22" height="22" fill="#f0faf4"/><rect x="698" y="230" width="22" height="22" fill="#1a7a44" opacity="0.86"/>
+  <!-- Row 7: K1 -->
+  <rect x="523" y="255" width="22" height="22" fill="#1a7a44" opacity="0.83"/><rect x="548" y="255" width="22" height="22" fill="#f0faf4"/>
+  <rect x="573" y="255" width="22" height="22" fill="#f0faf4"/><rect x="598" y="255" width="22" height="22" fill="#f0faf4"/>
+  <rect x="623" y="255" width="22" height="22" fill="#f0faf4"/><rect x="648" y="255" width="22" height="22" fill="#f0faf4"/>
+  <rect x="673" y="255" width="22" height="22" fill="#f0faf4"/><rect x="698" y="255" width="22" height="22" fill="#f0faf4"/>
+  <!-- Row 8: K5 -->
+  <rect x="523" y="280" width="22" height="22" fill="#f0faf4"/><rect x="548" y="280" width="22" height="22" fill="#f0faf4"/>
+  <rect x="573" y="280" width="22" height="22" fill="#f0faf4"/><rect x="598" y="280" width="22" height="22" fill="#f0faf4"/>
+  <rect x="623" y="280" width="22" height="22" fill="#1a7a44" opacity="0.82"/><rect x="648" y="280" width="22" height="22" fill="#f0faf4"/>
+  <rect x="673" y="280" width="22" height="22" fill="#f0faf4"/><rect x="698" y="280" width="22" height="22" fill="#f0faf4"/>
+
+  <text x="680" y="318" font-family="Arial, sans-serif" font-size="10" fill="#1a7a44" text-anchor="middle">Low entropy — weight concentrated on 1 token</text>
+  <text x="680" y="332" font-family="Arial, sans-serif" font-size="10" fill="#1a7a44" text-anchor="middle">Background noise cancelled by subtraction</text>
+
+  <!-- VS arrow -->
+  <text x="455" y="200" font-family="Arial, sans-serif" font-size="18" font-weight="bold"
+        fill="#9aa5b0" text-anchor="middle">→</text>
+
+  <!-- Legend -->
+  <rect x="30" y="352" width="14" height="14" fill="#e85a14" opacity="0.8"/>
+  <text x="50" y="363" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">High weight (noise + signal)</text>
+  <rect x="200" y="352" width="14" height="14" fill="#1a7a44" opacity="0.88"/>
+  <text x="220" y="363" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">High weight (signal only)</text>
+  <rect x="370" y="352" width="14" height="14" fill="#f0faf4" stroke="#7abf9a" stroke-width="0.8"/>
+  <text x="390" y="363" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">Near-zero (noise cancelled)</text>
+
+  <text x="450" y="372" font-family="Arial, sans-serif" font-size="10" fill="#9aa5b0" text-anchor="middle">
+    Ye et al., arXiv:2410.05258 · Differential Transformer, ICLR 2025
+  </text>
+</svg>

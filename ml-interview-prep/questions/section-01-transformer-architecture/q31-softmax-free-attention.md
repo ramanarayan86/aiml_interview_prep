@@ -69,6 +69,11 @@ The $\sqrt{d}$ scaling was introduced by Vaswani et al. (2017) because without i
 
 ## 2 · What breaks without softmax
 
+<div align="center">
+<img src="../../assets/q31/fig1-softmax-role.svg" alt="Side-by-side bar charts: spiky attention weights with softmax vs flat weights without softmax, with properties listed" width="92%">
+<br><sub><b>Figure 1.</b> Softmax produces spiky, low-entropy attention weights (left) that concentrate on relevant tokens. Without softmax (right), weights are flatter and unbounded — blurring retrieval, especially at long context.</sub>
+</div>
+
 Without softmax, the output $\sum_j e_{ij} \cdot v_j$ (raw dot products times values) is:
 - **Unbounded:** A single large score can dominate with arbitrary magnitude.
 - **Non-normalized:** The output is no longer a convex combination; it can have arbitrary scale.
@@ -239,6 +244,11 @@ The gap narrows significantly at large scale and with architectural improvements
 | Sparsemax | Euclidean projection to simplex | $O(N^2)$ | Small | Martins & Astudillo 2016 |
 | RWKV WKV | Time-decay weighted sum | $O(N)$ training | Small at scale | Peng et al. 2023 |
 | RetNet retention | Geometric decay | $O(N^2)$ / $O(1)$ | Small at scale | Sun et al. 2023 |
+
+<div align="center">
+<img src="../../assets/q31/fig2-softmax-free-spectrum.svg" alt="Quality vs efficiency scatter plot positioning softmax attention, linear attention, Performers, SOFT, RWKV/RetNet, cosine attention" width="92%">
+<br><sub><b>Figure 2.</b> Quality–efficiency landscape for softmax and softmax-free attention variants. The ideal region (high quality, high efficiency) is top-right. RWKV/RetNet approach it at scale; linear attention sacrifices quality for O(N) inference; Performers balance both.</sub>
+</div>
 
 ---
 

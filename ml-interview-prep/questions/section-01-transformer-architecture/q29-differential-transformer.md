@@ -58,6 +58,11 @@ Softmax is **sum-preserving**: the output is always a convex combination of valu
 
 ## 2 · The problem, told as a story
 
+<div align="center">
+<img src="../../assets/q29/fig1-differential-attention-mechanism.svg" alt="Standard MHA vs Differential MHA: Q1/K1/Q2/K2 split, subtraction, lambda, RMSNorm" width="92%">
+<br><sub><b>Figure 1.</b> Standard multi-head attention (left) vs. Differential attention (right). Two softmax attention maps are computed and subtracted with a learnable weight λ, canceling the shared noise floor.</sub>
+</div>
+
 Imagine a 10 000-token document. A question asks for the value of a specific variable defined on line 3. A perfect attention map would assign weight 1.0 to that single line and 0.0 everywhere else. In practice, softmax smears weight across hundreds of lines because the exponential normalization is global: every token "competes," but the denominator forces the distribution to be wide. This is why:
 
 - LLMs hallucinate facts buried in long context.
@@ -134,6 +139,11 @@ $$
 ---
 
 ## 6 · Intuition & figures
+
+<div align="center">
+<img src="../../assets/q29/fig2-lambda-sparsity-effect.svg" alt="Side-by-side 8×8 attention heatmaps: diffuse standard vs sparse differential attention" width="92%">
+<br><sub><b>Figure 2.</b> Attention weight heatmaps for a representative head: standard softmax attention (left) diffuses weight broadly, while differential attention (right) concentrates it on 1–3 positions, dramatically reducing "attention noise."</sub>
+</div>
 
 **The noise-canceling headphone analogy.** A noise-canceling headphone has two microphones: one facing the environment (signal + noise) and one facing inward (mostly noise). The electronics subtract the inward signal from the outward signal, canceling shared noise. Differential attention does the same: $Q_1 K_1^\top$ is the "outward mic" and $Q_2 K_2^\top$ is the "inward mic."
 

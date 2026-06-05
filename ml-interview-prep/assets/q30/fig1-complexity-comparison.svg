@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" width="900" height="400">
+
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#5b6675"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="400" fill="#f8f9fa" rx="8"/>
+  <text x="450" y="26" font-family="Arial, sans-serif" font-size="15" font-weight="bold"
+        fill="#1f4fa3" text-anchor="middle">Training Complexity vs Sequence Length: Transformer, Hyena, RetNet, RWKV</text>
+
+  <!-- Plot area: x=80..830, y=45..310 -->
+  <!-- Axes -->
+  <line x1="80" y1="310" x2="840" y2="310" stroke="#5b6675" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="80" y1="310" x2="80" y2="42" stroke="#5b6675" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="460" y="340" font-family="Arial, sans-serif" font-size="12" fill="#5b6675" text-anchor="middle">Sequence length N (log scale)</text>
+  <text x="22" y="180" font-family="Arial, sans-serif" font-size="12" fill="#5b6675" text-anchor="middle"
+        transform="rotate(-90 22 180)">Training cost (log scale)</text>
+
+  <!-- X-axis tick labels -->
+  <text x="140" y="326" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">512</text>
+  <text x="250" y="326" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">1K</text>
+  <text x="390" y="326" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">4K</text>
+  <text x="530" y="326" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">16K</text>
+  <text x="670" y="326" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">64K</text>
+  <text x="790" y="326" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">256K</text>
+
+  <!-- Grid lines (light) -->
+  <line x1="140" y1="310" x2="140" y2="50" stroke="#dde3ea" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="250" y1="310" x2="250" y2="50" stroke="#dde3ea" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="390" y1="310" x2="390" y2="50" stroke="#dde3ea" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="530" y1="310" x2="530" y2="50" stroke="#dde3ea" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="670" y1="310" x2="670" y2="50" stroke="#dde3ea" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="790" y1="310" x2="790" y2="50" stroke="#dde3ea" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- === Transformer O(N^2): quadratic curve === -->
+  <!-- Points: (140,290),(250,270),(390,220),(530,155),(670,72),(790,off-chart) -->
+  <polyline points="140,290 250,270 390,220 530,155 670,72" stroke="#b5321a" stroke-width="2.5" fill="none" stroke-dasharray="0"/>
+  <!-- Extend dashed beyond chart (implied OOM) -->
+  <polyline points="670,72 720,50" stroke="#b5321a" stroke-width="2.5" fill="none" stroke-dasharray="5,3"/>
+  <text x="695" y="66" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#b5321a">Transformer O(N²)</text>
+
+  <!-- === FlashAttention O(N^2) — same asymptotic, lower constant === -->
+  <polyline points="140,293 250,274 390,225 530,161 670,79" stroke="#e8803a" stroke-width="2" fill="none" stroke-dasharray="6,3"/>
+  <text x="695" y="90" font-family="Arial, sans-serif" font-size="10.5" fill="#e8803a">FlashAttn O(N²) IO-aware</text>
+
+  <!-- === Hyena O(N log N) === -->
+  <polyline points="140,295 250,282 390,262 530,243 670,224 790,210" stroke="#1a5fa8" stroke-width="2.5" fill="none"/>
+  <text x="795" y="210" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1a5fa8"> Hyena O(N log N)</text>
+
+  <!-- === RetNet chunked O(NC) === -->
+  <polyline points="140,296 250,283 390,265 530,248 670,231 790,218" stroke="#6a3abf" stroke-width="2.5" fill="none" stroke-dasharray="7,3"/>
+  <text x="795" y="235" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#6a3abf"> RetNet O(NC)</text>
+
+  <!-- === RWKV O(N) === -->
+  <polyline points="140,297 250,285 390,268 530,252 670,236 790,224" stroke="#1a7a44" stroke-width="2.5" fill="none"/>
+  <text x="795" y="257" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1a7a44"> RWKV O(N)</text>
+
+  <!-- Crossover annotation: Hyena beats Transformer at ~6K -->
+  <line x1="420" y1="250" x2="420" y2="215" stroke="#1a5fa8" stroke-width="1" stroke-dasharray="3,2"/>
+  <rect x="330" y="185" width="180" height="28" rx="4" fill="#eef3fb" stroke="#93bde8" stroke-width="1"/>
+  <text x="420" y="199" font-family="Arial, sans-serif" font-size="10" fill="#1a5fa8" text-anchor="middle">Hyena crosses Transformer</text>
+  <text x="420" y="211" font-family="Arial, sans-serif" font-size="10" fill="#1a5fa8" text-anchor="middle">at N ≈ 4K–8K tokens</text>
+
+  <!-- Source note -->
+  <text x="450" y="380" font-family="Arial, sans-serif" font-size="10" fill="#9aa5b0" text-anchor="middle">
+    Poli et al. 2023 (Hyena) · Sun et al. 2023 (RetNet) · Peng et al. 2023 (RWKV) · curves are schematic (log-log scale)
+  </text>
+</svg>

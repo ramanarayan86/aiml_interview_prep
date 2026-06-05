@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380" width="900" height="380">
+  <rect width="900" height="380" fill="#f8f9fa" rx="8"/>
+  <text x="450" y="26" font-family="Arial, sans-serif" font-size="15" font-weight="bold"
+        fill="#1f4fa3" text-anchor="middle">Softmax-Free Attention Methods: Quality vs Efficiency Spectrum</text>
+
+  <!-- Axes: x = quality (left=low, right=high), y = efficiency (bottom=low, top=high) -->
+  <!-- Plot area x=80..830, y=50..310 -->
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#5b6675"/>
+    </marker>
+  </defs>
+
+  <line x1="80" y1="310" x2="840" y2="310" stroke="#5b6675" stroke-width="1.8" marker-end="url(#arr)"/>
+  <line x1="80" y1="310" x2="80" y2="42" stroke="#5b6675" stroke-width="1.8" marker-end="url(#arr)"/>
+  <text x="460" y="338" font-family="Arial, sans-serif" font-size="12" fill="#5b6675" text-anchor="middle">Language modeling quality →</text>
+  <text x="22" y="180" font-family="Arial, sans-serif" font-size="12" fill="#5b6675" text-anchor="middle"
+        transform="rotate(-90 22 180)">Inference efficiency →</text>
+
+  <!-- Quadrant shading -->
+  <rect x="80" y="180" width="375" height="130" fill="#fff5ee" opacity="0.5"/>
+  <rect x="455" y="180" width="375" height="130" fill="#f0fff5" opacity="0.5"/>
+  <rect x="80"  y="50" width="375" height="130" fill="#fff8d4" opacity="0.5"/>
+  <rect x="455" y="50" width="375" height="130" fill="#eef3fb" opacity="0.5"/>
+
+  <!-- Softmax attention (gold standard) -->
+  <circle cx="750" cy="270" r="22" fill="#b5321a" opacity="0.9"/>
+  <text x="750" y="265" font-family="Arial, sans-serif" font-size="10" fill="white" text-anchor="middle" font-weight="bold">Softmax</text>
+  <text x="750" y="277" font-family="Arial, sans-serif" font-size="9" fill="white" text-anchor="middle">O(N²)</text>
+  <text x="750" y="302" font-family="Arial, sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">Reference</text>
+
+  <!-- FlashAttention (same quality, better IO) -->
+  <circle cx="740" cy="220" r="18" fill="#e8803a" opacity="0.88"/>
+  <text x="740" y="215" font-family="Arial, sans-serif" font-size="9.5" fill="white" text-anchor="middle" font-weight="bold">Flash</text>
+  <text x="740" y="226" font-family="Arial, sans-serif" font-size="8.5" fill="white" text-anchor="middle">Attn</text>
+  <text x="740" y="244" font-family="Arial, sans-serif" font-size="9.5" fill="#5b6675" text-anchor="middle">IO-aware</text>
+
+  <!-- Linear Attention -->
+  <circle cx="230" cy="200" r="20" fill="#1a5fa8" opacity="0.85"/>
+  <text x="230" y="195" font-family="Arial, sans-serif" font-size="9.5" fill="white" text-anchor="middle" font-weight="bold">Linear</text>
+  <text x="230" y="207" font-family="Arial, sans-serif" font-size="8.5" fill="white" text-anchor="middle">Attn</text>
+  <text x="230" y="226" font-family="Arial, sans-serif" font-size="9.5" fill="#5b6675" text-anchor="middle">O(N), big gap</text>
+
+  <!-- Performers FAVOR+ -->
+  <circle cx="520" cy="185" r="20" fill="#6a3abf" opacity="0.88"/>
+  <text x="520" y="180" font-family="Arial, sans-serif" font-size="9.5" fill="white" text-anchor="middle" font-weight="bold">Perf-</text>
+  <text x="520" y="191" font-family="Arial, sans-serif" font-size="9.5" fill="white" text-anchor="middle">ormers</text>
+  <text x="520" y="210" font-family="Arial, sans-serif" font-size="9.5" fill="#5b6675" text-anchor="middle">FAVOR+</text>
+
+  <!-- SOFT -->
+  <circle cx="420" cy="195" r="17" fill="#7a9abf" opacity="0.85"/>
+  <text x="420" y="190" font-family="Arial, sans-serif" font-size="9.5" fill="white" text-anchor="middle" font-weight="bold">SOFT</text>
+  <text x="420" y="201" font-family="Arial, sans-serif" font-size="8.5" fill="white" text-anchor="middle">Gauss</text>
+  <text x="420" y="218" font-family="Arial, sans-serif" font-size="9.5" fill="#5b6675" text-anchor="middle">Vision</text>
+
+  <!-- Sparsemax -->
+  <circle cx="650" cy="275" r="17" fill="#9aa5b0" opacity="0.85"/>
+  <text x="650" y="270" font-family="Arial, sans-serif" font-size="9.5" fill="white" text-anchor="middle">Sparse</text>
+  <text x="650" y="281" font-family="Arial, sans-serif" font-size="8.5" fill="white" text-anchor="middle">max</text>
+  <text x="650" y="298" font-family="Arial, sans-serif" font-size="9.5" fill="#5b6675" text-anchor="middle">O(N²)</text>
+
+  <!-- RWKV / RetNet at large scale -->
+  <circle cx="590" cy="105" r="22" fill="#1a7a44" opacity="0.88"/>
+  <text x="590" y="100" font-family="Arial, sans-serif" font-size="9.5" fill="white" text-anchor="middle" font-weight="bold">RWKV</text>
+  <text x="590" y="111" font-family="Arial, sans-serif" font-size="8.5" fill="white" text-anchor="middle">RetNet</text>
+  <text x="590" y="132" font-family="Arial, sans-serif" font-size="9.5" fill="#5b6675" text-anchor="middle">O(1)/token</text>
+
+  <!-- Cosine (Swin v2) -->
+  <circle cx="710" cy="245" r="17" fill="#c06030" opacity="0.80"/>
+  <text x="710" y="240" font-family="Arial, sans-serif" font-size="9.5" fill="white" text-anchor="middle">Cosine</text>
+  <text x="710" y="251" font-family="Arial, sans-serif" font-size="8.5" fill="white" text-anchor="middle">Swin v2</text>
+  <text x="710" y="268" font-family="Arial, sans-serif" font-size="9.5" fill="#5b6675" text-anchor="middle">stability</text>
+
+  <!-- Annotations -->
+  <text x="267" y="290" font-family="Arial, sans-serif" font-size="10" fill="#b5321a" text-anchor="middle">← quality gap</text>
+  <text x="267" y="303" font-family="Arial, sans-serif" font-size="10" fill="#b5321a" text-anchor="middle">at small scale</text>
+  <text x="650" y="155" font-family="Arial, sans-serif" font-size="10" fill="#1a7a44" text-anchor="middle">closes at</text>
+  <text x="650" y="167" font-family="Arial, sans-serif" font-size="10" fill="#1a7a44" text-anchor="middle">≥7B params</text>
+
+  <!-- Legend box -->
+  <rect x="82" y="52" width="200" height="90" rx="5" fill="white" stroke="#dde3ea" stroke-width="1"/>
+  <text x="182" y="70" font-family="Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#5b6675" text-anchor="middle">Quadrant guide</text>
+  <rect x="92" y="78" width="10" height="10" fill="#fff5ee" stroke="#e8b49a" stroke-width="0.8"/>
+  <text x="108" y="88" font-family="Arial, sans-serif" font-size="9.5" fill="#5b6675">Low quality, high efficiency</text>
+  <rect x="92" y="96" width="10" height="10" fill="#f0fff5" stroke="#7abf9a" stroke-width="0.8"/>
+  <text x="108" y="106" font-family="Arial, sans-serif" font-size="9.5" fill="#5b6675">High quality, high efficiency ★</text>
+  <rect x="92" y="114" width="10" height="10" fill="#eef3fb" stroke="#93bde8" stroke-width="0.8"/>
+  <text x="108" y="124" font-family="Arial, sans-serif" font-size="9.5" fill="#5b6675">High quality, low efficiency</text>
+  <rect x="92" y="132" width="10" height="10" fill="#fff8d4" stroke="#e8d87a" stroke-width="0.8"/>
+  <text x="108" y="142" font-family="Arial, sans-serif" font-size="9.5" fill="#5b6675">Low quality, low efficiency</text>
+
+  <text x="450" y="362" font-family="Arial, sans-serif" font-size="10" fill="#9aa5b0" text-anchor="middle">
+    Katharopoulos 2020 · Choromanski 2021 · Lu 2021 · Liu 2022 · Peng 2023 · Sun 2023 · Qin 2023
+  </text>
+</svg>
