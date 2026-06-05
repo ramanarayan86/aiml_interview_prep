@@ -118,6 +118,8 @@ ml-interview-prep/
         ├── q34-graph-transformers.md         ✅
         └── q40-nan-debugging.md              📝 (scaffold)
         (Q35–Q39, Q41–Q42 scaffolded — no file yet)
+    └── section-02-tokenization-and-embeddings/
+        └── README.md                ← section index (32 questions scaffolded)
 ```
 
 Each section is a folder with its own index; each question is one Markdown file; figures live under `assets/qNN/` — exactly 2 SVGs per question for Q23–Q34. Adding a new question never touches any existing file.
@@ -146,7 +148,7 @@ All 34 full answers follow the same first-principles template: 20-second answer 
 | # | Section | Focus | Questions | Status |
 |---|---------|-------|:---------:|:------:|
 | 1 | [**Transformer Architecture Fundamentals**](./questions/section-01-transformer-architecture/README.md) | attention, norms, position, FFN, variants | 42 | ✅ 34/42 · 📝 8/42 |
-| 2 | [Tokenization and Embeddings](#section-2--tokenization-and-embeddings) | BPE/WordPiece/Unigram, byte‑level, glitch tokens | 10 | 📝 |
+| 2 | [**Tokenization and Embeddings**](./questions/section-02-tokenization-and-embeddings/README.md) | BPE/WordPiece/Unigram, byte‑level, glitch tokens | 32 | 📝 0/32 |
 | 3 | [Pretraining and Scaling Laws](#section-3--pretraining-and-scaling-laws) | Chinchilla, data/compute optima, emergence | 10 | 📝 |
 | 4 | [Post‑training: SFT, RLHF, DPO and Beyond](#section-4--post-training-sft-rlhf-dpo-and-beyond) | reward models, PPO, DPO/IPO/KTO | 10 | 📝 |
 | 5 | [Reasoning, CoT, and Inference‑Time Compute](#section-5--reasoning-cot-and-inference-time-compute) | CoT, self‑consistency, search, o‑series | 10 | 📝 |
