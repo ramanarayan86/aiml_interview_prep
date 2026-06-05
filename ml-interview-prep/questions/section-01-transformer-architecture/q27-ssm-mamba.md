@@ -38,8 +38,12 @@
 11. [Variants and comparison table](#11--variants-and-comparison-table)
 12. [Reference implementation (PyTorch)](#12--reference-implementation-pytorch)
 13. [Worked numerical example](#13--worked-numerical-example)
-14. [Interview drill](#14--interview-drill)
-15. [References](#15--references)
+14. [Where it's used / where it breaks](#14--where-its-used--where-it-breaks)
+15. [Cousins & alternatives](#15--cousins--alternatives)
+16. [Interview drill](#16--interview-drill)
+17. [Common misconceptions](#17--common-misconceptions)
+18. [One-screen summary](#18--one-screen-summary)
+19. [References](#19--references)
 
 ---
 
@@ -774,7 +778,49 @@ The non-selective model is 10× weaker in response amplitude (small constant $\D
 
 ---
 
-## 14 · Interview drill
+## 14 · Where it's used / where it breaks
+
+**Deployed or heavily used:**
+
+| Model | SSM component | Notes |
+|---|---|---|
+| **Mamba** (Gu & Dao 2023) | Selective scan, input-dependent A/B/C | Open-source; competitive with Transformers on language modeling |
+| **Mamba-2** (Dao & Gu 2024) | SSD with matrix-valued state | ICML 2024; enables larger state dimension (16→64+) |
+| **Jamba** (AI21 Labs 2024) | Mamba + attention hybrid | Production LLM; 1/8 attention layers, rest Mamba + MoE |
+| **Zamba** (Zyphra 2024) | Mamba blocks + shared attention | Efficient hybrid; strong at 7B scale |
+| **Griffin** (Google DeepMind 2024) | Gated linear recurrence (RG-LRU) | Local attention + linear recurrence; matches Mamba quality |
+| **Falcon Mamba** (TII 2024) | Mamba-only LLM | First production pure-SSM 7B model |
+| **Hyena-DNA** | Hyena convolution | Genomics; handles 1M+ bp sequences |
+
+**Where Mamba / SSMs break or underperform:**
+
+1. **Associative recall.** Retrieving a specific arbitrary past token (needle-in-a-haystack, in-context key-value lookup) is provably hard for bounded-state SSMs. Even selective scan with d_state=64 degrades on >1K associations.
+
+2. **Many-shot in-context learning.** GPT-4 with 50 examples outperforms Mamba with 50 examples because attention directly accesses all 50 — Mamba must compress them into a fixed state.
+
+3. **Code generation with long imports.** Tasks requiring exact recall of function signatures defined hundreds of tokens earlier show larger gaps than perplexity suggests.
+
+4. **Very short sequences (<128 tokens).** The recurrent overhead of Mamba's selective scan kernel is non-trivial; at short context, standard attention is competitive or faster.
+
+---
+
+## 15 · Cousins & alternatives
+
+| Method | Key idea | Relation to Mamba |
+|---|---|---|
+| **S4** (Gu et al. 2022) | Fixed-A SSM with HiPPO init | Predecessor; Mamba = S4 + input-dependent A/B/C |
+| **H3** (Fu et al. 2023) | Shift-SSM + multiplicative gate | Pre-Mamba bridge; adds "shift" SSM for recall |
+| **RWKV** (Peng 2023) | WKV time-decay recurrence | Parallel development; similar inference cost, different mechanism |
+| **RetNet** (Sun 2023) | Retention = SSM with fixed decay | Formally equivalent to diagonal-A Mamba with fixed γ |
+| **Hyena** (Poli 2023) | Implicit long convolution via FFT | Cousin: SSM is special case of convolution; FFT training |
+| **GLA** (Yang et al. 2024) | Gated linear attention with data-dependent decay | Bridges linear attention and SSM via gating |
+| **Hawk / Griffin** (De et al. 2024) | RG-LRU recurrence + local attention | Google alternative; hybrid with sliding-window attention |
+| **Mamba-2 / SSD** | Scalar-times-identity A matrix | Mamba successor; connects SSM ↔ linear attention |
+| **Hybrid (Jamba/Zamba)** | Interleave Mamba + attention | Best production approach; attention for retrieval, Mamba for bulk |
+
+---
+
+## 16 · Interview drill
 
 <details>
 <summary><b>Q: What is the fundamental limitation of LTI (classic) SSMs, and how does Mamba fix it?</b></summary>
@@ -820,7 +866,35 @@ The bottleneck is **HBM (high-bandwidth memory) bandwidth**. A naive parallel sc
 
 ---
 
-## 15 · References
+## 17 · Common misconceptions
+
+| Misconception | Reality |
+|---|---|
+| "Mamba has no attention mechanism" | Mamba has no *softmax* attention, but the selective scan is a form of content-routing — the input-dependent A, B, C matrices serve an attention-like gating role |
+| "SSMs are RNNs" | SSMs are a special case of linear RNNs (linear state transitions). Standard RNNs (LSTM, GRU) use nonlinear state updates. The linearity of SSMs enables parallel prefix scan training |
+| "Mamba is always faster than Transformers" | At training time on short sequences, Mamba is often *slower* due to kernel overhead. Mamba's efficiency advantage is at inference time (constant KV cache) and long-sequence training (>4K tokens) |
+| "Selective scan closes the expressivity gap with attention" | Selectivity narrows but does not close the gap. The fundamental bottleneck is state size: $d_{\text{state}}$-dimensional state cannot represent more than $d_{\text{state}}$ independent patterns |
+| "Mamba-2 is just a faster Mamba" | Mamba-2 introduces State Space Duality — a theoretical unification of SSMs and linear attention. The scalar-times-identity A constraint is architecturally meaningful, not just an optimization |
+
+---
+
+## 18 · One-screen summary
+
+> **Linear time-invariant (LTI) SSMs** maintain $h_t = \bar{A} h_{t-1} + \bar{B} x_t$, $y_t = C h_t$ with fixed $\bar{A}$, $\bar{B}$, $C$ — enabling FFT-based $O(N \log N)$ training but incapable of selective memory.
+>
+> **Mamba's selective scan** makes $\bar{B}_t$, $C_t$, $\Delta_t$ input-dependent, breaking LTI. Training uses parallel prefix scan ($O(N \log N)$, hardware-aware). Inference: $O(d_{\text{state}})$/token, constant memory.
+>
+> **HiPPO initialization** sets $A$ to optimally memorize polynomial projections of history — providing principled initialization vs. random $A$.
+>
+> **Mamba-2 / SSD:** When $A_t = a_t I$ (scalar-times-identity), the SSM is equivalent to a form of linear attention. This enables matmul-based kernels and proves the SSM ↔ attention duality.
+>
+> **The recall gap:** SSMs are provably hard for associative recall ($d_{\text{state}} = \Omega(M)$ for $M$ associations). Hybrid models (1/8 attention) resolve this.
+>
+> **Interview rule of thumb:** "Can the task be solved by smooth integration of past context?" → SSM is efficient. "Does the task require retrieving a specific arbitrary past token?" → Use attention (or a hybrid with attention layers).
+
+---
+
+## 19 · References
 
 1. Gu, A., Goel, K., Ré, C. — **Efficiently Modeling Long Sequences with Structured State Spaces (S4)** (2021). *ICLR 2022 / arXiv:2111.00396.* — introduces S4 with HiPPO initialization, DPLR parameterization of A, and the recurrence–convolution duality.
 2. Gu, A., Dao, T. — **Mamba: Linear-Time Sequence Modeling with Selective State Spaces** (2023). *arXiv:2312.00752.* — introduces selective scan, input-dependent B/C/Δ, hardware-aware scan in SRAM; the core Mamba paper.

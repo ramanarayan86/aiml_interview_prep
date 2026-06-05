@@ -35,10 +35,12 @@
 8. [Comparison table](#8--comparison-table)
 9. [When softmax-free attention is viable](#9--when-softmax-free-attention-is-viable)
 10. [Worked numerical example](#10--worked-numerical-example)
-11. [Interview drill](#11--interview-drill)
-12. [Common misconceptions](#12--common-misconceptions)
-13. [One-screen summary](#13--one-screen-summary)
-14. [References](#14--references)
+11. [Where it's used / where it breaks](#11--where-its-used--where-it-breaks)
+12. [Cousins & alternatives](#12--cousins--alternatives)
+13. [Interview drill](#13--interview-drill)
+14. [Common misconceptions](#14--common-misconceptions)
+15. [One-screen summary](#15--one-screen-summary)
+16. [References](#16--references)
 
 ---
 
@@ -325,7 +327,49 @@ The outputs differ: linear attention is a weaker approximation of softmax ($\Del
 
 ---
 
-## 11 · Interview drill
+## 11 · Where it's used / where it breaks
+
+**Methods in production / wide use:**
+
+| Method | Deployment context | Notes |
+|---|---|---|
+| **Cosine attention** (Swin v2) | Vision Transformers — Swin v2, DALL-E 3 backbone | Stability fix for large-window attention; softmax retained |
+| **RWKV WKV** | Open-source LLMs (RWKV-4–6, 1.5B–14B) | Softmax-free recurrence; linear training complexity |
+| **RetNet retention** | Research models; informs Mamba-2 SSD | Geometric decay replaces softmax; three training modes |
+| **Linear attention** (ELU+1) | Rarely deployed standalone; used as component in hybrids | Significant quality gap makes standalone deployment uncommon |
+| **SOFT** | Vision tasks (ViT variants in research) | NeurIPS 2021 Spotlight; not widely productionized |
+| **Performers** | Research; some deployment in protein folding models | Unbiased approximation; quality gap at language modeling |
+
+**Where softmax-free methods fail:**
+
+1. **Autoregressive language modeling at <7B scale.** The quality gap (4–6 perplexity points for ELU+1 linear attention) is too large for competitive deployment. Only at ≥7B with careful design does the gap approach zero.
+
+2. **Long-context sharp retrieval.** Without softmax's spikiness, linear attention produces diffuse attention patterns. Needle-in-a-haystack performance degrades severely.
+
+3. **Training stability at large scale.** Some softmax-free methods (cosine attention is the exception) exhibit training instabilities when logit magnitudes grow large — exactly the problem softmax solves via its normalization.
+
+4. **Causal language modeling with the kernel trick.** The linear-time advantage requires non-causal computation; adding causal masking to linear attention requires sequential prefix scans, adding implementation complexity.
+
+---
+
+## 12 · Cousins & alternatives
+
+| Method | Similarity function | Normalization | O(N²)? | Key property |
+|---|---|---|---|---|
+| **Softmax attention** (baseline) | $\exp(q^\top k/\sqrt{d})$ | Row-sum = 1 | Yes | Spiky, stable, exact |
+| **Linear attention** (Katharopoulos 2020) | $(\text{elu}(q)+1)^\top(\text{elu}(k)+1)$ | Denominator | No ($O(N)$) | Fast; large quality gap |
+| **Performers / FAVOR+** (Choromanski 2021) | $\phi(q)^\top\phi(k)$ random features | Denominator | No ($O(Nrd)$) | Unbiased; moderate gap |
+| **SOFT** (Lu 2021) | Gaussian kernel, Nyström | Matrix inverse | No ($O(N)$) | Stable; vision-focused |
+| **Cosine attention** (Liu 2022, Swin v2) | $\text{softmax}(\tau \cdot \text{cos}(q,k))$ | Softmax (kept!) | Yes | Stable logits; not truly SF |
+| **Hardmax** | $\text{argmax}$ | Deterministic | Yes | Turing complete; non-differentiable |
+| **Sparsemax** (Martins 2016) | Euclidean projection | Sparse simplex | Yes | Sparse; differentiable |
+| **RWKV WKV** | Time-decay weighted sum | Denominator | No ($O(N)$) | Recurrent; no pairwise kernel |
+| **RetNet retention** | Geometric decay mask | Denominator | No ($O(1)$/token) | Three modes; structured decay |
+| **Sigmoid attention** | $\sigma(q^\top k/\sqrt{d})$ | None | Yes | Simple; output unbounded |
+
+---
+
+## 13 · Interview drill
 
 <details><summary><b>Q: What does the ELU+1 feature map do for linear attention?</b></summary>
 
@@ -364,7 +408,7 @@ No — this is a common misconception. Swin v2 uses $\text{softmax}(\tau \cdot \
 
 ---
 
-## 12 · Common misconceptions
+## 14 · Common misconceptions
 
 | Misconception | Reality |
 |---|---|
@@ -376,7 +420,7 @@ No — this is a common misconception. Swin v2 uses $\text{softmax}(\tau \cdot \
 
 ---
 
-## 13 · One-screen summary
+## 15 · One-screen summary
 
 > **Role of softmax:** Normalizes scores to a probability distribution; provides non-linear sharpening (spiky attention) that enables precise token retrieval. **Softmax-free options:** (a) Linear attention via feature maps — $O(N)$, significant quality gap; (b) SOFT via Gaussian kernel + low-rank — $O(N)$, viable for vision; (c) Cosine attention (Swin v2) — keeps softmax, changes similarity metric for stability. **Verdict:** Softmax-free is viable for efficiency-dominated settings at large scale or on vision tasks; for highest-quality language modeling, softmax attention remains the standard.
 >
@@ -384,7 +428,7 @@ No — this is a common misconception. Swin v2 uses $\text{softmax}(\tau \cdot \
 
 ---
 
-## 14 · References
+## 16 · References
 
 1. **Vaswani, A., et al.** "Attention Is All You Need." NeurIPS 2017. — Original softmax attention.
 

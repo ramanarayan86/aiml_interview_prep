@@ -34,11 +34,12 @@
 7. [Variants / comparison](#7--variants--comparison)
 8. [Reference implementation](#8--reference-implementation)
 9. [Where it's used / where it breaks](#9--where-its-used--where-it-breaks)
-10. [Worked numerical example](#10--worked-numerical-example)
-11. [Interview drill](#11--interview-drill)
-12. [Common misconceptions](#12--common-misconceptions)
-13. [One-screen summary](#13--one-screen-summary)
-14. [References](#14--references)
+10. [Cousins & alternatives](#10--cousins--alternatives)
+11. [Worked numerical example](#11--worked-numerical-example)
+12. [Interview drill](#12--interview-drill)
+13. [Common misconceptions](#13--common-misconceptions)
+14. [One-screen summary](#14--one-screen-summary)
+15. [References](#15--references)
 
 ---
 
@@ -261,7 +262,27 @@ class DifferentialAttentionHead(nn.Module):
 
 ---
 
-## 10 · Worked numerical example
+## 10 · Cousins & alternatives
+
+Differential attention sits in a family of methods that all try to reduce attention noise or improve selectivity:
+
+| Method | Key idea | Relation to DiffAttn |
+|---|---|---|
+| **Standard MHA** (Vaswani 2017) | Single softmax attention map per head | Baseline; differential attention is a direct extension |
+| **Differential Transformer** (this page) | Two softmax maps subtracted with learnable λ | Cancels common-mode noise; ~same FLOPs as MHA |
+| **Sparse attention** (BigBird, Longformer) | Attend only to local + global tokens | Reduces noise by limiting which tokens can be attended; different mechanism |
+| **Disentangled attention** (DeBERTa) | Separate content and position attention matrices | Disentangles content from positional bias; not noise cancellation |
+| **Multi-Query / Grouped-Query Attention** | Fewer K,V heads | Efficiency focus; reduces KV cache, not attention noise |
+| **Head pruning** | Remove low-importance heads | Post-hoc noise reduction; differential attention reduces noise structurally |
+| **Softmax temperature tuning** | Scale logits by learned τ | Adjusts sharpness globally; less targeted than per-head λ subtraction |
+| **Sigmoid attention** (EfficientViT) | Replace softmax with sigmoid (no normalization) | Efficient; loses the probability interpretation; different tradeoff |
+| **ALiBi / RoPE** | Positional bias in attention scores | Addresses position generalization, not noise; orthogonal to DiffAttn |
+
+**Combining with other methods:** Differential attention is orthogonal to GQA, FlashAttention, and RoPE — all three can be applied simultaneously. The paper uses RoPE positional encoding and is FlashAttention-compatible.
+
+---
+
+## 11 · Worked numerical example
 
 We trace a single differential attention head with $d = 4$ (so each sub-head has $d/2 = 2$) and $N = 4$ tokens to make the subtraction mechanics concrete.
 
@@ -326,7 +347,7 @@ The subtraction has collapsed the near-zero "noise floor" of positions 2–3 tow
 
 ---
 
-## 11 · Interview drill
+## 12 · Interview drill
 
 <details><summary><b>Q: Why does subtracting two softmax maps reduce noise rather than just introducing negative weights?</b></summary>
 
@@ -365,7 +386,7 @@ For the same model dimension $d_\text{model}$ and the same number of heads $h$, 
 
 ---
 
-## 12 · Common misconceptions
+## 13 · Common misconceptions
 
 | Misconception | Reality |
 |---|---|
@@ -376,7 +397,7 @@ For the same model dimension $d_\text{model}$ and the same number of heads $h$, 
 
 ---
 
-## 13 · One-screen summary
+## 14 · One-screen summary
 
 > **What:** Compute two independent softmax attention maps $(A_1, A_2)$ and output $(A_1 - \lambda A_2)V$ with a learnable $\lambda$. **Problem solved:** Softmax attention noise — weak but non-zero weights on irrelevant tokens that blur retrieval and cause hallucination. **Why it works:** Common-mode noise is identical in both maps and cancels; signal tokens are differential and survive. **Caveats:** Needs custom kernels for efficiency; trained from scratch; negative weights complicate interpretation.
 >
@@ -384,7 +405,7 @@ For the same model dimension $d_\text{model}$ and the same number of heads $h$, 
 
 ---
 
-## 14 · References
+## 15 · References
 
 1. **Ye, T., Dong, L., Xia, Y., Sun, Y., Zhu, Y., Huang, G., Wei, F.** "Differential Transformer." arXiv:2410.05258, October 2024. Accepted as Oral at ICLR 2025. [https://arxiv.org/abs/2410.05258](https://arxiv.org/abs/2410.05258)
 

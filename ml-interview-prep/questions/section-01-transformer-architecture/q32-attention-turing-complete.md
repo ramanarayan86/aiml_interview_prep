@@ -33,10 +33,12 @@
 6. [The precision hierarchy](#6--the-precision-hierarchy)
 7. [Practical implications](#7--practical-implications)
 8. [Worked numerical example](#8--worked-numerical-example)
-9. [Interview drill](#9--interview-drill)
-10. [Common misconceptions](#10--common-misconceptions)
-11. [One-screen summary](#11--one-screen-summary)
-12. [References](#12--references)
+9. [Where it's used / where it breaks](#9--where-its-used--where-it-breaks)
+10. [Cousins & alternatives](#10--cousins--alternatives)
+11. [Interview drill](#11--interview-drill)
+12. [Common misconceptions](#12--common-misconceptions)
+13. [One-screen summary](#13--one-screen-summary)
+14. [References](#14--references)
 
 ---
 
@@ -240,7 +242,53 @@ This is exactly the TC⁰ impossibility: parity requires $\Omega(\log N)$ bits j
 
 ---
 
-## 9 · Interview drill
+## 9 · Where it's used / where it breaks
+
+**Where the theory matters in practice:**
+
+| Context | How Turing completeness / expressivity limits apply |
+|---|---|
+| **Arithmetic and algorithmic tasks** | Single-pass Transformers fail parity, modular arithmetic, and matrix permanent for large N — TC⁰ bound is the explanation |
+| **Length generalization** | Models trained on short sequences fail to generalize to longer ones — related to fixed-depth TC⁰ not scaling with N |
+| **Chain-of-thought reasoning** | CoT's empirical success is theoretically grounded: each reasoning step is a forward pass, enabling computation beyond TC⁰ |
+| **Program synthesis / code** | Tasks requiring counting, sorting, or pointer arithmetic expose the TC⁰ ceiling; scratchpad / CoT is the fix |
+| **Formal verification of LLM capabilities** | Merrill & Sabharwal's TC⁰ characterization gives a rigorous framework for understanding what LLMs can and cannot reliably compute |
+
+**Where the limits bite hardest:**
+
+1. **Parity and counting.** A single-pass Transformer cannot reliably compute parity of $N$ bits for large $N$ in finite precision — the rounding error accumulates beyond 0.5.
+
+2. **Exact graph reachability.** Determining if node $u$ can reach node $v$ in a directed graph requires $\Omega(\log N)$ depth — beyond single-pass TC⁰.
+
+3. **Boolean formula satisfiability.** NP-hard problems cannot be solved in TC⁰ unless TC⁰ = NP (not believed).
+
+**Where the limits are less relevant:**
+
+1. **Natural language understanding.** Most NLU tasks do not require exact counting or recursive computation — they are well within TC⁰.
+
+2. **Pattern matching and retrieval.** Softmax attention is already near-optimal for associative retrieval — well within TC⁰.
+
+3. **Tasks with chain-of-thought.** CoT escapes the single-pass bound, so any task solvable in $O(\text{poly}(N))$ time becomes feasible with enough CoT steps.
+
+---
+
+## 10 · Cousins & alternatives
+
+| Model / result | Expressivity class | Key assumption | Practical? |
+|---|---|---|---|
+| **Hard-attention Transformer** (Pérez 2021) | Turing complete | Argmax attention + arbitrary precision | No |
+| **Softmax Transformer, log-precision** (Merrill 2023) | TC⁰ / FO(M) | O(log N) bits per activation | Approximately yes |
+| **Float32 Transformer** | ⊆ constant-depth circuits | Fixed 32-bit precision | Yes |
+| **RNN (LSTM/GRU)** | Turing complete (with unbounded steps) | Sequential, unbounded time | Yes (but slow) |
+| **SSM / Mamba** | ⊆ TC⁰ (linear recurrence) | Bounded state + fixed precision | Yes |
+| **Transformer + CoT** (Merrill 2024) | Beyond TC⁰ | $O(\log N)$ extra steps | Yes |
+| **Looped Transformer** | Approaches Turing complete | Same weights, unbounded loops | Theoretically yes |
+| **Universal Approximator MLP** | All continuous functions | Infinite width | No |
+| **Transformer with external memory** | Turing complete | Addressable external memory | Approximately yes |
+
+---
+
+## 11 · Interview drill
 
 <details><summary><b>Q: What is the key assumption that makes the Pérez 2021 result non-practical?</b></summary>
 
@@ -279,7 +327,7 @@ They are complementary, not contradictory. Bhattamishra et al. (2020) showed tha
 
 ---
 
-## 10 · Common misconceptions
+## 12 · Common misconceptions
 
 | Misconception | Reality |
 |---|---|
@@ -291,7 +339,7 @@ They are complementary, not contradictory. Bhattamishra et al. (2020) showed tha
 
 ---
 
-## 11 · One-screen summary
+## 13 · One-screen summary
 
 > **The claim:** Transformers with hard attention and arbitrary precision are Turing complete (Pérez et al., JMLR 2021). **The key assumptions:** hardmax (not softmax) + arbitrary precision — both unrealistic. **The realistic bound:** Log-precision Transformers (softmax, $O(\log N)$ precision) are exactly FO(M) / TC$^0$ — a strict subset of Turing-computable functions (Merrill & Sabharwal, NeurIPS 2023). **Practical takeaway:** Transformers have no categorical computational blind spots in theory, but finite precision and depth limit what they can *reliably compute*; chain-of-thought unlocks additional computational power beyond one forward pass.
 >
@@ -299,7 +347,7 @@ They are complementary, not contradictory. Bhattamishra et al. (2020) showed tha
 
 ---
 
-## 12 · References
+## 14 · References
 
 1. **Pérez, J., Barceló, P., Marinkovic, J.** "Attention is Turing Complete." Journal of Machine Learning Research, Volume 22, 2021. [https://jmlr.org/papers/v22/20-302.html](https://jmlr.org/papers/v22/20-302.html)
 

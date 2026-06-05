@@ -39,7 +39,11 @@
 12. [Reference implementation (PyTorch benchmark)](#12--reference-implementation-pytorch-benchmark)
 13. [Worked numerical example](#13--worked-numerical-example)
 14. [Interview drill](#14--interview-drill)
-15. [One-screen summary and references](#15--one-screen-summary-and-references)
+15. [Where it's used / where it breaks](#15--where-its-used--where-it-breaks)
+16. [Cousins & alternatives](#16--cousins--alternatives)
+17. [Common misconceptions](#17--common-misconceptions)
+18. [One-screen summary](#18--one-screen-summary)
+19. [References](#19--references)
 
 ---
 
@@ -753,7 +757,62 @@ SSMs are preferred for: (1) **continuous signal modeling** (audio, time series, 
 
 ---
 
-## 15 · One-screen summary and references
+## 15 · Where it's used / where it breaks
+
+**Relevance in practice:**
+
+| Context | How the expressivity gap matters |
+|---|---|
+| **Hybrid LLM design** (Jamba, Zamba, Griffin) | Gap drives the decision of which layers to make attention vs. SSM — attention for retrieval, SSM for bulk |
+| **Long-context evaluation** (RULER, HELMET benchmarks) | Directly measures recall at depth; SSM-only models degrade while hybrids hold |
+| **Genomics / audio (Hyena-DNA, Mamba-audio)** | Gap is irrelevant — smooth integration dominates; SSMs match or exceed Transformers |
+| **Code generation** | Moderate gap — function signatures defined far back require recall; perplexity underestimates the impact |
+| **RAG systems** | Gap is bypassed — retrieval is offloaded to a retriever; the LLM only processes a short retrieved chunk |
+
+**Where the gap is large:**
+
+1. **Synthetic recall benchmarks** (MQAR, passkey retrieval, associative recall): SSMs fail at >1K associations or >10K tokens of context.
+2. **Many-shot ICL**: Adding 50+ in-context examples helps Transformers significantly more than SSMs.
+3. **Exact copy tasks**: "Repeat what I said 500 tokens ago" — Transformers do this trivially; SSMs fail unless $d_\text{state}$ is very large.
+
+**Where the gap is small or irrelevant:**
+
+1. **Language modeling perplexity** at standard context lengths (<4K tokens).
+2. **Audio, genomics, time-series**: Smooth signal integration; SSMs often *outperform* Transformers.
+3. **Very long sequences (>100K tokens)**: Even Transformers struggle here without special engineering; SSMs' $O(N)$ cost matters more than recall quality.
+
+---
+
+## 16 · Cousins & alternatives
+
+| Method | Expressivity vs. Transformer | Notes |
+|---|---|---|
+| **Standard Transformer (softmax)** | Reference | $O(N)$ KV cache; full associative recall |
+| **FlashAttention** | Identical | IO-aware exact attention; same expressivity |
+| **Linear attention** (Katharopoulos 2020) | Lower — feature map loses spikiness | ELU+1 kernel; O(N) but large quality gap |
+| **Performers / FAVOR+** | Approximately equal | Random feature approximation of softmax; controlled error |
+| **RetNet** | Lower — fixed decay $\gamma^{n-m}$ | Bridged by multi-scale heads; still below full attention on recall |
+| **RWKV** | Lower — time-decay recurrence | RWKV-6 data-dependent decay narrows gap |
+| **Mamba (selective scan)** | Lower — bounded $d_{\text{state}}$ | Narrows gap vs. LTI SSMs; does not close it |
+| **Mamba-2 / SSD** | Lower — scalar-times-identity A | Larger $d_{\text{state}}$ (64–256) helps; gap persists |
+| **Hybrid (Jamba, Griffin)** | Near-identical | 1/8 attention layers restore recall; bulk remains SSM |
+| **Infinite attention** (Han et al. 2024) | Near-identical | Sliding + compressed global window; O(N) with bounded error |
+
+---
+
+## 17 · Common misconceptions
+
+| Misconception | Reality |
+|---|---|
+| "SSMs have lower perplexity than Transformers" | SSMs achieve *similar* perplexity on standard language modeling — the expressivity gap only becomes visible on retrieval-heavy tasks |
+| "The expressivity gap means SSMs are useless" | SSMs dominate for long-sequence smooth-integration tasks (audio, genomics, time-series) and are far more efficient at inference |
+| "Mamba's selective scan closes the gap" | Selectivity narrows the gap substantially vs. LTI SSMs, but the fundamental $d_{\text{state}} = \Omega(M)$ bound still applies |
+| "Hybrid models just add attention for free" | Adding attention layers increases KV cache memory by $1/K$ (where $K$ is the spacing) and slightly increases compute — the benefit is worth the cost but it is not free |
+| "The expressivity gap is a theory result with no empirical evidence" | The gap is directly measured by the MQAR benchmark and passkey/needle-in-a-haystack tasks, where SSMs fail at sequences Transformers handle routinely |
+
+---
+
+## 18 · One-screen summary
 
 > **Core asymmetry:** A Transformer with $N$ tokens maintains $O(N)$-size KV cache — every past token is directly addressable. An SSM maintains $O(d_\text{state})$ state — fixed regardless of $N$. This creates an expressivity gap on retrieval tasks.
 >
@@ -771,7 +830,7 @@ SSMs are preferred for: (1) **continuous signal modeling** (audio, time series, 
 
 ---
 
-### References
+## 19 · References
 
 1. Gu, A. & Dao, T. — **Mamba: Linear-Time Sequence Modeling with Selective State Spaces** (2023). *arXiv:2312.00752.* — Introduces selective scan (input-dependent SSM parameters); the primary practical SSM model showing competitive language modeling perplexity.
 2. Dao, T. & Gu, A. — **Transformers are SSMs: Generalized Models and Efficient Algorithms Through Structured State Space Duality** (Mamba-2) (2024). *ICML 2024 / arXiv:2405.21060.* — State Space Duality framework; increases $d_\text{state}$ and connects SSMs to attention.

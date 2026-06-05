@@ -34,12 +34,14 @@
 7. [IO complexity analysis](#7--io-complexity-analysis)
 8. [FlashAttention-2: what changed](#8--flashattention-2-what-changed)
 9. [FlashAttention-3: what changed](#9--flashattention-3-what-changed)
-10. [Where FlashAttention is deployed](#10--where-flashattention-is-deployed)
-11. [Variants and comparison table](#11--variants-and-comparison-table)
+10. [Where it's used / where it breaks](#10--where-its-used--where-it-breaks)
+11. [Cousins & alternatives](#11--cousins--alternatives)
 12. [Reference implementation (PyTorch)](#12--reference-implementation-pytorch)
 13. [Worked numerical example](#13--worked-numerical-example)
 14. [Interview drill](#14--interview-drill)
-15. [References](#15--references)
+15. [Common misconceptions](#15--common-misconceptions)
+16. [One-screen summary](#16--one-screen-summary)
+17. [References](#17--references)
 
 ---
 
@@ -333,7 +335,7 @@ V3 adds FP8 (E4M3 and E5M2) attention, enabling:
 
 ---
 
-## 10 · Where FlashAttention is deployed
+## 10 · Where it's used / where it breaks
 
 FlashAttention is the de facto standard attention kernel in essentially every serious LLM training and inference framework:
 
@@ -358,7 +360,7 @@ FlashAttention is the de facto standard attention kernel in essentially every se
 
 ---
 
-## 11 · Variants and comparison table
+## 11 · Cousins & alternatives
 
 | Method | Exact? | FLOPs | HBM IO | Memory | Notes |
 |---|---|---|---|---|---|
@@ -758,7 +760,33 @@ FlashAttention's speedup over standard attention comes from replacing $O(N^2)$ H
 
 ---
 
-## 15 · References
+## 15 · Common misconceptions
+
+| Misconception | Reality |
+|---|---|
+| "FlashAttention reduces the number of FLOPs" | FlashAttention has the **same** FLOPs as standard attention — $O(N^2 d)$. The speedup is entirely from reduced HBM reads/writes (IO complexity), not arithmetic. |
+| "FlashAttention-2 is twice as fast because it does half the work" | FA-2 achieves ~2× speedup over FA-1 by better parallelization across sequence length and fewer non-matmul FLOPs — not by halving the attention computation. |
+| "FlashAttention requires approximate attention" | FlashAttention is **exact** — it computes the same output as standard attention to floating-point precision. Only sparse or linear attention variants are approximate. |
+| "FlashAttention is only useful for long sequences" | FlashAttention is beneficial at any sequence length where attention is memory-bound, which includes typical lengths (512–4096). The benefit grows with N but exists throughout. |
+| "Recomputation in the backward pass wastes compute" | Recomputing attention scores in the backward pass costs extra FLOPs but saves far more in HBM bandwidth — the dominant bottleneck. Wall-clock time goes down. |
+
+---
+
+## 16 · One-screen summary
+
+> **The bottleneck is memory bandwidth, not FLOPs.** Standard attention materializes the $N \times N$ attention matrix in HBM — $O(N^2)$ memory and $O(N^2)$ HBM reads/writes. FlashAttention tiles Q, K, V into SRAM blocks and fuses the QK, softmax, and AV operations, never materializing the full matrix. IO complexity drops from $O(N^2)$ to $O(N^2 d / M)$ where $M$ is SRAM size.
+>
+> **Online softmax** (Milakov & Gimelshein 2018) is the mathematical key: maintain running max $m_i$ and sum $\ell_i$ to compute softmax incrementally without seeing all logits first.
+>
+> **Backward pass** recomputes attention scores from stored $(Q, K, V, O, \ell)$ statistics rather than storing the $N \times N$ matrix — trading $O(N^2)$ memory for $O(N d)$ storage and extra FLOPs.
+>
+> **FA-2** achieves ~2× over FA-1 by parallelizing over sequence length and reducing non-matmul overhead. **FA-3** targets H100 via WGMMA/TMA and FP8.
+>
+> **Interview rule of thumb:** When someone asks why attention is slow in practice, the answer is "memory bandwidth, not FLOPs." When they ask how FlashAttention fixes it: "tile into SRAM, fuse three operations, never write the $N \times N$ matrix to HBM."
+
+---
+
+## 17 · References
 
 1. Dao, T., Fu, D. Y., Ermon, S., Rudra, A., Ré, C. — **FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness** (2022). *NeurIPS 2022 / arXiv:2205.14135.* — Original paper; introduces tiling, online softmax reuse, and IO complexity analysis.
 

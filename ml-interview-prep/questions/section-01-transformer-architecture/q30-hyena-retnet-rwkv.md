@@ -33,10 +33,12 @@
 6. [When to use each](#6--when-to-use-each)
 7. [Reference implementations (sketches)](#7--reference-implementations-sketches)
 8. [Worked numerical example](#8--worked-numerical-example)
-9. [Interview drill](#9--interview-drill)
-10. [Common misconceptions](#10--common-misconceptions)
-11. [One-screen summary](#11--one-screen-summary)
-12. [References](#12--references)
+9. [Where it's used / where it breaks](#9--where-its-used--where-it-breaks)
+10. [Cousins & alternatives](#10--cousins--alternatives)
+11. [Interview drill](#11--interview-drill)
+12. [Common misconceptions](#12--common-misconceptions)
+13. [One-screen summary](#13--one-screen-summary)
+14. [References](#14--references)
 
 ---
 
@@ -388,7 +390,53 @@ Different heads naturally focus on different temporal scales — short-range syn
 
 ---
 
-## 9 · Interview drill
+## 9 · Where it's used / where it breaks
+
+**Deployed or in active use:**
+
+| Model | Method | Context |
+|---|---|---|
+| **RWKV-4/5/6** | RWKV WKV operator | Open-source 1.5B–14B models; used in edge/CPU inference |
+| **Hyena-DNA** | Hyena convolution | Genomic sequence modeling; handles 1M+ base-pair contexts |
+| **RetNet** (Microsoft Research) | Retention with three modes | Research model; influenced Mamba-2's SSD formulation |
+| **Jamba** (AI21 Labs 2024) | Mamba (retention-adjacent SSM) | Production hybrid; Mamba + attention for long contexts |
+| **H3** (Together AI 2023) | SSM-based, Hyena-adjacent | Pre-Mamba; demonstrated competitive perplexity |
+
+**Where these methods break:**
+
+1. **Associative recall / needle-in-a-haystack.** Geometric decay (RetNet, RWKV) attenuates older tokens. For γ=0.9, a token 50 steps back retains only $0.9^{50} \approx 0.5\%$ of its original signal. Sharp retrieval fails.
+
+2. **In-context learning with many examples.** Adding 50 examples to context helps Transformers much more than RetNet/RWKV — the examples are compressed into the decaying state rather than directly accessible.
+
+3. **Tasks requiring position-exact recall.** Repeating the exact content from position $k$ (copy tasks) requires the state to maintain that content without decay — provably impossible for fixed γ < 1 at large $k$.
+
+4. **Short sequences (<256 tokens).** The FFT overhead in Hyena and the scan overhead in RWKV make them slower than FlashAttention at typical lengths. The crossover favoring Hyena is ~6K tokens.
+
+---
+
+## 10 · Cousins & alternatives
+
+| Method | Mechanism | Training | Inference/token | Quality gap |
+|---|---|---|---|---|
+| **Standard Transformer** | Softmax attention | $O(N^2 d)$ | $O(Nd)$ (KV cache) | Reference |
+| **FlashAttention** | IO-aware tiling | $O(N^2 d)$ | $O(Nd)$ | None (exact) |
+| **Hyena** (this page) | FFT implicit convolution | $O(pN \log N)$ | $O(Nd)$ sequential | Moderate at <6K |
+| **RetNet** (this page) | Retention with γ decay | $O(N^2)$ parallel | $O(d^2)$ recurrent | Small at scale |
+| **RWKV** (this page) | WKV time-decay | $O(Nd^2)$ | $O(d)$ | Small at 7B+ |
+| **Mamba** (Gu 2023) | Selective scan (input-dep. A) | $O(Nd)$ | $O(d_{\text{state}})$ | Small at scale |
+| **Linear attention** (Katharopoulos) | ELU+1 feature map | $O(Nd^2)$ | $O(d^2)$ | Large |
+| **Performers** (Choromanski) | FAVOR+ random features | $O(Nrd)$ | $O(rd)$ | Moderate |
+| **S4** (Gu 2022) | Fixed-A HiPPO SSM | $O(N \log N)$ | $O(d_{\text{state}})$ | Moderate |
+| **GLA** (Yang 2024) | Gated linear attention | $O(Nd^2)$ | $O(d^2)$ | Small |
+
+**Key differentiators between Hyena, RetNet, and RWKV:**
+- **Hyena** is primarily a training-efficiency story (FFT); inference is still sequential O(Nd).
+- **RetNet** and **RWKV** provide both training parallelism AND O(1)-per-token inference — the more practically valuable property.
+- **RWKV-6** adds data-dependent decay, making it the closest non-selective-scan method to Mamba.
+
+---
+
+## 11 · Interview drill
 
 <details><summary><b>Q: Why does RetNet have three computation modes rather than one?</b></summary>
 
@@ -427,7 +475,7 @@ RWKV-4 uses a scalar time-decay $w \in \mathbb{R}^d$ (one decay value per channe
 
 ---
 
-## 10 · Common misconceptions
+## 12 · Common misconceptions
 
 | Misconception | Reality |
 |---|---|
@@ -439,7 +487,7 @@ RWKV-4 uses a scalar time-decay $w \in \mathbb{R}^d$ (one decay value per channe
 
 ---
 
-## 11 · One-screen summary
+## 13 · One-screen summary
 
 > **Hyena:** $O(N \log N)$ via implicit FFT convolutions; best for very long sequence training. **RetNet:** Three computation modes (parallel/recurrent/chunked); $O(N^2)$ training, $O(1)$ inference per token via geometric decay state. **RWKV:** WKV time-decay operator; parallelizable at training ($O(Td^2)$), true $O(d)$ RNN at inference. All three sacrifice some associative-recall quality for inference efficiency. Choose based on deployment constraints.
 >
@@ -447,7 +495,7 @@ RWKV-4 uses a scalar time-decay $w \in \mathbb{R}^d$ (one decay value per channe
 
 ---
 
-## 12 · References
+## 14 · References
 
 1. **Poli, M., Massaroli, S., Nguyen, E., Fu, D.Y., Dao, T., Baccus, S., Bengio, Y., Ermon, S., Ré, C.** "Hyena Hierarchy: Towards Larger Convolutional Language Models." ICML 2023. arXiv:2302.10866. [https://arxiv.org/abs/2302.10866](https://arxiv.org/abs/2302.10866)
 

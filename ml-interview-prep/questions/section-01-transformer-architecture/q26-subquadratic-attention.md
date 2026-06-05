@@ -38,8 +38,11 @@
 11. [Reference implementation (PyTorch)](#11--reference-implementation-pytorch)
 12. [Worked numerical example](#12--worked-numerical-example)
 13. [Interview drill](#13--interview-drill)
-14. [Common misconceptions](#14--common-misconceptions)
-15. [References](#15--references)
+14. [Where it's used / where it breaks](#14--where-its-used--where-it-breaks)
+15. [Cousins & alternatives](#15--cousins--alternatives)
+16. [Common misconceptions](#16--common-misconceptions)
+17. [One-screen summary](#17--one-screen-summary)
+18. [References](#18--references)
 
 ---
 
@@ -792,7 +795,49 @@ Any model that processes a length-$N$ sequence into a **fixed-size state** of di
 
 ---
 
-## 14 · Common misconceptions
+## 14 · Where it's used / where it breaks
+
+**Deployed in production:**
+
+| Model / system | Sub-quadratic method | Context |
+|---|---|---|
+| **RWKV-4/5/6** series | RWKV WKV recurrence | Open-source LLM with 7B–14B variants; used in edge/streaming deployments |
+| **RetNet** (Microsoft) | Retention with three modes | Research model; not widely productionized but influential |
+| **Mamba** (Gu & Dao 2023) | Selective SSM scan | Strong results on long-sequence audio, genomics; hybrid Jamba productionized |
+| **Jamba** (AI21 Labs) | Hybrid attention + Mamba | Production LLM; 1/8 attention layers for retrieval, Mamba for bulk |
+| **Griffin** (Google DeepMind) | Gated linear recurrence | Research model mixing local attention + linear recurrence |
+| **Hyena / H3** (Together AI) | Long convolution | Research models; used in genomics (Hyena-DNA) |
+
+**Where sub-quadratic methods break or underperform:**
+
+1. **Associative recall and needle-in-a-haystack.** Fixed-decay methods (RetNet, RWKV) degrade on tasks requiring exact retrieval of arbitrary past tokens. The signal decays exponentially; at >1K tokens back, retention is <50% for typical γ.
+
+2. **In-context learning with many examples.** Adding 50-shot examples helps Transformers more than SSMs — attention directly accesses all examples; SSMs compress them into a fixed state.
+
+3. **Short sequences (<512 tokens).** The efficiency advantage of sub-quadratic methods is negligible; standard attention is faster due to simpler kernels and lower overhead.
+
+4. **Tasks requiring uniform attention.** Some tasks require attending equally to all positions (e.g., global average pooling over context). SSMs with decay bias toward recent tokens; this cannot be fully corrected.
+
+---
+
+## 15 · Cousins & alternatives
+
+| Method | Key idea | Complexity | Quality vs softmax |
+|---|---|---|---|
+| **FlashAttention** (Dao 2022) | IO-aware tiling, exact attention | $O(N^2)$ compute, $O(N)$ memory | Identical (exact) |
+| **Linear attention** (Katharopoulos 2020) | ELU+1 feature map kernel trick | $O(N)$ | Large gap at <7B |
+| **Performers / FAVOR+** (Choromanski 2021) | Positive random features | $O(Nrd)$ | Moderate gap |
+| **Hyena** (Poli 2023) | Implicit FFT convolution | $O(N \log N)$ | Competitive at >6K tokens |
+| **RetNet** (Sun 2023) | Retention with geometric decay | $O(N^2)$ train / $O(1)$ infer | Small gap at scale |
+| **RWKV** (Peng 2023) | WKV time-decay recurrence | $O(N)$ train, $O(1)$ infer | Competitive at 7B+ |
+| **Mamba / SSM** (Gu 2023) | Input-dependent selective scan | $O(N)$ | Competitive on non-retrieval tasks |
+| **Longformer / BigBird** | Sparse local+global attention | $O(N)$ | Near-identical on NLP |
+| **Sliding window attention** | Fixed local window | $O(N \cdot w)$ | Good for local tasks |
+| **Hybrid (Jamba, Griffin)** | Interleave attention + SSM | $O(N)$ bulk + sparse $O(N^2)$ | Best of both |
+
+---
+
+## 16 · Common misconceptions
 
 | Misconception | Reality |
 |---|---|
@@ -807,7 +852,23 @@ Any model that processes a length-$N$ sequence into a **fixed-size state** of di
 
 ---
 
-## 15 · References
+## 17 · One-screen summary
+
+> **The fundamental tradeoff:** Softmax attention is $O(N^2)$ because it computes every pairwise interaction. Every sub-quadratic method sacrifices some form of global content-addressable lookup to reduce this cost.
+>
+> **Hyena ($O(N \log N)$):** Long convolution via FFT. Breaks even with FlashAttention at ~6K tokens. No per-position content routing — filters are fixed per layer, not per input.
+>
+> **RetNet ($O(1)$/token inference):** Geometric decay retention. Three modes: parallel (training), recurrent (inference), chunked (hybrid). Multi-scale γ across heads covers short-to-long range.
+>
+> **RWKV ($O(1)$/token inference):** WKV time-decay operator. Recurrent at inference, parallelizable at training via prefix scan. RWKV-6 adds data-dependent decay, narrowing the recall gap.
+>
+> **The recall gap:** All fixed-decay methods degrade on associative recall. Hybrid architectures (1/8 attention layers) recover retrieval while keeping bulk compute $O(N)$.
+>
+> **Interview rule of thumb:** If the question is "how do you serve a 100K-context LLM efficiently?", the answer is hybrid: attention for the retrieval-heavy positions, SSM/retention for the rest. Pure sub-quadratic methods sacrifice recall; pure attention is memory-prohibitive at inference time.
+
+---
+
+## 18 · References
 
 1. Katharopoulos, A., Vyas, A., Pappas, N., Fleuret, F. — **Transformers are RNNs: Fast Autoregressive Transformers with Linear Attention** (2020). *ICML 2020 / arXiv:2006.16236.* — Original linear attention paper; introduces the associativity trick and ELU feature map; proves the recurrence equivalence.
 

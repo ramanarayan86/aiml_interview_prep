@@ -34,10 +34,12 @@
 7. [Comparison table](#7--comparison-table)
 8. [Reference implementation](#8--reference-implementation)
 9. [Worked numerical example](#9--worked-numerical-example)
-10. [Interview drill](#10--interview-drill)
-11. [Common misconceptions](#11--common-misconceptions)
-12. [One-screen summary](#12--one-screen-summary)
-13. [References](#13--references)
+10. [Where it's used / where it breaks](#10--where-its-used--where-it-breaks)
+11. [Cousins & alternatives](#11--cousins--alternatives)
+12. [Interview drill](#12--interview-drill)
+13. [Common misconceptions](#13--common-misconceptions)
+14. [One-screen summary](#14--one-screen-summary)
+15. [References](#15--references)
 
 ---
 
@@ -349,7 +351,48 @@ With $r = 3$ features the approximation error is ~0.10 (15% relative). With $r =
 
 ---
 
-## 10 · Interview drill
+## 10 · Where it's used / where it breaks
+
+**Deployed or actively used:**
+
+| Method | Deployment context | Notes |
+|---|---|---|
+| **Performers / FAVOR+** | Protein structure (early AlphaFold variants); long-doc NLP research | ICLR 2021 Oral; unbiased estimator with $O(Nrd)$ |
+| **Linear attention variants** | Hybrid architectures (GLA, HGRN); rarely standalone | ELU+1 map too weak for language modeling alone |
+| **SOFT** (Gaussian kernel) | Vision Transformers (ViT research at scale) | NeurIPS 2021 Spotlight; Nyström approximation |
+| **Random Fourier Features** (Rahimi 2007) | Classical ML kernel SVM acceleration | Foundational method underlying FAVOR+ theory |
+| **Kernel attention in GNNs** | Graph neural networks with global attention | Reduces $O(N^2)$ node-pair attention |
+
+**Where kernel attention breaks:**
+
+1. **Language modeling quality.** Every known kernel approximation of softmax attention incurs a quality gap on autoregressive language modeling. For ELU+1: 4–6 ppl on WikiText-103. For FAVOR+: smaller but non-zero. The gap narrows with larger $r$ but never fully closes.
+
+2. **Low feature-map dimension $r$.** FAVOR+ requires $r \approx d \log(d/\epsilon)$ features for error $\epsilon$. For $d = 64$ and $\epsilon = 0.01$, this is $r \approx 300$ — comparable to $d$. For very small $r$ (e.g., $r = 16$), approximation error is large.
+
+3. **Causal masking.** Kernel trick requires computing $\phi(K)^\top V$ globally. Causal masking requires per-position prefix sums — eliminating the "compute once" efficiency and requiring sequential prefix scans.
+
+4. **Numerical instability with signed features.** Using sin/cos random features (standard RFF) produces negative feature values, which can cause the denominator (normalization) to become negative — training divergence. FAVOR+ solves this but adds complexity.
+
+---
+
+## 11 · Cousins & alternatives
+
+| Method | Kernel / similarity | Feature map $\phi$ | Cost | Unbiased? |
+|---|---|---|---|---|
+| **Softmax attention** | $\exp(q^\top k/\sqrt{d})$ | None (exact) | $O(N^2 d)$ | Exact |
+| **ELU+1 linear attention** | $(\text{elu}(q)+1)^\top(\text{elu}(k)+1)$ | $\text{elu}(x)+1$ | $O(Nd^2)$ | No (poor approx) |
+| **FAVOR+** (Choromanski 2021) | $\exp(q^\top k)$ approx | Positive orthogonal RFs | $O(Nrd)$ | Yes |
+| **Random Fourier Features** (Rahimi 2007) | RBF $\exp(-\|q-k\|^2/2)$ | $\cos(\omega^\top x + b)$ | $O(Nrd)$ | Yes (but signed) |
+| **SOFT** (Lu 2021) | Gaussian kernel + Nyström | Landmark-based | $O(Nm)$ | Approximately |
+| **Nyström attention** (Xiong 2021) | Softmax with landmarks | Sampled key-value pairs | $O(Nm)$ | No (biased) |
+| **Cosine attention** | Cosine similarity | Normalized embeddings | $O(N^2)$ | Exact (different kernel) |
+| **Longformer / BigBird** | Sparse softmax | N/A | $O(N \cdot k)$ | Exact (sparse) |
+| **FlashAttention** | Exact softmax | N/A | $O(N^2)$ FLOP, $O(N)$ memory | Exact |
+| **GLA / RetNet** | Decay-weighted kernel | Implicit via recurrence | $O(Nd^2)$ | Exact (different kernel) |
+
+---
+
+## 12 · Interview drill
 
 <details><summary><b>Q: Why must the feature map be non-negative for FAVOR+ to work?</b></summary>
 
@@ -388,7 +431,7 @@ Yes, through the Nadaraya-Watson interpretation. In Nadaraya-Watson kernel regre
 
 ---
 
-## 11 · Common misconceptions
+## 13 · Common misconceptions
 
 | Misconception | Reality |
 |---|---|
@@ -400,7 +443,7 @@ Yes, through the Nadaraya-Watson interpretation. In Nadaraya-Watson kernel regre
 
 ---
 
-## 12 · One-screen summary
+## 14 · One-screen summary
 
 > **Kernel view:** Softmax attention = kernel regression with $K(q,k) = \exp(q \cdot k/\sqrt{d})$, related to the RBF kernel. **Kernel trick:** Approximate $K(q,k) = \phi(q)^\top \phi(k)$, compute $(K'^\top V)$ first to avoid the $N \times N$ matrix — cost drops from $O(N^2 d)$ to $O(Nrd)$. **FAVOR+:** Positive orthogonal random features that unbiasedly approximate the softmax kernel with convergence guarantees independent of $N$. **Linear attention:** Fixed feature map ($\phi = \text{elu}+1$), same trick, larger quality gap. **Use when:** $N > 8\text{k}$ and approximation quality $r \sim 256$ is acceptable.
 >
@@ -408,7 +451,7 @@ Yes, through the Nadaraya-Watson interpretation. In Nadaraya-Watson kernel regre
 
 ---
 
-## 13 · References
+## 15 · References
 
 1. **Choromanski, K., et al.** "Rethinking Attention with Performers." ICLR 2021 (Oral). arXiv:2009.14794. [https://arxiv.org/abs/2009.14794](https://arxiv.org/abs/2009.14794)
 

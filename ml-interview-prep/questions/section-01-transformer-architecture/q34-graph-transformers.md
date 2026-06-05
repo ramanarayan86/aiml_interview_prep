@@ -34,10 +34,12 @@
 7. [Intuition and design choices](#7--intuition-and-design-choices)
 8. [Reference implementations (sketches)](#8--reference-implementations-sketches)
 9. [Worked numerical example](#9--worked-numerical-example)
-10. [Interview drill](#10--interview-drill)
-11. [Common misconceptions](#11--common-misconceptions)
-12. [One-screen summary](#12--one-screen-summary)
-13. [References](#13--references)
+10. [Where it's used / where it breaks](#10--where-its-used--where-it-breaks)
+11. [Cousins & alternatives](#11--cousins--alternatives)
+12. [Interview drill](#12--interview-drill)
+13. [Common misconceptions](#13--common-misconceptions)
+14. [One-screen summary](#14--one-screen-summary)
+15. [References](#15--references)
 
 ---
 
@@ -369,7 +371,51 @@ Despite A and C having identical raw features (dot product favoring A-C), the sp
 
 ---
 
-## 10 · Interview drill
+## 10 · Where it's used / where it breaks
+
+**Deployed or benchmark-leading:**
+
+| Model | Graph domain | Notes |
+|---|---|---|
+| **Graphormer** (Microsoft) | Molecular property prediction | Won OGB-LSC KDD Cup 2021; PCQM4Mv2 leaderboard |
+| **GraphGPS** (Rampášek 2022) | General graph benchmarks | SOTA on 16 benchmarks (NeurIPS 2022); modular framework |
+| **Graphormer-3D** | 3D molecular conformer prediction | Extends Graphormer with 3D positional encodings |
+| **TokenGT** (Kim 2022) | General graphs as token sequences | Treats nodes and edges as tokens; standard Transformer backbone |
+| **GPS++** (Masters 2023) | Large molecular graphs | GraphGPS with message-passing improvements; OGB-LSC winner 2022 |
+| **Exphormer** (Shirzad 2023) | Large sparse graphs | Sparse attention using virtual nodes + expander graphs |
+
+**Where graph Transformers break:**
+
+1. **Large graphs (>10K nodes).** Graphormer's $O(N^2)$ attention and $O(N^3)$ SPD preprocessing make it impractical. GraphGPS with linear attention scales better but still faces $O(N^2)$ for standard attention heads.
+
+2. **Dynamic graphs.** All-pairs SPD is recomputed when the graph changes — expensive. MPNNs adapt naturally to dynamic settings; graph Transformers do not.
+
+3. **Heterogeneous graphs.** Graphs with many node/edge types (e.g., knowledge graphs) require type-specific encodings that multiply the structural encoding complexity.
+
+4. **Tasks dominated by very local structure.** For citation networks or social graphs where 1–2-hop features suffice, a simple GCN or GraphSAGE outperforms graph Transformers at a fraction of the cost.
+
+5. **Over-smoothing at depth.** Stacking many GPS layers can over-smooth node representations, similar to deep MPNNs — mitigated by residual connections and attention, but not eliminated.
+
+---
+
+## 11 · Cousins & alternatives
+
+| Model | Structural encoding | Complexity | Best for |
+|---|---|---|---|
+| **Graphormer** (this page) | Degree + SPD + edge path | $O(N^2)$ + $O(N^3)$ preprocessing | Small molecular graphs (≤200 nodes) |
+| **GraphGPS** (this page) | LapPE / RWSE + MPNN + global attn | $O(N+E)$ with linear attn | Large graphs, flexible PE |
+| **TokenGT** (Kim 2022) | Node/edge tokens + orthonormal PE | $O((N+E)^2)$ | Treats graph as sequence |
+| **Exphormer** (Shirzad 2023) | Virtual nodes + expander graph sparse attn | $O(N \log N)$ | Large sparse graphs |
+| **GPS++** (Masters 2023) | GPS + improved MPNN | $O(N+E)$ | Molecular property at scale |
+| **GCN / GraphSAGE** | Neighborhood aggregation | $O(E)$ | Simple tasks, large graphs |
+| **GAT** (Veličković 2018) | Learned attention over neighbors | $O(E)$ | Local attention, edge features |
+| **PNA** (Corso 2020) | Multi-aggregator + degree scalers | $O(E)$ | Expressive local aggregation |
+| **DGN** (Beaini 2021) | Directional aggregation via Laplacian | $O(N+E)$ | Anisotropic structure |
+| **Equivariant GNN** (Schütt 2021) | SE(3)-equivariant features | $O(N^2)$ | 3D molecular geometry |
+
+---
+
+## 12 · Interview drill
 
 <details><summary><b>Q: Why is permutation equivariance important for graph models?</b></summary>
 
@@ -408,7 +454,7 @@ Over-squashing occurs in deep MPNNs when information from exponentially many nod
 
 ---
 
-## 11 · Common misconceptions
+## 13 · Common misconceptions
 
 | Misconception | Reality |
 |---|---|
@@ -420,7 +466,7 @@ Over-squashing occurs in deep MPNNs when information from exponentially many nod
 
 ---
 
-## 12 · One-screen summary
+## 14 · One-screen summary
 
 > **Problem:** Vanilla Transformers can't handle graphs — no permutation equivariance, no awareness of graph topology, no edge features, and quadratic cost is prohibitive for large graphs. **Graphormer (NeurIPS 2021):** Add degree centrality to node embeddings; add SPD-based learnable scalar bias to attention logits; add edge encoding bias — all permutation invariant. State-of-the-art on molecular benchmarks; $O(N^2)$ cost limits scale. **GraphGPS (NeurIPS 2022):** Modular GPS layer = MPNN (local) + global attention + PE; $O(N+E)$ with linear attention; SOTA on 16 benchmarks including long-range tasks. **Key design rule:** Encode graph structure via graph-property-dependent (not index-dependent) features injected into attention as biases.
 >
@@ -428,7 +474,7 @@ Over-squashing occurs in deep MPNNs when information from exponentially many nod
 
 ---
 
-## 13 · References
+## 15 · References
 
 1. **Ying, C., Cai, T., Luo, S., Zheng, S., Ke, G., He, D., Shen, Y., Liu, T.-Y.** "Do Transformers Really Perform Bad for Graph Representation?" NeurIPS 2021. arXiv:2106.05234. [https://arxiv.org/abs/2106.05234](https://arxiv.org/abs/2106.05234)
 
