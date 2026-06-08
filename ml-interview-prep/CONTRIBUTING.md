@@ -41,6 +41,29 @@ This repo is designed so that **adding a question is mechanical**: copy the temp
 | "Problem" / danger | `#E0322E` |
 | Warning / amber | `#C77A12` |
 
+## Asset directory naming convention
+
+Asset files (SVGs, PNGs) live under `assets/` at the repo root. The naming convention going forward is:
+
+```
+assets/sXqYY/figure-name.svg
+```
+
+where `X` is the section number and `YY` is the zero-padded question number within that section.
+
+**Examples:**
+- `assets/s1q01/` — Section 1, Question 1 (Transformer block)
+- `assets/s2q07/` — Section 2, Question 7 (Token fertility)
+- `assets/s6q03/` — Section 6, Question 3 (Speculative decoding)
+
+**Historical note:** Section 1 assets were created before this convention was established and use the shorter `assets/q01/` … `assets/q34/` form. Do not rename them — the question files reference those paths. All new sections (§2 onward) must use `sXqYY/`.
+
+**Figure filenames** within those directories should be descriptive kebab-case:
+- `token-types-tradeoff.svg` ✅
+- `bpe-merge-sequence.svg` ✅
+- `fig1.svg` ✗ (not descriptive)
+- `figure_BPE_TRAINING_LOOP.svg` ✗ (underscores, mixed case)
+
 ---
 
 <div align="center">
