@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="240" font-family="Arial, sans-serif">
+  <rect width="820" height="240" fill="#f8f9fa" rx="8"/>
+  <text x="410" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">BPE Encoding: Greedy Merge Application at Inference Time</text>
+
+  <defs>
+    <marker id="a4" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0,10 3.5,0 7" fill="#5b6675"/>
+    </marker>
+  </defs>
+
+  <!-- New word -->
+  <text x="20" y="60" font-size="12" font-weight="bold" fill="#5b6675">New word: "lowest"  (not seen as whole during training)</text>
+
+  <!-- Characters -->
+  <rect x="20" y="70" width="35" height="34" rx="4" fill="#fef3e2" stroke="#c77a12" stroke-width="1.5"/> <text x="37" y="93" text-anchor="middle" font-size="13" fill="#333">l</text>
+  <rect x="60" y="70" width="35" height="34" rx="4" fill="#fef3e2" stroke="#c77a12" stroke-width="1.5"/> <text x="77" y="93" text-anchor="middle" font-size="13" fill="#333">o</text>
+  <rect x="100" y="70" width="35" height="34" rx="4" fill="#fef3e2" stroke="#c77a12" stroke-width="1.5"/> <text x="117" y="93" text-anchor="middle" font-size="13" fill="#333">w</text>
+  <rect x="140" y="70" width="35" height="34" rx="4" fill="#fef3e2" stroke="#c77a12" stroke-width="1.5"/> <text x="157" y="93" text-anchor="middle" font-size="13" fill="#333">e</text>
+  <rect x="180" y="70" width="35" height="34" rx="4" fill="#fef3e2" stroke="#c77a12" stroke-width="1.5"/> <text x="197" y="93" text-anchor="middle" font-size="13" fill="#333">s</text>
+  <rect x="220" y="70" width="35" height="34" rx="4" fill="#fef3e2" stroke="#c77a12" stroke-width="1.5"/> <text x="237" y="93" text-anchor="middle" font-size="13" fill="#333">t</text>
+
+  <line x1="280" y1="87" x2="318" y2="87" stroke="#5b6675" stroke-width="2" marker-end="url(#a4)"/>
+  <text x="299" y="80" text-anchor="middle" font-size="10" fill="#5b6675">apply rule 1: (l,o)→lo</text>
+
+  <!-- After rule 1 -->
+  <rect x="325" y="70" width="42" height="34" rx="4" fill="#e6f4f1" stroke="#0e8a6e" stroke-width="2"/> <text x="346" y="93" text-anchor="middle" font-size="13" font-weight="bold" fill="#0e8a6e">lo</text>
+  <rect x="372" y="70" width="35" height="34" rx="4" fill="#fef3e2" stroke="#c77a12" stroke-width="1.5"/> <text x="389" y="93" text-anchor="middle" font-size="13" fill="#333">w</text>
+  <rect x="412" y="70" width="35" height="34" rx="4" fill="#fef3e2" stroke="#c77a12" stroke-width="1.5"/> <text x="429" y="93" text-anchor="middle" font-size="13" fill="#333">e</text>
+  <rect x="452" y="70" width="35" height="34" rx="4" fill="#fef3e2" stroke="#c77a12" stroke-width="1.5"/> <text x="469" y="93" text-anchor="middle" font-size="13" fill="#333">s</text>
+  <rect x="492" y="70" width="35" height="34" rx="4" fill="#fef3e2" stroke="#c77a12" stroke-width="1.5"/> <text x="509" y="93" text-anchor="middle" font-size="13" fill="#333">t</text>
+
+  <line x1="540" y1="87" x2="578" y2="87" stroke="#5b6675" stroke-width="2" marker-end="url(#a4)"/>
+  <text x="559" y="80" text-anchor="middle" font-size="10" fill="#5b6675">rule 2: (lo,w)→low</text>
+
+  <!-- After rule 2 -->
+  <rect x="585" y="70" width="52" height="34" rx="4" fill="#e6f4f1" stroke="#0e8a6e" stroke-width="2"/> <text x="611" y="93" text-anchor="middle" font-size="13" font-weight="bold" fill="#0e8a6e">low</text>
+  <rect x="642" y="70" width="35" height="34" rx="4" fill="#fef3e2" stroke="#c77a12" stroke-width="1.5"/> <text x="659" y="93" text-anchor="middle" font-size="13" fill="#333">e</text>
+  <rect x="682" y="70" width="35" height="34" rx="4" fill="#fef3e2" stroke="#c77a12" stroke-width="1.5"/> <text x="699" y="93" text-anchor="middle" font-size="13" fill="#333">s</text>
+  <rect x="722" y="70" width="35" height="34" rx="4" fill="#fef3e2" stroke="#c77a12" stroke-width="1.5"/> <text x="739" y="93" text-anchor="middle" font-size="13" fill="#333">t</text>
+
+  <!-- Rule 3 annotation -->
+  <text x="410" y="145" text-anchor="middle" font-size="11" fill="#888">Rule 3: (e,s)→es applies next → [low, es, t]</text>
+  <!-- Final -->
+  <rect x="290" y="160" width="52" height="34" rx="4" fill="#e6f4f1" stroke="#0e8a6e" stroke-width="2"/> <text x="316" y="183" text-anchor="middle" font-size="13" font-weight="bold" fill="#0e8a6e">low</text>
+  <rect x="348" y="160" width="35" height="34" rx="4" fill="#e6f4f1" stroke="#0e8a6e" stroke-width="2"/> <text x="365" y="183" text-anchor="middle" font-size="13" font-weight="bold" fill="#0e8a6e">es</text>
+  <rect x="389" y="160" width="28" height="34" rx="4" fill="#fef3e2" stroke="#c77a12" stroke-width="1.5"/> <text x="403" y="183" text-anchor="middle" font-size="13" fill="#333">t</text>
+  <text x="440" y="183" font-size="12" fill="#888">→ IDs [1234, 567, 83]  — OOV-free, productive</text>
+
+  <text x="410" y="225" text-anchor="middle" font-size="11" fill="#888">Greedy: scan token list from left, apply the earliest merge rule that matches any adjacent pair. Repeat until no rule fires.</text>
+</svg>

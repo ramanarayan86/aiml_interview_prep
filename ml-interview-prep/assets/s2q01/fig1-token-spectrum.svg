@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="300" font-family="Arial, sans-serif">
+  <rect width="820" height="300" fill="#f8f9fa" rx="8"/>
+  <text x="410" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">Three Tokenization Strategies: Characters · Subwords · Words</text>
+
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0,10 3.5,0 7" fill="#5b6675"/>
+    </marker>
+  </defs>
+
+  <!-- Input sentence -->
+  <rect x="20" y="50" width="780" height="36" rx="6" fill="#1f4fa3"/>
+  <text x="410" y="73" text-anchor="middle" font-size="14" font-weight="bold" fill="white">Input: "unhappiness"</text>
+
+  <!-- Character level -->
+  <text x="20" y="115" font-size="12" font-weight="bold" fill="#c77a12">Character-level (vocab ~130)</text>
+  <g id="chars">
+    <rect x="20" y="120" width="30" height="30" rx="4" fill="#fef3e2" stroke="#c77a12" stroke-width="1.5"/>  <text x="35" y="140" text-anchor="middle" font-size="12" fill="#333">u</text>
+    <rect x="55" y="120" width="30" height="30" rx="4" fill="#fef3e2" stroke="#c77a12" stroke-width="1.5"/>  <text x="70" y="140" text-anchor="middle" font-size="12" fill="#333">n</text>
+    <rect x="90" y="120" width="30" height="30" rx="4" fill="#fef3e2" stroke="#c77a12" stroke-width="1.5"/>  <text x="105" y="140" text-anchor="middle" font-size="12" fill="#333">h</text>
+    <rect x="125" y="120" width="30" height="30" rx="4" fill="#fef3e2" stroke="#c77a12" stroke-width="1.5"/> <text x="140" y="140" text-anchor="middle" font-size="12" fill="#333">a</text>
+    <rect x="160" y="120" width="30" height="30" rx="4" fill="#fef3e2" stroke="#c77a12" stroke-width="1.5"/> <text x="175" y="140" text-anchor="middle" font-size="12" fill="#333">p</text>
+    <rect x="195" y="120" width="30" height="30" rx="4" fill="#fef3e2" stroke="#c77a12" stroke-width="1.5"/> <text x="210" y="140" text-anchor="middle" font-size="12" fill="#333">p</text>
+    <rect x="230" y="120" width="30" height="30" rx="4" fill="#fef3e2" stroke="#c77a12" stroke-width="1.5"/> <text x="245" y="140" text-anchor="middle" font-size="12" fill="#333">i</text>
+    <rect x="265" y="120" width="30" height="30" rx="4" fill="#fef3e2" stroke="#c77a12" stroke-width="1.5"/> <text x="280" y="140" text-anchor="middle" font-size="12" fill="#333">n</text>
+    <rect x="300" y="120" width="30" height="30" rx="4" fill="#fef3e2" stroke="#c77a12" stroke-width="1.5"/> <text x="315" y="140" text-anchor="middle" font-size="12" fill="#333">e</text>
+    <rect x="335" y="120" width="30" height="30" rx="4" fill="#fef3e2" stroke="#c77a12" stroke-width="1.5"/> <text x="350" y="140" text-anchor="middle" font-size="12" fill="#333">s</text>
+    <rect x="370" y="120" width="30" height="30" rx="4" fill="#fef3e2" stroke="#c77a12" stroke-width="1.5"/> <text x="385" y="140" text-anchor="middle" font-size="12" fill="#333">s</text>
+    <text x="420" y="140" font-size="12" fill="#888">11 tokens · long sequences · no morphology</text>
+  </g>
+
+  <!-- Subword level -->
+  <text x="20" y="185" font-size="12" font-weight="bold" fill="#0e8a6e">Subword BPE (vocab ~32K–128K)  ← LLM standard</text>
+  <rect x="20" y="190" width="55" height="30" rx="4" fill="#e6f4f1" stroke="#0e8a6e" stroke-width="1.5"/>  <text x="47" y="210" text-anchor="middle" font-size="12" fill="#333">un</text>
+  <rect x="80" y="190" width="70" height="30" rx="4" fill="#e6f4f1" stroke="#0e8a6e" stroke-width="1.5"/>  <text x="115" y="210" text-anchor="middle" font-size="12" fill="#333">happy</text>
+  <rect x="155" y="190" width="65" height="30" rx="4" fill="#e6f4f1" stroke="#0e8a6e" stroke-width="1.5"/> <text x="187" y="210" text-anchor="middle" font-size="12" fill="#333">ness</text>
+  <text x="235" y="210" font-size="12" fill="#888">3 tokens · compact · shares morphemes across words · handles OOV</text>
+
+  <!-- Word level -->
+  <text x="20" y="253" font-size="12" font-weight="bold" fill="#6c4fe0">Word-level (vocab ~500K+)</text>
+  <rect x="20" y="258" width="120" height="30" rx="4" fill="#f0edfb" stroke="#6c4fe0" stroke-width="1.5"/> <text x="80" y="278" text-anchor="middle" font-size="12" fill="#333">unhappiness</text>
+  <text x="150" y="278" font-size="12" fill="#888">1 token — but "unhappily", "unhappier" are different entries or OOV</text>
+</svg>

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="280" font-family="Arial, sans-serif">
+  <rect width="820" height="280" fill="#f8f9fa" rx="8"/>
+  <text x="410" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">Byte-Level BPE: OOV-Free Tokenization</text>
+
+  <!-- Classical BPE failure -->
+  <rect x="20" y="44" width="370" height="105" rx="8" fill="#fde8e8" stroke="#c0392b" stroke-width="2"/>
+  <text x="205" y="66" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Classic word-level — fails on OOV</text>
+  <text x="35" y="90" font-size="12" fill="#555">Vocab: {the, cat, sat, …}</text>
+  <text x="35" y="110" font-size="12" fill="#555">Input: "Zürich" → not in vocab</text>
+  <text x="35" y="130" font-size="12" font-weight="bold" fill="#c0392b">→ [UNK] — all information lost!</text>
+
+  <!-- Byte-level success -->
+  <rect x="420" y="44" width="380" height="105" rx="8" fill="#e6f4f1" stroke="#0e8a6e" stroke-width="2"/>
+  <text x="610" y="66" text-anchor="middle" font-size="13" font-weight="bold" fill="#0e8a6e">Byte-Level BPE — always succeeds</text>
+  <text x="435" y="90" font-size="12" fill="#555">Base vocab: 256 byte IDs (0–255)</text>
+  <text x="435" y="110" font-size="12" fill="#555">"Zürich" → bytes: 0xC5 0xBC 0x72 0x69 0x63 0x68</text>
+  <text x="435" y="130" font-size="12" font-weight="bold" fill="#0e8a6e">→ tokens: [Zü, ri, ch] — never UNK</text>
+
+  <!-- Arrow -->
+  <text x="205" y="185" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f4fa3">How it works</text>
+  <text x="410" y="210" text-anchor="middle" font-size="12" fill="#333">1. Represent every character by its UTF-8 byte sequence (1–4 bytes)</text>
+  <text x="410" y="230" text-anchor="middle" font-size="12" fill="#333">2. Start BPE from 256-token base alphabet (byte IDs 0–255)</text>
+  <text x="410" y="250" text-anchor="middle" font-size="12" fill="#333">3. Merge bytes/byte-sequences exactly as in standard BPE</text>
+  <text x="410" y="270" text-anchor="middle" font-size="12" fill="#0e8a6e">Result: every UTF-8 string has a valid tokenization — emojis, CJK, code, all covered</text>
+</svg>

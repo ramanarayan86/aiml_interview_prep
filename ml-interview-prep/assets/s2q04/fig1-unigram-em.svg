@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="320" font-family="Arial, sans-serif">
+  <rect width="820" height="320" fill="#f8f9fa" rx="8"/>
+  <text x="410" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">Unigram LM Tokenizer: EM Training Loop</text>
+
+  <defs>
+    <marker id="a6" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0,10 3.5,0 7" fill="#5b6675"/>
+    </marker>
+  </defs>
+
+  <!-- Boxes -->
+  <rect x="20" y="55" width="200" height="60" rx="8" fill="#1f4fa3"/>
+  <text x="120" y="82" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Initialise vocabulary</text>
+  <text x="120" y="100" text-anchor="middle" font-size="11" fill="#cde">Large seed (e.g. all substrings)</text>
+
+  <line x1="120" y1="115" x2="120" y2="145" stroke="#5b6675" stroke-width="2" marker-end="url(#a6)"/>
+
+  <rect x="20" y="148" width="200" height="60" rx="8" fill="#0e8a6e"/>
+  <text x="120" y="170" text-anchor="middle" font-size="12" font-weight="bold" fill="white">E-step: Viterbi</text>
+  <text x="120" y="188" text-anchor="middle" font-size="11" fill="#cef">Best segmentation of each word</text>
+
+  <line x1="120" y1="208" x2="120" y2="238" stroke="#5b6675" stroke-width="2" marker-end="url(#a6)"/>
+
+  <rect x="20" y="241" width="200" height="60" rx="8" fill="#0e8a6e"/>
+  <text x="120" y="263" text-anchor="middle" font-size="12" font-weight="bold" fill="white">M-step: update p(t)</text>
+  <text x="120" y="281" text-anchor="middle" font-size="11" fill="#cef">p(t) ∝ count(t) from E-step</text>
+
+  <!-- Pruning -->
+  <rect x="320" y="148" width="220" height="120" rx="8" fill="#fef3e2" stroke="#c77a12" stroke-width="2"/>
+  <text x="430" y="175" text-anchor="middle" font-size="12" font-weight="bold" fill="#c77a12">Pruning step</text>
+  <text x="430" y="198" text-anchor="middle" font-size="12" fill="#555">For each token t, compute</text>
+  <text x="430" y="218" text-anchor="middle" font-size="13" font-weight="bold" fill="#c77a12">loss(t) = Σ log p(w) drop</text>
+  <text x="430" y="238" text-anchor="middle" font-size="12" fill="#555">Remove bottom 10–20% by loss</text>
+  <text x="430" y="256" text-anchor="middle" font-size="12" fill="#555">Repeat until |V| = target size</text>
+
+  <!-- Arrow EM → pruning -->
+  <line x1="220" y1="207" x2="318" y2="207" stroke="#5b6675" stroke-width="2" marker-end="url(#a6)"/>
+  <text x="269" y="200" text-anchor="middle" font-size="10" fill="#5b6675">every N steps</text>
+
+  <!-- Convergence -->
+  <rect x="620" y="148" width="180" height="120" rx="8" fill="#e8edf5" stroke="#1f4fa3" stroke-width="2"/>
+  <text x="710" y="175" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f4fa3">Output</text>
+  <text x="710" y="198" text-anchor="middle" font-size="12" fill="#555">Vocab V with probabilities</text>
+  <text x="710" y="218" text-anchor="middle" font-size="12" fill="#555">p(t) for each token t</text>
+  <text x="710" y="238" text-anchor="middle" font-size="12" fill="#555">Encode: Viterbi MAP path</text>
+  <text x="710" y="258" text-anchor="middle" font-size="12" fill="#555">or sample from lattice</text>
+
+  <line x1="540" y1="207" x2="618" y2="207" stroke="#5b6675" stroke-width="2" marker-end="url(#a6)"/>
+  <text x="579" y="200" text-anchor="middle" font-size="10" fill="#5b6675">|V| = target</text>
+
+  <!-- Objective label -->
+  <text x="410" y="298" text-anchor="middle" font-size="12" fill="#444">Objective: maximise  L = Σ_w log P(w) = Σ_w log Σ_{segmentations x} Π_t p(t)</text>
+</svg>

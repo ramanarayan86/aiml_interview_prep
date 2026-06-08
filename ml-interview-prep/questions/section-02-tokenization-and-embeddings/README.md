@@ -12,8 +12,8 @@
 
 ![Questions](https://img.shields.io/badge/questions-32-1f4fa3)
 ![Levels](https://img.shields.io/badge/levels-Basic→Intermediate→Advanced→Applied-0e8a6e)
-![Answered](https://img.shields.io/badge/answered-0%2F32-c77a12)
-![Scaffolded](https://img.shields.io/badge/scaffolded-32%2F32-6c4fe0)
+![Answered](https://img.shields.io/badge/answered-7%2F32-c77a12)
+![Scaffolded](https://img.shields.io/badge/scaffolded-25%2F32-6c4fe0)
 
 </div>
 
@@ -27,13 +27,13 @@ Tokenization is the hidden tax on every LLM system. Get it wrong and your model 
 
 | # | Question | Tags | Status |
 |---|----------|------|:------:|
-| Q2‑01 | [What is a token, and why do LLMs operate on tokens rather than characters or words?](./q01-what-is-a-token.md) | tokenization · vocabulary · subword | 📝 |
-| Q2‑02 | [Explain Byte-Pair Encoding (BPE) from scratch — the merge algorithm, stopping criterion, and the role of the vocabulary size hyperparameter.](./q02-bpe.md) | BPE · vocabulary · merge-rules | 📝 |
-| Q2‑03 | [How does WordPiece differ from BPE? What objective does it optimise and where is it used?](./q03-wordpiece.md) | WordPiece · BERT · likelihood | 📝 |
-| Q2‑04 | [What is the Unigram Language Model tokenizer, and how does it differ from BPE in the way it selects the vocabulary?](./q04-unigram-lm.md) | Unigram · SentencePiece · EM | 📝 |
-| Q2‑05 | [What is byte-level tokenization, and why do GPT-2 and Llama use it instead of character or word tokenization?](./q05-byte-level-bpe.md) | byte-level · GPT-2 · OOV-free | 📝 |
-| Q2‑06 | [What is an embedding layer, and what is the relationship between the vocabulary size, embedding dimension, and the first weight matrix of a Transformer?](./q06-embedding-layer.md) | embeddings · weight-matrix · lookup | 📝 |
-| Q2‑07 | [What is token fertility, and why does it matter for multilingual models, cost estimation, and cross-lingual fairness?](./q07-token-fertility.md) | fertility · multilingual · cost | 📝 |
+| Q2‑01 | [What is a token, and why do LLMs operate on tokens rather than characters or words?](./q01-what-is-a-token.md) | tokenization · vocabulary · subword | ✅ |
+| Q2‑02 | [Explain Byte-Pair Encoding (BPE) from scratch — the merge algorithm, stopping criterion, and the role of the vocabulary size hyperparameter.](./q02-bpe.md) | BPE · vocabulary · merge-rules | ✅ |
+| Q2‑03 | [How does WordPiece differ from BPE? What objective does it optimise and where is it used?](./q03-wordpiece.md) | WordPiece · BERT · likelihood | ✅ |
+| Q2‑04 | [What is the Unigram Language Model tokenizer, and how does it differ from BPE in the way it selects the vocabulary?](./q04-unigram-lm.md) | Unigram · SentencePiece · EM | ✅ |
+| Q2‑05 | [What is byte-level tokenization, and why do GPT-2 and Llama use it instead of character or word tokenization?](./q05-byte-level-bpe.md) | byte-level · GPT-2 · OOV-free | ✅ |
+| Q2‑06 | [What is an embedding layer, and what is the relationship between the vocabulary size, embedding dimension, and the first weight matrix of a Transformer?](./q06-embedding-layer.md) | embeddings · weight-matrix · lookup | ✅ |
+| Q2‑07 | [What is token fertility, and why does it matter for multilingual models, cost estimation, and cross-lingual fairness?](./q07-token-fertility.md) | fertility · multilingual · cost | ✅ |
 
 ---
 
