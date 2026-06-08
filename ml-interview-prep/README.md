@@ -32,6 +32,9 @@ The goal: open one page, and walk out able to answer that question **like you in
 - **Navigation is built in:** every page links back to its section index and to Home, plus previous/next — so you can move like a website, never hitting a dead end.
 - Figures are committed **SVGs** (crisp at any zoom, diff‑able in git); math renders via GitHub's LaTeX support; diagrams use **Mermaid**.
 - Want to contribute or extend it? See [CONTRIBUTING](./CONTRIBUTING.md) — adding a question is "copy the template, fill the blanks."
+- **Preparing for an interview?** Use the [Study Plans](./STUDY_PLANS.md) to build a schedule, then read the [Cheat Sheet](./CHEATSHEET.md) the morning of your interview.
+- **Unfamiliar term?** Check the [Glossary](./GLOSSARY.md) — every entry links back to the question where it's covered in depth.
+- **Wondering what's next?** See the [Roadmap](./ROADMAP.md) for active sprints and contribution bounties.
 
 > [!TIP]
 > **Suggested study loop:** read the *20‑second answer* → read the *worked example* → close the page and try to redraw Figure 1 and re‑derive the key equation from memory → only then read the follow‑up drills. If you can reproduce the figure, you own the concept.
@@ -45,6 +48,10 @@ ml-interview-prep/
 ├── README.md                        ← you are here
 ├── _TEMPLATE.md                     ← answer-page template (copy to add a question)
 ├── CONTRIBUTING.md                  ← how to add / improve answers
+├── CHEATSHEET.md                    ← one-liner answers for every answered question
+├── GLOSSARY.md                      ← 60+ term definitions, each linked to the source question
+├── ROADMAP.md                       ← what's done, what's next, contribution bounty board
+├── STUDY_PLANS.md                   ← 3 plans: MLE (48h), Research Scientist (1wk), Applied Scientist (3d)
 ├── assets/
 │   ├── q01/  fig1-block-overview.svg  fig2-gradient-flow.svg  fig3-residual-stream.svg
 │   ├── q02/  fig1-variance-explosion.svg  fig2-softmax-sharpening.svg
