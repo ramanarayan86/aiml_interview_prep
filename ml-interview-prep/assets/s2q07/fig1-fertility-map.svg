@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="820" height="300" font-family="Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 300" width="820" height="300" font-family="Arial, sans-serif">
   <rect width="820" height="300" fill="#f8f9fa" rx="8"/>
   <text x="410" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">Token Fertility: Tokens per Word Across Languages (GPT-2 tokenizer)</text>
 
