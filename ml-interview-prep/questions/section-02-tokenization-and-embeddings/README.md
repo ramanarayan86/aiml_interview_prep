@@ -1,6 +1,6 @@
 <div align="center">
 
-[🏠 Home](../../README.md) &nbsp;|&nbsp; [⬅️ Section 1 — Transformer Architecture](../section-01-transformer-architecture/README.md) &nbsp;|&nbsp; [Section 3 — Pretraining & Scaling Laws ➡️](../section-03-pretraining-and-scaling-laws/README.md)
+[🏠 Home](../../README.md) &nbsp;|&nbsp; [⬅️ Section 1 — Transformer Architecture](../section-01-transformer-architecture/README.md) &nbsp;|&nbsp; [Section 3 — Pretraining & Scaling Laws ➡️](../../README.md#section-3--pretraining-and-scaling-laws)
 
 </div>
 
@@ -110,7 +110,7 @@ Tokenization questions appear at every interview level because they probe a cand
 
 <div align="center">
 
-[🏠 Home](../../README.md) &nbsp;|&nbsp; [⬅️ Section 1 — Transformer Architecture](../section-01-transformer-architecture/README.md) &nbsp;|&nbsp; [Section 3 — Pretraining & Scaling Laws ➡️](../section-03-pretraining-and-scaling-laws/README.md)
+[🏠 Home](../../README.md) &nbsp;|&nbsp; [⬅️ Section 1 — Transformer Architecture](../section-01-transformer-architecture/README.md) &nbsp;|&nbsp; [Section 3 — Pretraining & Scaling Laws ➡️](../../README.md#section-3--pretraining-and-scaling-laws)
 
 <sub>No answer yet? Copy <a href="../../_TEMPLATE.md"><code>_TEMPLATE.md</code></a>, fill the blanks, add figures under <code>assets/</code>, then flip the status to ✅ here. See <a href="../../CONTRIBUTING.md">CONTRIBUTING</a>.</sub>
 

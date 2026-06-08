@@ -1,7 +1,7 @@
 <!-- ============================ TOP NAV ============================ -->
 <div align="center">
 
-[🏠 Home](../../README.md) &nbsp;•&nbsp; [📚 Section 2 — Tokenization & Embeddings](./README.md) &nbsp;•&nbsp; [⬅️ Q2‑06 — Embedding Layer](./q06-embedding-layer.md) &nbsp;•&nbsp; [Q2‑08 — BPE Algorithm Deep Dive ➡️](./q08-bpe-algorithm.md)
+[🏠 Home](../../README.md) &nbsp;•&nbsp; [📚 Section 2 — Tokenization & Embeddings](./README.md) &nbsp;•&nbsp; [⬅️ Q2‑06 — Embedding Layer](./q06-embedding-layer.md) &nbsp;•&nbsp; [📚 Back to Section 2 ➡️](./README.md)
 
 </div>
 
@@ -310,7 +310,7 @@ The cost structure differs. For encoder-only models (e.g., BERT for classificati
 <!-- ============================ BOTTOM NAV ============================ -->
 <div align="center">
 
-[⬅️ Q2‑06 — Embedding Layer](./q06-embedding-layer.md) &nbsp;|&nbsp; [📚 Back to Section 2](./README.md) &nbsp;|&nbsp; [🏠 Home](../../README.md) &nbsp;|&nbsp; [Q2‑08 — BPE Algorithm Deep Dive ➡️](./q08-bpe-algorithm.md)
+[⬅️ Q2‑06 — Embedding Layer](./q06-embedding-layer.md) &nbsp;|&nbsp; [📚 Back to Section 2](./README.md) &nbsp;|&nbsp; [🏠 Home](../../README.md)
 
 <sub>Found an error or have a sharper intuition? See <a href="../../CONTRIBUTING.md">CONTRIBUTING</a> — answers follow the <a href="../../_TEMPLATE.md">answer template</a>.</sub>
 
