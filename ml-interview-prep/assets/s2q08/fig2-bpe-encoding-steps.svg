@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 340" width="820" height="340" font-family="Arial, sans-serif">
+  <rect width="820" height="340" fill="#f8f9fa" rx="8"/>
+  <text x="410" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">BPE Encoding: O(|w| * R) — Applying Merge Rules in Order</text>
+
+  <!-- Word being encoded -->
+  <text x="410" y="52" text-anchor="middle" font-size="12" fill="#5b6675">Encoding the word "unrelated" with merge rules learned during training</text>
+
+  <!-- Row labels -->
+  <text x="40" y="90" font-size="11" fill="#5b6675" font-weight="bold">Rule applied</text>
+  <text x="40" y="108" font-size="11" fill="#5b6675" font-weight="bold">Token state</text>
+
+  <!-- Step 0: initial char split -->
+  <text x="155" y="78" text-anchor="middle" font-size="11" fill="#888">Step 0 (init)</text>
+  <rect x="80"  y="82" width="26" height="22" fill="#dde9ff" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <rect x="108" y="82" width="26" height="22" fill="#dde9ff" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <rect x="136" y="82" width="26" height="22" fill="#dde9ff" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <rect x="164" y="82" width="26" height="22" fill="#dde9ff" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <rect x="192" y="82" width="26" height="22" fill="#dde9ff" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <rect x="220" y="82" width="26" height="22" fill="#dde9ff" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <rect x="248" y="82" width="26" height="22" fill="#dde9ff" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <rect x="276" y="82" width="26" height="22" fill="#dde9ff" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <rect x="304" y="82" width="26" height="22" fill="#dde9ff" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <text x="93"  y="97" text-anchor="middle" font-size="10" fill="#1f4fa3">u</text>
+  <text x="121" y="97" text-anchor="middle" font-size="10" fill="#1f4fa3">n</text>
+  <text x="149" y="97" text-anchor="middle" font-size="10" fill="#1f4fa3">r</text>
+  <text x="177" y="97" text-anchor="middle" font-size="10" fill="#1f4fa3">e</text>
+  <text x="205" y="97" text-anchor="middle" font-size="10" fill="#1f4fa3">l</text>
+  <text x="233" y="97" text-anchor="middle" font-size="10" fill="#1f4fa3">a</text>
+  <text x="261" y="97" text-anchor="middle" font-size="10" fill="#1f4fa3">t</text>
+  <text x="289" y="97" text-anchor="middle" font-size="10" fill="#1f4fa3">e</text>
+  <text x="317" y="97" text-anchor="middle" font-size="10" fill="#1f4fa3">d</text>
+  <text x="350" y="95" font-size="10" fill="#888">9 tokens</text>
+
+  <!-- Arrow -->
+  <text x="410" y="120" text-anchor="middle" font-size="13" fill="#0e8a6e">&#8595; merge (r, e) = rule #47</text>
+
+  <!-- Step 1: merge (r,e) -> re -->
+  <text x="155" y="145" text-anchor="middle" font-size="11" fill="#888">After rule #47</text>
+  <rect x="80"  y="148" width="26" height="22" fill="#dde9ff" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <rect x="108" y="148" width="26" height="22" fill="#dde9ff" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <rect x="136" y="148" width="38" height="22" fill="#c8f0e8" stroke="#0e8a6e" stroke-width="1.5" rx="3"/>
+  <rect x="176" y="148" width="26" height="22" fill="#dde9ff" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <rect x="204" y="148" width="26" height="22" fill="#dde9ff" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <rect x="232" y="148" width="26" height="22" fill="#dde9ff" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <rect x="260" y="148" width="26" height="22" fill="#dde9ff" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <rect x="288" y="148" width="26" height="22" fill="#dde9ff" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <text x="93"  y="163" text-anchor="middle" font-size="10" fill="#1f4fa3">u</text>
+  <text x="121" y="163" text-anchor="middle" font-size="10" fill="#1f4fa3">n</text>
+  <text x="155" y="163" text-anchor="middle" font-size="10" fill="#0e8a6e" font-weight="bold">re</text>
+  <text x="189" y="163" text-anchor="middle" font-size="10" fill="#1f4fa3">l</text>
+  <text x="217" y="163" text-anchor="middle" font-size="10" fill="#1f4fa3">a</text>
+  <text x="245" y="163" text-anchor="middle" font-size="10" fill="#1f4fa3">t</text>
+  <text x="273" y="163" text-anchor="middle" font-size="10" fill="#1f4fa3">e</text>
+  <text x="301" y="163" text-anchor="middle" font-size="10" fill="#1f4fa3">d</text>
+  <text x="350" y="161" font-size="10" fill="#888">8 tokens</text>
+
+  <!-- Arrow -->
+  <text x="410" y="186" text-anchor="middle" font-size="13" fill="#0e8a6e">&#8595; merge (r, e, l, a, t, e, d) scanned; match (t, e) = rule #112</text>
+
+  <!-- Step 2: merge (t, e) -> te -->
+  <text x="155" y="211" text-anchor="middle" font-size="11" fill="#888">After rule #112</text>
+  <rect x="80"  y="214" width="26" height="22" fill="#dde9ff" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <rect x="108" y="214" width="26" height="22" fill="#dde9ff" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <rect x="136" y="214" width="38" height="22" fill="#c8f0e8" stroke="#0e8a6e" stroke-width="1.5" rx="3"/>
+  <rect x="176" y="214" width="26" height="22" fill="#dde9ff" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <rect x="204" y="214" width="26" height="22" fill="#dde9ff" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <rect x="232" y="214" width="38" height="22" fill="#c8f0e8" stroke="#0e8a6e" stroke-width="1.5" rx="3"/>
+  <rect x="272" y="214" width="26" height="22" fill="#dde9ff" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <text x="93"  y="229" text-anchor="middle" font-size="10" fill="#1f4fa3">u</text>
+  <text x="121" y="229" text-anchor="middle" font-size="10" fill="#1f4fa3">n</text>
+  <text x="155" y="229" text-anchor="middle" font-size="10" fill="#0e8a6e" font-weight="bold">re</text>
+  <text x="189" y="229" text-anchor="middle" font-size="10" fill="#1f4fa3">l</text>
+  <text x="217" y="229" text-anchor="middle" font-size="10" fill="#1f4fa3">a</text>
+  <text x="251" y="229" text-anchor="middle" font-size="10" fill="#0e8a6e" font-weight="bold">te</text>
+  <text x="285" y="229" text-anchor="middle" font-size="10" fill="#1f4fa3">d</text>
+  <text x="350" y="227" font-size="10" fill="#888">7 tokens</text>
+
+  <!-- Arrow down to final -->
+  <text x="410" y="252" text-anchor="middle" font-size="13" fill="#0e8a6e">&#8595; continue for all R rules; no more matches</text>
+
+  <!-- Final result -->
+  <text x="155" y="276" text-anchor="middle" font-size="11" fill="#888">Final tokens</text>
+  <rect x="80"  y="279" width="26" height="24" fill="#1f4fa3" rx="3"/>
+  <rect x="108" y="279" width="26" height="24" fill="#1f4fa3" rx="3"/>
+  <rect x="136" y="279" width="38" height="24" fill="#0e8a6e" rx="3"/>
+  <rect x="176" y="279" width="26" height="24" fill="#1f4fa3" rx="3"/>
+  <rect x="204" y="279" width="26" height="24" fill="#1f4fa3" rx="3"/>
+  <rect x="232" y="279" width="38" height="24" fill="#0e8a6e" rx="3"/>
+  <rect x="272" y="279" width="26" height="24" fill="#1f4fa3" rx="3"/>
+  <text x="93"  y="295" text-anchor="middle" font-size="10" fill="#fff">u</text>
+  <text x="121" y="295" text-anchor="middle" font-size="10" fill="#fff">n</text>
+  <text x="155" y="295" text-anchor="middle" font-size="9"  fill="#fff">re</text>
+  <text x="189" y="295" text-anchor="middle" font-size="10" fill="#fff">l</text>
+  <text x="217" y="295" text-anchor="middle" font-size="10" fill="#fff">a</text>
+  <text x="251" y="295" text-anchor="middle" font-size="9"  fill="#fff">te</text>
+  <text x="285" y="295" text-anchor="middle" font-size="10" fill="#fff">d</text>
+  <text x="350" y="293" font-size="10" fill="#1f4fa3" font-weight="bold">7 tokens</text>
+
+  <!-- Complexity label -->
+  <text x="550" y="160" font-size="13" font-weight="bold" fill="#c0392b">Per-word cost:</text>
+  <text x="550" y="180" font-size="13" fill="#c0392b">O(|w| * R)</text>
+  <text x="550" y="200" font-size="11" fill="#555">|w| = chars in word</text>
+  <text x="550" y="216" font-size="11" fill="#555">R = number of merge rules</text>
+  <text x="550" y="232" font-size="11" fill="#555">(&#8776; vocab size V)</text>
+  <rect x="540" y="148" width="240" height="96" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6,3" rx="5"/>
+
+  <text x="410" y="328" text-anchor="middle" font-size="11" fill="#888">Each rule is checked against every adjacent pair — scan left-to-right, O(|w|) per rule, R rules total</text>
+</svg>

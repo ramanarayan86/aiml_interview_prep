@@ -7,7 +7,7 @@
 [![Scope](https://img.shields.io/badge/scope-LLMs_&_VLMs-1f4fa3)](#table-of-contents)
 [![Sections](https://img.shields.io/badge/sections-30-0e8a6e)](#table-of-contents)
 [![Questions](https://img.shields.io/badge/questions-800%2B-6c4fe0)](#questions-by-level)
-[![Answered](https://img.shields.io/badge/answered-41%2F74-c77a12)](#table-of-contents)
+[![Answered](https://img.shields.io/badge/answered-50%2F74-c77a12)](#table-of-contents)
 [![Levels](https://img.shields.io/badge/levels-Basic→Intermediate→Advanced→Applied-c77a12)](#questions-by-level)
 [![Format](https://img.shields.io/badge/format-Markdown_+_SVG_+_LaTeX-16202e)](#repository-layout)
 
@@ -134,7 +134,7 @@ ml-interview-prep/
     │   └── q40-nan-debugging.md              📝 (scaffold)
     │   (Q35–Q39, Q41–Q42 scaffolded — no file yet)
     └── section-02-tokenization-and-embeddings/
-        ├── README.md                ← section index (32 questions, 7 answered)
+        ├── README.md                ← section index (32 questions, 16 answered)
         ├── q01-what-is-a-token.md            ✅
         ├── q02-bpe.md                        ✅
         ├── q03-wordpiece.md                  ✅
@@ -142,7 +142,16 @@ ml-interview-prep/
         ├── q05-byte-level-bpe.md             ✅
         ├── q06-embedding-layer.md            ✅
         ├── q07-token-fertility.md            ✅
-        └── (Q2-08 – Q2-32 scaffolded — files coming)
+        ├── q08-bpe-algorithm.md              ✅
+        ├── q09-sentencepiece.md              ✅
+        ├── q10-vocab-size-tradeoff.md        ✅
+        ├── q11-embedding-init.md             ✅
+        ├── q12-weight-tying-embeddings.md    ✅
+        ├── q13-tokenization-numbers.md       ✅
+        ├── q14-token-healing.md              ✅
+        ├── q15-token-counting-heuristics.md  ✅
+        ├── q16-special-tokens.md             ✅
+        └── (Q2-17 – Q2-32 scaffolded — files coming)
 ```
 
 Each section is a folder with its own index; each question is one Markdown file; figures live under `assets/qNN/` — exactly 2 SVGs per question for Q23–Q34. Adding a new question never touches any existing file.
@@ -151,7 +160,7 @@ Each section is a folder with its own index; each question is one Markdown file;
 
 ## ⭐ Current status
 
-**Total answered: 41 questions across 2 sections** — all following the same first-principles template: 20-second answer → first principles → mechanism → algorithm & pseudocode → PyTorch reference implementation → worked numerical example → interview drill → common misconceptions → one-screen summary → references.
+**Total answered: 50 questions across 2 sections** — all following the same first-principles template: 20-second answer → first principles → mechanism → algorithm & pseudocode → PyTorch reference implementation → worked numerical example → interview drill → common misconceptions → one-screen summary → references.
 
 ### Section 1 — Transformer Architecture (34 answered · 8 scaffolded)
 
@@ -162,12 +171,12 @@ Each section is a folder with its own index; each question is one Markdown file;
 | **[🔴 Advanced (Q23–Q34)](#-advanced)** | [Q23](./questions/section-01-transformer-architecture/q23-rope-derivation.md) · [Q24](./questions/section-01-transformer-architecture/q24-flash-attention.md) · [Q25](./questions/section-01-transformer-architecture/q25-attention-sinks.md) · [Q26](./questions/section-01-transformer-architecture/q26-subquadratic-attention.md) · [Q27](./questions/section-01-transformer-architecture/q27-ssm-mamba.md) · [Q28](./questions/section-01-transformer-architecture/q28-expressivity-gap.md) · [Q29](./questions/section-01-transformer-architecture/q29-differential-transformer.md) · [Q30](./questions/section-01-transformer-architecture/q30-hyena-retnet-rwkv.md) · [Q31](./questions/section-01-transformer-architecture/q31-softmax-free-attention.md) · [Q32](./questions/section-01-transformer-architecture/q32-attention-turing-complete.md) · [Q33](./questions/section-01-transformer-architecture/q33-attention-kernel-method.md) · [Q34](./questions/section-01-transformer-architecture/q34-graph-transformers.md) | ✅ 12/12 |
 | **[🔵 Applied (Q35–Q42)](#-practical--applied)** | Q35 · Q36 · Q37 · Q38 · Q39 · [Q40 📝](./questions/section-01-transformer-architecture/q40-nan-debugging.md) · Q41 · Q42 | 📝 0/8 |
 
-### Section 2 — Tokenization and Embeddings (7 answered · 25 scaffolded)
+### Section 2 — Tokenization and Embeddings (16 answered · 16 scaffolded)
 
 | Group | Questions | Status |
 |---|---|:---:|
 | **[🟢 Basic (Q2-01–Q2-07)](#-basic)** | [Q2-01](./questions/section-02-tokenization-and-embeddings/q01-what-is-a-token.md) · [Q2-02](./questions/section-02-tokenization-and-embeddings/q02-bpe.md) · [Q2-03](./questions/section-02-tokenization-and-embeddings/q03-wordpiece.md) · [Q2-04](./questions/section-02-tokenization-and-embeddings/q04-unigram-lm.md) · [Q2-05](./questions/section-02-tokenization-and-embeddings/q05-byte-level-bpe.md) · [Q2-06](./questions/section-02-tokenization-and-embeddings/q06-embedding-layer.md) · [Q2-07](./questions/section-02-tokenization-and-embeddings/q07-token-fertility.md) | ✅ 7/7 |
-| **🟡 Intermediate (Q2-08–Q2-16)** | BPE algorithm complexity · SentencePiece · vocab tradeoffs · embedding init · weight tying · numbers · token healing · counting heuristics · special tokens | 📝 0/9 |
+| **🟡 Intermediate (Q2-08–Q2-16)** | [Q2-08](./questions/section-02-tokenization-and-embeddings/q08-bpe-algorithm.md) · [Q2-09](./questions/section-02-tokenization-and-embeddings/q09-sentencepiece.md) · [Q2-10](./questions/section-02-tokenization-and-embeddings/q10-vocab-size-tradeoff.md) · [Q2-11](./questions/section-02-tokenization-and-embeddings/q11-embedding-init.md) · [Q2-12](./questions/section-02-tokenization-and-embeddings/q12-weight-tying-embeddings.md) · [Q2-13](./questions/section-02-tokenization-and-embeddings/q13-tokenization-numbers.md) · [Q2-14](./questions/section-02-tokenization-and-embeddings/q14-token-healing.md) · [Q2-15](./questions/section-02-tokenization-and-embeddings/q15-token-counting-heuristics.md) · [Q2-16](./questions/section-02-tokenization-and-embeddings/q16-special-tokens.md) | ✅ 9/9 |
 | **🔴 Advanced (Q2-17–Q2-23)** | Glitch tokens · Unigram LM derivation · multilingual tokenization · vocabulary overlap · tiktoken · tokenizer extension · context efficiency | 📝 0/7 |
 | **🔵 Applied (Q2-24–Q2-32)** | Multilingual tokenizer design · medical OOV · cost optimisation · evaluation · adversarial tokenization · 70B vocab expansion · RAG retrieval · long identifiers · benchmark suite | 📝 0/9 |
 
@@ -182,7 +191,7 @@ Each section is a folder with its own index; each question is one Markdown file;
 | # | Section | Focus | Questions | Status |
 |---|---------|-------|:---------:|:------:|
 | 1 | [**Transformer Architecture Fundamentals**](./questions/section-01-transformer-architecture/README.md) | attention, norms, position, FFN, variants | 42 | ✅ 34/42 · 📝 8/42 |
-| 2 | [**Tokenization and Embeddings**](./questions/section-02-tokenization-and-embeddings/README.md) | BPE/WordPiece/Unigram, byte‑level, glitch tokens | 32 | ✅ 7/32 · 📝 25/32 |
+| 2 | [**Tokenization and Embeddings**](./questions/section-02-tokenization-and-embeddings/README.md) | BPE/WordPiece/Unigram, byte‑level, glitch tokens | 32 | ✅ 16/32 · 📝 16/32 |
 | 3 | [Pretraining and Scaling Laws](#section-3--pretraining-and-scaling-laws) | Chinchilla, data/compute optima, emergence | 10 | 📝 |
 | 4 | [Post‑training: SFT, RLHF, DPO and Beyond](#section-4--post-training-sft-rlhf-dpo-and-beyond) | reward models, PPO, DPO/IPO/KTO | 10 | 📝 |
 | 5 | [Reasoning, CoT, and Inference‑Time Compute](#section-5--reasoning-cot-and-inference-time-compute) | CoT, self‑consistency, search, o‑series | 10 | 📝 |

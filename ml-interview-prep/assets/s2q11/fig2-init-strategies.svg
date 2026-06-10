@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 320" width="820" height="320" font-family="Arial, sans-serif">
+  <defs>
+    <marker id="arr2" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#5b6675"/>
+    </marker>
+  </defs>
+  <rect width="820" height="320" fill="#f8f9fa" rx="8"/>
+
+  <!-- Title -->
+  <text x="410" y="26" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">Embedding Initialisation Strategies: Comparison at Step 0</text>
+
+  <!-- Column headers -->
+  <rect x="20" y="38" width="780" height="28" fill="#e8edf5" rx="4"/>
+  <text x="130" y="57" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f4fa3">Strategy</text>
+  <text x="300" y="57" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f4fa3">Formula / Params</text>
+  <text x="490" y="57" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f4fa3">Gradient at Step 0</text>
+  <text x="680" y="57" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f4fa3">Used By</text>
+
+  <!-- Divider lines -->
+  <line x1="220" y1="38" x2="220" y2="312" stroke="#5b6675" stroke-width="0.6" stroke-dasharray="4,3"/>
+  <line x1="390" y1="38" x2="390" y2="312" stroke="#5b6675" stroke-width="0.6" stroke-dasharray="4,3"/>
+  <line x1="590" y1="38" x2="590" y2="312" stroke="#5b6675" stroke-width="0.6" stroke-dasharray="4,3"/>
+
+  <!-- Row 1: Random Normal sigma=1 (bad) -->
+  <rect x="20" y="66" width="780" height="50" fill="#fef3e2" rx="3"/>
+  <text x="130" y="84" text-anchor="middle" font-size="12" font-weight="bold" fill="#c77a12">Random Normal</text>
+  <text x="130" y="101" text-anchor="middle" font-size="11" fill="#c77a12">&#963; = 1.0  (naive)</text>
+  <text x="300" y="84" text-anchor="middle" font-size="11" fill="#5b6675">N(0, 1&#178;),  ||e||&#8322; &#8776; &#8730;d</text>
+  <text x="300" y="101" text-anchor="middle" font-size="11" fill="#5b6675">e.g. d=768 &#8594; ||e||&#8776; 27.7</text>
+  <!-- gradient bar: saturated / tiny -->
+  <rect x="410" y="78" width="150" height="18" fill="#e8edf5" rx="3"/>
+  <rect x="410" y="78" width="14" height="18" fill="#c0392b" rx="3"/>
+  <text x="570" y="93" font-size="11" fill="#c0392b">  near-zero (saturated)</text>
+  <text x="680" y="92" text-anchor="middle" font-size="11" fill="#5b6675">&#8212; (avoid)</text>
+
+  <!-- Row 2: Truncated Normal sigma=0.02 (GPT-2) -->
+  <rect x="20" y="116" width="780" height="50" fill="#e6f4f1" rx="3"/>
+  <text x="130" y="134" text-anchor="middle" font-size="12" font-weight="bold" fill="#0e8a6e">Truncated Normal</text>
+  <text x="130" y="151" text-anchor="middle" font-size="11" fill="#0e8a6e">&#963; = 0.02  (GPT-2)</text>
+  <text x="300" y="134" text-anchor="middle" font-size="11" fill="#5b6675">TN(0, 0.02&#178;), clip at &#177;2&#963;</text>
+  <text x="300" y="151" text-anchor="middle" font-size="11" fill="#5b6675">||e||&#8322; &#8776; 0.02&#183;&#8730;d &#8776; 0.55</text>
+  <!-- gradient bar: healthy -->
+  <rect x="410" y="128" width="150" height="18" fill="#e8edf5" rx="3"/>
+  <rect x="410" y="128" width="120" height="18" fill="#0e8a6e" rx="3"/>
+  <text x="570" y="143" font-size="11" fill="#0e8a6e">  healthy signal</text>
+  <text x="680" y="142" text-anchor="middle" font-size="11" fill="#0e8a6e">GPT-2, GPT-3</text>
+
+  <!-- Row 3: Uniform small -->
+  <rect x="20" y="166" width="780" height="50" fill="#f0edfb" rx="3"/>
+  <text x="130" y="184" text-anchor="middle" font-size="12" font-weight="bold" fill="#6c4fe0">Uniform Small</text>
+  <text x="130" y="201" text-anchor="middle" font-size="11" fill="#6c4fe0">U(-0.02, 0.02)</text>
+  <text x="300" y="184" text-anchor="middle" font-size="11" fill="#5b6675">Uniform&#177;a, std = a/&#8730;3</text>
+  <text x="300" y="201" text-anchor="middle" font-size="11" fill="#5b6675">a=0.02 &#8594; std&#8776;0.0115</text>
+  <!-- gradient bar: good -->
+  <rect x="410" y="178" width="150" height="18" fill="#e8edf5" rx="3"/>
+  <rect x="410" y="178" width="105" height="18" fill="#6c4fe0" rx="3"/>
+  <text x="570" y="193" font-size="11" fill="#6c4fe0">  good signal</text>
+  <text x="680" y="192" text-anchor="middle" font-size="11" fill="#6c4fe0">BERT, T5</text>
+
+  <!-- Row 4: Xavier/Glorot -->
+  <rect x="20" y="216" width="780" height="50" fill="#e8edf5" rx="3"/>
+  <text x="130" y="234" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f4fa3">Xavier / Glorot</text>
+  <text x="130" y="251" text-anchor="middle" font-size="11" fill="#1f4fa3">&#963;=&#8730;(1/d_model)</text>
+  <text x="300" y="234" text-anchor="middle" font-size="11" fill="#5b6675">N(0, 1/d), fan-in=d_model</text>
+  <text x="300" y="251" text-anchor="middle" font-size="11" fill="#5b6675">d=768 &#8594; &#963;&#8776;0.036</text>
+  <!-- gradient bar: good -->
+  <rect x="410" y="228" width="150" height="18" fill="#e8edf5" rx="3"/>
+  <rect x="410" y="228" width="115" height="18" fill="#1f4fa3" rx="3"/>
+  <text x="570" y="243" font-size="11" fill="#1f4fa3">  good signal</text>
+  <text x="680" y="242" text-anchor="middle" font-size="11" fill="#1f4fa3">Some custom LMs</text>
+
+  <!-- Row 5: Pre-trained / Warm-start -->
+  <rect x="20" y="266" width="780" height="46" fill="#f8f9fa" rx="3" stroke="#0e8a6e" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="130" y="284" text-anchor="middle" font-size="12" font-weight="bold" fill="#0e8a6e">Pre-trained / Warm</text>
+  <text x="130" y="301" text-anchor="middle" font-size="11" fill="#0e8a6e">transfer init</text>
+  <text x="300" y="284" text-anchor="middle" font-size="11" fill="#5b6675">Copy from checkpoint or</text>
+  <text x="300" y="301" text-anchor="middle" font-size="11" fill="#5b6675">average of similar tokens</text>
+  <!-- gradient bar: best -->
+  <rect x="410" y="278" width="150" height="18" fill="#e8edf5" rx="3"/>
+  <rect x="410" y="278" width="148" height="18" fill="#0e8a6e" rx="3"/>
+  <text x="570" y="293" font-size="11" fill="#0e8a6e">  best (pre-learned)</text>
+  <text x="680" y="292" text-anchor="middle" font-size="11" fill="#0e8a6e">Fine-tuning / LLaMA</text>
+
+  <!-- Bottom legend: gradient bar legend -->
+  <text x="412" y="313" font-size="10" fill="#5b6675">Gradient bar width = relative step-0 signal strength (wider = stronger usable gradient)</text>
+</svg>

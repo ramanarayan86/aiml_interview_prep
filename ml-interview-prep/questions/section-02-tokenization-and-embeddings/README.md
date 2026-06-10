@@ -12,8 +12,8 @@
 
 ![Questions](https://img.shields.io/badge/questions-32-1f4fa3)
 ![Levels](https://img.shields.io/badge/levels-Basic→Intermediate→Advanced→Applied-0e8a6e)
-![Answered](https://img.shields.io/badge/answered-7%2F32-c77a12)
-![Scaffolded](https://img.shields.io/badge/scaffolded-25%2F32-6c4fe0)
+![Answered](https://img.shields.io/badge/answered-16%2F32-c77a12)
+![Scaffolded](https://img.shields.io/badge/scaffolded-16%2F32-6c4fe0)
 
 </div>
 
@@ -41,15 +41,15 @@ Tokenization is the hidden tax on every LLM system. Get it wrong and your model 
 
 | # | Question | Tags | Status |
 |---|----------|------|:------:|
-| Q2‑08 | [Walk through the BPE training and encoding algorithm end-to-end. What are the computational costs of building and applying the merge table?](./q08-bpe-algorithm.md) | BPE · training · encoding-complexity | 📝 |
-| Q2‑09 | [How does SentencePiece differ from Hugging Face tokenizers? What does language-independent tokenization mean in practice?](./q09-sentencepiece.md) | SentencePiece · normalisation · whitespace | 📝 |
-| Q2‑10 | [What are the tradeoffs between a small vocabulary (e.g. 32K) and a large vocabulary (e.g. 256K)? How does vocabulary size affect model quality, memory, and throughput?](./q10-vocab-size-tradeoff.md) | vocabulary-size · embedding-table · throughput | 📝 |
-| Q2‑11 | [How is the embedding table initialised, and why is initialisation scale important for training stability?](./q11-embedding-init.md) | initialisation · scale · stability | 📝 |
-| Q2‑12 | [What is weight tying between the input embedding and the output (un-embedding) matrix? When does it help and when does it hurt?](./q12-weight-tying-embeddings.md) | weight-tying · logits · tied-embeddings | 📝 |
-| Q2‑13 | [How does tokenization interact with numbers and arithmetic? Why do LLMs struggle with multi-digit arithmetic and what tokenization choices make it worse?](./q13-tokenization-numbers.md) | numbers · arithmetic · digit-split | 📝 |
-| Q2‑14 | [Explain the concept of token healing (prefix caching across tokenisation boundaries). What problem does it solve and how do vLLM and TGI handle it?](./q14-token-healing.md) | token-healing · prefix-caching · boundary | 📝 |
-| Q2‑15 | [How do you estimate the number of tokens in a document without running the tokenizer? What heuristics are commonly used and when do they break?](./q15-token-counting-heuristics.md) | token-counting · heuristics · cost | 📝 |
-| Q2‑16 | [What is the special token protocol (BOS, EOS, PAD, MASK, SEP, CLS) and how do different model families handle padding and attention masking for batched inference?](./q16-special-tokens.md) | special-tokens · padding · attention-mask | 📝 |
+| Q2‑08 | [Walk through the BPE training and encoding algorithm end-to-end. What are the computational costs of building and applying the merge table?](./q08-bpe-algorithm.md) | BPE · training · encoding-complexity | ✅ |
+| Q2‑09 | [How does SentencePiece differ from Hugging Face tokenizers? What does language-independent tokenization mean in practice?](./q09-sentencepiece.md) | SentencePiece · normalisation · whitespace | ✅ |
+| Q2‑10 | [What are the tradeoffs between a small vocabulary (e.g. 32K) and a large vocabulary (e.g. 256K)? How does vocabulary size affect model quality, memory, and throughput?](./q10-vocab-size-tradeoff.md) | vocabulary-size · embedding-table · throughput | ✅ |
+| Q2‑11 | [How is the embedding table initialised, and why is initialisation scale important for training stability?](./q11-embedding-init.md) | initialisation · scale · stability | ✅ |
+| Q2‑12 | [What is weight tying between the input embedding and the output (un-embedding) matrix? When does it help and when does it hurt?](./q12-weight-tying-embeddings.md) | weight-tying · logits · tied-embeddings | ✅ |
+| Q2‑13 | [How does tokenization interact with numbers and arithmetic? Why do LLMs struggle with multi-digit arithmetic and what tokenization choices make it worse?](./q13-tokenization-numbers.md) | numbers · arithmetic · digit-split | ✅ |
+| Q2‑14 | [Explain the concept of token healing (prefix caching across tokenisation boundaries). What problem does it solve and how do vLLM and TGI handle it?](./q14-token-healing.md) | token-healing · prefix-caching · boundary | ✅ |
+| Q2‑15 | [How do you estimate the number of tokens in a document without running the tokenizer? What heuristics are commonly used and when do they break?](./q15-token-counting-heuristics.md) | token-counting · heuristics · cost | ✅ |
+| Q2‑16 | [What is the special token protocol (BOS, EOS, PAD, MASK, SEP, CLS) and how do different model families handle padding and attention masking for batched inference?](./q16-special-tokens.md) | special-tokens · padding · attention-mask | ✅ |
 
 ---
 

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 340" width="860" height="340" font-family="Arial, sans-serif">
+  <rect width="860" height="340" fill="#f8f9fa" rx="8"/>
+  <text x="430" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">Whitespace Handling: SentencePiece &#9654; vs BPE (Whitespace-Aware)</text>
+
+  <!-- Input text -->
+  <rect x="270" y="50" width="320" height="38" fill="#34495e" rx="6"/>
+  <text x="430" y="74" text-anchor="middle" font-size="13" fill="#fff">Input: "Hello world"</text>
+
+  <!-- Left: SentencePiece -->
+  <line x1="430" y1="88" x2="200" y2="120" stroke="#888" stroke-width="1.5"/>
+  <rect x="40" y="120" width="320" height="35" fill="#1f4fa3" rx="5"/>
+  <text x="200" y="142" text-anchor="middle" font-size="12" fill="#fff">SentencePiece (no pre-tokenization)</text>
+
+  <line x1="200" y1="155" x2="200" y2="175" stroke="#1f4fa3" stroke-width="1.5"/>
+  <rect x="40" y="175" width="320" height="35" fill="#2980b9" rx="5"/>
+  <text x="200" y="197" text-anchor="middle" font-size="12" fill="#fff">Treat as raw: H e l l o   w o r l d</text>
+
+  <line x1="200" y1="210" x2="200" y2="230" stroke="#1f4fa3" stroke-width="1.5"/>
+
+  <!-- SP token boxes -->
+  <rect x="50"  y="230" width="70" height="32" fill="#0e8a6e" rx="4"/>
+  <text x="85"  y="251" text-anchor="middle" font-size="12" fill="#fff">&#9650;Hello</text>
+
+  <rect x="130" y="230" width="70" height="32" fill="#0e8a6e" rx="4"/>
+  <text x="165" y="251" text-anchor="middle" font-size="12" fill="#fff">&#9650;world</text>
+
+  <text x="200" y="285" text-anchor="middle" font-size="11" fill="#1f4fa3">&#9650; = &#x25B2; (U+25B2) = word-start marker</text>
+  <text x="200" y="302" text-anchor="middle" font-size="11" fill="#555">Space absorbed into following token</text>
+  <text x="200" y="319" text-anchor="middle" font-size="11" fill="#555">Enables round-trip decode always</text>
+
+  <!-- Right: BPE / HF -->
+  <line x1="430" y1="88" x2="660" y2="120" stroke="#888" stroke-width="1.5"/>
+  <rect x="500" y="120" width="320" height="35" fill="#c77a12" rx="5"/>
+  <text x="660" y="142" text-anchor="middle" font-size="12" fill="#fff">BPE/WordPiece (whitespace pre-tokenize)</text>
+
+  <line x1="660" y1="155" x2="660" y2="175" stroke="#c77a12" stroke-width="1.5"/>
+  <rect x="500" y="175" width="320" height="35" fill="#e67e22" rx="5"/>
+  <text x="660" y="197" text-anchor="middle" font-size="12" fill="#fff">Split on spaces: ["Hello", "world"]</text>
+
+  <line x1="660" y1="210" x2="660" y2="230" stroke="#c77a12" stroke-width="1.5"/>
+
+  <!-- BPE token boxes (per-word) -->
+  <rect x="510" y="230" width="65" height="32" fill="#c0392b" rx="4"/>
+  <text x="542" y="251" text-anchor="middle" font-size="12" fill="#fff">Hello</text>
+
+  <rect x="585" y="230" width="65" height="32" fill="#c0392b" rx="4"/>
+  <text x="617" y="251" text-anchor="middle" font-size="12" fill="#fff">Wworld</text>
+
+  <rect x="660" y="230" width="35" height="32" fill="#e74c3c" rx="4"/>
+  <text x="677" y="251" text-anchor="middle" font-size="11" fill="#fff">##s</text>
+
+  <text x="660" y="285" text-anchor="middle" font-size="11" fill="#c77a12">## = continuation marker (WordPiece)</text>
+  <text x="660" y="302" text-anchor="middle" font-size="11" fill="#555">Tokens never cross word boundaries</text>
+  <text x="660" y="319" text-anchor="middle" font-size="11" fill="#555">Language rules baked in as pre-tokenizer</text>
+</svg>

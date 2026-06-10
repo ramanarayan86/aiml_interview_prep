@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 340" width="820" height="340" font-family="Arial, sans-serif">
+  <rect width="820" height="340" fill="#f8f9fa" rx="8"/>
+
+  <!-- Title -->
+  <text x="410" y="26" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f4fa3">Vocabulary Size Tradeoffs: Sequence Length vs. Memory vs. Softmax Cost</text>
+
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arr1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#5b6675"/>
+    </marker>
+  </defs>
+
+  <!-- ====== LEFT CHART: Sequence Length (decreasing) ====== -->
+  <rect x="30" y="38" width="360" height="270" rx="6" fill="white" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="210" y="58" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f4fa3">Sequence Length &#38; OOV Rate vs. Vocab Size</text>
+  <text x="210" y="72" text-anchor="middle" font-size="10" fill="#5b6675">(smaller = fewer tokens needed per sentence)</text>
+
+  <!-- Left chart axes -->
+  <line x1="70" y1="260" x2="370" y2="260" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arr1)"/>
+  <line x1="70" y1="260" x2="70" y2="88" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arr1)"/>
+
+  <!-- Y axis label -->
+  <text x="18" y="180" text-anchor="middle" font-size="10" fill="#5b6675" transform="rotate(-90 18 180)">Relative Value (normalised)</text>
+
+  <!-- X axis label -->
+  <text x="210" y="290" text-anchor="middle" font-size="10" fill="#5b6675">Vocabulary Size</text>
+
+  <!-- Y ticks -->
+  <line x1="66" y1="260" x2="70" y2="260" stroke="#5b6675" stroke-width="1"/>
+  <text x="62" y="263" text-anchor="end" font-size="9" fill="#5b6675">0</text>
+  <line x1="66" y1="218" x2="70" y2="218" stroke="#5b6675" stroke-width="1"/>
+  <text x="62" y="221" text-anchor="end" font-size="9" fill="#5b6675">0.25</text>
+  <line x1="66" y1="176" x2="70" y2="176" stroke="#5b6675" stroke-width="1"/>
+  <text x="62" y="179" text-anchor="end" font-size="9" fill="#5b6675">0.50</text>
+  <line x1="66" y1="134" x2="70" y2="134" stroke="#5b6675" stroke-width="1"/>
+  <text x="62" y="137" text-anchor="end" font-size="9" fill="#5b6675">0.75</text>
+  <line x1="66" y1="92" x2="70" y2="92" stroke="#5b6675" stroke-width="1"/>
+  <text x="62" y="95" text-anchor="end" font-size="9" fill="#5b6675">1.00</text>
+
+  <!-- Grid lines -->
+  <line x1="70" y1="218" x2="370" y2="218" stroke="#e8e8e8" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="70" y1="176" x2="370" y2="176" stroke="#e8e8e8" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="70" y1="134" x2="370" y2="134" stroke="#e8e8e8" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="70" y1="92" x2="370" y2="92" stroke="#e8e8e8" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- X tick positions: 32K=130, 128K=220, 256K=330 -->
+  <line x1="130" y1="260" x2="130" y2="265" stroke="#5b6675" stroke-width="1"/>
+  <text x="130" y="276" text-anchor="middle" font-size="10" fill="#333">32K</text>
+  <text x="130" y="287" text-anchor="middle" font-size="9" fill="#5b6675">(Llama-2)</text>
+
+  <line x1="220" y1="260" x2="220" y2="265" stroke="#5b6675" stroke-width="1"/>
+  <text x="220" y="276" text-anchor="middle" font-size="10" fill="#333">128K</text>
+  <text x="220" y="287" text-anchor="middle" font-size="9" fill="#5b6675">(Llama-3)</text>
+
+  <line x1="330" y1="260" x2="330" y2="265" stroke="#5b6675" stroke-width="1"/>
+  <text x="330" y="276" text-anchor="middle" font-size="10" fill="#333">256K</text>
+  <text x="330" y="287" text-anchor="middle" font-size="9" fill="#5b6675">(Gemma)</text>
+
+  <!-- Sequence Length curve: decreasing (large vocab = shorter sequences) -->
+  <!-- 32K=0.95, 128K=0.55, 256K=0.42 => y = 260 - val*168 -->
+  <!-- 32K: y=260-0.95*168=100, 128K: y=260-0.55*168=168, 256K: y=260-0.42*168=189 -->
+  <polyline points="130,100 220,168 330,189" fill="none" stroke="#0e8a6e" stroke-width="2.5"/>
+  <circle cx="130" cy="100" r="5" fill="#0e8a6e"/>
+  <circle cx="220" cy="168" r="5" fill="#0e8a6e"/>
+  <circle cx="330" cy="189" r="5" fill="#0e8a6e"/>
+  <text x="340" y="187" font-size="9" fill="#0e8a6e">Seq. Len</text>
+
+  <!-- OOV / Fertility: decreasing faster then flattening -->
+  <!-- 32K=0.88, 128K=0.40, 256K=0.22 => y = 260 - val*168 -->
+  <!-- 32K: y=260-0.88*168=112, 128K: y=260-0.40*168=193, 256K: y=260-0.22*168=223 -->
+  <polyline points="130,112 220,193 330,223" fill="none" stroke="#c77a12" stroke-width="2.5" stroke-dasharray="6,3"/>
+  <circle cx="130" cy="112" r="5" fill="#c77a12"/>
+  <circle cx="220" cy="193" r="5" fill="#c77a12"/>
+  <circle cx="330" cy="223" r="5" fill="#c77a12"/>
+  <text x="340" y="223" font-size="9" fill="#c77a12">OOV Rate</text>
+
+  <!-- Legend inside left chart -->
+  <line x1="80" y1="104" x2="100" y2="104" stroke="#0e8a6e" stroke-width="2.5"/>
+  <circle cx="90" cy="104" r="3" fill="#0e8a6e"/>
+  <text x="104" y="108" font-size="9" fill="#0e8a6e">Sequence Length (fewer = better)</text>
+  <line x1="80" y1="118" x2="100" y2="118" stroke="#c77a12" stroke-width="2.5" stroke-dasharray="4,2"/>
+  <circle cx="90" cy="118" r="3" fill="#c77a12"/>
+  <text x="104" y="122" font-size="9" fill="#c77a12">OOV / Fertility (lower = better)</text>
+
+  <!-- ====== RIGHT CHART: Memory / Softmax (increasing) ====== -->
+  <rect x="430" y="38" width="360" height="270" rx="6" fill="white" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="610" y="58" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Embedding Memory &#38; Softmax Cost vs. Vocab Size</text>
+  <text x="610" y="72" text-anchor="middle" font-size="10" fill="#5b6675">(larger = more GPU memory &#38; compute needed)</text>
+
+  <!-- Right chart axes -->
+  <line x1="470" y1="260" x2="770" y2="260" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arr1)"/>
+  <line x1="470" y1="260" x2="470" y2="88" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arr1)"/>
+
+  <!-- Y axis label -->
+  <text x="418" y="180" text-anchor="middle" font-size="10" fill="#5b6675" transform="rotate(-90 418 180)">Relative Cost (normalised)</text>
+
+  <!-- X axis label -->
+  <text x="610" y="290" text-anchor="middle" font-size="10" fill="#5b6675">Vocabulary Size</text>
+
+  <!-- Y ticks right chart -->
+  <line x1="466" y1="260" x2="470" y2="260" stroke="#5b6675" stroke-width="1"/>
+  <text x="462" y="263" text-anchor="end" font-size="9" fill="#5b6675">0</text>
+  <line x1="466" y1="218" x2="470" y2="218" stroke="#5b6675" stroke-width="1"/>
+  <text x="462" y="221" text-anchor="end" font-size="9" fill="#5b6675">0.25</text>
+  <line x1="466" y1="176" x2="470" y2="176" stroke="#5b6675" stroke-width="1"/>
+  <text x="462" y="179" text-anchor="end" font-size="9" fill="#5b6675">0.50</text>
+  <line x1="466" y1="134" x2="470" y2="134" stroke="#5b6675" stroke-width="1"/>
+  <text x="462" y="137" text-anchor="end" font-size="9" fill="#5b6675">0.75</text>
+  <line x1="466" y1="92" x2="470" y2="92" stroke="#5b6675" stroke-width="1"/>
+  <text x="462" y="95" text-anchor="end" font-size="9" fill="#5b6675">1.00</text>
+
+  <!-- Grid lines right -->
+  <line x1="470" y1="218" x2="770" y2="218" stroke="#e8e8e8" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="470" y1="176" x2="770" y2="176" stroke="#e8e8e8" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="470" y1="134" x2="770" y2="134" stroke="#e8e8e8" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="470" y1="92" x2="770" y2="92" stroke="#e8e8e8" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- X ticks right: 32K=530, 128K=620, 256K=730 -->
+  <line x1="530" y1="260" x2="530" y2="265" stroke="#5b6675" stroke-width="1"/>
+  <text x="530" y="276" text-anchor="middle" font-size="10" fill="#333">32K</text>
+
+  <line x1="620" y1="260" x2="620" y2="265" stroke="#5b6675" stroke-width="1"/>
+  <text x="620" y="276" text-anchor="middle" font-size="10" fill="#333">128K</text>
+
+  <line x1="730" y1="260" x2="730" y2="265" stroke="#5b6675" stroke-width="1"/>
+  <text x="730" y="276" text-anchor="middle" font-size="10" fill="#333">256K</text>
+
+  <!-- Embedding Memory: linearly increasing (V*d*bytes) -->
+  <!-- 32K=0.12, 128K=0.50, 256K=1.00 => y = 260 - val*168 -->
+  <!-- 32K: y=260-0.12*168=240, 128K: y=260-0.50*168=176, 256K: y=260-1.00*168=92 -->
+  <polyline points="530,240 620,176 730,92" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="530" cy="240" r="5" fill="#c0392b"/>
+  <circle cx="620" cy="176" r="5" fill="#c0392b"/>
+  <circle cx="730" cy="92" r="5" fill="#c0392b"/>
+  <text x="735" y="92" font-size="9" fill="#c0392b"> Emb. Mem</text>
+
+  <!-- Softmax Cost: also linearly increasing, offset slightly for visibility -->
+  <!-- 32K=0.12, 128K=0.50, 256K=1.00 => slight vertical offset +4 to distinguish -->
+  <polyline points="530,244 620,180 730,96" fill="none" stroke="#1f4fa3" stroke-width="2" stroke-dasharray="7,4"/>
+  <circle cx="530" cy="244" r="5" fill="#1f4fa3"/>
+  <circle cx="620" cy="180" r="5" fill="#1f4fa3"/>
+  <circle cx="730" cy="96" r="5" fill="#1f4fa3"/>
+  <text x="735" y="100" font-size="9" fill="#1f4fa3"> Softmax</text>
+
+  <!-- Legend inside right chart -->
+  <line x1="480" y1="104" x2="500" y2="104" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="490" cy="104" r="3" fill="#c0392b"/>
+  <text x="504" y="108" font-size="9" fill="#c0392b">Embedding Memory (higher = worse)</text>
+  <line x1="480" y1="118" x2="500" y2="118" stroke="#1f4fa3" stroke-width="2" stroke-dasharray="5,3"/>
+  <circle cx="490" cy="118" r="3" fill="#1f4fa3"/>
+  <text x="504" y="122" font-size="9" fill="#1f4fa3">Softmax Cost (higher = worse)</text>
+</svg>

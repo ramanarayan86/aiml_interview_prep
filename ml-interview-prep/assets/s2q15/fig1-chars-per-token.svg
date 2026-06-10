@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 340" width="820" height="340" font-family="Arial, sans-serif">
+  <rect width="820" height="340" fill="#f8f9fa" rx="8"/>
+
+  <!-- Title -->
+  <text x="410" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">Characters per Token by Content Type (cl100k / GPT-4)</text>
+  <text x="410" y="46" text-anchor="middle" font-size="11" fill="#5b6675">Higher bars = fewer tokens per character = heuristic overestimates token count more</text>
+
+  <!-- Axes -->
+  <line x1="80" y1="260" x2="780" y2="260" stroke="#5b6675" stroke-width="1.5"/>
+  <line x1="80" y1="70" x2="80" y2="260" stroke="#5b6675" stroke-width="1.5"/>
+
+  <!-- Y-axis label -->
+  <text x="20" y="170" text-anchor="middle" font-size="11" fill="#5b6675" transform="rotate(-90,20,170)">Chars per Token</text>
+
+  <!-- Y-axis ticks and gridlines -->
+  <!-- 0 -->
+  <text x="72" y="263" text-anchor="end" font-size="10" fill="#5b6675">0</text>
+  <!-- 1 -->
+  <line x1="78" y1="222" x2="780" y2="222" stroke="#ddd" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="72" y="225" text-anchor="end" font-size="10" fill="#5b6675">1</text>
+  <!-- 2 -->
+  <line x1="78" y1="184" x2="780" y2="184" stroke="#ddd" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="72" y="187" text-anchor="end" font-size="10" fill="#5b6675">2</text>
+  <!-- 3 -->
+  <line x1="78" y1="146" x2="780" y2="146" stroke="#ddd" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="72" y="149" text-anchor="end" font-size="10" fill="#5b6675">3</text>
+  <!-- 4 -->
+  <line x1="78" y1="108" x2="780" y2="108" stroke="#ddd" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="72" y="111" text-anchor="end" font-size="10" fill="#5b6675">4</text>
+  <!-- 5 -->
+  <line x1="78" y1="70" x2="780" y2="70" stroke="#ddd" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="72" y="73" text-anchor="end" font-size="10" fill="#5b6675">5</text>
+
+  <!-- Scale: 0 at y=260, each unit = 38px. Max 5 at y=70 -->
+
+  <!-- Bar 1: English prose  ~4.0 chars/token -->
+  <!-- height = 4.0 * 38 = 152, y = 260 - 152 = 108 -->
+  <rect x="110" y="108" width="80" height="152" fill="#1f4fa3" rx="3" opacity="0.85"/>
+  <text x="150" y="102" text-anchor="middle" font-size="11" font-weight="bold" fill="#1f4fa3">4.0</text>
+  <text x="150" y="277" text-anchor="middle" font-size="10" fill="#333">English</text>
+  <text x="150" y="290" text-anchor="middle" font-size="10" fill="#333">Prose</text>
+
+  <!-- Bar 2: English (word-count heuristic) ~3.8 chars/token alias -->
+  <!-- height = 3.8 * 38 = 144.4 ~144, y = 260 - 144 = 116 -->
+  <rect x="220" y="116" width="80" height="144" fill="#0e8a6e" rx="3" opacity="0.85"/>
+  <text x="260" y="110" text-anchor="middle" font-size="11" font-weight="bold" fill="#0e8a6e">3.8</text>
+  <text x="260" y="277" text-anchor="middle" font-size="10" fill="#333">English</text>
+  <text x="260" y="290" text-anchor="middle" font-size="10" fill="#333">(words)</text>
+
+  <!-- Bar 3: Python / code  ~2.8 chars/token -->
+  <!-- height = 2.8 * 38 = 106.4 ~106, y = 260 - 106 = 154 -->
+  <rect x="330" y="154" width="80" height="106" fill="#c77a12" rx="3" opacity="0.85"/>
+  <text x="370" y="148" text-anchor="middle" font-size="11" font-weight="bold" fill="#c77a12">2.8</text>
+  <text x="370" y="277" text-anchor="middle" font-size="10" fill="#333">Python</text>
+  <text x="370" y="290" text-anchor="middle" font-size="10" fill="#333">Code</text>
+
+  <!-- Bar 4: Dense JSON  ~2.5 chars/token -->
+  <!-- height = 2.5 * 38 = 95, y = 260 - 95 = 165 -->
+  <rect x="440" y="165" width="80" height="95" fill="#6c4fe0" rx="3" opacity="0.85"/>
+  <text x="480" y="159" text-anchor="middle" font-size="11" font-weight="bold" fill="#6c4fe0">2.5</text>
+  <text x="480" y="277" text-anchor="middle" font-size="10" fill="#333">Dense</text>
+  <text x="480" y="290" text-anchor="middle" font-size="10" fill="#333">JSON</text>
+
+  <!-- Bar 5: Chinese / Japanese  ~1.5 chars/token -->
+  <!-- height = 1.5 * 38 = 57, y = 260 - 57 = 203 -->
+  <rect x="550" y="203" width="80" height="57" fill="#c0392b" rx="3" opacity="0.85"/>
+  <text x="590" y="197" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">1.5</text>
+  <text x="590" y="277" text-anchor="middle" font-size="10" fill="#333">CJK /</text>
+  <text x="590" y="290" text-anchor="middle" font-size="10" fill="#333">Arabic</text>
+
+  <!-- Bar 6: Long integers / hex  ~1.2 chars/token -->
+  <!-- height = 1.2 * 38 = 45.6 ~46, y = 260 - 46 = 214 -->
+  <rect x="660" y="214" width="80" height="46" fill="#c0392b" rx="3" opacity="0.7"/>
+  <text x="700" y="208" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">1.2</text>
+  <text x="700" y="277" text-anchor="middle" font-size="10" fill="#333">Digits /</text>
+  <text x="700" y="290" text-anchor="middle" font-size="10" fill="#333">Hex</text>
+
+  <!-- Heuristic reference line at 4.0 -->
+  <line x1="80" y1="108" x2="780" y2="108" stroke="#1f4fa3" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="784" y="112" font-size="10" fill="#1f4fa3">Heuristic</text>
+  <text x="784" y="124" font-size="10" fill="#1f4fa3">baseline</text>
+
+  <!-- Caption -->
+  <text x="410" y="318" text-anchor="middle" font-size="11" fill="#5b6675">Heuristic "4 chars = 1 token" fits English prose; code and non-Latin scripts fall well below this, causing underestimates.</text>
+</svg>

@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 360" width="860" height="360" font-family="Arial, sans-serif">
+  <rect width="860" height="360" fill="#f8f9fa" rx="8"/>
+
+  <!-- Title -->
+  <text x="430" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">Weight Tying: Parameter Savings (V=128K, d=4096, fp16)</text>
+
+  <!-- ==================== LEFT: UNTIED ==================== -->
+  <text x="215" y="58" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Without Tying</text>
+
+  <!-- E_in block -->
+  <rect x="80" y="72" width="270" height="70" fill="#fde8d8" stroke="#c0392b" stroke-width="2" rx="5"/>
+  <text x="215" y="103" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">E_in   (input embedding)</text>
+  <text x="215" y="123" text-anchor="middle" font-size="11" fill="#c0392b">V x d = 128,000 x 4,096 rows</text>
+
+  <!-- W_out block -->
+  <rect x="80" y="152" width="270" height="70" fill="#fde8d8" stroke="#c0392b" stroke-width="2" rx="5"/>
+  <text x="215" y="183" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">W_out   (un-embedding)</text>
+  <text x="215" y="203" text-anchor="middle" font-size="11" fill="#c0392b">V x d = 128,000 x 4,096 rows</text>
+
+  <!-- Brace / total -->
+  <line x1="358" y1="72" x2="370" y2="72" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="370" y1="72" x2="370" y2="222" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="358" y1="222" x2="370" y2="222" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="370" y1="147" x2="382" y2="147" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="390" y="142" font-size="12" fill="#c0392b" font-weight="bold">2 x Vd</text>
+  <text x="390" y="158" font-size="11" fill="#c0392b">= 2 GB fp16</text>
+
+  <!-- Size label -->
+  <rect x="80" y="236" width="270" height="32" fill="#fde8d8" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="215" y="257" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Total embedding params: ~1.05 B   (2 GB fp16)</text>
+
+  <!-- Divider -->
+  <line x1="430" y1="50" x2="430" y2="340" stroke="#ccc" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+  <!-- ==================== RIGHT: TIED ==================== -->
+  <text x="645" y="58" text-anchor="middle" font-size="13" font-weight="bold" fill="#0e8a6e">With Tying</text>
+
+  <!-- Single E block (taller = more impactful visually) -->
+  <rect x="505" y="72" width="270" height="70" fill="#d5f5e3" stroke="#0e8a6e" stroke-width="2.5" rx="5"/>
+  <text x="640" y="103" text-anchor="middle" font-size="13" font-weight="bold" fill="#0e8a6e">E   (shared: input + output)</text>
+  <text x="640" y="123" text-anchor="middle" font-size="11" fill="#0e8a6e">V x d = 128,000 x 4,096 rows</text>
+
+  <!-- SAVED block (greyed out / hatched) -->
+  <rect x="505" y="152" width="270" height="70" fill="#f0faf4" stroke="#0e8a6e" stroke-width="1.5" stroke-dasharray="6,3" rx="5"/>
+  <text x="640" y="183" text-anchor="middle" font-size="13" fill="#aaa">W_out   ELIMINATED</text>
+  <text x="640" y="203" text-anchor="middle" font-size="11" fill="#aaa">saved = Vd = 524 M params</text>
+
+  <!-- Saved badge -->
+  <rect x="540" y="162" width="200" height="52" fill="#d5f5e3" stroke="#0e8a6e" stroke-width="0" rx="4" opacity="0.4"/>
+  <text x="640" y="185" text-anchor="middle" font-size="14" font-weight="bold" fill="#0e8a6e">SAVED</text>
+  <text x="640" y="204" text-anchor="middle" font-size="12" fill="#0e8a6e">524 M params = 1 GB fp16</text>
+
+  <!-- Size label -->
+  <rect x="505" y="236" width="270" height="32" fill="#d5f5e3" stroke="#0e8a6e" stroke-width="1" rx="4"/>
+  <text x="640" y="257" text-anchor="middle" font-size="12" font-weight="bold" fill="#0e8a6e">Total embedding params: ~524 M   (1 GB fp16)</text>
+
+  <!-- ==================== BOTTOM SUMMARY ==================== -->
+  <rect x="50" y="284" width="760" height="58" fill="#fff8e1" stroke="#f0a500" stroke-width="1.5" rx="6"/>
+  <text x="430" y="306" text-anchor="middle" font-size="12" font-weight="bold" fill="#c77a12">Savings formula:  Vd params  =  128,000 x 4,096  =  524,288,000 parameters</text>
+  <text x="430" y="325" text-anchor="middle" font-size="11" fill="#5b6675">At fp16 (2 bytes/param):  524 M x 2 = 1,048 MB ≈ 1 GB saved.   Fraction of 70B model: ~0.75%  (significant for edge deployment)</text>
+
+  <defs>
+    <marker id="arr2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#555"/>
+    </marker>
+  </defs>
+</svg>
