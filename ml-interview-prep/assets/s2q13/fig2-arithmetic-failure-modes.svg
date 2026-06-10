@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 355" width="820" height="355" font-family="Arial, sans-serif">
+  <rect width="820" height="355" fill="#f8f9fa" rx="8"/>
+
+  <!-- Arrow marker defs -->
+  <defs>
+    <marker id="arr2" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 9 3.5, 0 7" fill="#5b6675"/>
+    </marker>
+    <marker id="arr2r" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 9 3.5, 0 7" fill="#c0392b"/>
+    </marker>
+    <marker id="arr2g" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 9 3.5, 0 7" fill="#0e8a6e"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="410" y="26" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">Why LLMs Fail at Multi-Digit Arithmetic: Three Compounding Problems</text>
+
+  <!-- ═══ Problem 1 box ═══ -->
+  <rect x="20" y="40" width="245" height="155" fill="white" rx="6" stroke="#c0392b" stroke-width="2"/>
+  <rect x="20" y="40" width="245" height="26" fill="#c0392b" rx="6"/>
+  <rect x="20" y="54" width="245" height="12" fill="#c0392b"/>
+  <text x="142" y="57" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Problem 1: Token Misalignment</text>
+
+  <text x="142" y="80" text-anchor="middle" font-size="11" fill="#333">"1234 + 5678" tokenized as:</text>
+
+  <!-- Token boxes for problem 1 example -->
+  <rect x="30"  y="88" width="34" height="22" fill="#fef3e2" stroke="#c77a12" stroke-width="1.5" rx="3"/>
+  <text x="47"  y="103" text-anchor="middle" font-size="11" font-weight="bold" fill="#c77a12">12</text>
+  <rect x="68"  y="88" width="34" height="22" fill="#fef3e2" stroke="#c77a12" stroke-width="1.5" rx="3"/>
+  <text x="85"  y="103" text-anchor="middle" font-size="11" font-weight="bold" fill="#c77a12">34</text>
+  <text x="108" y="103" text-anchor="middle" font-size="12" fill="#5b6675">+</text>
+  <rect x="120" y="88" width="34" height="22" fill="#fef3e2" stroke="#c77a12" stroke-width="1.5" rx="3"/>
+  <text x="137" y="103" text-anchor="middle" font-size="11" font-weight="bold" fill="#c77a12">56</text>
+  <rect x="158" y="88" width="34" height="22" fill="#fef3e2" stroke="#c77a12" stroke-width="1.5" rx="3"/>
+  <text x="175" y="103" text-anchor="middle" font-size="11" font-weight="bold" fill="#c77a12">78</text>
+
+  <text x="142" y="128" text-anchor="middle" font-size="11" fill="#555">Boundaries "34 | 56" do not</text>
+  <text x="142" y="143" text-anchor="middle" font-size="11" fill="#555">align with place-value columns.</text>
+  <text x="142" y="158" text-anchor="middle" font-size="11" fill="#555">Carries span token boundaries</text>
+  <text x="142" y="173" text-anchor="middle" font-size="11" fill="#555">that attention must bridge.</text>
+  <text x="142" y="187" text-anchor="middle" font-size="11" font-style="italic" fill="#c0392b">Columns not alignable reliably.</text>
+
+  <!-- ═══ Problem 2 box ═══ -->
+  <rect x="287" y="40" width="245" height="155" fill="white" rx="6" stroke="#c77a12" stroke-width="2"/>
+  <rect x="287" y="40" width="245" height="26" fill="#c77a12" rx="6"/>
+  <rect x="287" y="54" width="245" height="12" fill="#c77a12"/>
+  <text x="409" y="57" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Problem 2: No Place Value</text>
+
+  <text x="409" y="80" text-anchor="middle" font-size="11" fill="#333">Token "7" in "70", "700", "7000"</text>
+  <text x="409" y="95" text-anchor="middle" font-size="11" fill="#333">maps to the SAME embedding.</text>
+
+  <!-- Diagram: same embedding vector for different magnitudes -->
+  <rect x="297"  y="103" width="36" height="22" fill="#e8edf5" stroke="#1f4fa3" stroke-width="1.5" rx="3"/>
+  <text x="315"  y="118" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f4fa3">7</text>
+  <text x="315"  y="135" text-anchor="middle" font-size="10" fill="#555">in "70"</text>
+
+  <rect x="350"  y="103" width="36" height="22" fill="#e8edf5" stroke="#1f4fa3" stroke-width="1.5" rx="3"/>
+  <text x="368"  y="118" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f4fa3">7</text>
+  <text x="368"  y="135" text-anchor="middle" font-size="10" fill="#555">in "700"</text>
+
+  <rect x="403"  y="103" width="36" height="22" fill="#e8edf5" stroke="#1f4fa3" stroke-width="1.5" rx="3"/>
+  <text x="421"  y="118" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f4fa3">7</text>
+  <text x="421"  y="135" text-anchor="middle" font-size="10" fill="#555">in "7000"</text>
+
+  <!-- arrow converging -->
+  <line x1="315" y1="125" x2="370" y2="155" stroke="#1f4fa3" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#arr2)"/>
+  <line x1="368" y1="125" x2="370" y2="155" stroke="#1f4fa3" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#arr2)"/>
+  <line x1="421" y1="125" x2="370" y2="155" stroke="#1f4fa3" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#arr2)"/>
+  <text x="370" y="170" text-anchor="middle" font-size="10" fill="#1f4fa3" font-weight="bold">same vector e("7")</text>
+
+  <text x="409" y="185" text-anchor="middle" font-size="11" fill="#555">Magnitude lives in context,</text>
+  <text x="409" y="199" text-anchor="middle" font-size="11" font-style="italic" fill="#c77a12">not in the token representation.</text>
+
+  <!-- ═══ Problem 3 box ═══ -->
+  <rect x="554" y="40" width="245" height="155" fill="white" rx="6" stroke="#6c4fe0" stroke-width="2"/>
+  <rect x="554" y="40" width="245" height="26" fill="#6c4fe0" rx="6"/>
+  <rect x="554" y="54" width="245" height="12" fill="#6c4fe0"/>
+  <text x="676" y="57" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Problem 3: Sparse Training Data</text>
+
+  <text x="676" y="80" text-anchor="middle" font-size="11" fill="#333">5-digit numbers: 90,000 distinct values.</text>
+  <text x="676" y="95" text-anchor="middle" font-size="11" fill="#333">Most appear rarely in text corpora.</text>
+  <text x="676" y="113" text-anchor="middle" font-size="11" fill="#555">Model cannot memorize all facts;</text>
+  <text x="676" y="128" text-anchor="middle" font-size="11" fill="#555">must generalize an algorithm.</text>
+  <text x="676" y="146" text-anchor="middle" font-size="11" fill="#555">But misaligned tokens make it</text>
+  <text x="676" y="161" text-anchor="middle" font-size="11" fill="#555">hard to learn the algorithm.</text>
+  <text x="676" y="179" text-anchor="middle" font-size="11" font-style="italic" fill="#6c4fe0">Sparse data + bad repr = failure.</text>
+
+  <!-- Arrow down to mitigations -->
+  <line x1="410" y1="200" x2="410" y2="222" stroke="#5b6675" stroke-width="2" marker-end="url(#arr2)"/>
+
+  <!-- ═══ Mitigation panel ═══ -->
+  <rect x="20" y="226" width="780" height="118" fill="#e6f4f1" rx="6" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="410" y="246" text-anchor="middle" font-size="13" font-weight="bold" fill="#0e8a6e">Mitigations (all partial; tool use remains gold standard)</text>
+
+  <!-- 3 mitigation cells -->
+  <rect x="30"  y="254" width="235" height="80" fill="white" rx="5" stroke="#0e8a6e" stroke-width="1"/>
+  <text x="147" y="272" text-anchor="middle" font-size="12" font-weight="bold" fill="#0e8a6e">Digit-split tokenization</text>
+  <text x="147" y="289" text-anchor="middle" font-size="11" fill="#333">"12345" &#8594; [1][2][3][4][5]</text>
+  <text x="147" y="304" text-anchor="middle" font-size="11" fill="#555">Each digit = 1 token.</text>
+  <text x="147" y="319" text-anchor="middle" font-size="11" fill="#555">Llama-3, PaLM 2 use this.</text>
+  <text x="147" y="330" text-anchor="middle" font-size="10" fill="#0e8a6e">+20-40 pp on arithmetic</text>
+
+  <rect x="292" y="254" width="235" height="80" fill="white" rx="5" stroke="#0e8a6e" stroke-width="1"/>
+  <text x="409" y="272" text-anchor="middle" font-size="12" font-weight="bold" fill="#0e8a6e">Chain-of-Thought scratchpad</text>
+  <text x="409" y="289" text-anchor="middle" font-size="11" fill="#333">"...ones: 4+8=12, write 2 carry 1..."</text>
+  <text x="409" y="304" text-anchor="middle" font-size="11" fill="#555">Externalises carry logic</text>
+  <text x="409" y="319" text-anchor="middle" font-size="11" fill="#555">into the context window.</text>
+  <text x="409" y="330" text-anchor="middle" font-size="10" fill="#0e8a6e">+40-60 pp (Wei et al., 2022)</text>
+
+  <rect x="554" y="254" width="235" height="80" fill="white" rx="5" stroke="#0e8a6e" stroke-width="1"/>
+  <text x="671" y="272" text-anchor="middle" font-size="12" font-weight="bold" fill="#0e8a6e">Tool use (Python / calculator)</text>
+  <text x="671" y="289" text-anchor="middle" font-size="11" fill="#333">Offload computation entirely;</text>
+  <text x="671" y="304" text-anchor="middle" font-size="11" fill="#555">model only parses and formats.</text>
+  <text x="671" y="319" text-anchor="middle" font-size="11" fill="#555">Correct regardless of digits.</text>
+  <text x="671" y="330" text-anchor="middle" font-size="10" fill="#0e8a6e">Near-100% accuracy at any scale</text>
+</svg>

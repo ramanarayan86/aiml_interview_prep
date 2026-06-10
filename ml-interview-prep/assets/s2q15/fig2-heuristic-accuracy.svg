@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 340" width="820" height="340" font-family="Arial, sans-serif">
+  <defs>
+    <marker id="arr2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#5b6675"/>
+    </marker>
+  </defs>
+
+  <rect width="820" height="340" fill="#f8f9fa" rx="8"/>
+
+  <!-- Title -->
+  <text x="410" y="26" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">Heuristic Accuracy: Estimated vs Actual Token Counts</text>
+
+  <!-- Column headers -->
+  <rect x="20" y="38" width="780" height="26" fill="#e8edf5" rx="4"/>
+  <text x="130" y="55" text-anchor="middle" font-size="11" font-weight="bold" fill="#1f4fa3">Content Type</text>
+  <text x="280" y="55" text-anchor="middle" font-size="11" font-weight="bold" fill="#1f4fa3">Rule of Thumb</text>
+  <text x="420" y="55" text-anchor="middle" font-size="11" font-weight="bold" fill="#1f4fa3">Estimated Tokens</text>
+  <text x="560" y="55" text-anchor="middle" font-size="11" font-weight="bold" fill="#1f4fa3">Actual Tokens</text>
+  <text x="700" y="55" text-anchor="middle" font-size="11" font-weight="bold" fill="#1f4fa3">Error / Risk</text>
+
+  <!-- Divider below header -->
+  <line x1="20" y1="64" x2="800" y2="64" stroke="#c0c8d8" stroke-width="1"/>
+
+  <!-- Row 1: English prose (chars) -->
+  <rect x="20" y="66" width="780" height="34" fill="#e6f4f1" rx="3"/>
+  <text x="130" y="87" text-anchor="middle" font-size="11" fill="#333">English prose (chars)</text>
+  <text x="280" y="87" text-anchor="middle" font-size="11" fill="#333">4 chars = 1 token</text>
+  <text x="420" y="87" text-anchor="middle" font-size="11" fill="#333">400 chars &#8594; 100 tok</text>
+  <text x="560" y="87" text-anchor="middle" font-size="11" fill="#0e8a6e">~102 tokens</text>
+  <text x="700" y="87" text-anchor="middle" font-size="11" font-weight="bold" fill="#0e8a6e">~2% over &#10003;</text>
+
+  <!-- Row 2: English prose (words) -->
+  <rect x="20" y="102" width="780" height="34" fill="#f8f9fa" rx="3"/>
+  <text x="130" y="123" text-anchor="middle" font-size="11" fill="#333">English prose (words)</text>
+  <text x="280" y="123" text-anchor="middle" font-size="11" fill="#333">0.75 words = 1 token</text>
+  <text x="420" y="123" text-anchor="middle" font-size="11" fill="#333">75 words &#8594; 100 tok</text>
+  <text x="560" y="123" text-anchor="middle" font-size="11" fill="#0e8a6e">~100 tokens</text>
+  <text x="700" y="123" text-anchor="middle" font-size="11" font-weight="bold" fill="#0e8a6e">~0% &#10003;</text>
+
+  <!-- Row 3: Python code -->
+  <rect x="20" y="138" width="780" height="34" fill="#fef3e2" rx="3"/>
+  <text x="130" y="159" text-anchor="middle" font-size="11" fill="#333">Python code</text>
+  <text x="280" y="159" text-anchor="middle" font-size="11" fill="#333">4 chars = 1 token</text>
+  <text x="420" y="159" text-anchor="middle" font-size="11" fill="#333">400 chars &#8594; 100 tok</text>
+  <text x="560" y="159" text-anchor="middle" font-size="11" fill="#c77a12">~143 tokens</text>
+  <text x="700" y="159" text-anchor="middle" font-size="11" font-weight="bold" fill="#c77a12">+43% under !</text>
+
+  <!-- Row 4: Dense JSON -->
+  <rect x="20" y="174" width="780" height="34" fill="#f0edfb" rx="3"/>
+  <text x="130" y="195" text-anchor="middle" font-size="11" fill="#333">Dense JSON / XML</text>
+  <text x="280" y="195" text-anchor="middle" font-size="11" fill="#333">4 chars = 1 token</text>
+  <text x="420" y="195" text-anchor="middle" font-size="11" fill="#333">400 chars &#8594; 100 tok</text>
+  <text x="560" y="195" text-anchor="middle" font-size="11" fill="#c77a12">~160 tokens</text>
+  <text x="700" y="195" text-anchor="middle" font-size="11" font-weight="bold" fill="#c77a12">+60% under !</text>
+
+  <!-- Row 5: Arabic / Hindi -->
+  <rect x="20" y="210" width="780" height="34" fill="#f8f9fa" rx="3"/>
+  <text x="130" y="231" text-anchor="middle" font-size="11" fill="#333">Arabic / Hindi</text>
+  <text x="280" y="231" text-anchor="middle" font-size="11" fill="#333">4 chars = 1 token</text>
+  <text x="420" y="231" text-anchor="middle" font-size="11" fill="#333">400 chars &#8594; 100 tok</text>
+  <text x="560" y="231" text-anchor="middle" font-size="11" fill="#c0392b">~200-250 tokens</text>
+  <text x="700" y="231" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">+100-150% &#9888;</text>
+
+  <!-- Row 6: Long numbers / hex -->
+  <rect x="20" y="246" width="780" height="34" fill="#fef3e2" rx="3"/>
+  <text x="130" y="267" text-anchor="middle" font-size="11" fill="#333">Long integers / hex</text>
+  <text x="280" y="267" text-anchor="middle" font-size="11" fill="#333">4 chars = 1 token</text>
+  <text x="420" y="267" text-anchor="middle" font-size="11" fill="#333">400 chars &#8594; 100 tok</text>
+  <text x="560" y="267" text-anchor="middle" font-size="11" fill="#c0392b">~200-333 tokens</text>
+  <text x="700" y="267" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">+100-230% &#9888;</text>
+
+  <!-- Divider before footer -->
+  <line x1="20" y1="284" x2="800" y2="284" stroke="#c0c8d8" stroke-width="1"/>
+
+  <!-- Footer / tip -->
+  <rect x="20" y="290" width="780" height="38" fill="#fef3e2" rx="5"/>
+  <text x="410" y="306" text-anchor="middle" font-size="11" fill="#856404">
+    <tspan font-weight="bold">When to use the real tokenizer:</tspan>
+    <tspan> hard context-limit checks, billing estimates, chunking pipelines, or non-Latin content.</tspan>
+  </text>
+  <text x="410" y="322" text-anchor="middle" font-size="11" fill="#856404">
+    <tspan font-weight="bold">Safe buffer:</tspan>
+    <tspan> add +20% to any heuristic estimate to avoid context-window overflow.</tspan>
+  </text>
+</svg>

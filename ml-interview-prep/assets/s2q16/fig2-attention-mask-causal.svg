@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 360" width="860" height="360" font-family="Arial, sans-serif">
+  <rect width="860" height="360" fill="#f8f9fa" rx="8"/>
+  <text x="430" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">Padding + Causal Mask Interaction in Batched Inference</text>
+
+  <!-- Left panel: Batch of two sequences -->
+  <text x="30" y="58" font-size="13" font-weight="bold" fill="#1f4fa3">Batch (left-padded, causal decoder)</text>
+
+  <!-- Sequence A -->
+  <text x="30" y="82" font-size="12" fill="#5b6675">seq A (len=3):</text>
+  <rect x="140" y="68" width="50" height="28" fill="#888" rx="3"/>
+  <text x="165" y="87" text-anchor="middle" font-size="12" fill="#fff">PAD</text>
+  <rect x="198" y="68" width="50" height="28" fill="#2a7dc4" rx="3"/>
+  <text x="223" y="87" text-anchor="middle" font-size="12" fill="#fff">tok1</text>
+  <rect x="256" y="68" width="50" height="28" fill="#2a7dc4" rx="3"/>
+  <text x="281" y="87" text-anchor="middle" font-size="12" fill="#fff">tok2</text>
+  <rect x="314" y="68" width="50" height="28" fill="#2a7dc4" rx="3"/>
+  <text x="339" y="87" text-anchor="middle" font-size="12" fill="#fff">tok3</text>
+  <text x="375" y="87" font-size="12" fill="#5b6675">mask: [0, 1, 1, 1]</text>
+
+  <!-- Sequence B -->
+  <text x="30" y="116" font-size="12" fill="#5b6675">seq B (len=4):</text>
+  <rect x="140" y="102" width="50" height="28" fill="#2a7dc4" rx="3"/>
+  <text x="165" y="121" text-anchor="middle" font-size="12" fill="#fff">tok1</text>
+  <rect x="198" y="102" width="50" height="28" fill="#2a7dc4" rx="3"/>
+  <text x="223" y="121" text-anchor="middle" font-size="12" fill="#fff">tok2</text>
+  <rect x="256" y="102" width="50" height="28" fill="#2a7dc4" rx="3"/>
+  <text x="281" y="121" text-anchor="middle" font-size="12" fill="#fff">tok3</text>
+  <rect x="314" y="102" width="50" height="28" fill="#2a7dc4" rx="3"/>
+  <text x="339" y="121" text-anchor="middle" font-size="12" fill="#fff">tok4</text>
+  <text x="375" y="121" font-size="12" fill="#5b6675">mask: [1, 1, 1, 1]</text>
+
+  <line x1="30" y1="140" x2="820" y2="140" stroke="#ccc" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Right panel: Combined mask matrix for seq A -->
+  <text x="30" y="163" font-size="13" font-weight="bold" fill="#1f4fa3">Combined mask for seq A: causal mask AND-ed with padding mask</text>
+  <text x="30" y="181" font-size="11" fill="#5b6675">Tokens: PAD(0)  tok1(1)  tok2(2)  tok3(3)</text>
+
+  <!-- Column headers -->
+  <text x="180" y="205" text-anchor="middle" font-size="11" fill="#888">PAD</text>
+  <text x="230" y="205" text-anchor="middle" font-size="11" fill="#2a7dc4">tok1</text>
+  <text x="280" y="205" text-anchor="middle" font-size="11" fill="#2a7dc4">tok2</text>
+  <text x="330" y="205" text-anchor="middle" font-size="11" fill="#2a7dc4">tok3</text>
+
+  <!-- Row labels -->
+  <text x="145" y="228" text-anchor="end" font-size="11" fill="#888">PAD</text>
+  <text x="145" y="258" text-anchor="end" font-size="11" fill="#2a7dc4">tok1</text>
+  <text x="145" y="288" text-anchor="end" font-size="11" fill="#2a7dc4">tok2</text>
+  <text x="145" y="318" text-anchor="end" font-size="11" fill="#2a7dc4">tok3</text>
+
+  <!-- Row PAD: all masked (row of PAD token — not used in output anyway) -->
+  <rect x="155" y="212" width="50" height="24" fill="#ddd" rx="2"/>
+  <text x="180" y="229" text-anchor="middle" font-size="13" fill="#888">-inf</text>
+  <rect x="205" y="212" width="50" height="24" fill="#ddd" rx="2"/>
+  <text x="230" y="229" text-anchor="middle" font-size="13" fill="#888">-inf</text>
+  <rect x="255" y="212" width="50" height="24" fill="#ddd" rx="2"/>
+  <text x="280" y="229" text-anchor="middle" font-size="13" fill="#888">-inf</text>
+  <rect x="305" y="212" width="50" height="24" fill="#ddd" rx="2"/>
+  <text x="330" y="229" text-anchor="middle" font-size="13" fill="#888">-inf</text>
+
+  <!-- Row tok1: attends to itself only (PAD masked, future masked) -->
+  <rect x="155" y="242" width="50" height="24" fill="#f8d7da" rx="2"/>
+  <text x="180" y="259" text-anchor="middle" font-size="13" fill="#c0392b">-inf</text>
+  <rect x="205" y="242" width="50" height="24" fill="#d4edda" rx="2"/>
+  <text x="230" y="259" text-anchor="middle" font-size="13" fill="#0e8a6e">0</text>
+  <rect x="255" y="242" width="50" height="24" fill="#f8d7da" rx="2"/>
+  <text x="280" y="259" text-anchor="middle" font-size="13" fill="#c0392b">-inf</text>
+  <rect x="305" y="242" width="50" height="24" fill="#f8d7da" rx="2"/>
+  <text x="330" y="259" text-anchor="middle" font-size="13" fill="#c0392b">-inf</text>
+
+  <!-- Row tok2: attends to tok1 and itself (PAD masked, future masked) -->
+  <rect x="155" y="272" width="50" height="24" fill="#f8d7da" rx="2"/>
+  <text x="180" y="289" text-anchor="middle" font-size="13" fill="#c0392b">-inf</text>
+  <rect x="205" y="272" width="50" height="24" fill="#d4edda" rx="2"/>
+  <text x="230" y="289" text-anchor="middle" font-size="13" fill="#0e8a6e">0</text>
+  <rect x="255" y="272" width="50" height="24" fill="#d4edda" rx="2"/>
+  <text x="280" y="289" text-anchor="middle" font-size="13" fill="#0e8a6e">0</text>
+  <rect x="305" y="272" width="50" height="24" fill="#f8d7da" rx="2"/>
+  <text x="330" y="289" text-anchor="middle" font-size="13" fill="#c0392b">-inf</text>
+
+  <!-- Row tok3: attends to tok1, tok2, and itself (PAD masked) -->
+  <rect x="155" y="302" width="50" height="24" fill="#f8d7da" rx="2"/>
+  <text x="180" y="319" text-anchor="middle" font-size="13" fill="#c0392b">-inf</text>
+  <rect x="205" y="302" width="50" height="24" fill="#d4edda" rx="2"/>
+  <text x="230" y="319" text-anchor="middle" font-size="13" fill="#0e8a6e">0</text>
+  <rect x="255" y="302" width="50" height="24" fill="#d4edda" rx="2"/>
+  <text x="280" y="319" text-anchor="middle" font-size="13" fill="#0e8a6e">0</text>
+  <rect x="305" y="302" width="50" height="24" fill="#d4edda" rx="2"/>
+  <text x="330" y="319" text-anchor="middle" font-size="13" fill="#0e8a6e">0</text>
+
+  <!-- Legend + annotation on right -->
+  <rect x="420" y="175" width="16" height="16" rx="3" fill="#d4edda" stroke="#0e8a6e" stroke-width="1"/>
+  <text x="442" y="188" font-size="11" fill="#333">0 (attend — add 0 to score)</text>
+  <rect x="420" y="200" width="16" height="16" rx="3" fill="#f8d7da" stroke="#c0392b" stroke-width="1"/>
+  <text x="442" y="213" font-size="11" fill="#333">-inf (block — zeroed after softmax)</text>
+  <rect x="420" y="225" width="16" height="16" rx="3" fill="#ddd" stroke="#888" stroke-width="1"/>
+  <text x="442" y="238" font-size="11" fill="#333">-inf (PAD row — not a real position)</text>
+
+  <text x="420" y="268" font-size="11" fill="#1f4fa3" font-weight="bold">Combined mask formula:</text>
+  <text x="420" y="286" font-size="11" fill="#333">M[i,j] = causal[i,j] AND padding_mask[j]</text>
+  <text x="420" y="304" font-size="11" fill="#5b6675">causal[i,j] = 1 iff j &lt;= i  (lower triangular)</text>
+  <text x="420" y="322" font-size="11" fill="#5b6675">padding_mask[j] = 1 iff token j is NOT padding</text>
+  <text x="420" y="340" font-size="11" fill="#c0392b">Add -inf where M[i,j] = 0 before softmax</text>
+</svg>

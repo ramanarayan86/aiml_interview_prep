@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 358" width="820" height="358" font-family="Arial, sans-serif">
+  <rect width="820" height="358" fill="#f8f9fa" rx="8"/>
+
+  <defs>
+    <marker id="arr2" markerWidth="9" markerHeight="9" refX="5" refY="4" orient="auto">
+      <path d="M0,0 L9,4 L0,8 Z" fill="#5b6675"/>
+    </marker>
+    <marker id="arr2g" markerWidth="9" markerHeight="9" refX="5" refY="4" orient="auto">
+      <path d="M0,0 L9,4 L0,8 Z" fill="#0e8a6e"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="410" y="26" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">Token Healing: Backtrack-and-Rescore (vLLM / TGI)</text>
+
+  <!-- Column headers -->
+  <rect x="14" y="34" width="156" height="24" fill="#e8edf5" rx="3"/>
+  <text x="92" y="50" text-anchor="middle" font-size="11" font-weight="bold" fill="#1f4fa3">Step</text>
+  <rect x="176" y="34" width="340" height="24" fill="#e8edf5" rx="3"/>
+  <text x="346" y="50" text-anchor="middle" font-size="11" font-weight="bold" fill="#1f4fa3">Token sequence</text>
+  <rect x="522" y="34" width="284" height="24" fill="#e8edf5" rx="3"/>
+  <text x="664" y="50" text-anchor="middle" font-size="11" font-weight="bold" fill="#1f4fa3">Prefix-cache state</text>
+
+  <!-- ─── Step 1 ─── -->
+  <rect x="14"  y="64" width="156" height="54" fill="#e6f4f1" rx="4"/>
+  <text x="92"  y="83"  text-anchor="middle" font-size="11" font-weight="bold" fill="#0e8a6e">1. Cached prefix</text>
+  <text x="92"  y="98"  text-anchor="middle" font-size="10" fill="#5b6675">System prompt ends</text>
+  <text x="92"  y="111" text-anchor="middle" font-size="10" fill="#5b6675">with "San Fr"</text>
+
+  <rect x="176" y="64" width="340" height="54" fill="#e6f4f1" rx="4"/>
+  <rect x="190" y="74" width="40" height="20" fill="#0e8a6e" rx="3"/>
+  <text x="210" y="88" text-anchor="middle" font-size="10" fill="white">"San"</text>
+  <rect x="236" y="74" width="28" height="20" fill="#0e8a6e" rx="3"/>
+  <text x="250" y="88" text-anchor="middle" font-size="10" fill="white">"Fr"</text>
+  <text x="274" y="88" font-size="10" fill="#5b6675">&#8592; last token: "Fr" (ID 4522)</text>
+  <text x="190" y="110" font-size="10" fill="#0e8a6e">KV[0..N] valid and stored</text>
+
+  <rect x="522" y="64" width="284" height="54" fill="#e6f4f1" rx="4"/>
+  <text x="664" y="86"  text-anchor="middle" font-size="11" fill="#0e8a6e">Full prefix cached</text>
+  <text x="664" y="103" text-anchor="middle" font-size="10" fill="#5b6675">KV[0..N] ready for reuse</text>
+
+  <!-- Arrow 1&#8594;2 -->
+  <line x1="410" y1="118" x2="410" y2="132" stroke="#5b6675" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr2)"/>
+
+  <!-- ─── Step 2 ─── -->
+  <rect x="14"  y="138" width="156" height="54" fill="#fef3e2" rx="4"/>
+  <text x="92"  y="157" text-anchor="middle" font-size="11" font-weight="bold" fill="#c77a12">2. User appends text</text>
+  <text x="92"  y="172" text-anchor="middle" font-size="10" fill="#5b6675">"ancisco" added;</text>
+  <text x="92"  y="185" text-anchor="middle" font-size="10" fill="#5b6675">naive retokenise fails</text>
+
+  <rect x="176" y="138" width="340" height="54" fill="#fef3e2" rx="4"/>
+  <rect x="190" y="148" width="40" height="20" fill="#0e8a6e" rx="3"/>
+  <text x="210" y="162" text-anchor="middle" font-size="10" fill="white">"San"</text>
+  <rect x="236" y="148" width="76" height="20" fill="#c0392b" rx="3"/>
+  <text x="274" y="162" text-anchor="middle" font-size="10" font-weight="bold" fill="white">"Francisco"</text>
+  <text x="322" y="162" font-size="10" fill="#c0392b">  ID 6342 &#8800; 4522!</text>
+  <text x="190" y="183" font-size="10" fill="#c0392b">Cache MISS — "Fr" no longer the last token</text>
+
+  <rect x="522" y="138" width="284" height="54" fill="#fef3e2" rx="4"/>
+  <text x="664" y="160" text-anchor="middle" font-size="11" fill="#c0392b">Cache invalidated</text>
+  <text x="664" y="177" text-anchor="middle" font-size="10" fill="#5b6675">Last token changed: KV[N] stale</text>
+
+  <!-- Arrow 2&#8594;3 -->
+  <line x1="410" y1="192" x2="410" y2="206" stroke="#5b6675" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr2)"/>
+
+  <!-- ─── Step 3 ─── -->
+  <rect x="14"  y="212" width="156" height="60" fill="#f0edfb" rx="4"/>
+  <text x="92"  y="230" text-anchor="middle" font-size="11" font-weight="bold" fill="#6c4fe0">3. Backtrack</text>
+  <text x="92"  y="246" text-anchor="middle" font-size="10" fill="#5b6675">Drop last token whose</text>
+  <text x="92"  y="259" text-anchor="middle" font-size="10" fill="#5b6675">text is a prefix of new text</text>
+  <text x="92"  y="268" text-anchor="middle" font-size="9"  fill="#6c4fe0">"Fr" is prefix of "Francisco" &#8594; drop</text>
+
+  <rect x="176" y="212" width="340" height="60" fill="#f0edfb" rx="4"/>
+  <rect x="190" y="222" width="40"  height="20" fill="#0e8a6e" rx="3"/>
+  <text x="210" y="236" text-anchor="middle" font-size="10" fill="white">"San"</text>
+  <rect x="236" y="222" width="28"  height="20" fill="#d0d7de" rx="3" stroke="#6c4fe0" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="250" y="236" text-anchor="middle" font-size="10" fill="#6c4fe0">"Fr"</text>
+  <text x="270" y="233" font-size="13" fill="#c0392b">&#10005;</text>
+  <text x="290" y="236" font-size="10" fill="#6c4fe0">removed from cache</text>
+  <text x="190" y="262" font-size="10" fill="#6c4fe0">KV[0..N-1] still valid &#8212; prefix preserved!</text>
+
+  <rect x="522" y="212" width="284" height="60" fill="#f0edfb" rx="4"/>
+  <text x="664" y="234" text-anchor="middle" font-size="11" fill="#6c4fe0">KV[0..N-1] intact</text>
+  <text x="664" y="250" text-anchor="middle" font-size="10" fill="#5b6675">Only the last KV entry discarded</text>
+  <text x="664" y="264" text-anchor="middle" font-size="10" fill="#5b6675">Entire prefix cache still usable</text>
+
+  <!-- Arrow 3&#8594;4 -->
+  <line x1="410" y1="272" x2="410" y2="286" stroke="#5b6675" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr2)"/>
+
+  <!-- ─── Step 4 ─── -->
+  <rect x="14"  y="292" width="156" height="54" fill="#e6f4f1" rx="4"/>
+  <text x="92"  y="311" text-anchor="middle" font-size="11" font-weight="bold" fill="#0e8a6e">4. Rescore candidates</text>
+  <text x="92"  y="326" text-anchor="middle" font-size="10" fill="#5b6675">Pick best token starting</text>
+  <text x="92"  y="339" text-anchor="middle" font-size="10" fill="#5b6675">with "Fr" from "San" context</text>
+
+  <rect x="176" y="292" width="340" height="54" fill="#e6f4f1" rx="4"/>
+  <rect x="190" y="302" width="40"  height="20" fill="#0e8a6e" rx="3"/>
+  <text x="210" y="316" text-anchor="middle" font-size="10" fill="white">"San"</text>
+  <rect x="236" y="302" width="76"  height="20" fill="#1f4fa3" rx="3"/>
+  <text x="274" y="316" text-anchor="middle" font-size="10" font-weight="bold" fill="white">"Francisco"</text>
+  <text x="322" y="316" font-size="10" fill="#0e8a6e">  correct token</text>
+  <text x="190" y="338" font-size="10" fill="#0e8a6e">Generation continues from correct boundary</text>
+
+  <rect x="522" y="292" width="284" height="54" fill="#e6f4f1" rx="4"/>
+  <text x="664" y="314" text-anchor="middle" font-size="11" fill="#0e8a6e">Cache HIT on KV[0..N-1]</text>
+  <text x="664" y="330" text-anchor="middle" font-size="10" fill="#5b6675">Only 1 new token to compute:</text>
+  <text x="664" y="343" text-anchor="middle" font-size="10" font-weight="bold" fill="#1f4fa3">"Francisco" (rescored)</text>
+</svg>

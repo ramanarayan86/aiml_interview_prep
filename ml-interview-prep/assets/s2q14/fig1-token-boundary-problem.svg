@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 340" width="820" height="340" font-family="Arial, sans-serif">
+  <rect width="820" height="340" fill="#f8f9fa" rx="8"/>
+
+  <defs>
+    <marker id="arr1" markerWidth="9" markerHeight="9" refX="5" refY="4" orient="auto">
+      <path d="M0,0 L9,4 L0,8 Z" fill="#c77a12"/>
+    </marker>
+    <marker id="arr1b" markerWidth="9" markerHeight="9" refX="5" refY="4" orient="auto">
+      <path d="M0,0 L9,4 L0,8 Z" fill="#5b6675"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="410" y="26" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">The Token Boundary Problem: Prefix Re-tokenisation Mismatch</text>
+
+  <!-- Scenario label -->
+  <text x="24" y="54" font-size="11" fill="#5b6675">Scenario: prefix caching stores KV states for a shared system prompt ending in</text>
+  <rect x="506" y="40" width="130" height="22" fill="#e8edf5" rx="3" stroke="#1f4fa3" stroke-width="1"/>
+  <text x="571" y="55" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f4fa3">"I live in San Fr"</text>
+
+  <!-- ── Row A: Cached prefix tokens ── -->
+  <text x="24" y="84" font-size="11" font-weight="bold" fill="#5b6675">Cached prefix (greedy tokenisation of "I live in San Fr"):</text>
+
+  <rect x="24"  y="92" width="28"  height="26" fill="#0e8a6e" rx="3"/>
+  <text x="38"  y="109" text-anchor="middle" font-size="11" font-weight="bold" fill="white">"I"</text>
+
+  <rect x="58"  y="92" width="46"  height="26" fill="#0e8a6e" rx="3"/>
+  <text x="81"  y="109" text-anchor="middle" font-size="11" font-weight="bold" fill="white">"live"</text>
+
+  <rect x="110" y="92" width="30"  height="26" fill="#0e8a6e" rx="3"/>
+  <text x="125" y="109" text-anchor="middle" font-size="11" font-weight="bold" fill="white">"in"</text>
+
+  <rect x="146" y="92" width="44"  height="26" fill="#0e8a6e" rx="3"/>
+  <text x="168" y="109" text-anchor="middle" font-size="11" font-weight="bold" fill="white">"San"</text>
+
+  <rect x="196" y="92" width="28"  height="26" fill="#0e8a6e" rx="3"/>
+  <text x="210" y="109" text-anchor="middle" font-size="11" font-weight="bold" fill="white">"Fr"</text>
+
+  <text x="234" y="109" font-size="11" fill="#5b6675">  token IDs: [40, 3674, 287, 2986,</text>
+  <text x="440" y="109" font-size="11" font-weight="bold" fill="#0e8a6e">4522</text>
+  <text x="459" y="109" font-size="11" fill="#5b6675">]  &#8592; last cached token = "Fr" (ID 4522)</text>
+
+  <!-- ── Divider ── -->
+  <line x1="24" y1="130" x2="796" y2="130" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- ── Row B: User appends "ancisco" ── -->
+  <text x="24" y="150" font-size="11" font-weight="bold" fill="#5b6675">User types more: appends "ancisco" &#8594; full text becomes "I live in San Francisco"</text>
+
+  <!-- Naive re-tokenise -->
+  <text x="24" y="172" font-size="11" fill="#5b6675">Naive re-tokenise of complete string:</text>
+
+  <rect x="24"  y="180" width="28"  height="26" fill="#0e8a6e" rx="3"/>
+  <text x="38"  y="197" text-anchor="middle" font-size="11" fill="white">"I"</text>
+
+  <rect x="58"  y="180" width="46"  height="26" fill="#0e8a6e" rx="3"/>
+  <text x="81"  y="197" text-anchor="middle" font-size="11" fill="white">"live"</text>
+
+  <rect x="110" y="180" width="30"  height="26" fill="#0e8a6e" rx="3"/>
+  <text x="125" y="197" text-anchor="middle" font-size="11" fill="white">"in"</text>
+
+  <rect x="146" y="180" width="44"  height="26" fill="#0e8a6e" rx="3"/>
+  <text x="168" y="197" text-anchor="middle" font-size="11" fill="white">"San"</text>
+
+  <!-- Problem token: "Francisco" merges differently -->
+  <rect x="196" y="180" width="82"  height="26" fill="#c0392b" rx="3"/>
+  <text x="237" y="197" text-anchor="middle" font-size="11" font-weight="bold" fill="white">"Francisco"</text>
+
+  <text x="290" y="180" font-size="9" fill="#c0392b">NEW</text>
+  <text x="290" y="212" font-size="11" fill="#c0392b">ID 6342 &#8800; "Fr"(4522)</text>
+
+  <!-- Arrow pointing to mismatch -->
+  <line x1="237" y1="208" x2="237" y2="226" stroke="#c77a12" stroke-width="1.8" marker-end="url(#arr1)"/>
+
+  <!-- ── Problem callout box ── -->
+  <rect x="24" y="232" width="772" height="60" fill="#fef3e2" rx="6" stroke="#c77a12" stroke-width="1.5"/>
+  <text x="410" y="251" text-anchor="middle" font-size="12" font-weight="bold" fill="#c77a12">Problem: "Fr" + "ancisco" does NOT re-tokenise as ["Fr","ancisco"] — it becomes ["Francisco"] (one token, new ID)</text>
+  <text x="410" y="269" text-anchor="middle" font-size="11" fill="#5b6675">The cached KV entry for "Fr" is now INVALID.  The entire suffix must be recomputed from "San" onward,</text>
+  <text x="410" y="284" text-anchor="middle" font-size="11" fill="#5b6675">wasting the prefix cache and producing the wrong token boundary for generation.</text>
+
+  <!-- ── Bottom note ── -->
+  <text x="410" y="322" text-anchor="middle" font-size="11" fill="#5b6675">This happens whenever the user-supplied completion prefix straddles a merge boundary in the BPE vocabulary.</text>
+  <text x="410" y="336" text-anchor="middle" font-size="10" fill="#5b6675">vLLM and TGI solve this with token healing: backtrack one token and rescore against the full combined string.</text>
+</svg>

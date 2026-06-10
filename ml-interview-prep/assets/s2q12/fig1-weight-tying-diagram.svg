@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 400" width="860" height="400" font-family="Arial, sans-serif">
+  <rect width="860" height="400" fill="#f8f9fa" rx="8"/>
+
+  <!-- Title -->
+  <text x="430" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">Weight Tying: One Matrix, Two Roles</text>
+
+  <!-- ========== LEFT PATH: Input embedding ========== -->
+  <!-- Token ID box -->
+  <rect x="50" y="55" width="120" height="36" fill="#e8f0fe" stroke="#1f4fa3" stroke-width="1.5" rx="5"/>
+  <text x="110" y="78" text-anchor="middle" font-size="12" fill="#1f4fa3" font-weight="bold">Token ID  i</text>
+
+  <!-- Arrow down to E row select -->
+  <line x1="110" y1="91" x2="110" y2="125" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="115" y="112" font-size="10" fill="#555">row select</text>
+
+  <!-- E matrix (INPUT side) -->
+  <rect x="40" y="125" width="140" height="60" fill="#d5f5e3" stroke="#0e8a6e" stroke-width="2" rx="5"/>
+  <text x="110" y="149" text-anchor="middle" font-size="13" font-weight="bold" fill="#0e8a6e">E</text>
+  <text x="110" y="167" text-anchor="middle" font-size="10" fill="#0e8a6e">V x d  (shared matrix)</text>
+
+  <!-- Arrow down from E to "embedding e_i" -->
+  <line x1="110" y1="185" x2="110" y2="218" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="115" y="206" font-size="10" fill="#555">e_i = E[i,:]</text>
+
+  <!-- embedding vector box -->
+  <rect x="40" y="218" width="140" height="36" fill="#e8f0fe" stroke="#1f4fa3" stroke-width="1.5" rx="5"/>
+  <text x="110" y="241" text-anchor="middle" font-size="11" fill="#1f4fa3">embedding  e_i ∈ R^d</text>
+
+  <!-- Arrow right from e_i into Transformer -->
+  <line x1="180" y1="236" x2="278" y2="236" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="218" y="228" text-anchor="middle" font-size="10" fill="#555">input</text>
+
+  <!-- ========== CENTER: Transformer block ========== -->
+  <rect x="278" y="195" width="180" height="82" fill="#e8f0fe" stroke="#1f4fa3" stroke-width="2" rx="6"/>
+  <text x="368" y="231" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f4fa3">Transformer</text>
+  <text x="368" y="249" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f4fa3">Stack</text>
+  <text x="368" y="267" text-anchor="middle" font-size="10" fill="#5b6675">L layers</text>
+
+  <!-- Arrow right from transformer to h -->
+  <line x1="458" y1="236" x2="546" y2="236" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="500" y="228" text-anchor="middle" font-size="10" fill="#555">h ∈ R^d</text>
+
+  <!-- ========== RIGHT PATH: Output un-embedding ========== -->
+  <!-- hidden state box -->
+  <rect x="546" y="218" width="140" height="36" fill="#e8f0fe" stroke="#1f4fa3" stroke-width="1.5" rx="5"/>
+  <text x="616" y="241" text-anchor="middle" font-size="11" fill="#1f4fa3">hidden state  h ∈ R^d</text>
+
+  <!-- Arrow up from h to E^T -->
+  <line x1="616" y1="218" x2="616" y2="185" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="624" y="206" font-size="10" fill="#555">dot product</text>
+
+  <!-- E^T (OUTPUT side — SAME matrix) -->
+  <rect x="546" y="125" width="140" height="60" fill="#d5f5e3" stroke="#0e8a6e" stroke-width="2" rx="5"/>
+  <text x="616" y="149" text-anchor="middle" font-size="13" font-weight="bold" fill="#0e8a6e">E^T</text>
+  <text x="616" y="167" text-anchor="middle" font-size="10" fill="#0e8a6e">same matrix, transposed</text>
+
+  <!-- Arrow up from E^T to logits -->
+  <line x1="616" y1="125" x2="616" y2="91" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="624" y="112" font-size="10" fill="#555">ℓ = h·E^T</text>
+
+  <!-- Logits box -->
+  <rect x="546" y="55" width="140" height="36" fill="#fde8d8" stroke="#c0392b" stroke-width="1.5" rx="5"/>
+  <text x="616" y="78" text-anchor="middle" font-size="12" fill="#c0392b" font-weight="bold">Logits  ℓ ∈ R^V</text>
+
+  <!-- ========== "SAME MATRIX" brace ========== -->
+  <!-- Vertical brace connecting E boxes -->
+  <path d="M 190 155 Q 368 155 546 155" fill="none" stroke="#0e8a6e" stroke-width="2" stroke-dasharray="7,4"/>
+  <text x="368" y="150" text-anchor="middle" font-size="11" font-weight="bold" fill="#0e8a6e">same matrix</text>
+
+  <!-- ========== BOTTOM: equation and parameter savings ========== -->
+  <rect x="50" y="310" width="760" height="72" fill="#fef9e7" stroke="#c77a12" stroke-width="1.5" rx="6"/>
+  <text x="430" y="333" text-anchor="middle" font-size="12" font-weight="bold" fill="#c77a12">Logit for token j:   ℓ_j = h · E[j,:]   (dot product with the SAME row used for input lookup)</text>
+  <text x="430" y="354" text-anchor="middle" font-size="11" fill="#5b6675">Untied: 2 x V x d params  |  Tied: 1 x V x d params  |  Example: V=128K, d=4096, fp16 ⟹ saves 1 GB</text>
+  <text x="430" y="373" text-anchor="middle" font-size="11" fill="#5b6675">Used by: GPT-2, Llama-1/2/3, BERT, T5    Press &amp; Wolf 2017 (arXiv:1608.05859)</text>
+
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#555"/>
+    </marker>
+  </defs>
+</svg>

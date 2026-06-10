@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 320" width="860" height="320" font-family="Arial, sans-serif">
+  <rect width="860" height="320" fill="#f8f9fa" rx="8"/>
+  <text x="430" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">Weight Tying: When It Helps vs When It Hurts</text>
+
+  <!-- LEFT: Helps (symmetric regime) -->
+  <rect x="30" y="45" width="380" height="255" fill="#eafaf1" stroke="#0e8a6e" stroke-width="2" rx="6"/>
+  <text x="220" y="68" text-anchor="middle" font-size="13" font-weight="bold" fill="#0e8a6e">When Tying HELPS</text>
+
+  <!-- Row 1 -->
+  <rect x="45" y="80" width="350" height="38" fill="#d5f5e3" stroke="#0e8a6e" stroke-width="1" rx="3"/>
+  <text x="220" y="95" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Moderate vocabulary (V &lt; 64K)</text>
+  <text x="220" y="111" text-anchor="middle" font-size="10" fill="#333">Saving V*d params is relatively large fraction of model</text>
+
+  <!-- Row 2 -->
+  <rect x="45" y="126" width="350" height="38" fill="#d5f5e3" stroke="#0e8a6e" stroke-width="1" rx="3"/>
+  <text x="220" y="141" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Symmetric tasks (LM, seq2seq same vocab)</text>
+  <text x="220" y="157" text-anchor="middle" font-size="10" fill="#333">Input distribution matches output distribution</text>
+
+  <!-- Row 3 -->
+  <rect x="45" y="172" width="350" height="38" fill="#d5f5e3" stroke="#0e8a6e" stroke-width="1" rx="3"/>
+  <text x="220" y="187" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Small training data / tight memory budget</text>
+  <text x="220" y="203" text-anchor="middle" font-size="10" fill="#333">Regularization effect; fewer params to overfit</text>
+
+  <!-- Row 4 -->
+  <rect x="45" y="218" width="350" height="38" fill="#d5f5e3" stroke="#0e8a6e" stroke-width="1" rx="3"/>
+  <text x="220" y="233" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Standard LM (GPT-2, BERT, T5)</text>
+  <text x="220" y="249" text-anchor="middle" font-size="10" fill="#333">Empirically matches or exceeds untied perplexity</text>
+
+  <!-- RIGHT: Hurts -->
+  <rect x="450" y="45" width="380" height="255" fill="#fdedec" stroke="#c0392b" stroke-width="2" rx="6"/>
+  <text x="640" y="68" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">When Tying HURTS</text>
+
+  <!-- Row 1 -->
+  <rect x="465" y="80" width="350" height="38" fill="#fde8d8" stroke="#c0392b" stroke-width="1" rx="3"/>
+  <text x="640" y="95" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Very large vocabulary (V &gt; 100K)</text>
+  <text x="640" y="111" text-anchor="middle" font-size="10" fill="#333">Tying forces input/output geometry to be identical</text>
+
+  <!-- Row 2 -->
+  <rect x="465" y="126" width="350" height="38" fill="#fde8d8" stroke="#c0392b" stroke-width="1" rx="3"/>
+  <text x="640" y="141" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Asymmetric tasks (cross-lingual, speech)</text>
+  <text x="640" y="157" text-anchor="middle" font-size="10" fill="#333">Source/target vocabularies have different statistics</text>
+
+  <!-- Row 3 -->
+  <rect x="465" y="172" width="350" height="38" fill="#fde8d8" stroke="#c0392b" stroke-width="1" rx="3"/>
+  <text x="640" y="187" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Different input vs output dimensions</text>
+  <text x="640" y="203" text-anchor="middle" font-size="10" fill="#333">Tying requires d_model = d_embed; constrains architecture</text>
+
+  <!-- Row 4 -->
+  <rect x="465" y="218" width="350" height="38" fill="#fde8d8" stroke="#c0392b" stroke-width="1" rx="3"/>
+  <text x="640" y="233" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Sparse token distributions (code, math)</text>
+  <text x="640" y="249" text-anchor="middle" font-size="10" fill="#333">Rare tokens may need separate input/output representations</text>
+
+  <!-- Bottom legend note -->
+  <text x="430" y="310" text-anchor="middle" font-size="10" fill="#888">Press &amp; Wolf 2017 (arXiv:1608.05859) first demonstrated consistent perplexity improvement with tying on PTB, WikiText-2, WikiText-103</text>
+</svg>

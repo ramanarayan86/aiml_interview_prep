@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 280" width="820" height="280" font-family="Arial, sans-serif">
+  <!-- Background -->
+  <rect width="820" height="280" fill="#f8f9fa" rx="8"/>
+
+  <!-- Title -->
+  <text x="410" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f4fa3">BPE Encoding: "preprocessing" with Priority Queue</text>
+  <text x="410" y="40" text-anchor="middle" font-size="11" fill="#5b6675">Rule index = training order (lower = higher priority). Heap always pops lowest rule index first.</text>
+
+  <!-- Column headers -->
+  <text x="30" y="58" font-size="11" font-weight="bold" fill="#5b6675">Step</text>
+  <text x="90" y="58" font-size="11" font-weight="bold" fill="#5b6675">Token list</text>
+  <text x="580" y="58" font-size="11" font-weight="bold" fill="#5b6675">Heap top (rule, pair)</text>
+
+  <!-- Separator line -->
+  <line x1="18" y1="62" x2="802" y2="62" stroke="#ccc" stroke-width="1"/>
+
+  <!-- ============================================================
+       Helper: token box macro (drawn manually per step)
+       Box color scheme:
+         unchanged token  = #e8edf7 / border #1f4fa3
+         just-merged token = #d4edda / border #0e8a6e  (green)
+         will-merge pair  = #fff3cd / border #c77a12   (amber)
+       ============================================================ -->
+
+  <!-- ===== STEP 0: Initial character split ===== -->
+  <text x="30" y="86" font-size="12" font-weight="bold" fill="#333">0</text>
+  <text x="90" y="86" font-size="10" fill="#5b6675" font-style="italic">Initial split into characters:</text>
+
+  <!-- Characters: p r e p r o c e s s i n g -->
+  <!-- Amber highlight on (p,r,e) group — will be merged as "pre" by rule 42 -->
+  <!-- Box width 22, gap 3 -->
+  <!-- p(amber) r(amber) e(amber) p r o c e s s i n g -->
+  <rect x="88"  y="90" width="22" height="22" fill="#fff3cd" stroke="#c77a12" stroke-width="1.5" rx="3"/>
+  <text x="99"  y="105" text-anchor="middle" font-size="11" fill="#333">p</text>
+  <rect x="113" y="90" width="22" height="22" fill="#fff3cd" stroke="#c77a12" stroke-width="1.5" rx="3"/>
+  <text x="124" y="105" text-anchor="middle" font-size="11" fill="#333">r</text>
+  <rect x="138" y="90" width="22" height="22" fill="#fff3cd" stroke="#c77a12" stroke-width="1.5" rx="3"/>
+  <text x="149" y="105" text-anchor="middle" font-size="11" fill="#333">e</text>
+  <!-- separator -->
+  <rect x="165" y="90" width="22" height="22" fill="#e8edf7" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <text x="176" y="105" text-anchor="middle" font-size="11" fill="#333">p</text>
+  <rect x="190" y="90" width="22" height="22" fill="#e8edf7" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <text x="201" y="105" text-anchor="middle" font-size="11" fill="#333">r</text>
+  <rect x="215" y="90" width="22" height="22" fill="#e8edf7" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <text x="226" y="105" text-anchor="middle" font-size="11" fill="#333">o</text>
+  <rect x="240" y="90" width="22" height="22" fill="#e8edf7" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <text x="251" y="105" text-anchor="middle" font-size="11" fill="#333">c</text>
+  <rect x="265" y="90" width="22" height="22" fill="#e8edf7" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <text x="276" y="105" text-anchor="middle" font-size="11" fill="#333">e</text>
+  <rect x="290" y="90" width="22" height="22" fill="#e8edf7" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <text x="301" y="105" text-anchor="middle" font-size="11" fill="#333">s</text>
+  <rect x="315" y="90" width="22" height="22" fill="#e8edf7" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <text x="326" y="105" text-anchor="middle" font-size="11" fill="#333">s</text>
+  <rect x="340" y="90" width="22" height="22" fill="#e8edf7" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <text x="351" y="105" text-anchor="middle" font-size="11" fill="#333">i</text>
+  <rect x="365" y="90" width="22" height="22" fill="#e8edf7" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <text x="376" y="105" text-anchor="middle" font-size="11" fill="#333">n</text>
+  <rect x="390" y="90" width="22" height="22" fill="#e8edf7" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <text x="401" y="105" text-anchor="middle" font-size="11" fill="#333">g</text>
+
+  <!-- Heap annotation -->
+  <text x="580" y="98" font-size="11" fill="#c77a12" font-weight="bold">Rule 42: (p,r)</text>
+  <text x="580" y="112" font-size="10" fill="#5b6675">also in heap: rule 71:(r,e), rule 89:(p,r)...</text>
+
+  <!-- ===== STEP 1: After merging (p,r) -> "pr" (rule 42) ===== -->
+  <line x1="18" y1="120" x2="802" y2="120" stroke="#eee" stroke-width="1"/>
+  <text x="30" y="143" font-size="12" font-weight="bold" fill="#333">1</text>
+  <text x="90" y="131" font-size="10" fill="#5b6675" font-style="italic">Pop rule 42: merge (p,r) -> "pr"</text>
+
+  <!-- pr(green) e pr o c e s s i n g -->
+  <rect x="88"  y="135" width="28" height="22" fill="#d4edda" stroke="#0e8a6e" stroke-width="1.5" rx="3"/>
+  <text x="102" y="150" text-anchor="middle" font-size="11" fill="#0e8a6e" font-weight="bold">pr</text>
+  <!-- amber: (e, p) — next rule applies to "e" + "p" at positions 1,2? Actually rule 71 applies to (pr,e) -->
+  <rect x="119" y="135" width="22" height="22" fill="#fff3cd" stroke="#c77a12" stroke-width="1.5" rx="3"/>
+  <text x="130" y="150" text-anchor="middle" font-size="11" fill="#333">e</text>
+  <rect x="144" y="135" width="28" height="22" fill="#fff3cd" stroke="#c77a12" stroke-width="1.5" rx="3"/>
+  <text x="158" y="150" text-anchor="middle" font-size="11" fill="#333">pr</text>
+  <rect x="175" y="135" width="22" height="22" fill="#e8edf7" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <text x="186" y="150" text-anchor="middle" font-size="11" fill="#333">o</text>
+  <rect x="200" y="135" width="22" height="22" fill="#e8edf7" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <text x="211" y="150" text-anchor="middle" font-size="11" fill="#333">c</text>
+  <rect x="225" y="135" width="22" height="22" fill="#e8edf7" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <text x="236" y="150" text-anchor="middle" font-size="11" fill="#333">e</text>
+  <rect x="250" y="135" width="22" height="22" fill="#e8edf7" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <text x="261" y="150" text-anchor="middle" font-size="11" fill="#333">s</text>
+  <rect x="275" y="135" width="22" height="22" fill="#e8edf7" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <text x="286" y="150" text-anchor="middle" font-size="11" fill="#333">s</text>
+  <rect x="300" y="135" width="22" height="22" fill="#e8edf7" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <text x="311" y="150" text-anchor="middle" font-size="11" fill="#333">i</text>
+  <rect x="325" y="135" width="22" height="22" fill="#e8edf7" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <text x="336" y="150" text-anchor="middle" font-size="11" fill="#333">n</text>
+  <rect x="350" y="135" width="22" height="22" fill="#e8edf7" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <text x="361" y="150" text-anchor="middle" font-size="11" fill="#333">g</text>
+
+  <text x="580" y="143" font-size="11" fill="#c77a12" font-weight="bold">Rule 71: (pr,e)</text>
+  <text x="580" y="157" font-size="10" fill="#5b6675">stale rule 42 entries skipped</text>
+
+  <!-- ===== STEP 2: After merging (pr,e) -> "pre" (rule 71) ===== -->
+  <line x1="18" y1="165" x2="802" y2="165" stroke="#eee" stroke-width="1"/>
+  <text x="30" y="188" font-size="12" font-weight="bold" fill="#333">2</text>
+  <text x="90" y="176" font-size="10" fill="#5b6675" font-style="italic">Pop rule 71: merge (pr,e) -> "pre" (both occurrences)</text>
+
+  <!-- pre(green) pre(green) o c e s s i n g -->
+  <rect x="88"  y="180" width="32" height="22" fill="#d4edda" stroke="#0e8a6e" stroke-width="1.5" rx="3"/>
+  <text x="104" y="195" text-anchor="middle" font-size="11" fill="#0e8a6e" font-weight="bold">pre</text>
+  <rect x="123" y="180" width="32" height="22" fill="#d4edda" stroke="#0e8a6e" stroke-width="1.5" rx="3"/>
+  <text x="139" y="195" text-anchor="middle" font-size="11" fill="#0e8a6e" font-weight="bold">pre</text>
+  <!-- amber: (pro, ce, ss, ing) — "process" sub-parts amber to indicate next merge target -->
+  <rect x="158" y="180" width="22" height="22" fill="#fff3cd" stroke="#c77a12" stroke-width="1.5" rx="3"/>
+  <text x="169" y="195" text-anchor="middle" font-size="11" fill="#333">o</text>
+  <rect x="183" y="180" width="22" height="22" fill="#fff3cd" stroke="#c77a12" stroke-width="1.5" rx="3"/>
+  <text x="194" y="195" text-anchor="middle" font-size="11" fill="#333">c</text>
+  <rect x="208" y="180" width="22" height="22" fill="#fff3cd" stroke="#c77a12" stroke-width="1.5" rx="3"/>
+  <text x="219" y="195" text-anchor="middle" font-size="11" fill="#333">e</text>
+  <rect x="233" y="180" width="22" height="22" fill="#fff3cd" stroke="#c77a12" stroke-width="1.5" rx="3"/>
+  <text x="244" y="195" text-anchor="middle" font-size="11" fill="#333">s</text>
+  <rect x="258" y="180" width="22" height="22" fill="#fff3cd" stroke="#c77a12" stroke-width="1.5" rx="3"/>
+  <text x="269" y="195" text-anchor="middle" font-size="11" fill="#333">s</text>
+  <rect x="283" y="180" width="22" height="22" fill="#fff3cd" stroke="#c77a12" stroke-width="1.5" rx="3"/>
+  <text x="294" y="195" text-anchor="middle" font-size="11" fill="#333">i</text>
+  <rect x="308" y="180" width="22" height="22" fill="#fff3cd" stroke="#c77a12" stroke-width="1.5" rx="3"/>
+  <text x="319" y="195" text-anchor="middle" font-size="11" fill="#333">n</text>
+  <rect x="333" y="180" width="22" height="22" fill="#fff3cd" stroke="#c77a12" stroke-width="1.5" rx="3"/>
+  <text x="344" y="195" text-anchor="middle" font-size="11" fill="#333">g</text>
+
+  <text x="580" y="188" font-size="11" fill="#c77a12" font-weight="bold">Rule 134: (o,c) ...</text>
+  <text x="580" y="202" font-size="10" fill="#5b6675">several merges collapse "ocesssing"</text>
+
+  <!-- ===== STEP 3 (final): After all merges -> [pre, process, ing] ===== -->
+  <line x1="18" y1="210" x2="802" y2="210" stroke="#eee" stroke-width="1"/>
+  <text x="30" y="248" font-size="12" font-weight="bold" fill="#333">&#10003;</text>
+  <text x="90" y="221" font-size="10" fill="#5b6675" font-style="italic">Heap empty — encoding complete.</text>
+
+  <!-- Final tokens: pre | process | ing -->
+  <rect x="88"  y="225" width="38" height="26" fill="#d4edda" stroke="#0e8a6e" stroke-width="2" rx="4"/>
+  <text x="107" y="243" text-anchor="middle" font-size="13" fill="#0e8a6e" font-weight="bold">pre</text>
+
+  <rect x="132" y="225" width="62" height="26" fill="#d4edda" stroke="#0e8a6e" stroke-width="2" rx="4"/>
+  <text x="163" y="243" text-anchor="middle" font-size="13" fill="#0e8a6e" font-weight="bold">process</text>
+
+  <rect x="200" y="225" width="30" height="26" fill="#d4edda" stroke="#0e8a6e" stroke-width="2" rx="4"/>
+  <text x="215" y="243" text-anchor="middle" font-size="13" fill="#0e8a6e" font-weight="bold">ing</text>
+
+  <!-- Token count annotations -->
+  <text x="250" y="236" font-size="10" fill="#5b6675">13 chars</text>
+  <text x="250" y="249" font-size="10" fill="#5b6675" font-weight="bold">3 tokens</text>
+  <line x1="244" y1="238" x2="233" y2="232" stroke="#5b6675" stroke-width="1"/>
+
+  <text x="580" y="236" font-size="11" fill="#0e8a6e" font-weight="bold">Heap empty</text>
+  <text x="580" y="250" font-size="10" fill="#5b6675">Result: [pre, process, ing] (3 tokens)</text>
+
+  <!-- Complexity note at bottom -->
+  <rect x="18" y="260" width="784" height="16" fill="#e8edf7" rx="3"/>
+  <text x="410" y="271" text-anchor="middle" font-size="10" fill="#1f4fa3">Complexity: O(n log n) with heap — 13 chars, at most 12 merges, each O(log 12) heap ops. Total: ~48 comparisons.</text>
+</svg>
