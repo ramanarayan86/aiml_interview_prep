@@ -91,25 +91,25 @@ This is exactly the distributional hypothesis: words that appear in similar cont
 
 ## 6 · Parameter count analysis
 
-| Model | V | d | Untied params | Tied params | Saving |
-|-------|---|---|---------------|-------------|--------|
-| GPT-2 small | 50K | 768 | 76.8M | 38.4M | 38.4M |
-| LLaMA-1 7B | 32K | 4096 | 262M | 131M | 131M |
-| LLaMA-3 8B | 128K | 4096 | 1.05B | 525M | 525M |
+| Model | V | d | Untied params | Tied params | Saving | Actually tied? |
+|-------|---|---|---------------|-------------|--------|---------------|
+| GPT-2 small | 50K | 768 | 76.8M | 38.4M | 38.4M | **Yes** |
+| LLaMA-1 7B | 32K | 4096 | 262M | 131M | 131M | No (separate) |
+| LLaMA-3 8B | 128K | 4096 | 1.05B | 525M | 525M | No (separate) |
 
-For LLaMA-3 8B with 8B total parameters, tying saves ~6.5% of the parameter budget while maintaining the same effective capacity in the Transformer layers.
+Note: LLaMA models carry the full untied parameter cost. The table shows the *hypothetical* saving if tying were applied — LLaMA-3's choice to keep them separate was deliberate, as the large 128K vocabulary and high model capacity made tying a net quality loss at their training scale.
 
 ---
 
 ## 7 · When tying helps
 
-1. **Decoder-only language models** (GPT family, LLaMA, Mistral): the input and output vocabularies are identical; the intuition that "tokens that appear in similar contexts also predict each other" holds strongly.
+1. **Decoder-only language models with moderate vocabulary** (GPT-2, GPT-J, early GPT-NeoX): the input and output vocabularies are identical and the intuition that "tokens that appear in similar contexts also predict each other" holds strongly.
 
 2. **Small models**: the parameter saving is proportionally larger and the regularisation prevents the output matrix from overfitting on high-frequency tokens.
 
 3. **Long-tail vocabulary**: rare tokens share gradient signals between their input and output embedding rows, partially addressing the sparse-gradient problem (Q2-11).
 
-4. **Memory-constrained deployment**: 1 GB saving at LLaMA-3 scale is significant on consumer GPUs.
+4. **Memory-constrained deployment**: saving V × d × 2 bytes is meaningful on consumer hardware when V and d are moderate (e.g., GPT-2: saves 38M params ≈ 76 MB fp16).
 
 ---
 
@@ -117,7 +117,7 @@ For LLaMA-3 8B with 8B total parameters, tying saves ~6.5% of the parameter budg
 
 1. **Encoder-decoder models with different source/target languages** (e.g., cross-lingual machine translation): the optimal input representation for a token in language A may differ from the optimal output representation for the corresponding token in language B.
 
-2. **Autoregressive models with large vocabulary (>256K)**: the constraint that input and output share the same space can limit the model's expressiveness when the output distribution is very peaked and the input representation needs to encode nuanced positional and syntactic information.
+2. **Large vocabulary models (≥128K)**: at scale, the input embedding and the output un-embedding benefit from being in different learned subspaces. LLaMA-3 (128K vocab) and Mistral deliberately use separate matrices — empirically, tying at this scale causes a measurable quality regression because the output distribution becomes very peaked on frequent tokens while the input embeddings need to capture fine-grained positional and syntactic nuance.
 
 3. **Models where the hidden state dimension ≠ vocabulary embedding dimension** (e.g., some efficient architectures with a bottleneck): the shapes must match for tying to be valid.
 
@@ -165,14 +165,13 @@ The key line is `h @ self.embed.weight.T` — the same `embed.weight` matrix use
 
 | Model | Tied? | Notes |
 |-------|-------|-------|
-| GPT-2 | Yes | Explicit in original code |
-| GPT-3 | Yes | Not stated in paper; confirmed in API |
-| LLaMA-1, 2 | Yes | `model.embed_tokens.weight = model.lm_head.weight` |
-| LLaMA-3 | Yes | Stated in tech report |
-| BERT | No | Classification model; output head is task-specific |
-| T5 | Yes (encoder/decoder tied separately) | Encoder and decoder each tie their own embeddings |
-| GPT-J / EleutherAI | Yes | |
-| Mistral 7B | Yes | |
+| GPT-2 | Yes | `wte.weight` shared with `lm_head` — explicit in original code |
+| GPT-NeoX / GPT-J | Yes | EleutherAI models follow GPT-2 convention |
+| LLaMA-1, 2, 3 | **No** | Separate `embed_tokens` and `lm_head`; untied by design |
+| Mistral 7B | **No** | Separate `embed_tokens` and `lm_head` |
+| BERT (base) | No | No generation head in base model; MLM head is task-specific |
+| T5 | Yes (per stack) | Encoder and decoder each tie their own embed + lm_head |
+| GPT-3 | Unknown | Architecture not fully published; likely tied given GPT-2 lineage |
 
 ---
 
@@ -217,7 +216,7 @@ where $b$ is bytes per parameter.
 | Radford et al. (2019) *GPT-2* | Implementation of tying in a large-scale LM |
 | Inan et al. (2017) *Tying Word Vectors and Word Classifiers* | Independent concurrent work on tying |
 | Touvron et al. (2023) *LLaMA* | Weight tying in modern open-source LLMs |
-| HuggingFace transformers source — `modeling_llama.py` | `self.lm_head.weight = self.model.embed_tokens.weight` |
+| HuggingFace transformers source — `modeling_gpt2.py` | `self.lm_head.weight = self.transformer.wte.weight` (GPT-2 tying) |
 
 ---
 
