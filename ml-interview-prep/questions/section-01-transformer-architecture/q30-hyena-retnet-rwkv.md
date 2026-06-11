@@ -446,7 +446,7 @@ After 3 steps, $S_1$'s contribution has been multiplied by $0.9^2 = 0.81$. $S_2$
 |---|---|---|
 | $h=1$ | $1 - 2^{-6} \approx 0.984$ | $\approx 43$ |
 | $h=4$ | $1 - 2^{-9} \approx 0.998$ | $\approx 347$ |
-| $h=8$ | $1 - 2^{-13} \approx 0.9999$ | $\approx 5765$ |
+| $h=8$ | $1 - 2^{-13} \approx 0.9999$ | $\approx 5678$ |
 
 Different heads naturally focus on different temporal scales — short-range syntax to long-range topic coherence — without any explicit positional encoding.
 
