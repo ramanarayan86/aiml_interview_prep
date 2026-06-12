@@ -7,7 +7,7 @@
 [![Scope](https://img.shields.io/badge/scope-LLMs_&_VLMs-1f4fa3)](#table-of-contents)
 [![Sections](https://img.shields.io/badge/sections-30-0e8a6e)](#table-of-contents)
 [![Questions](https://img.shields.io/badge/questions-800%2B-6c4fe0)](#questions-by-level)
-[![Answered](https://img.shields.io/badge/answered-57%2F106-c77a12)](#table-of-contents)
+[![Answered](https://img.shields.io/badge/answered-57%2F822-c77a12)](#table-of-contents)
 [![Levels](https://img.shields.io/badge/levels-Basic→Intermediate→Advanced→Applied-c77a12)](#questions-by-level)
 [![Format](https://img.shields.io/badge/format-Markdown_+_SVG_+_LaTeX-16202e)](#repository-layout)
 
@@ -177,7 +177,7 @@ Each section is a folder with its own index; each question is one Markdown file;
 
 ## ⭐ Current status
 
-**Total answered: 57 questions across 3 sections** — all following the same first-principles template: 20-second answer → first principles → mechanism → algorithm & pseudocode → PyTorch reference implementation → worked numerical example → interview drill → common misconceptions → one-screen summary → references.
+**57 questions fully answered across Sections 1–3.** Sections 4–22 are fully scaffolded — all questions listed, tagged, and organized by level. Every section has a README with question tables, themes, and reading-order suggestions. Answers are being written section-by-section following the same first-principles template: 20-second answer → first principles → mechanism → algorithm & pseudocode → PyTorch reference implementation → worked numerical example → interview drill → common misconceptions → one-screen summary → references.
 
 ### Section 1 — Transformer Architecture (34 answered · 8 scaffolded)
 
@@ -220,25 +220,25 @@ Each section is a folder with its own index; each question is one Markdown file;
 | 1 | [**Transformer Architecture Fundamentals**](./questions/section-01-transformer-architecture/README.md) | attention, norms, position, FFN, variants | 42 | ✅ 34/42 · 📝 8/42 |
 | 2 | [**Tokenization and Embeddings**](./questions/section-02-tokenization-and-embeddings/README.md) | BPE/WordPiece/Unigram, byte‑level, glitch tokens | 32 | ✅ 16/32 · 📝 16/32 |
 | 3 | [**Pretraining and Scaling Laws**](./questions/section-03-pretraining-and-scaling-laws/README.md) | Chinchilla, data/compute optima, emergence | 32 | ✅ 7/32 · 📝 25/32 |
-| 4 | [Post‑training: SFT, RLHF, DPO and Beyond](#section-4--post-training-sft-rlhf-dpo-and-beyond) | reward models, PPO, DPO/IPO/KTO | 10 | 📝 |
-| 5 | [Reasoning, CoT, and Inference‑Time Compute](#section-5--reasoning-cot-and-inference-time-compute) | CoT, self‑consistency, search, o‑series | 10 | 📝 |
-| 6 | [Efficient Inference and Serving](#section-6--efficient-inference-and-serving) | KV cache, batching, speculative decoding | 10 | 📝 |
-| 7 | [Quantization and Model Compression](#section-7--quantization-and-model-compression) | INT8/FP8/FP4, GPTQ/AWQ, MXFP, distillation | 10 | 📝 |
-| 8 | [Vision‑Language Models (VLMs)](#section-8--vision-language-models-vlms) | connectors, resolution, any‑res, evaluation | 10 | 📝 |
-| 9 | [Retrieval, RAG, and Long Context](#section-9--retrieval-rag-and-long-context) | chunking, rerankers, long‑context attention | 10 | 📝 |
-| 10 | [Mixture of Experts (MoE)](#section-10--mixture-of-experts-moe) | routing, load balancing, capacity factor | 8 | 📝 |
-| 11 | [Agents, Tool Use, and Code Generation](#section-11--agents-tool-use-and-code-generation) | function calling, planning, sandboxes | 10 | 📝 |
-| 12 | [Evaluation, Safety, and Interpretability](#section-12--evaluation-safety-and-interpretability) | benchmarks, red‑teaming, SAEs, probes | 10 | 📝 |
-| 13 | [Diffusion, DiT, and Generative Modeling](#section-13--diffusion-dit-and-generative-modeling) | DDPM, score matching, DiT, flow matching | 10 | 📝 |
-| 14 | [Systems and Hardware](#section-14--systems-and-hardware) | GPU memory hierarchy, MFU, kernels, NCCL | 10 | 📝 |
-| 15 | [Mathematical Foundations and Probability](#section-15--mathematical-foundations-and-probability) | linear algebra, information theory, optimization | 10 | 📝 |
-| 16 | [Distributed Training and Optimization](#section-16--distributed-training-and-optimization) | DP/TP/PP/FSDP, ZeRO, optimizer states | 10 | 📝 |
-| 17 | [Fine‑Tuning, PEFT, and Adaptation](#section-17--fine-tuning-peft-and-adaptation) | LoRA/QLoRA, adapters, prefix tuning | 10 | 📝 |
-| 18 | [Speech, Audio, and Multimodal Beyond Vision](#section-18--speech-audio-and-multimodal-beyond-vision) | tokenizing audio, ASR/TTS, unified models | 8 | 📝 |
-| 19 | [Prompt Engineering, ICL, and Steering](#section-19--prompt-engineering-icl-and-steering) | in‑context learning, activation steering | 10 | 📝 |
-| 20 | [Data Engineering and Curation for LLMs](#section-20--data-engineering-and-curation-for-llms) | dedup, filtering, mixtures, synthetic data | 10 | 📝 |
-| 21 | [Frontier Topics and Research Directions](#section-21--frontier-topics-and-research-directions) | SSMs, world models, test‑time training | 10 | 📝 |
-| 22 | [Behavioral and Research Leadership](#section-22--behavioral-and-research-leadership) | scoping, prioritization, technical leadership | 8 | 📝 |
+| 4 | [**Post‑training: SFT, RLHF, DPO and Beyond**](./questions/section-04-post-training-sft-rlhf-dpo/README.md) | reward models, PPO, DPO/IPO/KTO | 40 | 📝 |
+| 5 | [**Reasoning, CoT, and Inference‑Time Compute**](./questions/section-05-reasoning-cot-inference-time-compute/README.md) | CoT, self‑consistency, search, o‑series | 34 | 📝 |
+| 6 | [**Efficient Inference and Serving**](./questions/section-06-efficient-inference-and-serving/README.md) | KV cache, batching, speculative decoding | 40 | 📝 |
+| 7 | [**Quantization and Model Compression**](./questions/section-07-quantization-and-model-compression/README.md) | INT8/FP8/FP4, GPTQ/AWQ, MXFP, distillation | 46 | 📝 |
+| 8 | [**Vision‑Language Models (VLMs)**](./questions/section-08-vision-language-models/README.md) | connectors, resolution, any‑res, evaluation | 49 | 📝 |
+| 9 | [**Retrieval, RAG, and Long Context**](./questions/section-09-retrieval-rag-long-context/README.md) | chunking, rerankers, long‑context attention | 36 | 📝 |
+| 10 | [**Mixture of Experts (MoE)**](./questions/section-10-mixture-of-experts/README.md) | routing, load balancing, capacity factor | 30 | 📝 |
+| 11 | [**Agents, Tool Use, and Code Generation**](./questions/section-11-agents-tool-use-code-generation/README.md) | function calling, planning, sandboxes | 34 | 📝 |
+| 12 | [**Evaluation, Safety, and Interpretability**](./questions/section-12-evaluation-safety-interpretability/README.md) | benchmarks, red‑teaming, SAEs, probes | 39 | 📝 |
+| 13 | [**Diffusion, DiT, and Generative Modeling**](./questions/section-13-diffusion-dit-generative-modeling/README.md) | DDPM, score matching, DiT, flow matching | 37 | 📝 |
+| 14 | [**Systems and Hardware**](./questions/section-14-systems-and-hardware/README.md) | GPU memory hierarchy, MFU, kernels, NCCL | 37 | 📝 |
+| 15 | [**Mathematical Foundations and Probability**](./questions/section-15-mathematical-foundations/README.md) | linear algebra, information theory, optimization | 30 | 📝 |
+| 16 | [**Distributed Training and Optimization**](./questions/section-16-distributed-training-optimization/README.md) | DP/TP/PP/FSDP, ZeRO, optimizer states | 31 | 📝 |
+| 17 | [**Fine‑Tuning, PEFT, and Adaptation**](./questions/section-17-fine-tuning-peft-adaptation/README.md) | LoRA/QLoRA, adapters, prefix tuning | 27 | 📝 |
+| 18 | [**Speech, Audio, and Multimodal Beyond Vision**](./questions/section-18-speech-audio-multimodal/README.md) | tokenizing audio, ASR/TTS, unified models | 20 | 📝 |
+| 19 | [**Prompt Engineering, ICL, and Steering**](./questions/section-19-prompt-engineering-icl-steering/README.md) | in‑context learning, activation steering | 23 | 📝 |
+| 20 | [**Data Engineering and Curation for LLMs**](./questions/section-20-data-engineering-curation/README.md) | dedup, filtering, mixtures, synthetic data | 27 | 📝 |
+| 21 | [**Frontier Topics and Research Directions**](./questions/section-21-frontier-topics-research/README.md) | SSMs, world models, test‑time training | 17 | 📝 |
+| 22 | [**Behavioral and Research Leadership**](./questions/section-22-behavioral-research-leadership/README.md) | scoping, prioritization, technical leadership | 14 | 📝 |
 | 23 | [Vector Databases and Search Infrastructure](#section-23--vector-databases-and-search-infrastructure) | vector index types, ANN search, filtering, hybrid search, DB selection | 12 | 📝 |
 | 24 | [Document Digitization and Chunking Strategies](#section-24--document-digitization-and-chunking-strategies) | OCR pipelines, semantic chunking, tables/lists/charts, ideal chunk size | 10 | 📝 |
 | 25 | [Embedding Models and Semantic Search](#section-25--embedding-models-and-semantic-search) | embedding architectures, long vs short content, domain adaptation, benchmarking | 9 | 📝 |
