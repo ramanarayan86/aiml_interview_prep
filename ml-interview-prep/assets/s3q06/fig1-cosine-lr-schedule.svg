@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 400" width="780" height="400" font-family="Inter, Helvetica Neue, Arial, sans-serif">
+
+  <!-- Background -->
+  <rect width="780" height="400" fill="#0f1117" rx="10"/>
+
+  <!-- Title -->
+  <text x="390" y="34" text-anchor="middle" font-size="15" font-weight="600" fill="#e2e8f0">Cosine Decay with Linear Warmup (GPT-3 style)</text>
+
+  <!-- Axis area: x 70-730, y 60-330 -->
+
+  <!-- Grid lines (horizontal) -->
+  <line x1="70" y1="60"  x2="730" y2="60"  stroke="#2d3748" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="70" y1="115" x2="730" y2="115" stroke="#2d3748" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="70" y1="195" x2="730" y2="195" stroke="#2d3748" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="70" y1="330" x2="730" y2="330" stroke="#2d3748" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Axes -->
+  <line x1="70" y1="60" x2="70" y2="340" stroke="#718096" stroke-width="1.5"/>
+  <line x1="70" y1="340" x2="740" y2="340" stroke="#718096" stroke-width="1.5"/>
+
+  <!-- Y-axis labels -->
+  <text x="62" y="64"  text-anchor="end" font-size="11" fill="#a0aec0">6×10⁻⁴</text>
+  <text x="62" y="119" text-anchor="end" font-size="11" fill="#a0aec0">4×10⁻⁴</text>
+  <text x="62" y="199" text-anchor="end" font-size="11" fill="#a0aec0">2×10⁻⁴</text>
+  <text x="62" y="334" text-anchor="end" font-size="11" fill="#a0aec0">6×10⁻⁵</text>
+
+  <!-- Y-axis title -->
+  <text x="18" y="200" text-anchor="middle" font-size="12" fill="#cbd5e0" transform="rotate(-90,18,200)">Learning Rate</text>
+
+  <!-- X-axis tick labels -->
+  <!-- warmup ends at step ~2000 → x=70 + 2000/300000 * 660 ≈ 74.4  (scale: 660px / 300K steps) -->
+  <!-- Let's use 300K total steps: warmup 0-2K, cosine 2K-300K -->
+  <!-- x positions: 0→70, 2000→74, 30000→136, 150000→400, 300000→730 -->
+  <text x="70"  y="358" text-anchor="middle" font-size="11" fill="#a0aec0">0</text>
+  <text x="135" y="358" text-anchor="middle" font-size="11" fill="#a0aec0">30K</text>
+  <text x="268" y="358" text-anchor="middle" font-size="11" fill="#a0aec0">90K</text>
+  <text x="400" y="358" text-anchor="middle" font-size="11" fill="#a0aec0">150K</text>
+  <text x="532" y="358" text-anchor="middle" font-size="11" fill="#a0aec0">210K</text>
+  <text x="665" y="358" text-anchor="middle" font-size="11" fill="#a0aec0">270K</text>
+  <text x="730" y="358" text-anchor="middle" font-size="11" fill="#a0aec0">300K</text>
+
+  <!-- X-axis title -->
+  <text x="400" y="380" text-anchor="middle" font-size="12" fill="#cbd5e0">Training Steps</text>
+
+  <!-- Tick marks on x-axis -->
+  <line x1="135" y1="340" x2="135" y2="346" stroke="#718096" stroke-width="1"/>
+  <line x1="268" y1="340" x2="268" y2="346" stroke="#718096" stroke-width="1"/>
+  <line x1="400" y1="340" x2="400" y2="346" stroke="#718096" stroke-width="1"/>
+  <line x1="532" y1="340" x2="532" y2="346" stroke="#718096" stroke-width="1"/>
+  <line x1="665" y1="340" x2="665" y2="346" stroke="#718096" stroke-width="1"/>
+  <line x1="730" y1="340" x2="730" y2="346" stroke="#718096" stroke-width="1"/>
+
+  <!--
+    Coordinate mapping:
+      step 0      → x=70
+      step 300000 → x=730
+      x = 70 + step/300000 * 660
+
+      lr 6e-4  → y=60
+      lr 6e-5  → y=330
+      (lr_max=6e-4, lr_min=6e-5, range=5.4e-4 → 270px)
+      y = 60 + (6e-4 - lr) / 5.4e-4 * 270
+
+    Warmup: 0→2000 steps (x: 70→73.4), lr 0→6e-4
+    Cosine: 2000→300000, lr 6e-4 → 6e-5
+    lr(t) = 6e-5 + 0.5*(6e-4-6e-5)*(1 + cos(π*t/300000))
+
+    Key x points (step → x):
+      0      → 70
+      2000   → 74.4
+      30000  → 135.8  lr at step 28000 cosine: 6e-5+0.5*5.4e-4*(1+cos(π*28000/300000))=6e-5+2.7e-4*(1+cos(0.293))=6e-5+2.7e-4*1.957=5.94e-4 → y≈62
+      60000  → 202   lr: 6e-5+2.7e-4*(1+cos(π*58000/300000))=6e-5+2.7e-4*(1+cos(0.607))=6e-5+2.7e-4*1.821=5.52e-4 → y≈77
+      150000 → 400   lr: 6e-5+2.7e-4*(1+cos(π/2))=6e-5+2.7e-4=3.3e-4 → y=195
+      240000 → 598   lr: 6e-5+2.7e-4*(1+cos(0.8π))=6e-5+2.7e-4*(1+(-0.809))=6e-5+2.7e-4*0.191=1.12e-4 → y=285
+      300000 → 730   lr: 6e-5 → y=330
+  -->
+
+  <!-- Warmup phase fill area (light blue) -->
+  <polygon points="70,330 70,330 74,60 74,340" fill="#3182ce" fill-opacity="0.12"/>
+
+  <!-- Cosine decay fill area -->
+  <polygon points="74,60 135,62 202,77 268,107 334,150 400,195 466,240 532,280 598,310 665,325 730,330 730,340 74,340"
+           fill="#48bb78" fill-opacity="0.10"/>
+
+  <!-- WARMUP LINE (linear, light-blue) step 0→2000 -->
+  <line x1="70" y1="330" x2="74" y2="60" stroke="#63b3ed" stroke-width="2.5"/>
+
+  <!--
+    Cosine curve points (step → x, computed y):
+    step 2000  → x=74,   y=60
+    step 10000 → x=92,   lr~5.98e-4 → y~61
+    step 30000 → x=136,  lr~5.93e-4 → y~63
+    step 60000 → x=202,  lr~5.70e-4 → y~72
+    step 90000 → x=268,  lr~5.17e-4 → y~93  cos(0.942)=-0.0998 → lr=6e-5+2.7e-4*(0.9)=3.03e-4...
+
+    Let me recompute more carefully.
+    Cosine from step 0 to T=300000:
+    lr(t) = lr_min + 0.5*(lr_max-lr_min)*(1+cos(π*t/T))
+    where t is measured from start of training (0..300000)
+    but warmup is 0..2000 and cosine starts at t=2000.
+
+    For simplicity I'll use the version where cosine runs from t=0 to T=300000
+    and warmup is just an overlay for first 2000 steps.
+
+    At t=2000:  cos(π*2000/300000)=cos(0.02094)=0.9998 → lr=6e-5+2.7e-4*1.9998≈6e-4  ✓
+    At t=30000: cos(π*30000/300000)=cos(0.3142)=0.9511 → lr=6e-5+2.7e-4*1.9511=5.87e-4 → y=60+(6e-4-5.87e-4)/5.4e-4*270=60+6.5=66.5
+    At t=60000: cos(π*60000/300000)=cos(0.6283)=0.809 → lr=6e-5+2.7e-4*1.809=5.49e-4 → y=60+(6e-4-5.49e-4)/5.4e-4*270=60+25.5=85.5
+    At t=90000: cos(π*90000/300000)=cos(0.9425)=0.588 → lr=6e-5+2.7e-4*1.588=4.89e-4 → y=60+(6e-4-4.89e-4)/5.4e-4*270=60+55.5=115.5
+    At t=120000:cos(π*120000/300000)=cos(1.2566)=0.309 → lr=6e-5+2.7e-4*1.309=4.13e-4 → y=60+(6e-4-4.13e-4)/5.4e-4*270=60+93.5=153.5
+    At t=150000:cos(π*150000/300000)=cos(1.5708)=0    → lr=6e-5+2.7e-4=3.30e-4 → y=60+(6e-4-3.30e-4)/5.4e-4*270=60+135=195  ✓
+    At t=180000:cos(π*180000/300000)=cos(1.885)=-0.309 → lr=6e-5+2.7e-4*0.691=2.46e-4 → y=60+(6e-4-2.46e-4)/5.4e-4*270=60+177=237
+    At t=210000:cos(π*210000/300000)=cos(2.199)=-0.588 → lr=6e-5+2.7e-4*0.412=1.71e-4 → y=60+(6e-4-1.71e-4)/5.4e-4*270=60+214.5=274.5
+    At t=240000:cos(π*240000/300000)=cos(2.513)=-0.809 → lr=6e-5+2.7e-4*0.191=1.12e-4 → y=60+(6e-4-1.12e-4)/5.4e-4*270=60+250.5=310.5
+    At t=270000:cos(π*270000/300000)=cos(2.827)=-0.951 → lr=6e-5+2.7e-4*0.049=7.32e-5 → y=60+(6e-4-7.32e-5)/5.4e-4*270=60+266.5=326.5
+    At t=300000:cos(π)=-1 → lr=6e-5 → y=330 ✓
+
+    x positions:
+    t=2000  → x=70+2000/300000*660=70+4.4=74.4
+    t=30000 → x=70+30000/300000*660=70+66=136
+    t=60000 → x=70+60000/300000*660=70+132=202
+    t=90000 → x=70+90000/300000*660=70+198=268
+    t=120000→ x=70+120000/300000*660=70+264=334
+    t=150000→ x=70+150000/300000*660=70+330=400
+    t=180000→ x=70+180000/300000*660=70+396=466
+    t=210000→ x=70+210000/300000*660=70+462=532
+    t=240000→ x=70+240000/300000*660=70+528=598
+    t=270000→ x=70+270000/300000*660=70+594=664
+    t=300000→ x=730
+  -->
+
+  <!-- Cosine curve (smooth polyline) -->
+  <polyline
+    points="74,60 136,67 202,86 268,116 334,154 400,195 466,237 532,275 598,311 664,327 730,330"
+    fill="none" stroke="#48bb78" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <!-- Warmup vertical divider -->
+  <line x1="74" y1="60" x2="74" y2="340" stroke="#ed8936" stroke-width="1.2" stroke-dasharray="5,3"/>
+
+  <!-- lr_min horizontal reference line -->
+  <line x1="70" y1="330" x2="730" y2="330" stroke="#fc8181" stroke-width="1" stroke-dasharray="6,4"/>
+
+  <!-- Annotation: warmup -->
+  <rect x="70" y="68" width="80" height="20" rx="3" fill="#2d3748" fill-opacity="0.85"/>
+  <text x="76" y="82" font-size="11" fill="#ed8936" font-weight="600">Warmup</text>
+  <text x="76" y="94" font-size="10" fill="#a0aec0">(0 → 2K steps)</text>
+
+  <!-- Annotation: cosine decay -->
+  <rect x="220" y="68" width="160" height="20" rx="3" fill="#2d3748" fill-opacity="0.85"/>
+  <text x="228" y="82" font-size="11" fill="#48bb78" font-weight="600">Cosine Decay Phase</text>
+  <text x="228" y="96" font-size="10" fill="#a0aec0">(2K → 300K steps)</text>
+
+  <!-- Annotation: peak LR -->
+  <text x="80" y="56" font-size="10" fill="#e2e8f0">peak lr = 6×10⁻⁴</text>
+
+  <!-- Annotation: lr_min -->
+  <text x="600" y="325" font-size="10" fill="#fc8181">lr_min = 6×10⁻⁵ (10% of peak)</text>
+
+  <!-- Midpoint annotation -->
+  <circle cx="400" cy="195" r="4" fill="#f6e05e"/>
+  <text x="408" y="190" font-size="10" fill="#f6e05e">half-point: lr = 3.3×10⁻⁴</text>
+
+</svg>

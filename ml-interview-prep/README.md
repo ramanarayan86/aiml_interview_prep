@@ -93,7 +93,14 @@ ml-interview-prep/
 │   ├── s2q04/  fig1-unigram-em.svg
 │   ├── s2q05/  fig1-byte-level-bpe.svg
 │   ├── s2q06/  fig1-embedding-table.svg
-│   └── s2q07/  fig1-fertility-map.svg
+│   ├── s2q07/  fig1-fertility-map.svg
+│   ├── s3q01/  fig1-clm-next-token.svg  fig2-clm-vs-mlm-variants.svg
+│   ├── s3q02/  fig1-scaling-law-curves.svg  fig2-isoflop-frontier.svg
+│   ├── s3q03/  fig1-chinchilla-isoflop.svg  fig2-kaplan-vs-chinchilla.svg
+│   ├── s3q04/  fig1-data-mix-domains.svg  fig2-quality-filtering-pipeline.svg
+│   ├── s3q05/  fig1-emergence-jump.svg  fig2-metric-artefact.svg
+│   ├── s3q06/  fig1-cosine-lr-schedule.svg  fig2-wsd-schedule.svg
+│   └── s3q07/  fig1-gradient-norm-training.svg  fig2-clipping-geometry.svg
 └── questions/
     ├── section-01-transformer-architecture/
     │   ├── README.md                ← section index (42 questions, 34 answered)
@@ -152,6 +159,16 @@ ml-interview-prep/
         ├── q15-token-counting-heuristics.md  ✅
         ├── q16-special-tokens.md             ✅
         └── (Q2-17 – Q2-32 scaffolded — files coming)
+    └── section-03-pretraining-and-scaling-laws/
+        ├── README.md                ← section index (32 questions, 7 answered)
+        ├── q01-pretraining-objective.md      ✅
+        ├── q02-scaling-laws-kaplan.md        ✅
+        ├── q03-chinchilla.md                 ✅
+        ├── q04-data-mix.md                   ✅
+        ├── q05-emergent-abilities.md         ✅
+        ├── q06-lr-schedule.md                ✅
+        ├── q07-gradient-clipping.md          ✅
+        └── (Q3-08 – Q3-32 scaffolded — files coming)
 ```
 
 Each section is a folder with its own index; each question is one Markdown file; figures live under `assets/qNN/` — exactly 2 SVGs per question for Q23–Q34. Adding a new question never touches any existing file.
@@ -160,7 +177,7 @@ Each section is a folder with its own index; each question is one Markdown file;
 
 ## ⭐ Current status
 
-**Total answered: 50 questions across 2 sections** — all following the same first-principles template: 20-second answer → first principles → mechanism → algorithm & pseudocode → PyTorch reference implementation → worked numerical example → interview drill → common misconceptions → one-screen summary → references.
+**Total answered: 57 questions across 3 sections** — all following the same first-principles template: 20-second answer → first principles → mechanism → algorithm & pseudocode → PyTorch reference implementation → worked numerical example → interview drill → common misconceptions → one-screen summary → references.
 
 ### Section 1 — Transformer Architecture (34 answered · 8 scaffolded)
 
@@ -178,7 +195,17 @@ Each section is a folder with its own index; each question is one Markdown file;
 | **[🟢 Basic (Q2-01–Q2-07)](#-basic)** | [Q2-01](./questions/section-02-tokenization-and-embeddings/q01-what-is-a-token.md) · [Q2-02](./questions/section-02-tokenization-and-embeddings/q02-bpe.md) · [Q2-03](./questions/section-02-tokenization-and-embeddings/q03-wordpiece.md) · [Q2-04](./questions/section-02-tokenization-and-embeddings/q04-unigram-lm.md) · [Q2-05](./questions/section-02-tokenization-and-embeddings/q05-byte-level-bpe.md) · [Q2-06](./questions/section-02-tokenization-and-embeddings/q06-embedding-layer.md) · [Q2-07](./questions/section-02-tokenization-and-embeddings/q07-token-fertility.md) | ✅ 7/7 |
 | **🟡 Intermediate (Q2-08–Q2-16)** | [Q2-08](./questions/section-02-tokenization-and-embeddings/q08-bpe-algorithm.md) · [Q2-09](./questions/section-02-tokenization-and-embeddings/q09-sentencepiece.md) · [Q2-10](./questions/section-02-tokenization-and-embeddings/q10-vocab-size-tradeoff.md) · [Q2-11](./questions/section-02-tokenization-and-embeddings/q11-embedding-init.md) · [Q2-12](./questions/section-02-tokenization-and-embeddings/q12-weight-tying-embeddings.md) · [Q2-13](./questions/section-02-tokenization-and-embeddings/q13-tokenization-numbers.md) · [Q2-14](./questions/section-02-tokenization-and-embeddings/q14-token-healing.md) · [Q2-15](./questions/section-02-tokenization-and-embeddings/q15-token-counting-heuristics.md) · [Q2-16](./questions/section-02-tokenization-and-embeddings/q16-special-tokens.md) | ✅ 9/9 |
 | **🔴 Advanced (Q2-17–Q2-23)** | Glitch tokens · Unigram LM derivation · multilingual tokenization · vocabulary overlap · tiktoken · tokenizer extension · context efficiency | 📝 0/7 |
+| **🔴 Advanced (Q2-17–Q2-23)** | Glitch tokens · Unigram LM derivation · multilingual tokenization · vocabulary overlap · tiktoken · tokenizer extension · context efficiency | 📝 0/7 |
 | **🔵 Applied (Q2-24–Q2-32)** | Multilingual tokenizer design · medical OOV · cost optimisation · evaluation · adversarial tokenization · 70B vocab expansion · RAG retrieval · long identifiers · benchmark suite | 📝 0/9 |
+
+### Section 3 — Pretraining and Scaling Laws (7 answered · 25 scaffolded)
+
+| Group | Questions | Status |
+|---|---|:---:|
+| **🟢 Basic (Q3-01–Q3-07)** | [Q3-01 Pretraining objective](./questions/section-03-pretraining-and-scaling-laws/q01-pretraining-objective.md) · [Q3-02 Kaplan scaling laws](./questions/section-03-pretraining-and-scaling-laws/q02-scaling-laws-kaplan.md) · [Q3-03 Chinchilla](./questions/section-03-pretraining-and-scaling-laws/q03-chinchilla.md) · [Q3-04 Data mix](./questions/section-03-pretraining-and-scaling-laws/q04-data-mix.md) · [Q3-05 Emergent abilities](./questions/section-03-pretraining-and-scaling-laws/q05-emergent-abilities.md) · [Q3-06 LR schedule](./questions/section-03-pretraining-and-scaling-laws/q06-lr-schedule.md) · [Q3-07 Gradient clipping](./questions/section-03-pretraining-and-scaling-laws/q07-gradient-clipping.md) | ✅ 7/7 |
+| **🟡 Intermediate (Q3-08–Q3-16)** | Chinchilla derivation · deduplication · batch size · mixed precision · Adam · AdamW · loss spikes · data quality filtering · compute vs inference optimal | 📝 0/9 |
+| **🔴 Advanced (Q3-17–Q3-23)** | Full Chinchilla derivation · downstream scaling · MuP · cooldown phase · data-constrained scaling · code pretraining · GPT-4 predictions | 📝 0/7 |
+| **🔵 Applied (Q3-24–Q3-32)** | Compute budget allocation · loss spike debug · data pipeline · serve vs quality · CPT · Llama-3 recipe · monitoring · early stopping · scaling experiment | 📝 0/9 |
 
 > **Reference standard:** [Q18 — QK‑norm](./questions/section-01-transformer-architecture/q18-qk-norm.md) — softmax temperature, attention‑logit explosion, entropy collapse, ℓ₂ vs RMSNorm variants, MLA incompatibility — with four original SVG figures and the full 16-section template.
 
@@ -192,7 +219,7 @@ Each section is a folder with its own index; each question is one Markdown file;
 |---|---------|-------|:---------:|:------:|
 | 1 | [**Transformer Architecture Fundamentals**](./questions/section-01-transformer-architecture/README.md) | attention, norms, position, FFN, variants | 42 | ✅ 34/42 · 📝 8/42 |
 | 2 | [**Tokenization and Embeddings**](./questions/section-02-tokenization-and-embeddings/README.md) | BPE/WordPiece/Unigram, byte‑level, glitch tokens | 32 | ✅ 16/32 · 📝 16/32 |
-| 3 | [Pretraining and Scaling Laws](#section-3--pretraining-and-scaling-laws) | Chinchilla, data/compute optima, emergence | 10 | 📝 |
+| 3 | [**Pretraining and Scaling Laws**](./questions/section-03-pretraining-and-scaling-laws/README.md) | Chinchilla, data/compute optima, emergence | 32 | ✅ 7/32 · 📝 25/32 |
 | 4 | [Post‑training: SFT, RLHF, DPO and Beyond](#section-4--post-training-sft-rlhf-dpo-and-beyond) | reward models, PPO, DPO/IPO/KTO | 10 | 📝 |
 | 5 | [Reasoning, CoT, and Inference‑Time Compute](#section-5--reasoning-cot-and-inference-time-compute) | CoT, self‑consistency, search, o‑series | 10 | 📝 |
 | 6 | [Efficient Inference and Serving](#section-6--efficient-inference-and-serving) | KV cache, batching, speculative decoding | 10 | 📝 |
@@ -234,6 +261,7 @@ A quick-reference map across all 30 sections. Jump straight to the depth you nee
 |---------|--------------------------|
 | [§1 Transformer Architecture](./questions/section-01-transformer-architecture/README.md) | [Q1 Transformer block](./questions/section-01-transformer-architecture/q01-transformer-block.md) · [Q2 √d_k scaling](./questions/section-01-transformer-architecture/q02-scaled-attention.md) · [Q3 LayerNorm vs BatchNorm](./questions/section-01-transformer-architecture/q03-layernorm-batchnorm.md) · [Q5 Positional encodings](./questions/section-01-transformer-architecture/q05-positional-encodings.md) · [Q6 FFN role](./questions/section-01-transformer-architecture/q06-ffn.md) · [Q8 Causal masking](./questions/section-01-transformer-architecture/q08-causal-masking.md) · [Q9 Multi-head attention](./questions/section-01-transformer-architecture/q09-multi-head-attention.md) · [Q10 Encoder/Decoder](./questions/section-01-transformer-architecture/q10-encoder-decoder.md) |
 | [§2 Tokenization & Embeddings](./questions/section-02-tokenization-and-embeddings/README.md) | [Q2-01 What is a token?](./questions/section-02-tokenization-and-embeddings/q01-what-is-a-token.md) · [Q2-02 BPE algorithm](./questions/section-02-tokenization-and-embeddings/q02-bpe.md) · [Q2-03 WordPiece](./questions/section-02-tokenization-and-embeddings/q03-wordpiece.md) · [Q2-04 Unigram LM](./questions/section-02-tokenization-and-embeddings/q04-unigram-lm.md) · [Q2-05 Byte-level BPE](./questions/section-02-tokenization-and-embeddings/q05-byte-level-bpe.md) · [Q2-06 Embedding layer](./questions/section-02-tokenization-and-embeddings/q06-embedding-layer.md) · [Q2-07 Token fertility](./questions/section-02-tokenization-and-embeddings/q07-token-fertility.md) |
+| [§3 Pretraining & Scaling Laws](./questions/section-03-pretraining-and-scaling-laws/README.md) | [Q3-01 Pretraining objective](./questions/section-03-pretraining-and-scaling-laws/q01-pretraining-objective.md) · [Q3-02 Kaplan scaling laws](./questions/section-03-pretraining-and-scaling-laws/q02-scaling-laws-kaplan.md) · [Q3-03 Chinchilla](./questions/section-03-pretraining-and-scaling-laws/q03-chinchilla.md) · [Q3-04 Data mix](./questions/section-03-pretraining-and-scaling-laws/q04-data-mix.md) · [Q3-05 Emergent abilities](./questions/section-03-pretraining-and-scaling-laws/q05-emergent-abilities.md) · [Q3-06 LR schedule](./questions/section-03-pretraining-and-scaling-laws/q06-lr-schedule.md) · [Q3-07 Gradient clipping](./questions/section-03-pretraining-and-scaling-laws/q07-gradient-clipping.md) |
 | [§23 Vector Databases](#section-23--vector-databases-and-search-infrastructure) | Vector index vs DB vs plugin · exact vs ANN tradeoffs |
 | [§24 Chunking](#section-24--document-digitization-and-chunking-strategies) | Why we chunk · factors determining chunk size |
 | [§25 Embeddings](#section-25--embedding-models-and-semantic-search) | What is a vector embedding · bi-encoder vs cross-encoder |

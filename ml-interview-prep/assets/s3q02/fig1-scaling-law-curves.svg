@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="420" viewBox="0 0 640 420">
+  <!-- Background -->
+  <rect width="640" height="420" fill="white"/>
+
+  <!-- Title -->
+  <text x="320" y="28" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+        text-anchor="middle" fill="#111827">Kaplan et al. (2020) &#8212; Power Laws in N, D, C</text>
+
+  <!-- Chart area: left=70, top=50, right=580, bottom=360 -->
+  <!-- Grid lines (vertical at x ticks) -->
+  <!-- x positions for 10^18, 10^20, 10^22 mapped linearly across log scale:
+       domain [18,22] -> range [70,580], so step = (580-70)/4 = 127.5
+       18 -> 70, 19 -> 197.5, 20 -> 325, 21 -> 452.5, 22 -> 580 -->
+  <line x1="70"  y1="50" x2="70"  y2="360" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="197" y1="50" x2="197" y2="360" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="325" y1="50" x2="325" y2="360" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="452" y1="50" x2="452" y2="360" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="580" y1="50" x2="580" y2="360" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- Grid lines (horizontal at y ticks)
+       domain [1.5, 4.5] -> range [360,50], so height=310, step=310/3=103.3
+       4.5->50, 4.0->103, 3.5->155, 3.0->207, 2.5->258, 2.0->310, 1.5->360 -->
+  <line x1="70" y1="360" x2="580" y2="360" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="70" y1="257" x2="580" y2="257" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="70" y1="153" x2="580" y2="153" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="70" y1="50"  x2="580" y2="50"  stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- Axes -->
+  <line x1="70" y1="360" x2="580" y2="360" stroke="#374151" stroke-width="2"/>
+  <line x1="70" y1="50"  x2="70"  y2="360" stroke="#374151" stroke-width="2"/>
+
+  <!-- X-axis ticks and labels -->
+  <!-- Mapping: log10(x) in [18..22] -> pixel [70..580] -->
+  <!-- 10^18 -> x=70 -->
+  <line x1="70"  y1="360" x2="70"  y2="367" stroke="#374151" stroke-width="1.5"/>
+  <text x="70"  y="380" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#374151">10&#x00B9;&#x2078;</text>
+
+  <!-- 10^19 -> x=197.5 -->
+  <line x1="198" y1="360" x2="198" y2="367" stroke="#374151" stroke-width="1.5"/>
+  <text x="198" y="380" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#374151">10&#x00B9;&#x2079;</text>
+
+  <!-- 10^20 -> x=325 -->
+  <line x1="325" y1="360" x2="325" y2="367" stroke="#374151" stroke-width="1.5"/>
+  <text x="325" y="380" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#374151">10&#x00B2;&#x2070;</text>
+
+  <!-- 10^21 -> x=452 -->
+  <line x1="452" y1="360" x2="452" y2="367" stroke="#374151" stroke-width="1.5"/>
+  <text x="452" y="380" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#374151">10&#x00B2;&#x00B9;</text>
+
+  <!-- 10^22 -> x=580 -->
+  <line x1="580" y1="360" x2="580" y2="367" stroke="#374151" stroke-width="1.5"/>
+  <text x="580" y="380" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#374151">10&#x00B2;&#x00B2;</text>
+
+  <!-- Y-axis ticks and labels -->
+  <!-- y domain [1.5..4.5], pixel [360..50], scale = (360-50)/(4.5-1.5) = 310/3 = 103.33 per unit -->
+  <!-- y=4.5 -> pixel 50  (top) -->
+  <!-- y=4.0 -> pixel 50 + (4.5-4.0)*103.33 = 50+51.7 = 102 -->
+  <!-- y=3.0 -> pixel 50 + (4.5-3.0)*103.33 = 50+155 = 205 -->
+  <!-- y=2.0 -> pixel 50 + (4.5-2.0)*103.33 = 50+258.3 = 308 -->
+
+  <line x1="70" y1="102" x2="63" y2="102" stroke="#374151" stroke-width="1.5"/>
+  <text x="58" y="106" font-family="Arial, sans-serif" font-size="11" text-anchor="end" fill="#374151">4.0</text>
+
+  <line x1="70" y1="205" x2="63" y2="205" stroke="#374151" stroke-width="1.5"/>
+  <text x="58" y="209" font-family="Arial, sans-serif" font-size="11" text-anchor="end" fill="#374151">3.0</text>
+
+  <line x1="70" y1="308" x2="63" y2="308" stroke="#374151" stroke-width="1.5"/>
+  <text x="58" y="312" font-family="Arial, sans-serif" font-size="11" text-anchor="end" fill="#374151">2.0</text>
+
+  <!-- Axis labels -->
+  <text x="325" y="405" font-family="Arial, sans-serif" font-size="13" font-weight="bold"
+        text-anchor="middle" fill="#374151">Scale (log)</text>
+  <text x="18" y="205" font-family="Arial, sans-serif" font-size="13" font-weight="bold"
+        text-anchor="middle" fill="#374151" transform="rotate(-90,18,205)">Test Loss L (log)</text>
+
+  <!--
+    Curve equations (power laws on log-log):
+      L(N): log L = a - 0.076 * log(scale)
+      L(D): log L = b - 0.095 * log(scale)
+      L(C): log L = c - 0.050 * log(scale)
+
+    We pick intercepts so the curves spread nicely across the visible range.
+    Pixel mapping:
+      px = 70 + (logS - 18) * 127.5      [log scale in [18..22]]
+      py = 50 + (4.5 - logL) * 103.33    [log loss in [1.5..4.5]]
+
+    For each curve we sample logS at 18, 19, 20, 21, 22.
+
+    L(N): intercept chosen so at logS=18 -> logL=3.8
+      logL = 3.8 - 0.076*(logS-18)
+      18: 3.800  -> py = 50+(4.5-3.800)*103.33 = 50+72.3 = 122
+      19: 3.724  -> py = 50+0.776*103.33 = 50+80.2 = 130
+      20: 3.648  -> py = 50+0.852*103.33 = 50+88.1 = 138
+      21: 3.572  -> py = 50+0.928*103.33 = 50+95.9 = 146
+      22: 3.496  -> py = 50+1.004*103.33 = 50+103.8 = 154
+
+    L(D): intercept so at logS=18 -> logL=4.1
+      logL = 4.1 - 0.095*(logS-18)
+      18: 4.100  -> py = 50+(0.4)*103.33 = 50+41.3 = 91
+      19: 4.005  -> py = 50+0.495*103.33 = 50+51.1 = 101
+      20: 3.910  -> py = 50+0.590*103.33 = 50+61.0 = 111
+      21: 3.815  -> py = 50+0.685*103.33 = 50+70.8 = 121
+      22: 3.720  -> py = 50+0.780*103.33 = 50+80.6 = 131
+
+    L(C): intercept so at logS=18 -> logL=3.5
+      logL = 3.5 - 0.050*(logS-18)
+      18: 3.500  -> py = 50+1.0*103.33 = 50+103.3 = 153
+      19: 3.450  -> py = 50+1.05*103.33 = 50+108.5 = 159
+      20: 3.400  -> py = 50+1.1*103.33 = 50+113.7 = 164
+      21: 3.350  -> py = 50+1.15*103.33 = 50+118.8 = 169
+      22: 3.300  -> py = 50+1.2*103.33 = 50+124.0 = 174
+  -->
+
+  <!-- L(D) — tokens (green) drawn first so blue sits on top -->
+  <polyline
+    points="70,91 198,101 325,111 452,121 580,131"
+    fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <!-- L(N) — parameters (blue) -->
+  <polyline
+    points="70,122 198,130 325,138 452,146 580,154"
+    fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <!-- L(C) — compute (orange) -->
+  <polyline
+    points="70,153 198,159 325,164 452,169 580,174"
+    fill="none" stroke="#ea580c" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <!-- Slope labels along the lines -->
+  <!-- L(D): near x=400, between pts (452,121) and (325,111) -->
+  <text x="360" y="108" font-family="Arial, sans-serif" font-size="11" fill="#16a34a"
+        transform="rotate(-4.5,360,108)">slope &#x2248; -0.095</text>
+
+  <!-- L(N): near x=400 -->
+  <text x="355" y="135" font-family="Arial, sans-serif" font-size="11" fill="#2563eb"
+        transform="rotate(-3.4,355,135)">slope &#x2248; -0.076</text>
+
+  <!-- L(C): near x=400 -->
+  <text x="350" y="163" font-family="Arial, sans-serif" font-size="11" fill="#ea580c"
+        transform="rotate(-2.2,350,163)">slope &#x2248; -0.050</text>
+
+  <!-- Legend box (upper right) -->
+  <rect x="410" y="54" width="162" height="82" rx="4" ry="4"
+        fill="white" stroke="#d1d5db" stroke-width="1"/>
+
+  <!-- Legend: L(N) -->
+  <line x1="420" y1="72" x2="445" y2="72" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="451" y="76" font-family="Arial, sans-serif" font-size="11" fill="#111827">L(N) &#8212; parameters</text>
+
+  <!-- Legend: L(D) -->
+  <line x1="420" y1="94" x2="445" y2="94" stroke="#16a34a" stroke-width="2.5"/>
+  <text x="451" y="98" font-family="Arial, sans-serif" font-size="11" fill="#111827">L(D) &#8212; tokens</text>
+
+  <!-- Legend: L(C) -->
+  <line x1="420" y1="116" x2="445" y2="116" stroke="#ea580c" stroke-width="2.5"/>
+  <text x="451" y="120" font-family="Arial, sans-serif" font-size="11" fill="#111827">L(C) &#8212; compute</text>
+
+</svg>

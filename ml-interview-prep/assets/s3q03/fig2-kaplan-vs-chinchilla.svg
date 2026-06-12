@@ -1,0 +1,76 @@
+<svg viewBox="0 0 820 500" xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="13">
+  <!-- Background -->
+  <rect width="820" height="500" fill="#0d1117" rx="10"/>
+
+  <!-- Title -->
+  <text x="410" y="34" text-anchor="middle" fill="#e6edf3" font-size="16" font-weight="bold">Kaplan (2020) vs. Chinchilla (2022): Same 10²³ FLOP Budget</text>
+  <text x="410" y="54" text-anchor="middle" fill="#8b949e" font-size="12">Different allocations of FLOPs between N (model size) and D (tokens)</text>
+
+  <!-- LEFT PANEL: Kaplan allocation -->
+  <rect x="40" y="70" width="340" height="360" fill="#161b22" rx="8" stroke="#30363d" stroke-width="1.5"/>
+  <text x="210" y="96" text-anchor="middle" fill="#58a6ff" font-size="14" font-weight="bold">Kaplan et al. 2020</text>
+  <text x="210" y="112" text-anchor="middle" fill="#8b949e" font-size="11">N proportional to C^0.73  |  D scales slowly</text>
+
+  <!-- Kaplan bar chart area -->
+  <!-- N bar: 175B params -->
+  <rect x="90" y="150" width="90" height="180" fill="#58a6ff" opacity="0.85" rx="4"/>
+  <text x="135" y="145" text-anchor="middle" fill="#58a6ff" font-size="12" font-weight="bold">~175B</text>
+  <text x="135" y="158" text-anchor="middle" fill="#e6edf3" font-size="10">params</text>
+  <text x="135" y="345" text-anchor="middle" fill="#8b949e" font-size="11">N (Model Size)</text>
+
+  <!-- D bar: 8.75B tokens (10× rule from Kaplan) -->
+  <rect x="230" y="285" width="90" height="45" fill="#58a6ff" opacity="0.5" rx="4"/>
+  <text x="275" y="280" text-anchor="middle" fill="#58a6ff" font-size="12" font-weight="bold">~8.75B</text>
+  <text x="275" y="292" text-anchor="middle" fill="#e6edf3" font-size="10">tokens</text>
+  <text x="275" y="345" text-anchor="middle" fill="#8b949e" font-size="11">D (Tokens)</text>
+
+  <!-- Kaplan ratio annotation -->
+  <text x="210" y="370" text-anchor="middle" fill="#8b949e" font-size="11">Token-per-param ratio:</text>
+  <text x="210" y="386" text-anchor="middle" fill="#58a6ff" font-size="13" font-weight="bold">~1× tokens per parameter</text>
+  <text x="210" y="402" text-anchor="middle" fill="#e6edf3" font-size="11">(undertrained regime)</text>
+
+  <!-- Kaplan predicted loss -->
+  <rect x="90" y="410" width="230" height="16" fill="#21262d" rx="3"/>
+  <rect x="90" y="410" width="130" height="16" fill="#58a6ff" opacity="0.6" rx="3"/>
+  <text x="210" y="422" text-anchor="middle" fill="#e6edf3" font-size="10">Validation Loss ≈ 2.1 nats (higher)</text>
+
+  <!-- RIGHT PANEL: Chinchilla allocation -->
+  <rect x="440" y="70" width="340" height="360" fill="#161b22" rx="8" stroke="#30363d" stroke-width="1.5"/>
+  <text x="610" y="96" text-anchor="middle" fill="#f78166" font-size="14" font-weight="bold">Chinchilla / Hoffmann 2022</text>
+  <text x="610" y="112" text-anchor="middle" fill="#8b949e" font-size="11">N proportional to C^0.5  |  D proportional to C^0.5</text>
+
+  <!-- Chinchilla bar chart area -->
+  <!-- N bar: 40B params -->
+  <rect x="490" y="225" width="90" height="105" fill="#f78166" opacity="0.85" rx="4"/>
+  <text x="535" y="220" text-anchor="middle" fill="#f78166" font-size="12" font-weight="bold">~40B</text>
+  <text x="535" y="232" text-anchor="middle" fill="#e6edf3" font-size="10">params</text>
+  <text x="535" y="345" text-anchor="middle" fill="#8b949e" font-size="11">N (Model Size)</text>
+
+  <!-- D bar: 800B tokens (20× rule) -->
+  <rect x="630" y="145" width="90" height="185" fill="#f78166" opacity="0.5" rx="4"/>
+  <text x="675" y="140" text-anchor="middle" fill="#f78166" font-size="12" font-weight="bold">~800B</text>
+  <text x="675" y="152" text-anchor="middle" fill="#e6edf3" font-size="10">tokens</text>
+  <text x="675" y="345" text-anchor="middle" fill="#8b949e" font-size="11">D (Tokens)</text>
+
+  <!-- Chinchilla ratio annotation -->
+  <text x="610" y="370" text-anchor="middle" fill="#8b949e" font-size="11">Token-per-param ratio:</text>
+  <text x="610" y="386" text-anchor="middle" fill="#f78166" font-size="13" font-weight="bold">~20× tokens per parameter</text>
+  <text x="610" y="402" text-anchor="middle" fill="#e6edf3" font-size="11">(compute-optimal)</text>
+
+  <!-- Chinchilla predicted loss -->
+  <rect x="490" y="410" width="230" height="16" fill="#21262d" rx="3"/>
+  <rect x="490" y="410" width="200" height="16" fill="#f78166" opacity="0.6" rx="3"/>
+  <text x="610" y="422" text-anchor="middle" fill="#e6edf3" font-size="10">Validation Loss ≈ 1.93 nats (lower)</text>
+
+  <!-- Y-axis scale reference line (shared) -->
+  <line x1="80" y1="330" x2="400" y2="330" stroke="#30363d" stroke-width="0.5"/>
+  <line x1="80" y1="150" x2="400" y2="150" stroke="#30363d" stroke-width="0.5"/>
+
+  <!-- VS divider -->
+  <text x="410" y="262" text-anchor="middle" fill="#e6edf3" font-size="22" font-weight="bold" opacity="0.4">vs</text>
+
+  <!-- Bottom annotation: key takeaway -->
+  <rect x="40" y="445" width="740" height="46" fill="#161b22" rx="6" stroke="#30363d" stroke-width="1"/>
+  <text x="410" y="463" text-anchor="middle" fill="#e6edf3" font-size="12" font-weight="bold">Key insight: Kaplan's models were undertrained. For C = 10²³ FLOPs, Chinchilla says N* approx 40B, D* approx 800B tokens.</text>
+  <text x="410" y="480" text-anchor="middle" fill="#8b949e" font-size="11">Both use the same compute. Chinchilla achieves lower loss by re-balancing toward more tokens and fewer parameters.</text>
+</svg>

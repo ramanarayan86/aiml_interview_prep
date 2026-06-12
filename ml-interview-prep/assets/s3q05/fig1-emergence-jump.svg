@@ -1,0 +1,114 @@
+<svg viewBox="0 0 820 460" xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="13">
+  <!-- Background -->
+  <rect width="820" height="460" fill="#0d1117" rx="10"/>
+
+  <!-- Title -->
+  <text x="410" y="32" text-anchor="middle" fill="#e6edf3" font-size="15" font-weight="bold">Apparent Emergence: Exact-Match Accuracy vs Model Size</text>
+  <text x="410" y="52" text-anchor="middle" fill="#8b949e" font-size="11">(Simulated — illustrates the jump seen with discontinuous metrics)</text>
+
+  <!-- Axes -->
+  <line x1="110" y1="70" x2="110" y2="380" stroke="#30363d" stroke-width="1.5"/>
+  <line x1="110" y1="380" x2="740" y2="380" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- Horizontal grid -->
+  <line x1="110" y1="105" x2="740" y2="105" stroke="#21262d" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="110" y1="140" x2="740" y2="140" stroke="#21262d" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="110" y1="175" x2="740" y2="175" stroke="#21262d" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="110" y1="210" x2="740" y2="210" stroke="#21262d" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="110" y1="245" x2="740" y2="245" stroke="#21262d" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="110" y1="280" x2="740" y2="280" stroke="#21262d" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="110" y1="315" x2="740" y2="315" stroke="#21262d" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Vertical grid (log-scale x: 100M, 300M, 1B, 3B, 10B, 30B, 100B) -->
+  <line x1="215" y1="70" x2="215" y2="380" stroke="#21262d" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="320" y1="70" x2="320" y2="380" stroke="#21262d" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="425" y1="70" x2="425" y2="380" stroke="#21262d" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="530" y1="70" x2="530" y2="380" stroke="#21262d" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="635" y1="70" x2="635" y2="380" stroke="#21262d" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="740" y1="70" x2="740" y2="380" stroke="#21262d" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Y axis labels (accuracy 0..100%) -->
+  <text x="100" y="384" text-anchor="end" fill="#8b949e" font-size="11">0%</text>
+  <text x="100" y="319" text-anchor="end" fill="#8b949e" font-size="11">20%</text>
+  <text x="100" y="249" text-anchor="end" fill="#8b949e" font-size="11">40%</text>
+  <text x="100" y="179" text-anchor="end" fill="#8b949e" font-size="11">60%</text>
+  <text x="100" y="109" text-anchor="end" fill="#8b949e" font-size="11">80%</text>
+  <text x="100" y="74" text-anchor="end" fill="#8b949e" font-size="11">100%</text>
+
+  <!-- Y axis title -->
+  <text x="22" y="225" text-anchor="middle" fill="#8b949e" font-size="12" transform="rotate(-90,22,225)">Exact-Match Accuracy</text>
+
+  <!-- X axis labels (model sizes, log scale) -->
+  <text x="110" y="400" text-anchor="middle" fill="#8b949e" font-size="11">100M</text>
+  <text x="215" y="400" text-anchor="middle" fill="#8b949e" font-size="11">300M</text>
+  <text x="320" y="400" text-anchor="middle" fill="#8b949e" font-size="11">1B</text>
+  <text x="425" y="400" text-anchor="middle" fill="#8b949e" font-size="11">3B</text>
+  <text x="530" y="400" text-anchor="middle" fill="#8b949e" font-size="11">10B</text>
+  <text x="635" y="400" text-anchor="middle" fill="#8b949e" font-size="11">30B</text>
+  <text x="740" y="400" text-anchor="middle" fill="#8b949e" font-size="11">100B</text>
+  <text x="425" y="428" text-anchor="middle" fill="#8b949e" font-size="12">Model Size (parameters, log scale)</text>
+
+  <!-- ======= 3-digit arithmetic (orange) — near-zero then sharp jump ~8B ======= -->
+  <!-- points: 100M→375, 300M→374, 1B→373, 3B→372, 7B→372, 8B→370, 10B→330, 30B→140, 100B→100 -->
+  <!-- flat near zero until ~10B, then sharp jump -->
+  <polyline
+    points="110,377 215,376 320,375 425,375 520,374 548,374 560,330 580,200 635,120 740,100"
+    fill="none" stroke="#f78166" stroke-width="2.5"/>
+  <!-- Data dots -->
+  <circle cx="110" cy="377" r="4" fill="#f78166"/>
+  <circle cx="215" cy="376" r="4" fill="#f78166"/>
+  <circle cx="320" cy="375" r="4" fill="#f78166"/>
+  <circle cx="425" cy="375" r="4" fill="#f78166"/>
+  <circle cx="530" cy="374" r="4" fill="#f78166"/>
+  <circle cx="635" cy="120" r="4" fill="#f78166"/>
+  <circle cx="740" cy="100" r="4" fill="#f78166"/>
+  <!-- Label -->
+  <text x="748" y="104" fill="#f78166" font-size="11" font-weight="bold">3-digit</text>
+  <text x="748" y="117" fill="#f78166" font-size="11" font-weight="bold">arithmetic</text>
+
+  <!-- ======= Word-in-context (blue) — near-zero, jump ~13B ======= -->
+  <polyline
+    points="110,378 215,377 320,376 425,376 530,375 570,375 600,300 635,170 740,120"
+    fill="none" stroke="#58a6ff" stroke-width="2.5"/>
+  <circle cx="110" cy="378" r="4" fill="#58a6ff"/>
+  <circle cx="215" cy="377" r="4" fill="#58a6ff"/>
+  <circle cx="320" cy="376" r="4" fill="#58a6ff"/>
+  <circle cx="425" cy="376" r="4" fill="#58a6ff"/>
+  <circle cx="530" cy="375" r="4" fill="#58a6ff"/>
+  <circle cx="635" cy="170" r="4" fill="#58a6ff"/>
+  <circle cx="740" cy="120" r="4" fill="#58a6ff"/>
+  <text x="748" y="124" fill="#58a6ff" font-size="11" font-weight="bold">word-in-</text>
+  <text x="748" y="137" fill="#58a6ff" font-size="11" font-weight="bold">context</text>
+
+  <!-- ======= Persian QA (green) — near-zero, jump even later ~30B ======= -->
+  <polyline
+    points="110,379 215,378 320,377 425,377 530,376 635,375 680,290 740,160"
+    fill="none" stroke="#3fb950" stroke-width="2.5"/>
+  <circle cx="110" cy="379" r="4" fill="#3fb950"/>
+  <circle cx="215" cy="378" r="4" fill="#3fb950"/>
+  <circle cx="320" cy="377" r="4" fill="#3fb950"/>
+  <circle cx="425" cy="377" r="4" fill="#3fb950"/>
+  <circle cx="530" cy="376" r="4" fill="#3fb950"/>
+  <circle cx="635" cy="375" r="4" fill="#3fb950"/>
+  <circle cx="740" cy="160" r="4" fill="#3fb950"/>
+  <text x="748" y="164" fill="#3fb950" font-size="11" font-weight="bold">Persian QA</text>
+
+  <!-- "Emergence threshold" annotation arrow region -->
+  <line x1="548" y1="60" x2="548" y2="380" stroke="#d29922" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="551" y="80" fill="#d29922" font-size="10" font-weight="bold">apparent</text>
+  <text x="551" y="92" fill="#d29922" font-size="10" font-weight="bold">emergence</text>
+  <text x="551" y="104" fill="#d29922" font-size="10" font-weight="bold">threshold</text>
+
+  <!-- Legend box -->
+  <rect x="112" y="73" width="220" height="72" fill="#161b22" rx="4" stroke="#30363d" stroke-width="1"/>
+  <text x="122" y="90" fill="#e6edf3" font-size="10" font-weight="bold">Metric: exact-match accuracy</text>
+  <line x1="122" y1="104" x2="155" y2="104" stroke="#f78166" stroke-width="2.5"/>
+  <text x="162" y="107" fill="#8b949e" font-size="10">3-digit arithmetic (BIG-Bench)</text>
+  <line x1="122" y1="119" x2="155" y2="119" stroke="#58a6ff" stroke-width="2.5"/>
+  <text x="162" y="122" fill="#8b949e" font-size="10">word-in-context (BIG-Bench)</text>
+  <line x1="122" y1="134" x2="155" y2="134" stroke="#3fb950" stroke-width="2.5"/>
+  <text x="162" y="137" fill="#8b949e" font-size="10">Persian QA (BIG-Bench)</text>
+
+  <!-- Bottom note -->
+  <text x="410" y="450" text-anchor="middle" fill="#8b949e" font-size="10">Source: simulated after Wei et al. 2022 (arXiv:2206.07682). Sharp jumps appear because exact-match is a threshold function over continuous sub-task scores.</text>
+</svg>

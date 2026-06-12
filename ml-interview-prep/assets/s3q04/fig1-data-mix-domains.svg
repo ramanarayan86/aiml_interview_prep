@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 460" width="860" height="460" font-family="Arial, sans-serif">
+  <rect width="860" height="460" fill="#f8f9fa" rx="8"/>
+  <text x="430" y="30" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">Pretraining Data Mix: GPT-3 vs LLaMA 1 (approximate token proportions)</text>
+
+  <!-- ===== GPT-3 column ===== -->
+  <text x="215" y="58" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f4fa3">GPT-3 (Brown et al. 2020)</text>
+  <text x="215" y="73" text-anchor="middle" font-size="11" fill="#5b6675">~300 B tokens used for training</text>
+
+  <!-- Common Crawl filtered ~60% -->
+  <rect x="50" y="86" width="329" height="52" rx="5" fill="#4a90d9" opacity="0.85"/>
+  <text x="214" y="108" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">Common Crawl (filtered)</text>
+  <text x="214" y="127" text-anchor="middle" font-size="12" fill="#fff">~60%  (410 B raw tokens, filtered to ~60% of training mix)</text>
+
+  <!-- WebText2 ~22% -->
+  <rect x="50" y="146" width="329" height="40" rx="5" fill="#0e8a6e" opacity="0.85"/>
+  <text x="214" y="171" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">WebText2  ~22%</text>
+
+  <!-- Books1 ~8% -->
+  <rect x="50" y="194" width="154" height="38" rx="5" fill="#c77a12" opacity="0.85"/>
+  <text x="127" y="218" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">Books1  ~8%</text>
+
+  <!-- Books2 ~8% -->
+  <rect x="212" y="194" width="167" height="38" rx="5" fill="#e8912a" opacity="0.85"/>
+  <text x="295" y="218" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">Books2  ~8%</text>
+
+  <!-- Wikipedia ~3% -->
+  <rect x="50" y="240" width="329" height="32" rx="5" fill="#6c4fe0" opacity="0.75"/>
+  <text x="214" y="261" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">Wikipedia  ~3%</text>
+
+  <!-- ===== LLaMA 1 column ===== -->
+  <text x="645" y="58" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f4fa3">LLaMA 1 (Touvron et al. 2023)</text>
+  <text x="645" y="73" text-anchor="middle" font-size="11" fill="#5b6675">1.0 T tokens (7B model) / 1.4 T tokens (65B model)</text>
+
+  <!-- Common Crawl ~67% -->
+  <rect x="480" y="86" width="329" height="52" rx="5" fill="#4a90d9" opacity="0.85"/>
+  <text x="644" y="108" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">Common Crawl</text>
+  <text x="644" y="127" text-anchor="middle" font-size="12" fill="#fff">~67%  (CCNet-filtered)</text>
+
+  <!-- C4 ~4.5% -->
+  <rect x="480" y="146" width="78" height="38" rx="5" fill="#0e8a6e" opacity="0.85"/>
+  <text x="519" y="171" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">C4  ~4.5%</text>
+
+  <!-- GitHub ~4.5% -->
+  <rect x="566" y="146" width="78" height="38" rx="5" fill="#1a7a3e" opacity="0.85"/>
+  <text x="605" y="171" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">GitHub  ~4.5%</text>
+
+  <!-- Wikipedia ~4.5% -->
+  <rect x="652" y="146" width="78" height="38" rx="5" fill="#6c4fe0" opacity="0.85"/>
+  <text x="691" y="171" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">Wiki  ~4.5%</text>
+
+  <!-- Books ~4.5% -->
+  <rect x="738" y="146" width="71" height="38" rx="5" fill="#c77a12" opacity="0.85"/>
+  <text x="773" y="171" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">Books  ~4.5%</text>
+
+  <!-- ArXiv ~2.5% -->
+  <rect x="480" y="192" width="117" height="38" rx="5" fill="#c0392b" opacity="0.80"/>
+  <text x="538" y="216" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">ArXiv  ~2.5%</text>
+
+  <!-- StackExchange ~2% -->
+  <rect x="605" y="192" width="204" height="38" rx="5" fill="#8e3a9d" opacity="0.80"/>
+  <text x="707" y="216" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">StackExchange  ~2%</text>
+
+  <!-- ===== Key insight box ===== -->
+  <rect x="50" y="300" width="760" height="70" rx="6" fill="#e6f4f1" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="430" y="322" text-anchor="middle" font-size="12" font-weight="bold" fill="#0e8a6e">Why the mix is a critical hyperparameter</text>
+  <text x="430" y="342" text-anchor="middle" font-size="11" fill="#333">High-quality sources (Wikipedia, Books, ArXiv) are typically upsampled 2-4x relative to their raw corpus fraction.</text>
+  <text x="430" y="360" text-anchor="middle" font-size="11" fill="#333">The final token ratio in training differs from the raw byte sizes on disk because of deduplication, filtering, and intentional upsampling.</text>
+
+  <!-- ===== Legend ===== -->
+  <text x="50" y="398" font-size="11" font-weight="bold" fill="#5b6675">Domain colour key:</text>
+  <rect x="50" y="408" width="14" height="14" rx="2" fill="#4a90d9" opacity="0.85"/>
+  <text x="70" y="420" font-size="11" fill="#333">Web crawl</text>
+  <rect x="150" y="408" width="14" height="14" rx="2" fill="#0e8a6e" opacity="0.85"/>
+  <text x="170" y="420" font-size="11" fill="#333">Web curated</text>
+  <rect x="265" y="408" width="14" height="14" rx="2" fill="#c77a12" opacity="0.85"/>
+  <text x="285" y="420" font-size="11" fill="#333">Books</text>
+  <rect x="345" y="408" width="14" height="14" rx="2" fill="#6c4fe0" opacity="0.85"/>
+  <text x="365" y="420" font-size="11" fill="#333">Encyclopedia</text>
+  <rect x="460" y="408" width="14" height="14" rx="2" fill="#1a7a3e" opacity="0.85"/>
+  <text x="480" y="420" font-size="11" fill="#333">Code</text>
+  <rect x="535" y="408" width="14" height="14" rx="2" fill="#c0392b" opacity="0.80"/>
+  <text x="555" y="420" font-size="11" fill="#333">Academic</text>
+  <rect x="630" y="408" width="14" height="14" rx="2" fill="#8e3a9d" opacity="0.80"/>
+  <text x="650" y="420" font-size="11" fill="#333">Q&amp;A / forum</text>
+
+  <text x="430" y="452" text-anchor="middle" font-size="10" fill="#5b6675">Sources: Brown et al. 2020 (arXiv:2005.14165) Table 2.1; Touvron et al. 2023 (arXiv:2302.13971) Table 1. Percentages are by token count.</text>
+</svg>

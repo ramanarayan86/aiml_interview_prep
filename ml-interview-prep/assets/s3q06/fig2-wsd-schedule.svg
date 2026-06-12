@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 420" width="780" height="420" font-family="Inter, Helvetica Neue, Arial, sans-serif">
+
+  <!-- Background -->
+  <rect width="780" height="420" fill="#0f1117" rx="10"/>
+
+  <!-- Title -->
+  <text x="390" y="32" text-anchor="middle" font-size="15" font-weight="600" fill="#e2e8f0">WSD (Warmup-Stable-Decay) vs Cosine Decay</text>
+  <text x="390" y="50" text-anchor="middle" font-size="12" fill="#a0aec0">Hu et al. 2024 (MiniCPM / arXiv:2404.06395)</text>
+
+  <!-- Axis area: x 70-730, y 70-340 -->
+
+  <!-- Grid lines (horizontal) -->
+  <line x1="70" y1="70"  x2="730" y2="70"  stroke="#2d3748" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="70" y1="140" x2="730" y2="140" stroke="#2d3748" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="70" y1="205" x2="730" y2="205" stroke="#2d3748" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="70" y1="270" x2="730" y2="270" stroke="#2d3748" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="70" y1="340" x2="730" y2="340" stroke="#2d3748" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Axes -->
+  <line x1="70" y1="70" x2="70" y2="350" stroke="#718096" stroke-width="1.5"/>
+  <line x1="70" y1="350" x2="740" y2="350" stroke="#718096" stroke-width="1.5"/>
+
+  <!-- Y-axis labels (normalized 0.0 to 1.0) -->
+  <text x="62" y="74"  text-anchor="end" font-size="11" fill="#a0aec0">1.0</text>
+  <text x="62" y="144" text-anchor="end" font-size="11" fill="#a0aec0">0.75</text>
+  <text x="62" y="209" text-anchor="end" font-size="11" fill="#a0aec0">0.50</text>
+  <text x="62" y="274" text-anchor="end" font-size="11" fill="#a0aec0">0.25</text>
+  <text x="62" y="344" text-anchor="end" font-size="11" fill="#a0aec0">0.10</text>
+
+  <!-- Y-axis title -->
+  <text x="16" y="210" text-anchor="middle" font-size="12" fill="#cbd5e0" transform="rotate(-90,16,210)">LR / LR_peak (normalised)</text>
+
+  <!-- X-axis labels -->
+  <text x="70"  y="368" text-anchor="middle" font-size="11" fill="#a0aec0">0</text>
+  <text x="136" y="368" text-anchor="middle" font-size="11" fill="#a0aec0">10%</text>
+  <text x="268" y="368" text-anchor="middle" font-size="11" fill="#a0aec0">30%</text>
+  <text x="400" y="368" text-anchor="middle" font-size="11" fill="#a0aec0">50%</text>
+  <text x="532" y="368" text-anchor="middle" font-size="11" fill="#a0aec0">70%</text>
+  <text x="664" y="368" text-anchor="middle" font-size="11" fill="#a0aec0">90%</text>
+  <text x="730" y="368" text-anchor="middle" font-size="11" fill="#a0aec0">100%</text>
+
+  <!-- X-axis title -->
+  <text x="400" y="392" text-anchor="middle" font-size="12" fill="#cbd5e0">Training Progress (%)</text>
+
+  <!-- Tick marks -->
+  <line x1="136" y1="350" x2="136" y2="356" stroke="#718096" stroke-width="1"/>
+  <line x1="268" y1="350" x2="268" y2="356" stroke="#718096" stroke-width="1"/>
+  <line x1="400" y1="350" x2="400" y2="356" stroke="#718096" stroke-width="1"/>
+  <line x1="532" y1="350" x2="532" y2="356" stroke="#718096" stroke-width="1"/>
+  <line x1="664" y1="350" x2="664" y2="356" stroke="#718096" stroke-width="1"/>
+  <line x1="730" y1="350" x2="730" y2="356" stroke="#718096" stroke-width="1"/>
+
+  <!--
+    Coordinate mapping (normalised):
+      x: 0%→70, 10%→136, 100%→730  (range 660px)
+      x = 70 + pct/100 * 660
+
+      lr_norm 1.0→y=70, 0.1→y=340  (range 270px)
+      y = 70 + (1.0 - lr_norm) / 0.9 * 270
+
+      lr_norm=0.1 → y=340
+      lr_norm=0.25→ y=70+(0.75/0.9)*270=70+225=295  ... wait:
+      y = 70 + (1.0-lr_norm)/0.9*270
+      lr=1.0 → y=70
+      lr=0.75→ y=70+(0.25/0.9)*270=70+75=145
+      lr=0.50→ y=70+(0.5/0.9)*270=70+150=220
+      lr=0.25→ y=70+(0.75/0.9)*270=70+225=295
+      lr=0.10→ y=70+(0.9/0.9)*270=70+270=340
+
+    === COSINE CURVE (green) ===
+    warmup: 0%→136 (10%), lr 0→1
+    cosine: 10%→100%, lr 1→0.1
+    lr(p) = 0.1 + 0.5*0.9*(1+cos(π*(p-0.1)/0.9))  for p in [0.1, 1.0]
+
+    Key points (p = fraction 0..1):
+    p=0.1  → lr=1.0 → y=70,  x=136
+    p=0.2  → cos(π*0.1/0.9)=cos(0.349)=0.939 → lr=0.1+0.45*1.939=0.973 → y=70+(0.027/0.9)*270=78, x=202
+    p=0.3  → cos(π*0.2/0.9)=cos(0.698)=0.766 → lr=0.1+0.45*1.766=0.895 → y=70+(0.105/0.9)*270=101, x=268
+    p=0.4  → cos(π*0.3/0.9)=cos(1.047)=0.500 → lr=0.1+0.45*1.500=0.775 → y=70+(0.225/0.9)*270=138, x=334
+    p=0.5  → cos(π*0.4/0.9)=cos(1.396)=0.174 → lr=0.1+0.45*1.174=0.628 → y=70+(0.372/0.9)*270=182, x=400
+    p=0.6  → cos(π*0.5/0.9)=cos(1.745)=-0.174→ lr=0.1+0.45*0.826=0.472 → y=70+(0.528/0.9)*270=228, x=466
+    p=0.7  → cos(π*0.6/0.9)=cos(2.094)=-0.500→ lr=0.1+0.45*0.500=0.325 → y=70+(0.675/0.9)*270=273, x=532
+    p=0.8  → cos(π*0.7/0.9)=cos(2.443)=-0.766→ lr=0.1+0.45*0.234=0.205 → y=70+(0.795/0.9)*270=308, x=598
+    p=0.9  → cos(π*0.8/0.9)=cos(2.792)=-0.939→ lr=0.1+0.45*0.061=0.127 → y=70+(0.873/0.9)*270=332, x=664
+    p=1.0  → cos(π)=-1 → lr=0.1 → y=340, x=730
+
+    === WSD CURVE (orange) ===
+    Warmup: 0→10%, lr 0→1.0
+    Stable: 10%→90%, lr=1.0 (flat at peak)
+    Decay: 90%→100%, cosine decay from 1.0 to 0.1
+      at 90%: x=664, y=70
+      at 95%: cos(π*0.5)=0 → lr=0.1+0.45=0.55 → y=70+(0.45/0.9)*270=205, x=697
+      at 100%: lr=0.1 → y=340, x=730
+  -->
+
+  <!-- ==== COSINE FILL AREA ==== -->
+  <polygon points="70,350 70,350 136,70 202,78 268,101 334,138 400,182 466,228 532,273 598,308 664,332 730,340 730,350"
+           fill="#48bb78" fill-opacity="0.10"/>
+
+  <!-- ==== WSD FILL AREA ==== -->
+  <polygon points="70,350 70,350 136,70 664,70 697,205 730,340 730,350"
+           fill="#ed8936" fill-opacity="0.10"/>
+
+  <!-- ==== COSINE CURVE ==== -->
+  <!-- Warmup portion of cosine -->
+  <line x1="70" y1="350" x2="136" y2="70" stroke="#48bb78" stroke-width="2.5"/>
+  <!-- Decay portion of cosine -->
+  <polyline
+    points="136,70 202,78 268,101 334,138 400,182 466,228 532,273 598,308 664,332 730,340"
+    fill="none" stroke="#48bb78" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <!-- ==== WSD CURVE ==== -->
+  <!-- Warmup -->
+  <line x1="70" y1="350" x2="136" y2="70" stroke="#ed8936" stroke-width="2.5"/>
+  <!-- Stable phase (flat line at peak) -->
+  <line x1="136" y1="70" x2="664" y2="70" stroke="#ed8936" stroke-width="2.5"/>
+  <!-- Cosine cooldown (90%→100%) -->
+  <polyline points="664,70 697,205 730,340" fill="none" stroke="#ed8936" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <!-- Stable phase shading (extra highlight) -->
+  <rect x="136" y="70" width="528" height="6" fill="#ed8936" fill-opacity="0.20" rx="2"/>
+
+  <!-- Divider lines -->
+  <line x1="136" y1="70" x2="136" y2="350" stroke="#718096" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="664" y1="70" x2="664" y2="350" stroke="#718096" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- Legend -->
+  <rect x="490" y="88" width="226" height="70" rx="5" fill="#1a202c" stroke="#4a5568" stroke-width="1"/>
+  <line x1="502" y1="110" x2="526" y2="110" stroke="#48bb78" stroke-width="2.5"/>
+  <text x="534" y="114" font-size="12" fill="#e2e8f0" font-weight="500">Standard Cosine Decay</text>
+  <line x1="502" y1="135" x2="526" y2="135" stroke="#ed8936" stroke-width="2.5"/>
+  <text x="534" y="139" font-size="12" fill="#e2e8f0" font-weight="500">WSD Schedule (Hu 2024)</text>
+
+  <!-- Phase labels for WSD -->
+  <text x="103" y="390" text-anchor="middle" font-size="10" fill="#ed8936">Warmup</text>
+  <text x="400"  y="390" text-anchor="middle" font-size="10" fill="#ed8936">Stable Phase (~80% of training)</text>
+  <text x="697"  y="390" text-anchor="middle" font-size="10" fill="#ed8936">Decay</text>
+
+  <!-- Arrow showing WSD stable phase -->
+  <text x="400" y="60" text-anchor="middle" font-size="10" fill="#ed8936" font-weight="600">peak LR held constant — can extend training here</text>
+
+  <!-- Annotation: WSD advantage -->
+  <rect x="76" y="160" width="245" height="44" rx="4" fill="#2d3748" fill-opacity="0.90"/>
+  <text x="85" y="177" font-size="10" fill="#ed8936" font-weight="600">WSD advantage:</text>
+  <text x="85" y="191" font-size="10" fill="#a0aec0">Extend stable phase → more tokens</text>
+  <text x="85" y="203" font-size="10" fill="#a0aec0">without repeating warmup or decay</text>
+
+</svg>
