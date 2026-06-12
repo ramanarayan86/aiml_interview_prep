@@ -1,0 +1,122 @@
+<svg viewBox="0 0 820 480" xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="13">
+  <!-- Background -->
+  <rect width="820" height="480" fill="#0d1117" rx="10"/>
+
+  <!-- Title -->
+  <text x="410" y="32" text-anchor="middle" fill="#e6edf3" font-size="15" font-weight="bold">Metric Artefact: Same Data, Two Metrics</text>
+  <text x="410" y="52" text-anchor="middle" fill="#8b949e" font-size="11">(Left: exact-match shows apparent jump. Right: token-level score shows smooth, predictable scaling.)</text>
+
+  <!-- =================== LEFT PANEL: Exact-match =================== -->
+  <!-- Panel box -->
+  <rect x="30" y="65" width="360" height="350" fill="#161b22" rx="6" stroke="#30363d" stroke-width="1"/>
+  <text x="210" y="90" text-anchor="middle" fill="#f78166" font-size="12" font-weight="bold">Exact-Match Accuracy</text>
+  <text x="210" y="106" text-anchor="middle" fill="#8b949e" font-size="10">(discontinuous metric)</text>
+
+  <!-- Left axes -->
+  <line x1="75" y1="115" x2="75" y2="370" stroke="#30363d" stroke-width="1.5"/>
+  <line x1="75" y1="370" x2="375" y2="370" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- Left Y labels -->
+  <text x="68" y="374" text-anchor="end" fill="#8b949e" font-size="10">0%</text>
+  <text x="68" y="323" text-anchor="end" fill="#8b949e" font-size="10">20%</text>
+  <text x="68" y="272" text-anchor="end" fill="#8b949e" font-size="10">40%</text>
+  <text x="68" y="221" text-anchor="end" fill="#8b949e" font-size="10">60%</text>
+  <text x="68" y="170" text-anchor="end" fill="#8b949e" font-size="10">80%</text>
+  <text x="68" y="119" text-anchor="end" fill="#8b949e" font-size="10">100%</text>
+
+  <!-- Left horizontal grids -->
+  <line x1="75" y1="319" x2="375" y2="319" stroke="#21262d" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="75" y1="268" x2="375" y2="268" stroke="#21262d" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="75" y1="217" x2="375" y2="217" stroke="#21262d" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="75" y1="166" x2="375" y2="166" stroke="#21262d" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Left X labels (model sizes, 5 points) -->
+  <text x="75"  y="390" text-anchor="middle" fill="#8b949e" font-size="10">1B</text>
+  <text x="150" y="390" text-anchor="middle" fill="#8b949e" font-size="10">3B</text>
+  <text x="225" y="390" text-anchor="middle" fill="#8b949e" font-size="10">10B</text>
+  <text x="300" y="390" text-anchor="middle" fill="#8b949e" font-size="10">30B</text>
+  <text x="375" y="390" text-anchor="middle" fill="#8b949e" font-size="10">100B</text>
+  <text x="225" y="408" text-anchor="middle" fill="#8b949e" font-size="10">Model size (log scale)</text>
+
+  <!-- Left curve: flat near 0, then sharp jump around 10-30B -->
+  <polyline
+    points="75,368 150,367 225,366 255,366 270,310 285,210 300,150 375,130"
+    fill="none" stroke="#f78166" stroke-width="2.5"/>
+  <circle cx="75"  cy="368" r="4" fill="#f78166"/>
+  <circle cx="150" cy="367" r="4" fill="#f78166"/>
+  <circle cx="225" cy="366" r="4" fill="#f78166"/>
+  <circle cx="300" cy="150" r="4" fill="#f78166"/>
+  <circle cx="375" cy="130" r="4" fill="#f78166"/>
+
+  <!-- Emergence annotation left panel -->
+  <line x1="258" y1="115" x2="258" y2="370" stroke="#d29922" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="262" y="130" fill="#d29922" font-size="9" font-weight="bold">apparent</text>
+  <text x="262" y="141" fill="#d29922" font-size="9" font-weight="bold">emergence</text>
+
+  <!-- Left step-function label -->
+  <text x="210" y="360" text-anchor="middle" fill="#f78166" font-size="9" font-style="italic">task is multi-step; you need ALL steps right</text>
+  <text x="210" y="372" text-anchor="middle" fill="#f78166" font-size="9" font-style="italic">to get credit — so P(all correct) looks like a jump</text>
+
+  <!-- =================== RIGHT PANEL: Token-level (continuous) =================== -->
+  <rect x="430" y="65" width="360" height="350" fill="#161b22" rx="6" stroke="#30363d" stroke-width="1"/>
+  <text x="610" y="90" text-anchor="middle" fill="#3fb950" font-size="12" font-weight="bold">Token-Level Accuracy</text>
+  <text x="610" y="106" text-anchor="middle" fill="#8b949e" font-size="10">(continuous metric — same underlying model)</text>
+
+  <!-- Right axes -->
+  <line x1="475" y1="115" x2="475" y2="370" stroke="#30363d" stroke-width="1.5"/>
+  <line x1="475" y1="370" x2="775" y2="370" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- Right Y labels -->
+  <text x="468" y="374" text-anchor="end" fill="#8b949e" font-size="10">0%</text>
+  <text x="468" y="323" text-anchor="end" fill="#8b949e" font-size="10">20%</text>
+  <text x="468" y="272" text-anchor="end" fill="#8b949e" font-size="10">40%</text>
+  <text x="468" y="221" text-anchor="end" fill="#8b949e" font-size="10">60%</text>
+  <text x="468" y="170" text-anchor="end" fill="#8b949e" font-size="10">80%</text>
+  <text x="468" y="119" text-anchor="end" fill="#8b949e" font-size="10">100%</text>
+
+  <!-- Right horizontal grids -->
+  <line x1="475" y1="319" x2="775" y2="319" stroke="#21262d" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="475" y1="268" x2="775" y2="268" stroke="#21262d" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="475" y1="217" x2="775" y2="217" stroke="#21262d" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="475" y1="166" x2="775" y2="166" stroke="#21262d" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Right X labels -->
+  <text x="475" y="390" text-anchor="middle" fill="#8b949e" font-size="10">1B</text>
+  <text x="550" y="390" text-anchor="middle" fill="#8b949e" font-size="10">3B</text>
+  <text x="625" y="390" text-anchor="middle" fill="#8b949e" font-size="10">10B</text>
+  <text x="700" y="390" text-anchor="middle" fill="#8b949e" font-size="10">30B</text>
+  <text x="775" y="390" text-anchor="middle" fill="#8b949e" font-size="10">100B</text>
+  <text x="625" y="408" text-anchor="middle" fill="#8b949e" font-size="10">Model size (log scale)</text>
+
+  <!-- Right curve: smooth power-law improvement -->
+  <!-- y maps: 100% -> 115, 0% -> 370 => range 255 -->
+  <!-- token acc: 1B->30%, 3B->40%, 10B->52%, 30B->64%, 100B->76% -->
+  <!-- y = 370 - (acc/100)*255 -->
+  <!-- 30%->293, 40%->268, 52%->237, 64%->207, 76%->176 -->
+  <path d="M 475,293 C 510,278 540,265 575,252 C 610,239 645,220 680,207 C 715,194 745,184 775,176"
+        fill="none" stroke="#3fb950" stroke-width="2.5"/>
+  <circle cx="475" cy="293" r="4" fill="#3fb950"/>
+  <circle cx="550" cy="268" r="4" fill="#3fb950"/>
+  <circle cx="625" cy="237" r="4" fill="#3fb950"/>
+  <circle cx="700" cy="207" r="4" fill="#3fb950"/>
+  <circle cx="775" cy="176" r="4" fill="#3fb950"/>
+
+  <!-- Power-law fit line (dashed) -->
+  <path d="M 475,298 C 520,276 565,252 625,235 C 665,223 720,205 775,187"
+        fill="none" stroke="#3fb950" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.6"/>
+  <text x="660" y="220" fill="#3fb950" font-size="9" font-style="italic">power-law fit</text>
+
+  <!-- "No discontinuity" annotation -->
+  <text x="625" y="360" text-anchor="middle" fill="#3fb950" font-size="9" font-style="italic">smooth, predictable — no phase transition</text>
+
+  <!-- Power law equation -->
+  <text x="625" y="136" text-anchor="middle" fill="#3fb950" font-size="10">acc ~ N^0.12 (log-linear on log scale)</text>
+
+  <!-- Arrow connecting panels -->
+  <text x="410" y="248" text-anchor="middle" fill="#8b949e" font-size="20" font-weight="bold">vs</text>
+
+  <!-- Bottom note -->
+  <text x="410" y="440" text-anchor="middle" fill="#8b949e" font-size="10">Schaeffer et al. 2023 (arXiv:2304.15004): the same model produces a jump with exact-match and a smooth curve with a linear metric.</text>
+  <text x="410" y="455" text-anchor="middle" fill="#8b949e" font-size="10">Underlying capability improves continuously; the discontinuity is induced by the nonlinear evaluation function.</text>
+  <text x="410" y="470" text-anchor="middle" fill="#8b949e" font-size="10">Figure is simulated for illustration; it reproduces the qualitative pattern reported in the paper.</text>
+</svg>

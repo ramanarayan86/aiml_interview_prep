@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 420" width="760" height="420" font-family="sans-serif">
+  <!-- Background -->
+  <rect width="760" height="420" fill="#0f1117"/>
+
+  <!-- Title -->
+  <text x="380" y="30" text-anchor="middle" fill="#e2e8f0" font-size="14" font-weight="bold">Geometry of Global Norm Clipping</text>
+
+  <!-- Axis lines through centre (380, 230) -->
+  <line x1="100" y1="230" x2="660" y2="230" stroke="#334155" stroke-width="1.5"/>
+  <line x1="380" y1="50"  x2="380" y2="410" stroke="#334155" stroke-width="1.5"/>
+  <text x="665" y="234" fill="#64748b" font-size="12">g&#x2081;</text>
+  <text x="382" y="48"  fill="#64748b" font-size="12">g&#x2082;</text>
+
+  <!-- Clip sphere (radius 100 px = clip_max) -->
+  <circle cx="380" cy="230" r="100" fill="none" stroke="#f59e0b" stroke-width="1.8" stroke-dasharray="7,4"/>
+  <text x="490" y="138" fill="#f59e0b" font-size="11">||g|| = clip&#x2098;&#x2090;&#x2093; = 1.0</text>
+  <line x1="492" y1="141" x2="455" y2="155" stroke="#f59e0b" stroke-width="1" marker-end="url(#arr-gold)"/>
+
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arr-red" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#ef4444"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#38bdf8"/>
+    </marker>
+    <marker id="arr-gold" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#f59e0b"/>
+    </marker>
+  </defs>
+
+  <!-- Unclipped gradient vector: origin (380,230) -> tip (560, 130), length ~205 px -->
+  <line x1="380" y1="230" x2="553" y2="136" stroke="#ef4444" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="564" y="130" fill="#fca5a5" font-size="12" font-weight="bold">g (unclipped)</text>
+  <text x="564" y="144" fill="#fca5a5" font-size="11">||g|| = 2.05</text>
+
+  <!-- Clipped gradient: same direction, 100/205 scaled -> tip (464.4, 183.9) approx -->
+  <!-- Direction vector: (173, -94), normalised * 100 = (84.4, -46.1) from (380,230) -->
+  <line x1="380" y1="230" x2="464" y2="184" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="470" y="176" fill="#7dd3fc" font-size="12" font-weight="bold">g&#x1D440;&#x2081;&#x1D40E;&#x1D90D;&#x1D00;&#x1D05; (clipped)</text>
+  <text x="470" y="190" fill="#7dd3fc" font-size="11">||g&#x1D440;&#x1D40E;&#x1D90D;&#x1D00;&#x1D05;|| = 1.0</text>
+
+  <!-- Dashed line showing same direction continuation -->
+  <line x1="464" y1="184" x2="553" y2="136" stroke="#38bdf8" stroke-width="1.2" stroke-dasharray="5,4" opacity="0.5"/>
+
+  <!-- Origin dot -->
+  <circle cx="380" cy="230" r="5" fill="#e2e8f0"/>
+  <text x="388" y="248" fill="#94a3b8" font-size="11">origin (&#x3B8;)</text>
+
+  <!-- Scaling formula annotation -->
+  <rect x="80" y="320" width="320" height="72" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="100" y="342" fill="#e2e8f0" font-size="12" font-weight="bold">Clipping rule:</text>
+  <text x="100" y="362" fill="#e2e8f0" font-size="12">g_clipped = g x min(1, clip_max / ||g||)</text>
+  <text x="100" y="380" fill="#94a3b8" font-size="11">Direction preserved. Magnitude capped at clip_max.</text>
+
+  <!-- Annotation: if ||g|| <= clip, no-op -->
+  <rect x="450" y="320" width="250" height="72" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="470" y="342" fill="#e2e8f0" font-size="12" font-weight="bold">Two cases:</text>
+  <text x="470" y="362" fill="#38bdf8" font-size="11">||g|| &lt;= clip_max  -> no-op</text>
+  <text x="470" y="380" fill="#ef4444" font-size="11">||g|| &gt; clip_max  -> rescale to sphere</text>
+
+  <!-- Small second example: vector inside sphere (no-op) -->
+  <line x1="380" y1="230" x2="342" y2="162" stroke="#22d3ee" stroke-width="2" marker-end="url(#arr-blue)" opacity="0.6"/>
+  <text x="290" y="155" fill="#67e8f9" font-size="11">||g|| = 0.72 &lt; 1.0</text>
+  <text x="290" y="167" fill="#67e8f9" font-size="11">(no clipping)</text>
+</svg>

@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 400" width="860" height="400" font-family="sans-serif">
+  <!-- Background -->
+  <rect width="860" height="400" fill="#0f1117"/>
+
+  <!-- Title -->
+  <text x="430" y="30" text-anchor="middle" fill="#e2e8f0" font-size="14" font-weight="bold">Gradient L2 Norm During LLM Pretraining</text>
+
+  <!-- Axis labels -->
+  <text x="430" y="390" text-anchor="middle" fill="#94a3b8" font-size="12">Training Step (thousands)</text>
+  <text x="18" y="210" text-anchor="middle" fill="#94a3b8" font-size="12" transform="rotate(-90,18,210)">Gradient Norm</text>
+
+  <!-- Grid lines -->
+  <line x1="70" y1="50" x2="820" y2="50"  stroke="#1e293b" stroke-width="1"/>
+  <line x1="70" y1="110" x2="820" y2="110" stroke="#1e293b" stroke-width="1"/>
+  <line x1="70" y1="170" x2="820" y2="170" stroke="#1e293b" stroke-width="1"/>
+  <line x1="70" y1="230" x2="820" y2="230" stroke="#1e293b" stroke-width="1"/>
+  <line x1="70" y1="290" x2="820" y2="290" stroke="#1e293b" stroke-width="1"/>
+  <line x1="70" y1="340" x2="820" y2="340" stroke="#1e293b" stroke-width="1"/>
+
+  <!-- Y-axis tick labels (norm values) -->
+  <text x="62" y="54"  text-anchor="end" fill="#94a3b8" font-size="11">5.0</text>
+  <text x="62" y="114" text-anchor="end" fill="#94a3b8" font-size="11">4.0</text>
+  <text x="62" y="174" text-anchor="end" fill="#94a3b8" font-size="11">3.0</text>
+  <text x="62" y="234" text-anchor="end" fill="#94a3b8" font-size="11">2.0</text>
+  <text x="62" y="294" text-anchor="end" fill="#94a3b8" font-size="11">1.0</text>
+  <text x="62" y="344" text-anchor="end" fill="#94a3b8" font-size="11">0.0</text>
+
+  <!-- X-axis tick labels -->
+  <text x="70"  y="360" text-anchor="middle" fill="#94a3b8" font-size="11">0</text>
+  <text x="195" y="360" text-anchor="middle" fill="#94a3b8" font-size="11">20</text>
+  <text x="320" y="360" text-anchor="middle" fill="#94a3b8" font-size="11">40</text>
+  <text x="445" y="360" text-anchor="middle" fill="#94a3b8" font-size="11">60</text>
+  <text x="570" y="360" text-anchor="middle" fill="#94a3b8" font-size="11">80</text>
+  <text x="695" y="360" text-anchor="middle" fill="#94a3b8" font-size="11">100</text>
+  <text x="820" y="360" text-anchor="middle" fill="#94a3b8" font-size="11">120</text>
+
+  <!-- Clip threshold line at norm = 1.0 -->
+  <line x1="70" y1="290" x2="820" y2="290" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="825" y="294" fill="#f59e0b" font-size="11">clip=1.0</text>
+
+  <!-- Unclipped gradient norm trace (raw, spiky) -->
+  <!-- Drawn as a polyline of many points simulating noisy training signal with spikes -->
+  <polyline fill="none" stroke="#ef4444" stroke-width="1.5" opacity="0.75"
+    points="
+      70,310 76,306 82,308 88,303 94,307 100,302 106,305 112,299 118,304 124,300
+      130,302 136,296 142,300 148,293 154,297 160,291 166,295 172,289 178,293 184,287
+      190,291 196,285 202,288 208,282 214,286 220,280 226,284 232,278 238,282 244,276
+      250,280 256,274 262,277 268,271 274,275 280,268 286,272 292,266 298,270 304,264
+      310,267 316,261 322,265 328,259 334,263 340,256 346,260 352,254 358,258 364,252
+      370,255 376,249 382,253 388,247 394,251 400,244 406,248 412,241 418,245 424,239
+      430,242 436,136 442,245 448,250 454,244 460,248 466,242 472,245 478,240 484,243
+      490,238 496,241 502,236 508,239 514,234 520,237 526,232 532,235 538,230 544,233
+      550,228 556,231 562,226 568,230 574,224 580,99 586,228 592,232 598,226 604,230
+      610,224 616,228 622,222 628,226 634,220 640,223 646,218 652,221 658,216 664,220
+      670,214 676,218 682,212 688,216 694,210 700,213 706,208 712,211 718,206 724,210
+      730,204 736,208 742,202 748,205 754,200 760,203 766,198 772,202 778,196 784,200
+      790,194 796,198 802,192 808,196 814,190 820,194
+    "
+  />
+
+  <!-- Clipped gradient norm trace (stays under clip line) -->
+  <polyline fill="none" stroke="#38bdf8" stroke-width="2"
+    points="
+      70,310 76,306 82,308 88,303 94,307 100,302 106,305 112,299 118,304 124,300
+      130,302 136,296 142,300 148,293 154,297 160,291 166,295 172,289 178,293 184,287
+      190,291 196,285 202,288 208,282 214,286 220,280 226,284 232,278 238,282 244,276
+      250,280 256,274 262,277 268,271 274,275 280,268 286,272 292,266 298,270 304,264
+      310,267 316,261 322,265 328,259 334,263 340,256 346,260 352,254 358,258 364,252
+      370,255 376,249 382,253 388,247 394,251 400,244 406,248 412,241 418,245 424,239
+      430,242 436,290 442,290 448,290 454,272 460,265 466,260 472,258 478,252 484,248
+      490,244 496,245 502,242 508,240 514,237 520,238 526,234 532,235 538,231 544,233
+      550,228 556,231 562,226 568,230 574,226 580,290 586,290 592,285 598,275 604,268
+      610,260 616,255 622,250 628,247 634,243 640,240 646,237 652,235 658,233 664,231
+      670,228 676,225 682,222 688,220 694,217 700,215 706,212 712,210 718,208 724,207
+      730,204 736,204 742,202 748,202 754,200 760,200 766,198 772,199 778,196 784,197
+      790,194 796,195 802,192 808,194 814,190 820,192
+    "
+  />
+
+  <!-- Spike annotation 1 (step ~44k) -->
+  <line x1="436" y1="136" x2="436" y2="115" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="436" y="108" text-anchor="middle" fill="#fca5a5" font-size="10">spike</text>
+  <text x="436" y="120" text-anchor="middle" fill="#fca5a5" font-size="10">||g||=3.7</text>
+
+  <!-- Spike annotation 2 (step ~88k) -->
+  <line x1="580" y1="99" x2="580" y2="78" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="580" y="71" text-anchor="middle" fill="#fca5a5" font-size="10">spike</text>
+  <text x="580" y="83" text-anchor="middle" fill="#fca5a5" font-size="10">||g||=4.8</text>
+
+  <!-- Axes -->
+  <line x1="70" y1="340" x2="820" y2="340" stroke="#475569" stroke-width="2"/>
+  <line x1="70" y1="50"  x2="70"  y2="340" stroke="#475569" stroke-width="2"/>
+
+  <!-- Legend -->
+  <rect x="620" y="52" width="190" height="58" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <line x1="630" y1="70" x2="660" y2="70" stroke="#ef4444" stroke-width="1.5" opacity="0.75"/>
+  <text x="665" y="74" fill="#e2e8f0" font-size="11">Unclipped norm</text>
+  <line x1="630" y1="90" x2="660" y2="90" stroke="#38bdf8" stroke-width="2"/>
+  <text x="665" y="94" fill="#e2e8f0" font-size="11">Clipped norm</text>
+  <line x1="630" y1="100" x2="660" y2="100" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="665" y="104" fill="#e2e8f0" font-size="11">Clip threshold</text>
+</svg>

@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 500" width="860" height="500" font-family="Arial, sans-serif">
+  <rect width="860" height="500" fill="#f8f9fa" rx="8"/>
+  <text x="430" y="30" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">Quality Filtering Pipeline: Raw Web Crawl to Final Training Mix</text>
+
+  <defs>
+    <marker id="arw" markerWidth="9" markerHeight="6" refX="9" refY="3" orient="auto">
+      <polygon points="0 0,9 3,0 6" fill="#1f4fa3"/>
+    </marker>
+    <marker id="arw-red" markerWidth="9" markerHeight="6" refX="9" refY="3" orient="auto">
+      <polygon points="0 0,9 3,0 6" fill="#c0392b"/>
+    </marker>
+    <marker id="arw-grn" markerWidth="9" markerHeight="6" refX="9" refY="3" orient="auto">
+      <polygon points="0 0,9 3,0 6" fill="#0e8a6e"/>
+    </marker>
+  </defs>
+
+  <!-- ===== Stage boxes (left to right) ===== -->
+
+  <!-- Stage 0: Raw CC -->
+  <rect x="20" y="80" width="130" height="60" rx="6" fill="#d0d8e8" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="85" y="105" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f4fa3">Raw Common</text>
+  <text x="85" y="122" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f4fa3">Crawl dump</text>
+  <text x="85" y="155" text-anchor="middle" font-size="10" fill="#c0392b">~100s of TB</text>
+
+  <!-- Arrow 0->1 -->
+  <line x1="150" y1="110" x2="178" y2="110" stroke="#1f4fa3" stroke-width="2" marker-end="url(#arw)"/>
+
+  <!-- Stage 1: Language ID -->
+  <rect x="180" y="80" width="130" height="60" rx="6" fill="#e8edf5" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="245" y="103" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f4fa3">Language ID</text>
+  <text x="245" y="120" text-anchor="middle" font-size="11" fill="#333">fastText model</text>
+  <text x="245" y="135" text-anchor="middle" font-size="10" fill="#0e8a6e">(CCNet, Wenzek 2020)</text>
+  <!-- Discard arrow down -->
+  <line x1="245" y1="140" x2="245" y2="168" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arw-red)"/>
+  <text x="258" y="162" font-size="10" fill="#c0392b">non-EN removed</text>
+
+  <!-- Arrow 1->2 -->
+  <line x1="310" y1="110" x2="338" y2="110" stroke="#1f4fa3" stroke-width="2" marker-end="url(#arw)"/>
+
+  <!-- Stage 2: Perplexity filter -->
+  <rect x="340" y="80" width="140" height="60" rx="6" fill="#e8edf5" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="410" y="103" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f4fa3">Perplexity Filter</text>
+  <text x="410" y="119" text-anchor="middle" font-size="11" fill="#333">Small LM trained</text>
+  <text x="410" y="134" text-anchor="middle" font-size="11" fill="#333">on Wikipedia</text>
+  <!-- Discard -->
+  <line x1="410" y1="140" x2="410" y2="168" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arw-red)"/>
+  <text x="423" y="162" font-size="10" fill="#c0392b">garbled text removed</text>
+
+  <!-- Arrow 2->3 -->
+  <line x1="480" y1="110" x2="508" y2="110" stroke="#1f4fa3" stroke-width="2" marker-end="url(#arw)"/>
+
+  <!-- Stage 3: Heuristic filter (C4) -->
+  <rect x="510" y="80" width="145" height="60" rx="6" fill="#e8edf5" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="582" y="101" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f4fa3">Heuristic Filter</text>
+  <text x="582" y="117" text-anchor="middle" font-size="11" fill="#333">C4 rules (Raffel 2020):</text>
+  <text x="582" y="131" text-anchor="middle" font-size="10" fill="#333">terminal punct, length, js/lorem</text>
+  <!-- Discard -->
+  <line x1="582" y1="140" x2="582" y2="168" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arw-red)"/>
+  <text x="596" y="162" font-size="10" fill="#c0392b">low-quality pages out</text>
+
+  <!-- Arrow 3->4 -->
+  <line x1="655" y1="110" x2="683" y2="110" stroke="#1f4fa3" stroke-width="2" marker-end="url(#arw)"/>
+
+  <!-- Stage 4: Deduplication -->
+  <rect x="685" y="80" width="150" height="60" rx="6" fill="#e8edf5" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="760" y="101" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f4fa3">Deduplication</text>
+  <text x="760" y="117" text-anchor="middle" font-size="11" fill="#333">MinHash / SimHash</text>
+  <text x="760" y="132" text-anchor="middle" font-size="10" fill="#0e8a6e">(Lee et al. 2022)</text>
+  <!-- Discard -->
+  <line x1="760" y1="140" x2="760" y2="168" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arw-red)"/>
+  <text x="773" y="162" font-size="10" fill="#c0392b">near-dupes out</text>
+
+  <!-- ===== Second row: filtered web crawl + other sources -> mixer ===== -->
+
+  <!-- Filtered web crawl output -->
+  <rect x="685" y="195" width="150" height="44" rx="5" fill="#d4edda" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="760" y="214" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a7a3e">Filtered Web</text>
+  <text x="760" y="230" text-anchor="middle" font-size="10" fill="#1a7a3e">~60-67% of final mix</text>
+
+  <!-- Arrow from dedup to filtered web -->
+  <line x1="760" y1="173" x2="760" y2="193" stroke="#0e8a6e" stroke-width="2" marker-end="url(#arw-grn)"/>
+
+  <!-- High-quality sources box -->
+  <rect x="20" y="195" width="420" height="44" rx="5" fill="#fff3cd" stroke="#c77a12" stroke-width="1.5"/>
+  <text x="230" y="214" text-anchor="middle" font-size="12" font-weight="bold" fill="#c77a12">High-quality curated sources (added directly)</text>
+  <text x="230" y="230" text-anchor="middle" font-size="11" fill="#333">Wikipedia · Books · Academic Papers · Code · Q&amp;A forums</text>
+
+  <!-- ===== Domain classifier + Mixer ===== -->
+
+  <!-- Arrow from filtered web to domain classifier -->
+  <line x1="760" y1="239" x2="760" y2="275" stroke="#1f4fa3" stroke-width="2" marker-end="url(#arw)"/>
+
+  <!-- Arrow from HQ sources right toward mixer -->
+  <line x1="440" y1="217" x2="490" y2="217" stroke="#1f4fa3" stroke-width="2"/>
+  <line x1="490" y1="217" x2="490" y2="302" stroke="#1f4fa3" stroke-width="2" marker-end="url(#arw)"/>
+
+  <!-- Domain classifier -->
+  <rect x="655" y="276" width="210" height="44" rx="5" fill="#f0e8ff" stroke="#6c4fe0" stroke-width="1.5"/>
+  <text x="760" y="296" text-anchor="middle" font-size="12" font-weight="bold" fill="#6c4fe0">Domain Classifier</text>
+  <text x="760" y="312" text-anchor="middle" font-size="10" fill="#6c4fe0">e.g. fastText topic model (optional)</text>
+
+  <!-- Arrow from domain classifier to mixer -->
+  <line x1="655" y1="298" x2="570" y2="320" stroke="#1f4fa3" stroke-width="1.5" marker-end="url(#arw)"/>
+
+  <!-- ===== Mixer / Weight assignment ===== -->
+  <rect x="340" y="303" width="230" height="60" rx="6" fill="#1f4fa3" opacity="0.88"/>
+  <text x="455" y="325" text-anchor="middle" font-size="13" font-weight="bold" fill="#fff">Sampling Weight Mixer</text>
+  <text x="455" y="342" text-anchor="middle" font-size="11" fill="#d0d8e8">Assign domain weights w_1...w_K</text>
+  <text x="455" y="357" text-anchor="middle" font-size="10" fill="#d0d8e8">DoReMi (Xie 2023) learns weights automatically</text>
+
+  <!-- HQ sources arrow to mixer -->
+  <line x1="490" y1="302" x2="490" y2="305" stroke="#1f4fa3" stroke-width="2"/>
+
+  <!-- ===== Final corpus ===== -->
+  <rect x="340" y="400" width="230" height="60" rx="6" fill="#0e8a6e" opacity="0.90"/>
+  <text x="455" y="422" text-anchor="middle" font-size="13" font-weight="bold" fill="#fff">Final Training Corpus</text>
+  <text x="455" y="440" text-anchor="middle" font-size="11" fill="#d0f4ec">Tokens sampled per-batch</text>
+  <text x="455" y="456" text-anchor="middle" font-size="11" fill="#d0f4ec">according to mixture weights</text>
+
+  <!-- Arrow mixer to final -->
+  <line x1="455" y1="363" x2="455" y2="398" stroke="#0e8a6e" stroke-width="2.5" marker-end="url(#arw-grn)"/>
+
+  <!-- Annotation: upsampling -->
+  <rect x="20" y="340" width="300" height="52" rx="5" fill="#e8edf5" stroke="#5b6675" stroke-width="1"/>
+  <text x="170" y="360" text-anchor="middle" font-size="11" font-weight="bold" fill="#1f4fa3">Upsampling high-quality sources</text>
+  <text x="170" y="376" text-anchor="middle" font-size="10" fill="#333">Wikipedia / Books typically sampled 2-4x</text>
+  <text x="170" y="390" text-anchor="middle" font-size="10" fill="#333">their natural proportion in raw data</text>
+
+  <text x="430" y="492" text-anchor="middle" font-size="10" fill="#5b6675">Filters: Raffel et al. 2020 (C4); Wenzek et al. 2020 (CCNet). Dedup: Lee et al. 2022. Weights: Xie et al. 2023 (DoReMi).</text>
+</svg>
