@@ -7,7 +7,7 @@
 [![Scope](https://img.shields.io/badge/scope-LLMs_&_VLMs-1f4fa3)](#table-of-contents)
 [![Sections](https://img.shields.io/badge/sections-30-0e8a6e)](#table-of-contents)
 [![Questions](https://img.shields.io/badge/questions-800%2B-6c4fe0)](#questions-by-level)
-[![Answered](https://img.shields.io/badge/answered-50%2F74-c77a12)](#table-of-contents)
+[![Answered](https://img.shields.io/badge/answered-57%2F106-c77a12)](#table-of-contents)
 [![Levels](https://img.shields.io/badge/levels-Basic→Intermediate→Advanced→Applied-c77a12)](#questions-by-level)
 [![Format](https://img.shields.io/badge/format-Markdown_+_SVG_+_LaTeX-16202e)](#repository-layout)
 
@@ -277,7 +277,8 @@ A quick-reference map across all 30 sections. Jump straight to the depth you nee
 | Section | Representative questions |
 |---------|--------------------------|
 | [§1 Transformer Architecture](./questions/section-01-transformer-architecture/README.md) | [Q11 O(n²) complexity](./questions/section-01-transformer-architecture/q11-attention-complexity.md) · [Q13 GQA/MQA](./questions/section-01-transformer-architecture/q13-gqa-mqa.md) · [Q14 RMSNorm](./questions/section-01-transformer-architecture/q14-rmsnorm-vs-layernorm.md) · [Q15 SwiGLU](./questions/section-01-transformer-architecture/q15-swiglu-geglu.md) · [Q18 QK‑norm ⭐](./questions/section-01-transformer-architecture/q18-qk-norm.md) · [Q19 RoPE](./questions/section-01-transformer-architecture/q19-position-encodings.md) · [Q20 ALiBi](./questions/section-01-transformer-architecture/q20-alibi.md) |
-| [§2 Tokenization & Embeddings](./questions/section-02-tokenization-and-embeddings/README.md) | BPE algorithm complexity · SentencePiece vs HuggingFace · vocab size tradeoffs · embedding init · weight tying · numbers & arithmetic · token healing |
+| [§2 Tokenization & Embeddings](./questions/section-02-tokenization-and-embeddings/README.md) | [Q2-08 BPE complexity](./questions/section-02-tokenization-and-embeddings/q08-bpe-algorithm.md) · [Q2-09 SentencePiece](./questions/section-02-tokenization-and-embeddings/q09-sentencepiece.md) · [Q2-10 vocab size tradeoffs](./questions/section-02-tokenization-and-embeddings/q10-vocab-size-tradeoff.md) · [Q2-11 embedding init](./questions/section-02-tokenization-and-embeddings/q11-embedding-init.md) · [Q2-12 weight tying](./questions/section-02-tokenization-and-embeddings/q12-weight-tying-embeddings.md) · [Q2-13 numbers & arithmetic](./questions/section-02-tokenization-and-embeddings/q13-tokenization-numbers.md) · [Q2-14 token healing](./questions/section-02-tokenization-and-embeddings/q14-token-healing.md) · [Q2-15 heuristics](./questions/section-02-tokenization-and-embeddings/q15-token-counting-heuristics.md) · [Q2-16 special tokens](./questions/section-02-tokenization-and-embeddings/q16-special-tokens.md) |
+| [§3 Pretraining & Scaling Laws](./questions/section-03-pretraining-and-scaling-laws/README.md) | Chinchilla derivation · deduplication · batch size · mixed precision · Adam/AdamW · loss spikes · data filtering · compute vs. inference optimal |
 | [§23 Vector Databases](#section-23--vector-databases-and-search-infrastructure) | HNSW parameters · IVF clustering · PQ recall · LSH regimes · pre vs post filtering |
 | [§24 Chunking](#section-24--document-digitization-and-chunking-strategies) | Fixed vs sentence vs semantic chunking · multi-column PDFs · table chunking |
 | [§25 Embeddings](#section-25--embedding-models-and-semantic-search) | Long vs short document embedding · MRL · domain benchmarking · MTEB gap |
@@ -334,15 +335,27 @@ A quick-reference map across all 30 sections. Jump straight to the depth you nee
 
 </div>
 
-### Section 2 — Tokenization and Embeddings · 7 answered · 25 scaffolded — [**Open →**](./questions/section-02-tokenization-and-embeddings/README.md)
+### Section 2 — Tokenization and Embeddings · 16 answered · 16 scaffolded — [**Open →**](./questions/section-02-tokenization-and-embeddings/README.md)
 
 <div align="center">
 
 | [🟢 Basic](#-basic) | [🟡 Intermediate](#-intermediate) | [🔴 Advanced](#-advanced) | [🔵 Applied](#-practical--applied) |
 |:---:|:---:|:---:|:---:|
-| ✅ **7/7** | 📝 **0/9** | 📝 **0/7** | 📝 **0/9** |
+| ✅ **7/7** | ✅ **9/9** | 📝 **0/7** | 📝 **0/9** |
 | Q2-01–Q2-07 | Q2-08–Q2-16 | Q2-17–Q2-23 | Q2-24–Q2-32 |
-| token · BPE · WordPiece · Unigram LM · byte-level · embedding layer · fertility | BPE complexity · SentencePiece · vocab tradeoffs · embedding init · weight tying · numbers · token healing · special tokens | glitch tokens · Unigram LM derivation · multilingual · vocab overlap · tiktoken · tokenizer extension · context efficiency | multilingual design · medical OOV · cost optimisation · tokenizer evaluation · adversarial tokenization · 70B vocab expansion · RAG chunking · long identifiers · benchmark suite |
+| token · BPE · WordPiece · Unigram LM · byte-level · embedding layer · fertility | BPE complexity · SentencePiece · vocab tradeoffs · embedding init · **weight tying** · numbers · token healing · heuristics · **special tokens** | glitch tokens · Unigram LM derivation · multilingual · vocab overlap · tiktoken · tokenizer extension · context efficiency | multilingual design · medical OOV · cost optimisation · tokenizer evaluation · adversarial tokenization · 70B vocab expansion · RAG chunking · long identifiers · benchmark suite |
+
+</div>
+
+### Section 3 — Pretraining and Scaling Laws · 7 answered · 25 scaffolded — [**Open →**](./questions/section-03-pretraining-and-scaling-laws/README.md)
+
+<div align="center">
+
+| [🟢 Basic](#-basic) | [🟡 Intermediate](#-intermediate) | [🔴 Advanced](#-advanced) | [🔵 Applied](#-applied--system-design) |
+|:---:|:---:|:---:|:---:|
+| ✅ **7/7** | 📝 **0/9** | 📝 **0/7** | 📝 **0/9** |
+| Q3-01–Q3-07 | Q3-08–Q3-16 | Q3-17–Q3-23 | Q3-24–Q3-32 |
+| CLM objective · Kaplan laws · **Chinchilla** · data mix · **emergence** · cosine LR · gradient clipping | Chinchilla derivation · deduplication · batch size · mixed precision · Adam · AdamW · loss spikes · data filtering · compute vs. inference optimal | IsoFLOP analysis · downstream scaling · MuP · cooldown phase · data-constrained · code pretraining · GPT-4 predictions | compute budget allocation · loss spike debug · 10T token pipeline · serve vs. quality tradeoff · CPT forgetting · Llama-3 recipe · monitoring · early stopping · scaling experiment |
 
 </div>
 
