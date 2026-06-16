@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="280" viewBox="0 0 820 280">
+  <defs>
+    <marker id="arrowSmall" markerWidth="6" markerHeight="5" refX="6" refY="2.5" orient="auto">
+      <polygon points="0 0, 6 2.5, 0 5" fill="#5b6675"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="820" height="280" fill="white"/>
+
+  <!-- Title -->
+  <text x="410" y="22" font-family="sans-serif" font-size="13" fill="#1f4fa3" font-weight="bold" text-anchor="middle">Adam vs SGD: Adaptive Learning Rates Handle Ill-Conditioned Loss Landscapes</text>
+
+  <!-- Vertical divider -->
+  <line x1="410" y1="35" x2="410" y2="270" stroke="#5b6675" stroke-width="1.5"/>
+
+  <!-- ===== LEFT PANEL: SGD ===== -->
+  <text x="205" y="45" font-family="sans-serif" font-size="14" fill="#c0392b" font-weight="bold" text-anchor="middle">SGD</text>
+
+  <!-- Concentric ellipses centered at (205, 160) -->
+  <ellipse cx="205" cy="160" rx="110" ry="55" fill="none" stroke="#f5c6c6" stroke-width="1.5"/>
+  <ellipse cx="205" cy="160" rx="85" ry="42" fill="none" stroke="#e89090" stroke-width="1.5"/>
+  <ellipse cx="205" cy="160" rx="60" ry="30" fill="none" stroke="#d45555" stroke-width="1.5"/>
+  <ellipse cx="205" cy="160" rx="35" ry="17" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- SGD zigzag trajectory -->
+  <polyline points="100,95 310,125 120,140 290,153 160,160 205,160"
+    stroke="#c0392b" stroke-width="2" fill="none"/>
+  <!-- Waypoint circles -->
+  <circle cx="100" cy="95" r="3" fill="#c0392b"/>
+  <circle cx="310" cy="125" r="3" fill="#c0392b"/>
+  <circle cx="120" cy="140" r="3" fill="#c0392b"/>
+  <circle cx="290" cy="153" r="3" fill="#c0392b"/>
+  <circle cx="160" cy="160" r="3" fill="#c0392b"/>
+  <!-- Minimum marker -->
+  <circle cx="205" cy="160" r="5" fill="#c0392b"/>
+
+  <!-- "oscillates" label -->
+  <text x="140" y="120" font-family="sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">oscillates</text>
+
+  <!-- Axis labels -->
+  <text x="205" y="272" font-family="sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">&#x03B8;&#x2081; (shallow)</text>
+  <text x="18" y="160" font-family="sans-serif" font-size="10" fill="#5b6675" text-anchor="middle" transform="rotate(-90, 18, 160)">&#x03B8;&#x2082; (steep)</text>
+
+  <!-- Bottom description label -->
+  <text x="205" y="258" font-family="sans-serif" font-size="11" fill="#5b6675" text-anchor="middle">SGD: same lr for all parameters</text>
+
+  <!-- ===== RIGHT PANEL: Adam ===== -->
+  <text x="615" y="45" font-family="sans-serif" font-size="14" fill="#1f4fa3" font-weight="bold" text-anchor="middle">Adam</text>
+
+  <!-- Concentric ellipses centered at (615, 160) -->
+  <ellipse cx="615" cy="160" rx="110" ry="55" fill="none" stroke="#f5c6c6" stroke-width="1.5"/>
+  <ellipse cx="615" cy="160" rx="85" ry="42" fill="none" stroke="#e89090" stroke-width="1.5"/>
+  <ellipse cx="615" cy="160" rx="60" ry="30" fill="none" stroke="#d45555" stroke-width="1.5"/>
+  <ellipse cx="615" cy="160" rx="35" ry="17" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Adam smooth trajectory -->
+  <polyline points="510,100 560,130 590,148 605,157 615,160"
+    stroke="#1f4fa3" stroke-width="2" fill="none"/>
+  <!-- Waypoint circles -->
+  <circle cx="510" cy="100" r="3" fill="#1f4fa3"/>
+  <circle cx="560" cy="130" r="3" fill="#1f4fa3"/>
+  <circle cx="590" cy="148" r="3" fill="#1f4fa3"/>
+  <circle cx="605" cy="157" r="3" fill="#1f4fa3"/>
+  <!-- Minimum marker -->
+  <circle cx="615" cy="160" r="5" fill="#1f4fa3"/>
+
+  <!-- "efficient path" label -->
+  <text x="545" y="115" font-family="sans-serif" font-size="10" fill="#1f4fa3" text-anchor="middle">efficient path</text>
+
+  <!-- Axis labels -->
+  <text x="615" y="272" font-family="sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">&#x03B8;&#x2081; (shallow)</text>
+  <text x="425" y="160" font-family="sans-serif" font-size="10" fill="#5b6675" text-anchor="middle" transform="rotate(-90, 425, 160)">&#x03B8;&#x2082; (steep)</text>
+
+  <!-- Bottom description label -->
+  <text x="615" y="258" font-family="sans-serif" font-size="11" fill="#5b6675" text-anchor="middle">Adam: lr/&#x221A;v&#x0302; adapts per parameter</text>
+</svg>

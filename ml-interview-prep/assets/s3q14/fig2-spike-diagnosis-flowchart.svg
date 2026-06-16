@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 320" width="820" height="320">
+  <!-- Background -->
+  <rect width="820" height="320" fill="#f8f9fb" rx="8"/>
+
+  <!-- Title -->
+  <text x="410" y="24" font-family="Arial,sans-serif" font-size="14" font-weight="bold" fill="#1f4fa3" text-anchor="middle">Loss Spike Diagnosis Flowchart</text>
+
+  <!-- Defs for arrowheads -->
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#5b6675"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#0e8a6e"/>
+    </marker>
+    <marker id="arr-amber" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#c77a12"/>
+    </marker>
+    <marker id="arr-navy" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#1f4fa3"/>
+    </marker>
+    <marker id="arr-purple" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#6c4fe0"/>
+    </marker>
+  </defs>
+
+  <!-- START: Loss spike detected (oval) -->
+  <ellipse cx="410" cy="55" rx="120" ry="22" fill="#1f4fa3" opacity="0.12" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="410" y="51" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#1f4fa3" text-anchor="middle">Loss spike detected</text>
+  <text x="410" y="65" font-family="Arial,sans-serif" font-size="10" fill="#1f4fa3" text-anchor="middle">(loss > mu + 3 sigma)</text>
+
+  <!-- Arrow down -->
+  <line x1="410" y1="77" x2="410" y2="97" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Diamond 1: Gradient norm spiked? -->
+  <polygon points="410,100 510,130 410,160 310,130" fill="#fff3cd" stroke="#c77a12" stroke-width="1.5"/>
+  <text x="410" y="126" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="#c77a12" text-anchor="middle">Gradient norm</text>
+  <text x="410" y="140" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="#c77a12" text-anchor="middle">spiked first?</text>
+
+  <!-- YES branch right from diamond 1 -->
+  <line x1="510" y1="130" x2="590" y2="130" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="548" y="124" font-family="Arial,sans-serif" font-size="10" fill="#0e8a6e" text-anchor="middle" font-weight="bold">Yes</text>
+
+  <!-- Diamond 2: Specific layer? -->
+  <polygon points="660,130 730,155 660,180 590,155" fill="#fff3cd" stroke="#c77a12" stroke-width="1.5"/>
+  <text x="660" y="151" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="#c77a12" text-anchor="middle">Specific</text>
+  <text x="660" y="163" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="#c77a12" text-anchor="middle">layer?</text>
+
+  <!-- YES from diamond 2 going down -->
+  <line x1="660" y1="180" x2="660" y2="205" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="672" y="196" font-family="Arial,sans-serif" font-size="10" fill="#0e8a6e" font-weight="bold">Yes</text>
+
+  <!-- Action: Activation overflow / Add z-loss (purple) -->
+  <rect x="600" y="207" width="120" height="36" rx="6" fill="#6c4fe0" opacity="0.85"/>
+  <text x="660" y="222" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="white" text-anchor="middle">Check activation</text>
+  <text x="660" y="235" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="white" text-anchor="middle">norms + add z-loss</text>
+
+  <!-- NO from diamond 2 going right -->
+  <line x1="730" y1="155" x2="775" y2="155" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="751" y="149" font-family="Arial,sans-serif" font-size="10" fill="#c0392b" font-weight="bold">No</text>
+
+  <!-- Action: Reduce LR (amber) -->
+  <rect x="718" y="170" width="90" height="30" rx="6" fill="#c77a12"/>
+  <text x="763" y="182" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="white" text-anchor="middle">Reduce LR</text>
+  <text x="763" y="194" font-family="Arial,sans-serif" font-size="10" fill="white" text-anchor="middle">(halve for 2K steps)</text>
+
+  <!-- NO branch down from diamond 1 -->
+  <line x1="410" y1="160" x2="410" y2="185" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="422" y="176" font-family="Arial,sans-serif" font-size="10" fill="#c0392b" font-weight="bold">No</text>
+
+  <!-- Diamond 3: Data batch issue? -->
+  <polygon points="410,188 510,215 410,242 310,215" fill="#fff3cd" stroke="#c77a12" stroke-width="1.5"/>
+  <text x="410" y="211" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="#c77a12" text-anchor="middle">Data batch</text>
+  <text x="410" y="224" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="#c77a12" text-anchor="middle">issue?</text>
+
+  <!-- YES right from diamond 3 -->
+  <line x1="510" y1="215" x2="555" y2="215" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="530" y="209" font-family="Arial,sans-serif" font-size="10" fill="#0e8a6e" font-weight="bold">Yes</text>
+
+  <!-- Action: Rollback + skip batch (green) -->
+  <rect x="555" y="200" width="130" height="30" rx="6" fill="#0e8a6e"/>
+  <text x="620" y="212" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="white" text-anchor="middle">Rollback checkpoint</text>
+  <text x="620" y="224" font-family="Arial,sans-serif" font-size="10" fill="white" text-anchor="middle">+ skip bad batch</text>
+
+  <!-- NO from diamond 3 going down -->
+  <line x1="410" y1="242" x2="410" y2="262" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="422" y="256" font-family="Arial,sans-serif" font-size="10" fill="#c0392b" font-weight="bold">No</text>
+
+  <!-- Action: Check data pipeline (navy) -->
+  <rect x="310" y="264" width="200" height="30" rx="6" fill="#1f4fa3"/>
+  <text x="410" y="276" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="white" text-anchor="middle">Check data pipeline for bugs</text>
+  <text x="410" y="288" font-family="Arial,sans-serif" font-size="10" fill="white" text-anchor="middle">(repeated batch / misaligned seqs)</text>
+
+  <!-- Legend for action box colors -->
+  <rect x="30" y="200" width="240" height="100" fill="white" stroke="#d0d5de" stroke-width="1" rx="6"/>
+  <text x="150" y="216" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="#5b6675" text-anchor="middle">Action Box Legend</text>
+  <rect x="42" y="224" width="14" height="12" rx="2" fill="#0e8a6e"/>
+  <text x="62" y="235" font-family="Arial,sans-serif" font-size="10" fill="#5b6675">Rollback + skip batch</text>
+  <rect x="42" y="242" width="14" height="12" rx="2" fill="#c77a12"/>
+  <text x="62" y="253" font-family="Arial,sans-serif" font-size="10" fill="#5b6675">Reduce learning rate</text>
+  <rect x="42" y="260" width="14" height="12" rx="2" fill="#1f4fa3"/>
+  <text x="62" y="271" font-family="Arial,sans-serif" font-size="10" fill="#5b6675">Check data pipeline</text>
+  <rect x="42" y="278" width="14" height="12" rx="2" fill="#6c4fe0" opacity="0.85"/>
+  <text x="62" y="289" font-family="Arial,sans-serif" font-size="10" fill="#5b6675">Activation / add z-loss</text>
+</svg>

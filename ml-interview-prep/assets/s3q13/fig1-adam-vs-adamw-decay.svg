@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="300" viewBox="0 0 820 300">
+  <defs>
+    <marker id="arrowDown" markerWidth="7" markerHeight="6" refX="3.5" refY="6" orient="auto">
+      <polygon points="0 0, 7 0, 3.5 6" fill="#5b6675"/>
+    </marker>
+    <marker id="arrowRight" markerWidth="7" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 7 3, 0 6" fill="#5b6675"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="820" height="300" fill="white"/>
+
+  <!-- Title -->
+  <text x="410" y="22" font-family="sans-serif" font-size="15" fill="#1f4fa3" font-weight="bold" text-anchor="middle">Adam + L2 vs AdamW: Decoupled Weight Decay</text>
+
+  <!-- Vertical divider -->
+  <line x1="410" y1="35" x2="410" y2="285" stroke="#5b6675" stroke-width="1.5"/>
+
+  <!-- ===== LEFT PANEL: Adam + L2 ===== -->
+  <text x="205" y="48" font-family="sans-serif" font-size="13" fill="#c0392b" font-weight="bold" text-anchor="middle">Adam + L2 (incorrect)</text>
+
+  <!-- Box A: Gradient -->
+  <rect x="140" y="60" width="130" height="36" rx="6" fill="#c77a12"/>
+  <text x="205" y="83" font-family="sans-serif" font-size="12" fill="white" font-weight="bold" text-anchor="middle">Gradient g&#x209C;</text>
+
+  <!-- Arrow A to B -->
+  <line x1="205" y1="96" x2="205" y2="111" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrowDown)"/>
+
+  <!-- Box B: L2 mixed in -->
+  <rect x="140" y="115" width="130" height="36" rx="6" fill="#c0392b"/>
+  <text x="205" y="133" font-family="sans-serif" font-size="13" fill="white" font-weight="bold" text-anchor="middle">+ &#x03BB;&#x03B8;</text>
+  <text x="205" y="147" font-family="sans-serif" font-size="10" fill="white" text-anchor="middle">(L2 mixed in)</text>
+
+  <!-- Arrow B to C -->
+  <line x1="205" y1="151" x2="205" y2="166" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrowDown)"/>
+
+  <!-- Box C: Adam m,v update -->
+  <rect x="140" y="170" width="130" height="36" rx="6" fill="#5b6675"/>
+  <text x="205" y="188" font-family="sans-serif" font-size="11" fill="white" text-anchor="middle">Adam m,v update</text>
+  <text x="205" y="202" font-family="sans-serif" font-size="10" fill="white" text-anchor="middle">on (g + &#x03BB;&#x03B8;)</text>
+
+  <!-- Arrow C to D -->
+  <line x1="205" y1="206" x2="205" y2="221" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrowDown)"/>
+
+  <!-- Box D: divided by sqrt(v hat) -->
+  <rect x="140" y="225" width="130" height="36" rx="6" fill="#5b6675"/>
+  <text x="205" y="243" font-family="sans-serif" font-size="11" fill="white" text-anchor="middle">&#xF7; &#x221A;v&#x0302; applied</text>
+  <text x="205" y="257" font-family="sans-serif" font-size="10" fill="white" text-anchor="middle">to BOTH g and &#x03BB;&#x03B8;</text>
+
+  <!-- Problem annotation box -->
+  <rect x="12" y="268" width="250" height="28" rx="5" stroke="#c0392b" stroke-width="1.5" fill="#fff5f5"/>
+  <text x="22" y="281" font-family="sans-serif" font-size="10" fill="#c0392b">Problem: decay scaled by 1/&#x221A;v&#x0302;</text>
+  <text x="22" y="293" font-family="sans-serif" font-size="10" fill="#c0392b">inconsistent regularization</text>
+
+  <!-- ===== RIGHT PANEL: AdamW ===== -->
+  <text x="615" y="48" font-family="sans-serif" font-size="13" fill="#0e8a6e" font-weight="bold" text-anchor="middle">AdamW (correct)</text>
+
+  <!-- Flow A: Gradient path (left side of right panel) -->
+  <!-- Box A1 -->
+  <rect x="480" y="60" width="120" height="36" rx="6" fill="#c77a12"/>
+  <text x="540" y="83" font-family="sans-serif" font-size="12" fill="white" font-weight="bold" text-anchor="middle">Gradient g&#x209C;</text>
+
+  <!-- Arrow A1 to A2 -->
+  <line x1="540" y1="96" x2="540" y2="111" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrowDown)"/>
+
+  <!-- Box A2 -->
+  <rect x="480" y="115" width="120" height="36" rx="6" fill="#1f4fa3"/>
+  <text x="540" y="133" font-family="sans-serif" font-size="11" fill="white" text-anchor="middle">Adam m,v update</text>
+  <text x="540" y="147" font-family="sans-serif" font-size="10" fill="white" text-anchor="middle">(gradient only)</text>
+
+  <!-- Arrow A2 to A3 -->
+  <line x1="540" y1="151" x2="540" y2="166" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrowDown)"/>
+
+  <!-- Box A3 -->
+  <rect x="480" y="170" width="120" height="36" rx="6" fill="#1f4fa3"/>
+  <text x="540" y="188" font-family="sans-serif" font-size="11" fill="white" text-anchor="middle">&#x2212; lr&#xD7;m&#x0302;/(&#x221A;v&#x0302;+&#x03B5;)</text>
+  <text x="540" y="202" font-family="sans-serif" font-size="10" fill="white" text-anchor="middle">adaptive step</text>
+
+  <!-- Flow B: Weight decay path (right side of right panel) -->
+  <!-- Box B1 -->
+  <rect x="630" y="60" width="120" height="36" rx="6" fill="#5b6675"/>
+  <text x="690" y="83" font-family="sans-serif" font-size="12" fill="white" font-weight="bold" text-anchor="middle">Weight &#x03B8;</text>
+
+  <!-- Arrow B1 to B2 -->
+  <line x1="690" y1="96" x2="690" y2="111" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrowDown)"/>
+
+  <!-- Box B2 -->
+  <rect x="630" y="115" width="120" height="36" rx="6" fill="#0e8a6e"/>
+  <text x="690" y="133" font-family="sans-serif" font-size="11" fill="white" text-anchor="middle">&#xD7; (1&#x2212;lr&#xD7;&#x03BB;)</text>
+  <text x="690" y="147" font-family="sans-serif" font-size="10" fill="white" text-anchor="middle">direct decay</text>
+
+  <!-- Lines from A3 and B2 to merge circle at (615, 230) -->
+  <!-- A3 bottom center to merge: line from (540,206) going down-right to (615,216) -->
+  <line x1="540" y1="206" x2="540" y2="222" stroke="#5b6675" stroke-width="1.5"/>
+  <line x1="540" y1="222" x2="601" y2="222" stroke="#5b6675" stroke-width="1.5"/>
+  <line x1="601" y1="222" x2="601" y2="228" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrowDown)"/>
+
+  <!-- B2 bottom center: line from (690,151) going down-left to (615,222) -->
+  <line x1="690" y1="151" x2="690" y2="222" stroke="#5b6675" stroke-width="1.5"/>
+  <line x1="690" y1="222" x2="629" y2="222" stroke="#5b6675" stroke-width="1.5"/>
+  <line x1="629" y1="222" x2="629" y2="228" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrowDown)"/>
+
+  <!-- Merge circle ("+") -->
+  <circle cx="615" cy="230" r="14" fill="white" stroke="#5b6675" stroke-width="1.5"/>
+  <text x="615" y="235" font-family="sans-serif" font-size="14" fill="#5b6675" font-weight="bold" text-anchor="middle">+</text>
+
+  <!-- Arrow from merge circle down to final box -->
+  <line x1="615" y1="244" x2="615" y2="253" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrowDown)"/>
+
+  <!-- Final box -->
+  <rect x="540" y="257" width="150" height="36" rx="6" fill="#6c4fe0"/>
+  <text x="615" y="280" font-family="sans-serif" font-size="13" fill="white" font-weight="bold" text-anchor="middle">&#x03B8;_new</text>
+
+  <!-- Bottom annotation -->
+  <text x="615" y="298" font-family="sans-serif" font-size="10" fill="#0e8a6e" text-anchor="middle">Decay NOT divided by &#x221A;v&#x0302;</text>
+</svg>

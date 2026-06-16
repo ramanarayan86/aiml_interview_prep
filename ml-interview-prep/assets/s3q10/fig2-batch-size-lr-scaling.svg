@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 280" width="820" height="280">
+  <!-- Background -->
+  <rect width="820" height="280" fill="#f8f9fa" rx="8"/>
+
+  <!-- Title -->
+  <text x="410" y="26" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="bold" fill="#1f4fa3">Batch Size vs Learning Rate: Square-Root Scaling Rule for Adam</text>
+
+  <!-- Plot area: x from 100 to 730, y from 45 to 230 -->
+  <rect x="100" y="45" width="630" height="185" fill="#ffffff" rx="4" stroke="#d0d7e3" stroke-width="1"/>
+
+  <!-- Grid lines horizontal -->
+  <line x1="100" y1="91" x2="730" y2="91" stroke="#e8ecf0" stroke-width="1"/>
+  <line x1="100" y1="137" x2="730" y2="137" stroke="#e8ecf0" stroke-width="1"/>
+  <line x1="100" y1="183" x2="730" y2="183" stroke="#e8ecf0" stroke-width="1"/>
+
+  <!-- Grid lines vertical -->
+  <line x1="258" y1="45" x2="258" y2="230" stroke="#e8ecf0" stroke-width="1"/>
+  <line x1="416" y1="45" x2="416" y2="230" stroke="#e8ecf0" stroke-width="1"/>
+  <line x1="573" y1="45" x2="573" y2="230" stroke="#e8ecf0" stroke-width="1"/>
+
+  <!-- Axes -->
+  <line x1="100" y1="230" x2="730" y2="230" stroke="#5b6675" stroke-width="1.8"/>
+  <line x1="100" y1="230" x2="100" y2="45" stroke="#5b6675" stroke-width="1.8"/>
+
+  <!-- X axis labels (batch size in tokens) -->
+  <text x="100" y="247" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5b6675">256K</text>
+  <text x="258" y="247" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5b6675">512K</text>
+  <text x="416" y="247" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5b6675">1M</text>
+  <text x="573" y="247" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5b6675">2M</text>
+  <text x="730" y="247" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5b6675">8M</text>
+  <text x="415" y="266" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5b6675">Batch Size (tokens)</text>
+
+  <!-- Y axis labels (learning rate) -->
+  <text x="94" y="232" text-anchor="end" font-family="sans-serif" font-size="10" fill="#5b6675">1e-5</text>
+  <text x="94" y="183" text-anchor="end" font-family="sans-serif" font-size="10" fill="#5b6675">3e-5</text>
+  <text x="94" y="137" text-anchor="end" font-family="sans-serif" font-size="10" fill="#5b6675">1e-4</text>
+  <text x="94" y="91" text-anchor="end" font-family="sans-serif" font-size="10" fill="#5b6675">3e-4</text>
+  <text x="94" y="55" text-anchor="end" font-family="sans-serif" font-size="10" fill="#5b6675">1e-3</text>
+  <text x="28" y="137" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5b6675" transform="rotate(-90 28 137)">Optimal Learning Rate</text>
+
+  <!-- LINEAR scaling line (wrong for Adam, dashed gray) -->
+  <!-- From B=256K at lr=1e-5 (x=100, y=232) to B=8M at lr=3.1e-4 (x=730, y=95) -->
+  <!-- Linear: LR proportional to B, so 32x B -> 32x LR. Start: lr=1e-5; End: 3.2e-4 -->
+  <line x1="100" y1="232" x2="730" y2="94" stroke="#9aa5b4" stroke-width="2" stroke-dasharray="8,5"/>
+
+  <!-- SQRT scaling line (correct for Adam, teal) -->
+  <!-- sqrt(32) ~ 5.66, so LR goes from 1e-5 to ~5.66e-5 ... but known values anchor this -->
+  <!-- Anchor: GPT-3 B=3.2M (x~601) lr=6e-5 (y~?); LLaMA-3 B=4M (x~645) lr=3e-4 (y~91) -->
+  <!-- Let's define the sqrt curve through these points pragmatically -->
+  <!-- At B=256K: lr baseline. sqrt(3200/256)=~3.5 -> lr=6e-5/3.5=~1.7e-5 -> y~216 -->
+  <!-- At B=512K: sqrt(3200/512)=~2.5 -> lr=6e-5/2.5=~2.4e-5 -> y~208 -->
+  <!-- At B=1M: sqrt(3.2)=~1.79 -> lr~3.36e-5 -> y~200 -->
+  <!-- At B=2M: sqrt(1.6)=~1.26 -> lr~4.75e-5 -> y~192 -->
+  <!-- At B=3.2M: lr=6e-5 -> y map: (log(6e-5)-log(1e-5))/(log(1e-3)-log(1e-5))*(55-232)+232 -->
+  <!-- log scale y: y = 232 + (log10(lr)-log10(1e-5))/(log10(1e-3)-log10(1e-5)) * (55-232) -->
+  <!-- log10(6e-5)=-4.222, range=(-5 to -3)=2, pixel range=177 -->
+  <!-- y_GPT3 = 232 + ((-4.222)-(-5))/2 * (55-232) = 232 + 0.389*(-177) = 232-68.8 = 163 -->
+  <!-- y_LLaMA: log10(3e-4)=-3.523, y=232+(-3.523+5)/2*(-177)=232+0.739*(-177)=232-130=102 -->
+  <!-- x_GPT3: log10(3200K/256K)=log10(12.5)=1.097; x = 100+(1.097/log10(32))*630 = 100+0.731*630=561 -->
+  <!-- x_LLaMA: log10(4000K/256K)=log10(15.6)=1.193; x=100+0.795*630=601 -->
+  <path d="M 100,221 L 258,210 L 416,200 L 573,187 L 561,163 L 601,102 L 730,85" fill="none" stroke="#0e8a6e" stroke-width="2.5"/>
+
+  <!-- GPT-3 dot -->
+  <circle cx="561" cy="163" r="6" fill="#c77a12" stroke="#ffffff" stroke-width="1.5"/>
+  <!-- LLaMA-3 dot -->
+  <circle cx="601" cy="102" r="6" fill="#6c4fe0" stroke="#ffffff" stroke-width="1.5"/>
+
+  <!-- GPT-3 annotation -->
+  <line x1="561" y1="163" x2="510" y2="142" stroke="#c77a12" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="508" y="135" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c77a12">GPT-3</text>
+  <text x="508" y="147" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#c77a12">B=3.2M, lr=6e-5</text>
+
+  <!-- LLaMA-3 annotation -->
+  <line x1="601" y1="102" x2="655" y2="80" stroke="#6c4fe0" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="680" y="73" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#6c4fe0">LLaMA-3</text>
+  <text x="688" y="85" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#6c4fe0">B=4M, lr=3e-4</text>
+
+  <!-- Legend -->
+  <line x1="118" y1="65" x2="155" y2="65" stroke="#9aa5b4" stroke-width="2" stroke-dasharray="8,5"/>
+  <text x="160" y="69" font-family="sans-serif" font-size="11" fill="#5b6675">Linear scaling (LR proportional to B) — wrong for Adam</text>
+  <line x1="118" y1="82" x2="155" y2="82" stroke="#0e8a6e" stroke-width="2.5"/>
+  <text x="160" y="86" font-family="sans-serif" font-size="11" fill="#0e8a6e">Square-root scaling (LR proportional to sqrt(B)) — correct for Adam</text>
+</svg>

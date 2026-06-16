@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 300" width="820" height="300" font-family="Arial, sans-serif">
+  <defs>
+    <marker id="arrf" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#1f4fa3"/>
+    </marker>
+    <marker id="arrfr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <rect width="820" height="300" fill="#f8f9fa" rx="8"/>
+
+  <!-- Title -->
+  <text x="410" y="24" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">MinHash LSH Deduplication Pipeline</text>
+
+  <!-- Pipeline boxes: 7 stages across top -->
+  <!-- Stage 1: Raw documents -->
+  <rect x="12" y="42" width="98" height="44" fill="#e8edf5" stroke="#1f4fa3" stroke-width="1.5" rx="5"/>
+  <text x="61" y="61" text-anchor="middle" font-size="10" font-weight="bold" fill="#1f4fa3">Raw</text>
+  <text x="61" y="75" text-anchor="middle" font-size="10" font-weight="bold" fill="#1f4fa3">Documents</text>
+
+  <!-- Arrow 1->2 -->
+  <line x1="112" y1="64" x2="124" y2="64" stroke="#1f4fa3" stroke-width="1.5" marker-end="url(#arrf)"/>
+
+  <!-- Stage 2: k-gram shingling -->
+  <rect x="126" y="42" width="100" height="44" fill="#e8edf5" stroke="#1f4fa3" stroke-width="1.5" rx="5"/>
+  <text x="176" y="59" text-anchor="middle" font-size="10" font-weight="bold" fill="#1f4fa3">k-gram</text>
+  <text x="176" y="72" text-anchor="middle" font-size="10" font-weight="bold" fill="#1f4fa3">Shingling</text>
+  <text x="176" y="83" text-anchor="middle" font-size="9" fill="#5b6675">(k=5 typical)</text>
+
+  <!-- Arrow 2->3 -->
+  <line x1="228" y1="64" x2="240" y2="64" stroke="#1f4fa3" stroke-width="1.5" marker-end="url(#arrf)"/>
+
+  <!-- Stage 3: MinHash signatures -->
+  <rect x="242" y="42" width="110" height="44" fill="#e8edf5" stroke="#1f4fa3" stroke-width="1.5" rx="5"/>
+  <text x="297" y="58" text-anchor="middle" font-size="10" font-weight="bold" fill="#1f4fa3">MinHash</text>
+  <text x="297" y="71" text-anchor="middle" font-size="10" font-weight="bold" fill="#1f4fa3">Signatures</text>
+  <text x="297" y="83" text-anchor="middle" font-size="9" fill="#5b6675">(H hash funcs)</text>
+
+  <!-- Arrow 3->4 -->
+  <line x1="354" y1="64" x2="366" y2="64" stroke="#1f4fa3" stroke-width="1.5" marker-end="url(#arrf)"/>
+
+  <!-- Stage 4: LSH banding -->
+  <rect x="368" y="42" width="100" height="44" fill="#e8edf5" stroke="#1f4fa3" stroke-width="1.5" rx="5"/>
+  <text x="418" y="59" text-anchor="middle" font-size="10" font-weight="bold" fill="#1f4fa3">LSH</text>
+  <text x="418" y="72" text-anchor="middle" font-size="10" font-weight="bold" fill="#1f4fa3">Banding</text>
+  <text x="418" y="83" text-anchor="middle" font-size="9" fill="#5b6675">(b bands x r rows)</text>
+
+  <!-- Arrow 4->5 -->
+  <line x1="470" y1="64" x2="482" y2="64" stroke="#1f4fa3" stroke-width="1.5" marker-end="url(#arrf)"/>
+
+  <!-- Stage 5: Candidate pairs -->
+  <rect x="484" y="42" width="100" height="44" fill="#e8edf5" stroke="#1f4fa3" stroke-width="1.5" rx="5"/>
+  <text x="534" y="59" text-anchor="middle" font-size="10" font-weight="bold" fill="#1f4fa3">Candidate</text>
+  <text x="534" y="72" text-anchor="middle" font-size="10" font-weight="bold" fill="#1f4fa3">Pairs</text>
+  <text x="534" y="83" text-anchor="middle" font-size="9" fill="#5b6675">(same bucket)</text>
+
+  <!-- Arrow 5->6 -->
+  <line x1="586" y1="64" x2="598" y2="64" stroke="#1f4fa3" stroke-width="1.5" marker-end="url(#arrf)"/>
+
+  <!-- Stage 6: Jaccard filter -->
+  <rect x="600" y="42" width="100" height="44" fill="#e8edf5" stroke="#c77a12" stroke-width="1.5" rx="5"/>
+  <text x="650" y="59" text-anchor="middle" font-size="10" font-weight="bold" fill="#c77a12">Jaccard</text>
+  <text x="650" y="72" text-anchor="middle" font-size="10" font-weight="bold" fill="#c77a12">Filter</text>
+  <text x="650" y="83" text-anchor="middle" font-size="9" fill="#c77a12">(J >= 0.8)</text>
+
+  <!-- Arrow 6->7 -->
+  <line x1="702" y1="64" x2="714" y2="64" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrfr)"/>
+
+  <!-- Stage 7: Remove duplicates -->
+  <rect x="716" y="42" width="94" height="44" fill="#fde8e8" stroke="#c0392b" stroke-width="1.5" rx="5"/>
+  <text x="763" y="59" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">Remove</text>
+  <text x="763" y="72" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">Duplicates</text>
+  <text x="763" y="83" text-anchor="middle" font-size="9" fill="#5b6675">(-20 to 40%)</text>
+
+  <!-- Example section -->
+  <rect x="12" y="108" width="796" height="130" fill="#ffffff" stroke="#d0d5dd" stroke-width="1" rx="6"/>
+  <text x="410" y="127" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f4fa3">Worked Example: Near-Duplicate Detection</text>
+
+  <!-- Doc A -->
+  <rect x="28" y="136" width="340" height="90" fill="#e8edf5" stroke="#1f4fa3" stroke-width="1" rx="4"/>
+  <text x="38" y="153" font-size="11" font-weight="bold" fill="#1f4fa3">Document A</text>
+  <text x="38" y="169" font-size="10" fill="#444">"The quick brown fox jumps over</text>
+  <text x="38" y="183" font-size="10" fill="#444">the lazy dog near the river bank"</text>
+  <text x="38" y="199" font-size="10" fill="#5b6675">5-gram shingles: {the_quick_brown_fox_jumps, ...}</text>
+  <text x="38" y="213" font-size="10" fill="#5b6675">Shingle set size: 12</text>
+
+  <!-- Doc B -->
+  <rect x="452" y="136" width="340" height="90" fill="#e8edf5" stroke="#1f4fa3" stroke-width="1" rx="4"/>
+  <text x="462" y="153" font-size="11" font-weight="bold" fill="#1f4fa3">Document B</text>
+  <text x="462" y="169" font-size="10" fill="#444">"The quick brown fox jumps over</text>
+  <text x="462" y="183" font-size="10" fill="#444">the lazy dog near the old bridge"</text>
+  <text x="462" y="199" font-size="10" fill="#5b6675">5-gram shingles: {the_quick_brown_fox_jumps, ...}</text>
+  <text x="462" y="213" font-size="10" fill="#5b6675">Shingle set size: 12  (10 overlap with A)</text>
+
+  <!-- Jaccard result in center -->
+  <rect x="338" y="152" width="114" height="58" fill="#c8f0e8" stroke="#0e8a6e" stroke-width="1.5" rx="5"/>
+  <text x="395" y="170" text-anchor="middle" font-size="10" fill="#0e8a6e" font-weight="bold">Jaccard(A,B)</text>
+  <text x="395" y="185" text-anchor="middle" font-size="13" fill="#0e8a6e" font-weight="bold">= 10/14</text>
+  <text x="395" y="199" text-anchor="middle" font-size="11" fill="#0e8a6e" font-weight="bold">~ 0.71</text>
+  <text x="395" y="213" text-anchor="middle" font-size="9" fill="#c77a12">below 0.8 threshold</text>
+
+  <!-- Bottom note -->
+  <text x="410" y="256" text-anchor="middle" font-size="10" fill="#5b6675">MinHash approximates Jaccard similarity without computing exact shingle sets: signature collision probability = Jaccard(A,B) for each hash function</text>
+  <text x="410" y="270" text-anchor="middle" font-size="10" fill="#5b6675">LLaMA-3 pipeline: exact dedup on URL + SimHash on content.   The Pile: MinHash with 5-gram shingles, Jaccard >= 0.8</text>
+  <text x="410" y="284" text-anchor="middle" font-size="10" fill="#5b6675">Complexity: O(n x k x H) for signatures, O(n x b x r) for banding -- roughly O(n log n) in practice</text>
+</svg>

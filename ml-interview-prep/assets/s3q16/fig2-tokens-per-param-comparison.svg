@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 280" width="820" height="280">
+  <!-- Background -->
+  <rect width="820" height="280" fill="#f8f9fa" rx="6"/>
+
+  <!-- Title -->
+  <text x="410" y="24" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#1f4fa3">Tokens per Parameter: LLMs vs Chinchilla-Optimal (20x)</text>
+
+  <!-- Plot area: x=210..790, y=42..248 -->
+  <!-- 7 bars, each 26px high with 6px gap: total = 7*26+6*6=218 px -->
+  <!-- Bar rows top to bottom (y center): 55, 87, 119, 151, 183, 215, 247 -->
+  <!-- X axis: log scale from 0.5 to 2200 tokens/param -->
+  <!-- log10(0.5)=-0.301, log10(2200)=3.342, range=3.643 -->
+  <!-- x(v) = 210 + 580*(log10(v)-(-0.301))/3.643 -->
+  <!-- x(1) = 210 + 580*0.301/3.643 = 210+48 = 258 -->
+  <!-- x(4) = 210 + 580*0.903/3.643 = 210+144 = 354 -->
+  <!-- x(20) = 210 + 580*1.602/3.643 = 210+255 = 465 -->
+  <!-- x(29) = 210 + 580*1.763/3.643 = 210+281 = 491 -->
+  <!-- x(143) = 210 + 580*2.456/3.643 = 210+391 = 601 -->
+  <!-- x(200) = 210 + 580*2.602/3.643 = 210+415 = 625 -->
+  <!-- x(1875) = 210 + 580*3.273/3.643 = 210+521 = 731 -->
+
+  <!-- X axis line -->
+  <line x1="210" y1="248" x2="790" y2="248" stroke="#5b6675" stroke-width="1.5"/>
+
+  <!-- X axis ticks and labels (log scale) -->
+  <!-- 1 tok/param: x=258 -->
+  <line x1="258" y1="248" x2="258" y2="253" stroke="#5b6675" stroke-width="1"/>
+  <text x="258" y="264" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#5b6675">1</text>
+
+  <!-- 4: x=354 -->
+  <line x1="354" y1="248" x2="354" y2="253" stroke="#5b6675" stroke-width="1"/>
+  <text x="354" y="264" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#5b6675">4</text>
+
+  <!-- 10: x=210+580*(1.301+0.301)/3.643=210+255.4=465... recalc -->
+  <!-- log10(10)=1, x=210+580*(1+0.301)/3.643=210+580*1.301/3.643=210+207=417 -->
+  <line x1="417" y1="248" x2="417" y2="253" stroke="#5b6675" stroke-width="1"/>
+  <text x="417" y="264" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#5b6675">10</text>
+
+  <!-- 20: x=465 -->
+  <line x1="465" y1="248" x2="465" y2="253" stroke="#5b6675" stroke-width="1"/>
+  <text x="465" y="264" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#5b6675">20</text>
+
+  <!-- 100: log10(100)=2, x=210+580*(2+0.301)/3.643=210+580*2.301/3.643=210+367=577 -->
+  <line x1="577" y1="248" x2="577" y2="253" stroke="#5b6675" stroke-width="1"/>
+  <text x="577" y="264" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#5b6675">100</text>
+
+  <!-- 1000: log10(1000)=3, x=210+580*(3+0.301)/3.643=210+580*3.301/3.643=210+526=736 -->
+  <line x1="736" y1="248" x2="736" y2="253" stroke="#5b6675" stroke-width="1"/>
+  <text x="736" y="264" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#5b6675">1000</text>
+
+  <!-- 2000 -->
+  <!-- log10(2000)=3.301, x=210+580*(3.301+0.301)/3.643=210+580*3.602/3.643=210+574=784 -->
+  <line x1="784" y1="248" x2="784" y2="253" stroke="#5b6675" stroke-width="1"/>
+  <text x="784" y="264" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#5b6675">2000</text>
+
+  <!-- X axis label -->
+  <text x="500" y="277" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#5b6675">Tokens per parameter (log scale)</text>
+
+  <!-- Chinchilla-optimal vertical dashed line at x=465 -->
+  <line x1="465" y1="42" x2="465" y2="248" stroke="#0e8a6e" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="467" y="52" font-family="Arial, sans-serif" font-size="9" fill="#0e8a6e">Chinchilla</text>
+  <text x="467" y="63" font-family="Arial, sans-serif" font-size="9" fill="#0e8a6e">optimal</text>
+  <text x="467" y="74" font-family="Arial, sans-serif" font-size="9" fill="#0e8a6e">(20x)</text>
+
+  <!-- Annotations above/below the line -->
+  <text x="330" y="80" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#c0392b">compute-efficient,</text>
+  <text x="330" y="91" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#c0392b">serve-expensive</text>
+  <!-- arrow pointing left -->
+  <line x1="290" y1="86" x2="248" y2="86" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <text x="620" y="80" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#0e8a6e">inference-optimal</text>
+  <!-- arrow pointing right -->
+  <line x1="670" y1="76" x2="700" y2="76" stroke="#0e8a6e" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <!-- Bars (horizontal) -->
+  <!-- Bar height = 22, gap between bars = 8, first bar top y = 100 -->
+  <!-- Bar y centers: 111, 141, 171, 171+30=201... let me space them evenly -->
+  <!-- 7 models, plot area y=100..240, space=140, each slot=20, bar height=14 -->
+  <!-- y tops: 100,120,140,160,180,200,220 -->
+
+  <!-- Row 1: Gopher 280B ~1 tok/param => x_right=258, fill=red -->
+  <!-- x_right = 258, bar from x=210 to x=258, width=48 -->
+  <rect x="210" y="100" width="48" height="16" fill="#c0392b" rx="2"/>
+  <text x="205" y="112" text-anchor="end" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">Gopher 280B</text>
+  <text x="262" y="112" font-family="Arial, sans-serif" font-size="9" fill="#c0392b">~1 tok/param</text>
+
+  <!-- Row 2: GPT-3 175B ~4 tok/param => x_right=354, fill=red -->
+  <rect x="210" y="122" width="144" height="16" fill="#c0392b" rx="2"/>
+  <text x="205" y="134" text-anchor="end" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">GPT-3 175B</text>
+  <text x="358" y="134" font-family="Arial, sans-serif" font-size="9" fill="#c0392b">~4 tok/param</text>
+
+  <!-- Row 3: Chinchilla 70B 20 tok/param => x_right=465, fill=green -->
+  <rect x="210" y="144" width="255" height="16" fill="#0e8a6e" rx="2"/>
+  <text x="205" y="156" text-anchor="end" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">Chinchilla 70B</text>
+  <text x="469" y="156" font-family="Arial, sans-serif" font-size="9" fill="#0e8a6e">20 tok/param (optimal)</text>
+
+  <!-- Row 4: LLaMA-2 70B 29 tok/param => x_right=491, fill=amber -->
+  <!-- log10(29)=1.462, x=210+580*(1.462+0.301)/3.643=210+580*1.763/3.643=210+281=491 -->
+  <rect x="210" y="166" width="281" height="16" fill="#c77a12" rx="2"/>
+  <text x="205" y="178" text-anchor="end" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">LLaMA-2 70B</text>
+  <text x="495" y="178" font-family="Arial, sans-serif" font-size="9" fill="#c77a12">29 tok/param</text>
+
+  <!-- Row 5: LLaMA-1 7B 143 tok/param => x_right=601, fill=amber -->
+  <!-- log10(143)=2.155, x=210+580*(2.155+0.301)/3.643=210+580*2.456/3.643=210+391=601 -->
+  <rect x="210" y="188" width="391" height="16" fill="#c77a12" rx="2"/>
+  <text x="205" y="200" text-anchor="end" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">LLaMA-1 7B</text>
+  <text x="605" y="200" font-family="Arial, sans-serif" font-size="9" fill="#c77a12">143 tok/param</text>
+
+  <!-- Row 6: Mistral 7B ~200 tok/param => x_right=625, fill=amber -->
+  <!-- log10(200)=2.301, x=210+580*(2.301+0.301)/3.643=210+580*2.602/3.643=210+414=624 -->
+  <rect x="210" y="210" width="414" height="16" fill="#c77a12" rx="2"/>
+  <text x="205" y="222" text-anchor="end" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">Mistral 7B</text>
+  <text x="628" y="222" font-family="Arial, sans-serif" font-size="9" fill="#c77a12">~200 tok/param</text>
+
+  <!-- Row 7: LLaMA-3 8B 1875 tok/param => x_right=731, fill=amber -->
+  <!-- log10(1875)=3.273, x=210+580*(3.273+0.301)/3.643=210+580*3.574/3.643=210+569=779 -->
+  <!-- clip to 779 or 784, use 779 -->
+  <rect x="210" y="232" width="569" height="16" fill="#c77a12" rx="2"/>
+  <text x="205" y="244" text-anchor="end" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">LLaMA-3 8B</text>
+  <text x="783" y="244" font-family="Arial, sans-serif" font-size="9" fill="#c77a12">1875 tok/param</text>
+
+  <!-- Legend for colors -->
+  <rect x="90" y="105" width="105" height="58" fill="white" fill-opacity="0.9" rx="4" stroke="#d0d4da" stroke-width="0.8"/>
+  <rect x="98" y="114" width="12" height="10" fill="#c0392b" rx="1"/>
+  <text x="115" y="123" font-family="Arial, sans-serif" font-size="9" fill="#5b6675">Undertrained</text>
+  <rect x="98" y="130" width="12" height="10" fill="#0e8a6e" rx="1"/>
+  <text x="115" y="139" font-family="Arial, sans-serif" font-size="9" fill="#5b6675">Compute-optimal</text>
+  <rect x="98" y="146" width="12" height="10" fill="#c77a12" rx="1"/>
+  <text x="115" y="155" font-family="Arial, sans-serif" font-size="9" fill="#5b6675">Inference-optimal</text>
+</svg>

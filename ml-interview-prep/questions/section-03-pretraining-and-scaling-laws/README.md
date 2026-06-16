@@ -12,8 +12,8 @@
 
 ![Questions](https://img.shields.io/badge/questions-32-1f4fa3)
 ![Levels](https://img.shields.io/badge/levels-Basic→Intermediate→Advanced→Applied-0e8a6e)
-![Answered](https://img.shields.io/badge/answered-7%2F32-c77a12)
-![Scaffolded](https://img.shields.io/badge/scaffolded-25%2F32-6c4fe0)
+![Answered](https://img.shields.io/badge/answered-16%2F32-c77a12)
+![Scaffolded](https://img.shields.io/badge/scaffolded-16%2F32-6c4fe0)
 
 </div>
 
@@ -41,15 +41,15 @@ Pretraining is where the intelligence lives. Everything downstream — fine-tuni
 
 | # | Question | Tags | Status |
 |---|----------|------|:------:|
-| Q3‑08 | [How does the compute-optimal token count scale with model size under Chinchilla? Derive the 20× rule.](./q08-chinchilla-derivation.md) | Chinchilla · derivation · IsoFLOP · token-budget | 📝 |
-| Q3‑09 | [What is data deduplication and why does near-duplicate data hurt scaling?](./q09-deduplication.md) | deduplication · MinHash · exact-match · data-quality | 📝 |
-| Q3‑10 | [What is the role of batch size in LLM pretraining? How does gradient noise scale relate to the critical batch size?](./q10-batch-size.md) | batch-size · gradient-noise · critical-batch · throughput | 📝 |
-| Q3‑11 | [What is mixed-precision training (BF16/FP32)? How does the master weight copy prevent underflow?](./q11-mixed-precision.md) | mixed-precision · BF16 · FP32 · master-weights · underflow | 📝 |
-| Q3‑12 | [What is the Adam optimizer and why is it the default for LLM pretraining? What do the β₁, β₂, ε hyperparameters control?](./q12-adam-optimizer.md) | Adam · AdamW · weight-decay · β₁-β₂ · moment-estimates | 📝 |
-| Q3‑13 | [What is weight decay and why is AdamW preferred over Adam for LLMs?](./q13-adamw-weight-decay.md) | AdamW · L2-regularization · decoupled-decay · overfitting | 📝 |
-| Q3‑14 | [What are loss spikes during pretraining? How are they diagnosed and mitigated?](./q14-loss-spikes.md) | loss-spikes · instability · checkpoint-rollback · gradient-clip | 📝 |
-| Q3‑15 | [How does the data quality filtering pipeline work? What heuristics are used in Common Crawl processing?](./q15-data-quality-filtering.md) | Common-Crawl · quality-filter · perplexity-filter · heuristics | 📝 |
-| Q3‑16 | [What is compute-optimal training vs. inference-optimal training? How does LLaMA differ from GPT-4 in philosophy?](./q16-compute-vs-inference-optimal.md) | compute-optimal · inference-optimal · LLaMA · overtrained | 📝 |
+| Q3‑08 | [How does the compute-optimal token count scale with model size under Chinchilla? Derive the 20× rule.](./q08-chinchilla-derivation.md) | Chinchilla · derivation · IsoFLOP · token-budget | ✅ |
+| Q3‑09 | [What is data deduplication and why does near-duplicate data hurt scaling?](./q09-deduplication.md) | deduplication · MinHash · exact-match · data-quality | ✅ |
+| Q3‑10 | [What is the role of batch size in LLM pretraining? How does gradient noise scale relate to the critical batch size?](./q10-batch-size.md) | batch-size · gradient-noise · critical-batch · throughput | ✅ |
+| Q3‑11 | [What is mixed-precision training (BF16/FP32)? How does the master weight copy prevent underflow?](./q11-mixed-precision.md) | mixed-precision · BF16 · FP32 · master-weights · underflow | ✅ |
+| Q3‑12 | [What is the Adam optimizer and why is it the default for LLM pretraining? What do the β₁, β₂, ε hyperparameters control?](./q12-adam-optimizer.md) | Adam · AdamW · weight-decay · β₁-β₂ · moment-estimates | ✅ |
+| Q3‑13 | [What is weight decay and why is AdamW preferred over Adam for LLMs?](./q13-adamw-weight-decay.md) | AdamW · L2-regularization · decoupled-decay · overfitting | ✅ |
+| Q3‑14 | [What are loss spikes during pretraining? How are they diagnosed and mitigated?](./q14-loss-spikes.md) | loss-spikes · instability · checkpoint-rollback · gradient-clip | ✅ |
+| Q3‑15 | [How does the data quality filtering pipeline work? What heuristics are used in Common Crawl processing?](./q15-data-quality-filtering.md) | Common-Crawl · quality-filter · perplexity-filter · heuristics | ✅ |
+| Q3‑16 | [What is compute-optimal training vs. inference-optimal training? How does LLaMA differ from GPT-4 in philosophy?](./q16-compute-vs-inference-optimal.md) | compute-optimal · inference-optimal · LLaMA · overtrained | ✅ |
 
 ---
 

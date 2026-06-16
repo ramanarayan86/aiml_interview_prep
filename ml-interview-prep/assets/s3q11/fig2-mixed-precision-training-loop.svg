@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 320" width="820" height="320">
+  <!-- Background -->
+  <rect width="820" height="320" fill="#f8f9fa" rx="8"/>
+
+  <!-- Title -->
+  <text x="410" y="22" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1f4fa3">Mixed Precision Training Loop: BF16 Forward/Backward + FP32 Optimizer</text>
+
+  <!-- ===== BOXES ===== -->
+  <!-- Box 1: BF16 weights -->
+  <rect x="30" y="120" width="118" height="52" rx="7" fill="#0e8a6e" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="89" y="141" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="white">BF16 Weights</text>
+  <text x="89" y="155" text-anchor="middle" font-family="sans-serif" font-size="10" fill="white">(GPU, fast)</text>
+  <text x="89" y="185" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#0e8a6e" font-weight="bold">2 bytes/param</text>
+
+  <!-- Box 2: Forward pass -->
+  <rect x="195" y="55" width="118" height="52" rx="7" fill="#1f4fa3" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="254" y="76" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="white">Forward Pass</text>
+  <text x="254" y="90" text-anchor="middle" font-family="sans-serif" font-size="10" fill="white">(BF16 compute)</text>
+
+  <!-- Box 3: Loss scalar -->
+  <rect x="360" y="55" width="118" height="52" rx="7" fill="#c77a12" stroke="#c77a12" stroke-width="1.5"/>
+  <text x="419" y="76" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="white">Loss</text>
+  <text x="419" y="90" text-anchor="middle" font-family="sans-serif" font-size="10" fill="white">(FP32 scalar)</text>
+
+  <!-- Box 4: Backward pass -->
+  <rect x="525" y="55" width="118" height="52" rx="7" fill="#1f4fa3" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="584" y="76" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="white">Backward Pass</text>
+  <text x="584" y="90" text-anchor="middle" font-family="sans-serif" font-size="10" fill="white">(BF16 grads)</text>
+
+  <!-- Box 5: Cast grads to FP32 -->
+  <rect x="690" y="55" width="118" height="52" rx="7" fill="#5b6675" stroke="#5b6675" stroke-width="1.5"/>
+  <text x="749" y="73" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="white">Cast Grads</text>
+  <text x="749" y="87" text-anchor="middle" font-family="sans-serif" font-size="10" fill="white">to FP32</text>
+  <text x="749" y="101" text-anchor="middle" font-family="sans-serif" font-size="9" fill="white">(accumulate)</text>
+
+  <!-- Box 6: FP32 optimizer step -->
+  <rect x="690" y="165" width="118" height="52" rx="7" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="749" y="183" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="white">FP32 Optimizer</text>
+  <text x="749" y="197" text-anchor="middle" font-family="sans-serif" font-size="10" fill="white">Step (Adam)</text>
+  <text x="749" y="230" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#c0392b" font-weight="bold">8 bytes/param</text>
+  <text x="749" y="242" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#5b6675">(m, v in FP32)</text>
+
+  <!-- Box 7: FP32 master weights -->
+  <rect x="525" y="165" width="118" height="52" rx="7" fill="#6c4fe0" stroke="#6c4fe0" stroke-width="1.5"/>
+  <text x="584" y="183" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="white">FP32 Master</text>
+  <text x="584" y="197" text-anchor="middle" font-family="sans-serif" font-size="10" fill="white">Weights</text>
+  <text x="584" y="230" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#6c4fe0" font-weight="bold">4 bytes/param</text>
+  <text x="584" y="242" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#5b6675">(prevents underflow)</text>
+
+  <!-- Box 8: Cast back to BF16 -->
+  <rect x="360" y="165" width="118" height="52" rx="7" fill="#5b6675" stroke="#5b6675" stroke-width="1.5"/>
+  <text x="419" y="183" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="white">Cast Back</text>
+  <text x="419" y="197" text-anchor="middle" font-family="sans-serif" font-size="10" fill="white">to BF16</text>
+  <text x="419" y="211" text-anchor="middle" font-family="sans-serif" font-size="10" fill="white">for next fwd</text>
+
+  <!-- ===== ARROWS ===== -->
+  <!-- 1 BF16 weights -> Forward pass (up-right) -->
+  <line x1="148" y1="143" x2="194" y2="100" stroke="#1f4fa3" stroke-width="1.8" marker-end="url(#arr)"/>
+
+  <!-- 2 Forward -> Loss -->
+  <line x1="313" y1="81" x2="359" y2="81" stroke="#1f4fa3" stroke-width="1.8" marker-end="url(#arr)"/>
+
+  <!-- 3 Loss -> Backward -->
+  <line x1="478" y1="81" x2="524" y2="81" stroke="#1f4fa3" stroke-width="1.8" marker-end="url(#arr)"/>
+
+  <!-- 4 Backward -> Cast grads -->
+  <line x1="643" y1="81" x2="689" y2="81" stroke="#1f4fa3" stroke-width="1.8" marker-end="url(#arr)"/>
+
+  <!-- 5 Cast grads -> FP32 optimizer (down) -->
+  <line x1="749" y1="107" x2="749" y2="164" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr)"/>
+
+  <!-- 6 FP32 optimizer -> FP32 master weights (left) -->
+  <line x1="689" y1="191" x2="643" y2="191" stroke="#6c4fe0" stroke-width="1.8" marker-end="url(#arr)"/>
+
+  <!-- 7 FP32 master weights -> Cast back to BF16 (left) -->
+  <line x1="524" y1="191" x2="478" y2="191" stroke="#5b6675" stroke-width="1.8" marker-end="url(#arr)"/>
+
+  <!-- 8 Cast back to BF16 -> BF16 weights (left-down-left) -->
+  <path d="M 360,191 L 195,191 L 148,168" fill="none" stroke="#0e8a6e" stroke-width="1.8" marker-end="url(#arr)"/>
+
+  <!-- Arrow marker -->
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#1f4fa3"/>
+    </marker>
+  </defs>
+
+  <!-- ===== MEMORY SUMMARY BOX ===== -->
+  <rect x="30" y="260" width="760" height="50" rx="6" fill="#ffffff" stroke="#d0d7e3" stroke-width="1"/>
+  <text x="410" y="278" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f4fa3">Memory per Parameter (7B model example)</text>
+  <text x="410" y="295" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#5b6675">BF16 weights: 2B  +  FP32 master: 4B  +  Adam m (FP32): 4B  +  Adam v (FP32): 4B  =  14 bytes/param  =  ~98 GB for 7B model</text>
+</svg>

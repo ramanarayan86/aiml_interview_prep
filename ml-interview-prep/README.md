@@ -7,7 +7,7 @@
 [![Scope](https://img.shields.io/badge/scope-LLMs_&_VLMs-1f4fa3)](#table-of-contents)
 [![Sections](https://img.shields.io/badge/sections-30-0e8a6e)](#table-of-contents)
 [![Questions](https://img.shields.io/badge/questions-800%2B-6c4fe0)](#questions-by-level)
-[![Answered](https://img.shields.io/badge/answered-57%2F822-c77a12)](#table-of-contents)
+[![Answered](https://img.shields.io/badge/answered-59%2F74-c77a12)](#table-of-contents)
 [![Levels](https://img.shields.io/badge/levels-Basic→Intermediate→Advanced→Applied-c77a12)](#questions-by-level)
 [![Format](https://img.shields.io/badge/format-Markdown_+_SVG_+_LaTeX-16202e)](#repository-layout)
 
@@ -198,12 +198,12 @@ Each section is a folder with its own index; each question is one Markdown file;
 | **🔴 Advanced (Q2-17–Q2-23)** | Glitch tokens · Unigram LM derivation · multilingual tokenization · vocabulary overlap · tiktoken · tokenizer extension · context efficiency | 📝 0/7 |
 | **🔵 Applied (Q2-24–Q2-32)** | Multilingual tokenizer design · medical OOV · cost optimisation · evaluation · adversarial tokenization · 70B vocab expansion · RAG retrieval · long identifiers · benchmark suite | 📝 0/9 |
 
-### Section 3 — Pretraining and Scaling Laws (7 answered · 25 scaffolded)
+### Section 3 — Pretraining and Scaling Laws (16 answered · 16 scaffolded)
 
 | Group | Questions | Status |
 |---|---|:---:|
 | **🟢 Basic (Q3-01–Q3-07)** | [Q3-01 Pretraining objective](./questions/section-03-pretraining-and-scaling-laws/q01-pretraining-objective.md) · [Q3-02 Kaplan scaling laws](./questions/section-03-pretraining-and-scaling-laws/q02-scaling-laws-kaplan.md) · [Q3-03 Chinchilla](./questions/section-03-pretraining-and-scaling-laws/q03-chinchilla.md) · [Q3-04 Data mix](./questions/section-03-pretraining-and-scaling-laws/q04-data-mix.md) · [Q3-05 Emergent abilities](./questions/section-03-pretraining-and-scaling-laws/q05-emergent-abilities.md) · [Q3-06 LR schedule](./questions/section-03-pretraining-and-scaling-laws/q06-lr-schedule.md) · [Q3-07 Gradient clipping](./questions/section-03-pretraining-and-scaling-laws/q07-gradient-clipping.md) | ✅ 7/7 |
-| **🟡 Intermediate (Q3-08–Q3-16)** | Chinchilla derivation · deduplication · batch size · mixed precision · Adam · AdamW · loss spikes · data quality filtering · compute vs inference optimal | 📝 0/9 |
+| **🟡 Intermediate (Q3-08–Q3-16)** | [Q3-08](./questions/section-03-pretraining-and-scaling-laws/q08-chinchilla-derivation.md) · [Q3-09](./questions/section-03-pretraining-and-scaling-laws/q09-deduplication.md) · [Q3-10](./questions/section-03-pretraining-and-scaling-laws/q10-batch-size.md) · [Q3-11](./questions/section-03-pretraining-and-scaling-laws/q11-mixed-precision.md) · [Q3-12](./questions/section-03-pretraining-and-scaling-laws/q12-adam-optimizer.md) · [Q3-13](./questions/section-03-pretraining-and-scaling-laws/q13-adamw-weight-decay.md) · [Q3-14](./questions/section-03-pretraining-and-scaling-laws/q14-loss-spikes.md) · [Q3-15](./questions/section-03-pretraining-and-scaling-laws/q15-data-quality-filtering.md) · [Q3-16](./questions/section-03-pretraining-and-scaling-laws/q16-compute-vs-inference-optimal.md) | ✅ 9/9 |
 | **🔴 Advanced (Q3-17–Q3-23)** | Full Chinchilla derivation · downstream scaling · MuP · cooldown phase · data-constrained scaling · code pretraining · GPT-4 predictions | 📝 0/7 |
 | **🔵 Applied (Q3-24–Q3-32)** | Compute budget allocation · loss spike debug · data pipeline · serve vs quality · CPT · Llama-3 recipe · monitoring · early stopping · scaling experiment | 📝 0/9 |
 
@@ -219,7 +219,7 @@ Each section is a folder with its own index; each question is one Markdown file;
 |---|---------|-------|:---------:|:------:|
 | 1 | [**Transformer Architecture Fundamentals**](./questions/section-01-transformer-architecture/README.md) | attention, norms, position, FFN, variants | 42 | ✅ 34/42 · 📝 8/42 |
 | 2 | [**Tokenization and Embeddings**](./questions/section-02-tokenization-and-embeddings/README.md) | BPE/WordPiece/Unigram, byte‑level, glitch tokens | 32 | ✅ 16/32 · 📝 16/32 |
-| 3 | [**Pretraining and Scaling Laws**](./questions/section-03-pretraining-and-scaling-laws/README.md) | Chinchilla, data/compute optima, emergence | 32 | ✅ 7/32 · 📝 25/32 |
+| 3 | [**Pretraining and Scaling Laws**](./questions/section-03-pretraining-and-scaling-laws/README.md) | Chinchilla, data/compute optima, emergence | 32 | ✅ 16/32 · 📝 16/32 |
 | 4 | [**Post‑training: SFT, RLHF, DPO and Beyond**](./questions/section-04-post-training-sft-rlhf-dpo/README.md) | reward models, PPO, DPO/IPO/KTO | 40 | 📝 |
 | 5 | [**Reasoning, CoT, and Inference‑Time Compute**](./questions/section-05-reasoning-cot-inference-time-compute/README.md) | CoT, self‑consistency, search, o‑series | 34 | 📝 |
 | 6 | [**Efficient Inference and Serving**](./questions/section-06-efficient-inference-and-serving/README.md) | KV cache, batching, speculative decoding | 40 | 📝 |
@@ -347,7 +347,7 @@ A quick-reference map across all 30 sections. Jump straight to the depth you nee
 
 </div>
 
-### Section 3 — Pretraining and Scaling Laws · 7 answered · 25 scaffolded — [**Open →**](./questions/section-03-pretraining-and-scaling-laws/README.md)
+### Section 3 — Pretraining and Scaling Laws · 16 answered · 16 scaffolded — [**Open →**](./questions/section-03-pretraining-and-scaling-laws/README.md)
 
 <div align="center">
 

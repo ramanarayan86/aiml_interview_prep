@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 280" width="820" height="280" font-family="Arial, sans-serif">
+
+  <rect width="820" height="280" fill="#f8f9fa" rx="8"/>
+
+  <!-- Title -->
+  <text x="410" y="26" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">Kaplan vs Chinchilla: Data-Model Balance</text>
+
+  <!-- Divider -->
+  <line x1="410" y1="40" x2="410" y2="262" stroke="#d0d5dd" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- ===== LEFT PANEL: Kaplan regime ===== -->
+  <rect x="20" y="40" width="376" height="222" fill="#fff" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <rect x="20" y="40" width="376" height="28" fill="#fef3e2" rx="6"/>
+  <rect x="20" y="54" width="376" height="14" fill="#fef3e2"/>
+  <text x="208" y="61" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Kaplan Regime (Gopher)</text>
+
+  <!-- Gopher model icon: large box for model, small for tokens -->
+  <!-- Model size bar: 280B params -->
+  <text x="42" y="90" font-size="11" fill="#5b6675" font-weight="bold">Model size:</text>
+  <rect x="130" y="76" width="200" height="20" fill="#fde8e8" stroke="#c0392b" stroke-width="1.5" rx="3"/>
+  <rect x="130" y="76" width="200" height="20" fill="#c0392b" rx="3"/>
+  <text x="230" y="90" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">280B parameters</text>
+
+  <!-- Token budget bar: 300B tokens (small relative to model) -->
+  <text x="42" y="118" font-size="11" fill="#5b6675" font-weight="bold">Tokens:</text>
+  <rect x="130" y="104" width="214" height="20" fill="#e8ecf0" rx="3"/>
+  <rect x="130" y="104" width="54" height="20" fill="#c77a12" rx="3"/>
+  <text x="257" y="118" text-anchor="middle" font-size="10" fill="#c77a12" font-weight="bold">300B tokens</text>
+
+  <!-- Ratio annotation -->
+  <rect x="42" y="132" width="340" height="34" fill="#fef3e2" stroke="#c77a12" stroke-width="1" rx="4"/>
+  <text x="212" y="148" text-anchor="middle" font-size="11" fill="#c77a12" font-weight="bold">Token-to-param ratio: ~1.07x</text>
+  <text x="212" y="160" text-anchor="middle" font-size="10" fill="#c0392b">Severely data-starved (Kaplan: D* ~ C^0.27)</text>
+
+  <!-- Scaling law exponents -->
+  <rect x="42" y="174" width="340" height="44" fill="#fff" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="212" y="191" text-anchor="middle" font-size="11" fill="#c0392b" font-weight="bold">Kaplan scaling exponents:</text>
+  <text x="212" y="206" text-anchor="middle" font-size="11" fill="#444">N* ~ C^0.73    D* ~ C^0.27</text>
+  <text x="212" y="218" text-anchor="middle" font-size="10" fill="#5b6675">Scale model fast, skimp on data</text>
+
+  <!-- Outcome -->
+  <rect x="42" y="225" width="340" height="28" fill="#c0392b" rx="4"/>
+  <text x="212" y="242" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">Underpowered on data -- suboptimal loss</text>
+
+  <!-- ===== RIGHT PANEL: Chinchilla regime ===== -->
+  <rect x="424" y="40" width="376" height="222" fill="#fff" stroke="#0e8a6e" stroke-width="1.5" rx="6"/>
+  <rect x="424" y="40" width="376" height="28" fill="#e6f4f1" rx="6"/>
+  <rect x="424" y="54" width="376" height="14" fill="#e6f4f1"/>
+  <text x="612" y="61" text-anchor="middle" font-size="13" font-weight="bold" fill="#0e8a6e">Chinchilla Regime (Chinchilla)</text>
+
+  <!-- Chinchilla model icon: balanced -->
+  <!-- Model size bar: 70B params -->
+  <text x="446" y="90" font-size="11" fill="#5b6675" font-weight="bold">Model size:</text>
+  <rect x="534" y="76" width="200" height="20" fill="#e8ecf0" rx="3"/>
+  <rect x="534" y="76" width="50" height="20" fill="#0e8a6e" rx="3"/>
+  <text x="634" y="90" text-anchor="middle" font-size="10" fill="#0e8a6e" font-weight="bold">70B parameters</text>
+
+  <!-- Token budget bar: 1.4T tokens (large relative to model) -->
+  <text x="446" y="118" font-size="11" fill="#5b6675" font-weight="bold">Tokens:</text>
+  <rect x="534" y="104" width="200" height="20" fill="#c8f0e8" stroke="#0e8a6e" stroke-width="1.5" rx="3"/>
+  <text x="634" y="118" text-anchor="middle" font-size="11" font-weight="bold" fill="#0e8a6e">1.4T tokens</text>
+
+  <!-- Ratio annotation -->
+  <rect x="446" y="132" width="340" height="34" fill="#e6f4f1" stroke="#0e8a6e" stroke-width="1" rx="4"/>
+  <text x="616" y="148" text-anchor="middle" font-size="11" fill="#0e8a6e" font-weight="bold">Token-to-param ratio: ~20x</text>
+  <text x="616" y="160" text-anchor="middle" font-size="10" fill="#0e8a6e">Balanced (Chinchilla: D* ~ C^0.49, N* ~ C^0.51)</text>
+
+  <!-- Scaling law exponents -->
+  <rect x="446" y="174" width="340" height="44" fill="#fff" stroke="#0e8a6e" stroke-width="1" rx="4"/>
+  <text x="616" y="191" text-anchor="middle" font-size="11" fill="#0e8a6e" font-weight="bold">Chinchilla scaling exponents:</text>
+  <text x="616" y="206" text-anchor="middle" font-size="11" fill="#444">N* ~ C^0.51    D* ~ C^0.49</text>
+  <text x="616" y="218" text-anchor="middle" font-size="10" fill="#5b6675">Scale model and data equally</text>
+
+  <!-- Outcome -->
+  <rect x="446" y="225" width="340" height="28" fill="#0e8a6e" rx="4"/>
+  <text x="616" y="242" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">Same FLOPs, Chinchilla wins by ~7 perplexity points</text>
+
+  <!-- Bottom note -->
+  <text x="410" y="272" text-anchor="middle" font-size="10" fill="#5b6675">Both models trained with ~3.5x10^23 FLOPs. Gopher 280B/300BT vs Chinchilla 70B/1.4TT.</text>
+</svg>

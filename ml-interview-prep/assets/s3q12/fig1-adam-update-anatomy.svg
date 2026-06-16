@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="320" viewBox="0 0 820 320">
+  <defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#5b6675"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="820" height="320" fill="white"/>
+
+  <!-- Title -->
+  <text x="410" y="30" font-family="sans-serif" font-size="16" fill="#1f4fa3" font-weight="bold" text-anchor="middle">Adam Optimizer: One Update Step Anatomy</text>
+
+  <!-- Box 1: Gradient (amber) -->
+  <rect x="20" y="80" width="120" height="110" rx="8" fill="#c77a12"/>
+  <text x="80" y="103" font-family="sans-serif" font-size="12" fill="white" font-weight="bold" text-anchor="middle">1. Gradient</text>
+  <text x="80" y="143" font-family="sans-serif" font-size="26" fill="white" text-anchor="middle">g&#x209C;</text>
+  <text x="80" y="180" font-family="sans-serif" font-size="10" fill="white" text-anchor="middle">raw gradient signal</text>
+
+  <!-- Arrow 1 to 2 -->
+  <line x1="142" y1="135" x2="172" y2="135" stroke="#5b6675" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <!-- Box 2: First Moment (navy) -->
+  <rect x="175" y="80" width="145" height="110" rx="8" fill="#1f4fa3"/>
+  <text x="247" y="103" font-family="sans-serif" font-size="12" fill="white" font-weight="bold" text-anchor="middle">2. First Moment</text>
+  <text x="247" y="125" font-family="sans-serif" font-size="10" fill="white" text-anchor="middle">m&#x209C; = &#x03B2;&#x2081;m + (1&#x2212;&#x03B2;&#x2081;)g</text>
+  <text x="247" y="145" font-family="sans-serif" font-size="10" fill="white" text-anchor="middle">momentum, &#x03B2;&#x2081;=0.9</text>
+  <text x="247" y="202" font-family="sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">direction smoothing</text>
+  <text x="247" y="216" font-family="sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">10-step memory</text>
+
+  <!-- Arrow 2 to 3 -->
+  <line x1="322" y1="135" x2="352" y2="135" stroke="#5b6675" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <!-- Box 3: Second Moment (teal) -->
+  <rect x="355" y="80" width="145" height="110" rx="8" fill="#0e8a6e"/>
+  <text x="427" y="103" font-family="sans-serif" font-size="12" fill="white" font-weight="bold" text-anchor="middle">3. Second Moment</text>
+  <text x="427" y="125" font-family="sans-serif" font-size="10" fill="white" text-anchor="middle">v&#x209C; = &#x03B2;&#x2082;v + (1&#x2212;&#x03B2;&#x2082;)g&#xB2;</text>
+  <text x="427" y="145" font-family="sans-serif" font-size="10" fill="white" text-anchor="middle">adaptive rate, &#x03B2;&#x2082;=0.95</text>
+  <text x="427" y="202" font-family="sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">per-param scale</text>
+  <text x="427" y="216" font-family="sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">20-step memory</text>
+
+  <!-- Arrow 3 to 4 -->
+  <line x1="502" y1="135" x2="532" y2="135" stroke="#5b6675" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <!-- Box 4: Bias Correction (gray) -->
+  <rect x="535" y="80" width="130" height="110" rx="8" fill="#5b6675"/>
+  <text x="600" y="103" font-family="sans-serif" font-size="12" fill="white" font-weight="bold" text-anchor="middle">4. Bias Correction</text>
+  <text x="600" y="124" font-family="sans-serif" font-size="10" fill="white" text-anchor="middle">m&#x0302;&#x209C; = m/(1&#x2212;&#x03B2;&#x2081;&#x1D57;)</text>
+  <text x="600" y="143" font-family="sans-serif" font-size="10" fill="white" text-anchor="middle">v&#x0302;&#x209C; = v/(1&#x2212;&#x03B2;&#x2082;&#x1D57;)</text>
+  <text x="600" y="175" font-family="sans-serif" font-size="10" fill="white" text-anchor="middle">corrects cold start</text>
+
+  <!-- Arrow 4 to 5 -->
+  <line x1="667" y1="135" x2="692" y2="135" stroke="#5b6675" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <!-- Box 5: Parameter Update (purple) -->
+  <rect x="695" y="80" width="110" height="110" rx="8" fill="#6c4fe0"/>
+  <text x="750" y="103" font-family="sans-serif" font-size="11" fill="white" font-weight="bold" text-anchor="middle">5. Parameter</text>
+  <text x="750" y="118" font-family="sans-serif" font-size="11" fill="white" font-weight="bold" text-anchor="middle">Update</text>
+  <text x="750" y="140" font-family="sans-serif" font-size="9" fill="white" text-anchor="middle">&#x03B8; &#x2190; &#x03B8; &#x2212; lr&#xD7;m&#x0302;/</text>
+  <text x="750" y="155" font-family="sans-serif" font-size="9" fill="white" text-anchor="middle">(&#x221A;v&#x0302;+&#x03B5;)</text>
+  <text x="750" y="178" font-family="sans-serif" font-size="10" fill="white" text-anchor="middle">bounded step size</text>
+
+  <!-- Bottom note -->
+  <text x="410" y="305" font-family="sans-serif" font-size="11" fill="#5b6675" text-anchor="middle">All five stages happen once per training step for every parameter</text>
+</svg>

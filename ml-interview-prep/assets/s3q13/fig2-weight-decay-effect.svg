@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="280" viewBox="0 0 820 280">
+  <defs>
+    <marker id="arrowTip" markerWidth="7" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 7 3, 0 6" fill="#1f4fa3"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="820" height="280" fill="white"/>
+
+  <!-- Title -->
+  <text x="410" y="20" font-family="sans-serif" font-size="14" fill="#1f4fa3" font-weight="bold" text-anchor="middle">Weight Decay Effect: Weight Norm Distribution and Validation Loss</text>
+
+  <!-- Vertical divider -->
+  <line x1="410" y1="30" x2="410" y2="268" stroke="#5b6675" stroke-width="1.5"/>
+
+  <!-- ===== LEFT PANEL: Weight Norm Distribution ===== -->
+  <text x="205" y="40" font-family="sans-serif" font-size="12" fill="#5b6675" font-weight="bold" text-anchor="middle">Weight Norm Distribution</text>
+
+  <!-- Axes -->
+  <line x1="50" y1="230" x2="395" y2="230" stroke="#5b6675" stroke-width="1.5"/>
+  <line x1="50" y1="55" x2="50" y2="230" stroke="#5b6675" stroke-width="1.5"/>
+
+  <!-- x-axis label -->
+  <text x="222" y="250" font-family="sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">Weight Norm ||&#x03B8;&#x1D62;||</text>
+
+  <!-- y-axis label -->
+  <text x="15" y="140" font-family="sans-serif" font-size="10" fill="#5b6675" text-anchor="middle" transform="rotate(-90,15,140)">Frequency</text>
+
+  <!-- x-axis ticks and labels: 0,1,2,3,4,5 at x=50,118,186,254,322,390 -->
+  <line x1="50" y1="230" x2="50" y2="236" stroke="#5b6675" stroke-width="1"/>
+  <text x="50" y="243" font-family="sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">0</text>
+  <line x1="118" y1="230" x2="118" y2="236" stroke="#5b6675" stroke-width="1"/>
+  <text x="118" y="243" font-family="sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">1</text>
+  <line x1="186" y1="230" x2="186" y2="236" stroke="#5b6675" stroke-width="1"/>
+  <text x="186" y="243" font-family="sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">2</text>
+  <line x1="254" y1="230" x2="254" y2="236" stroke="#5b6675" stroke-width="1"/>
+  <text x="254" y="243" font-family="sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">3</text>
+  <line x1="322" y1="230" x2="322" y2="236" stroke="#5b6675" stroke-width="1"/>
+  <text x="322" y="243" font-family="sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">4</text>
+  <line x1="390" y1="230" x2="390" y2="236" stroke="#5b6675" stroke-width="1"/>
+  <text x="390" y="243" font-family="sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">5</text>
+
+  <!-- Red bars (No decay) - left of each pair, width=11 -->
+  <rect x="55" y="210" width="11" height="20" fill="#c0392b" opacity="0.85"/>
+  <rect x="123" y="175" width="11" height="55" fill="#c0392b" opacity="0.85"/>
+  <rect x="191" y="140" width="11" height="90" fill="#c0392b" opacity="0.85"/>
+  <rect x="259" y="165" width="11" height="65" fill="#c0392b" opacity="0.85"/>
+  <rect x="295" y="185" width="11" height="45" fill="#c0392b" opacity="0.85"/>
+  <rect x="327" y="200" width="11" height="30" fill="#c0392b" opacity="0.85"/>
+  <rect x="355" y="210" width="11" height="20" fill="#c0392b" opacity="0.85"/>
+  <rect x="375" y="218" width="11" height="12" fill="#c0392b" opacity="0.85"/>
+  <rect x="393" y="223" width="11" height="7" fill="#c0392b" opacity="0.85"/>
+
+  <!-- Navy bars (AdamW) - right of each pair, width=11 -->
+  <rect x="68" y="175" width="11" height="55" fill="#1f4fa3" opacity="0.85"/>
+  <rect x="136" y="135" width="11" height="95" fill="#1f4fa3" opacity="0.85"/>
+  <rect x="204" y="180" width="11" height="50" fill="#1f4fa3" opacity="0.85"/>
+  <rect x="272" y="212" width="11" height="18" fill="#1f4fa3" opacity="0.85"/>
+  <rect x="308" y="225" width="11" height="5" fill="#1f4fa3" opacity="0.85"/>
+  <rect x="340" y="228" width="11" height="2" fill="#1f4fa3" opacity="0.85"/>
+
+  <!-- Legend (left panel) -->
+  <rect x="58" y="68" width="12" height="10" fill="#c0392b" opacity="0.85"/>
+  <text x="74" y="78" font-family="sans-serif" font-size="10" fill="#5b6675">No decay</text>
+  <rect x="58" y="83" width="12" height="10" fill="#1f4fa3" opacity="0.85"/>
+  <text x="74" y="93" font-family="sans-serif" font-size="10" fill="#5b6675">AdamW &#x03BB;=0.1</text>
+
+  <!-- "Long tail" annotation -->
+  <text x="362" y="163" font-family="sans-serif" font-size="9" fill="#c0392b" text-anchor="start">Long tail</text>
+  <text x="362" y="173" font-family="sans-serif" font-size="9" fill="#c0392b" text-anchor="start">of large</text>
+  <text x="362" y="183" font-family="sans-serif" font-size="9" fill="#c0392b" text-anchor="start">weights</text>
+
+  <!-- ===== RIGHT PANEL: Validation Loss vs Training Step ===== -->
+  <text x="615" y="40" font-family="sans-serif" font-size="12" fill="#5b6675" font-weight="bold" text-anchor="middle">Validation Loss vs Training Step</text>
+
+  <!-- Axes -->
+  <line x1="450" y1="230" x2="795" y2="230" stroke="#5b6675" stroke-width="1.5"/>
+  <line x1="450" y1="60" x2="450" y2="230" stroke="#5b6675" stroke-width="1.5"/>
+
+  <!-- x-axis label -->
+  <text x="622" y="250" font-family="sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">Training Steps (x1000)</text>
+
+  <!-- y-axis label -->
+  <text x="425" y="145" font-family="sans-serif" font-size="10" fill="#5b6675" text-anchor="middle" transform="rotate(-90,425,145)">Validation Loss</text>
+
+  <!-- x-axis ticks at x=450,516,582,648,714,780 for steps 0,20,40,60,80,100 -->
+  <line x1="450" y1="230" x2="450" y2="236" stroke="#5b6675" stroke-width="1"/>
+  <text x="450" y="243" font-family="sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">0</text>
+  <line x1="516" y1="230" x2="516" y2="236" stroke="#5b6675" stroke-width="1"/>
+  <text x="516" y="243" font-family="sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">20</text>
+  <line x1="582" y1="230" x2="582" y2="236" stroke="#5b6675" stroke-width="1"/>
+  <text x="582" y="243" font-family="sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">40</text>
+  <line x1="648" y1="230" x2="648" y2="236" stroke="#5b6675" stroke-width="1"/>
+  <text x="648" y="243" font-family="sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">60</text>
+  <line x1="714" y1="230" x2="714" y2="236" stroke="#5b6675" stroke-width="1"/>
+  <text x="714" y="243" font-family="sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">80</text>
+  <line x1="780" y1="230" x2="780" y2="236" stroke="#5b6675" stroke-width="1"/>
+  <text x="780" y="243" font-family="sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">100</text>
+
+  <!-- Red dashed: Adam (no decay) -->
+  <polyline points="450,68 516,95 582,125 648,150 714,162 780,168"
+    stroke="#c0392b" stroke-width="2" stroke-dasharray="6,3" fill="none"/>
+
+  <!-- Amber: Adam + L2 -->
+  <polyline points="450,68 516,93 582,120 648,142 714,152 780,157"
+    stroke="#c77a12" stroke-width="2" fill="none"/>
+
+  <!-- Navy solid: AdamW -->
+  <polyline points="450,68 516,90 582,112 648,128 714,135 780,138"
+    stroke="#1f4fa3" stroke-width="2.5" fill="none"/>
+
+  <!-- Legend (right panel) -->
+  <line x1="458" y1="82" x2="478" y2="82" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="483" y="86" font-family="sans-serif" font-size="10" fill="#5b6675">Adam (no decay)</text>
+  <line x1="458" y1="97" x2="478" y2="97" stroke="#c77a12" stroke-width="2"/>
+  <text x="483" y="101" font-family="sans-serif" font-size="10" fill="#5b6675">Adam + L2</text>
+  <line x1="458" y1="112" x2="478" y2="112" stroke="#1f4fa3" stroke-width="2.5"/>
+  <text x="483" y="116" font-family="sans-serif" font-size="10" fill="#5b6675">AdamW</text>
+
+  <!-- "AdamW best" annotation -->
+  <text x="762" y="125" font-family="sans-serif" font-size="10" fill="#1f4fa3" text-anchor="end">AdamW best</text>
+  <line x1="764" y1="123" x2="782" y2="135" stroke="#1f4fa3" stroke-width="1" marker-end="url(#arrowTip)"/>
+</svg>

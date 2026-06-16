@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 300" width="820" height="300">
+  <!-- Background -->
+  <rect width="820" height="300" fill="#f8f9fa" rx="6"/>
+
+  <!-- Title -->
+  <text x="410" y="26" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#1f4fa3">Compute-Optimal vs Inference-Optimal: The LLaMA Design Decision</text>
+
+  <!-- Plot area: x 80..760, y 50..260 -->
+  <!-- Axes -->
+  <line x1="80" y1="50" x2="80" y2="260" stroke="#5b6675" stroke-width="1.5"/>
+  <line x1="80" y1="260" x2="760" y2="260" stroke="#5b6675" stroke-width="1.5"/>
+
+  <!-- X axis label -->
+  <text x="420" y="288" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#5b6675">Model size N (parameters)</text>
+
+  <!-- Y axis label -->
+  <text x="18" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#5b6675" transform="rotate(-90 18 160)">Loss L at target quality</text>
+
+  <!-- X axis ticks: 1B=80, 3B=196, 7B=269, 13B=338, 33B=460, 67B=567, 100B=760 -->
+  <!-- Using log scale: x = 80 + 680*(log10(N)-log10(1e9))/(log10(1e11)-log10(1e9)) -->
+  <!-- log10(1e9)=9, log10(1e11)=11, range=2, px=680 -->
+  <!-- 1B: 80, 3B: 80+680*0.477/2=80+162=242, 7B: 80+680*0.845/2=80+287=367,
+       13B: 80+680*1.114/2=80+378=458, 30B: 80+680*1.477/2=80+502=582,
+       67B: 80+680*1.826/2=80+621=701, 100B: 80+680=760 -->
+
+  <line x1="80" y1="260" x2="80" y2="265" stroke="#5b6675" stroke-width="1"/>
+  <text x="80" y="278" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">1B</text>
+
+  <line x1="242" y1="260" x2="242" y2="265" stroke="#5b6675" stroke-width="1"/>
+  <text x="242" y="278" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">3B</text>
+
+  <line x1="367" y1="260" x2="367" y2="265" stroke="#5b6675" stroke-width="1"/>
+  <text x="367" y="278" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">7B</text>
+
+  <line x1="458" y1="260" x2="458" y2="265" stroke="#5b6675" stroke-width="1"/>
+  <text x="458" y="278" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">13B</text>
+
+  <line x1="582" y1="260" x2="582" y2="265" stroke="#5b6675" stroke-width="1"/>
+  <text x="582" y="278" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">30B</text>
+
+  <line x1="701" y1="260" x2="701" y2="265" stroke="#5b6675" stroke-width="1"/>
+  <text x="701" y="278" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">67B</text>
+
+  <line x1="760" y1="260" x2="760" y2="265" stroke="#5b6675" stroke-width="1"/>
+  <text x="760" y="278" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">100B</text>
+
+  <!-- Y axis ticks: loss range high (top=50) to low (bottom=260) -->
+  <!-- low loss at bottom, high loss at top -->
+  <line x1="75" y1="260" x2="80" y2="260" stroke="#5b6675" stroke-width="1"/>
+  <text x="72" y="264" text-anchor="end" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">low</text>
+
+  <line x1="75" y1="155" x2="80" y2="155" stroke="#5b6675" stroke-width="1"/>
+  <text x="72" y="159" text-anchor="end" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">mid</text>
+
+  <line x1="75" y1="55" x2="80" y2="55" stroke="#5b6675" stroke-width="1"/>
+  <text x="72" y="59" text-anchor="end" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">high</text>
+
+  <!-- Curve 1: Chinchilla-optimal frontier (dashed teal) -->
+  <!-- U-shape: large models need less tokens so can reach lower loss, but very small models need huge tokens -->
+  <!-- Points: (80,220),(242,185),(367,150),(458,120),(582,90),(701,70),(760,68) -->
+  <polyline points="80,215 242,178 367,148 458,118 582,87 701,70 760,68"
+    fill="none" stroke="#0e8a6e" stroke-width="2" stroke-dasharray="7,4"/>
+
+  <!-- Curve 2: Fixed-compute budget (solid navy) -->
+  <!-- For fixed C=10^23: small models undertrained (high loss), optimal at ~67B, large models overtrained (parameter-inefficient) -->
+  <!-- U-shape with minimum near 67B -->
+  <polyline points="80,240 242,210 367,180 458,155 582,118 701,82 760,95"
+    fill="none" stroke="#1f4fa3" stroke-width="2.5"/>
+
+  <!-- Curve 3: Fixed-inference-cost curve (solid amber) -->
+  <!-- Smaller models trained longer can match larger models trained shorter -->
+  <!-- Relatively flat or gently decreasing, crossing navy curve left of optimal -->
+  <polyline points="80,195 242,168 367,145 458,128 582,115 701,108 760,105"
+    fill="none" stroke="#c77a12" stroke-width="2.5"/>
+
+  <!-- Compute-optimal point marker at ~(701, 82) intersection of navy and teal -->
+  <circle cx="701" cy="82" r="6" fill="#1f4fa3" stroke="white" stroke-width="1.5"/>
+  <!-- Annotation -->
+  <line x1="701" y1="76" x2="701" y2="56" stroke="#1f4fa3" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="701" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#1f4fa3">Compute-optimal point</text>
+  <text x="701" y="62" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#1f4fa3">(~67B params)</text>
+
+  <!-- Inference-optimal zone arrow pointing left toward 7B-13B -->
+  <text x="300" y="97" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#c77a12">Inference-optimal zone</text>
+  <text x="300" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#c77a12">"train longer"</text>
+  <!-- Arrow pointing left -->
+  <line x1="240" y1="103" x2="195" y2="103" stroke="#c77a12" stroke-width="1.5" marker-end="url(#arrowAmber)"/>
+  <defs>
+    <marker id="arrowAmber" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#c77a12"/>
+    </marker>
+    <marker id="arrowNavy" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#1f4fa3"/>
+    </marker>
+  </defs>
+
+  <!-- LLaMA annotation near 7B -->
+  <circle cx="367" cy="145" r="4" fill="#c77a12" stroke="white" stroke-width="1"/>
+  <text x="367" y="135" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#c77a12">LLaMA 7B</text>
+  <text x="367" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#c77a12">1T tokens</text>
+
+  <!-- Legend -->
+  <rect x="90" y="55" width="220" height="68" fill="white" fill-opacity="0.85" rx="4" stroke="#d0d4da" stroke-width="0.8"/>
+  <line x1="100" y1="72" x2="130" y2="72" stroke="#0e8a6e" stroke-width="2" stroke-dasharray="7,4"/>
+  <text x="136" y="76" font-family="Arial, sans-serif" font-size="10" fill="#0e8a6e">Chinchilla-optimal frontier</text>
+  <line x1="100" y1="89" x2="130" y2="89" stroke="#1f4fa3" stroke-width="2.5"/>
+  <text x="136" y="93" font-family="Arial, sans-serif" font-size="10" fill="#1f4fa3">Fixed compute budget (C=10^23)</text>
+  <line x1="100" y1="106" x2="130" y2="106" stroke="#c77a12" stroke-width="2.5"/>
+  <text x="136" y="110" font-family="Arial, sans-serif" font-size="10" fill="#c77a12">Fixed inference cost (overtrained)</text>
+</svg>
