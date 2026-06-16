@@ -7,7 +7,7 @@
 [![Scope](https://img.shields.io/badge/scope-LLMs_&_VLMs-1f4fa3)](#table-of-contents)
 [![Sections](https://img.shields.io/badge/sections-30-0e8a6e)](#table-of-contents)
 [![Questions](https://img.shields.io/badge/questions-800%2B-6c4fe0)](#questions-by-level)
-[![Answered](https://img.shields.io/badge/answered-59%2F74-c77a12)](#table-of-contents)
+[![Answered](https://img.shields.io/badge/answered-66%2F106-c77a12)](#table-of-contents)
 [![Levels](https://img.shields.io/badge/levels-Basic→Intermediate→Advanced→Applied-c77a12)](#questions-by-level)
 [![Format](https://img.shields.io/badge/format-Markdown_+_SVG_+_LaTeX-16202e)](#repository-layout)
 
@@ -94,13 +94,31 @@ ml-interview-prep/
 │   ├── s2q05/  fig1-byte-level-bpe.svg
 │   ├── s2q06/  fig1-embedding-table.svg
 │   ├── s2q07/  fig1-fertility-map.svg
+│   ├── s2q08/  fig1-bpe-priority-queue.svg  fig2-encoding-complexity.svg
+│   ├── s2q09/  fig1-sentencepiece-vs-hf.svg  fig2-whitespace-encoding.svg
+│   ├── s2q10/  fig1-vocab-size-tradeoffs.svg  fig2-vocab-size-comparison.svg
+│   ├── s2q11/  fig1-init-scale-effect.svg  fig2-init-schemes-comparison.svg
+│   ├── s2q12/  fig1-weight-tying-overview.svg  fig2-when-tying-helps-hurts.svg
+│   ├── s2q13/  fig1-number-tokenization.svg  fig2-arithmetic-failure-modes.svg
+│   ├── s2q14/  fig1-token-healing-boundary.svg  fig2-prefix-caching-diagram.svg
+│   ├── s2q15/  fig1-chars-per-token.svg  fig2-heuristic-accuracy.svg
+│   ├── s2q16/  fig1-special-tokens-layout.svg  fig2-attention-mask-causal.svg
 │   ├── s3q01/  fig1-clm-next-token.svg  fig2-clm-vs-mlm-variants.svg
 │   ├── s3q02/  fig1-scaling-law-curves.svg  fig2-isoflop-frontier.svg
 │   ├── s3q03/  fig1-chinchilla-isoflop.svg  fig2-kaplan-vs-chinchilla.svg
 │   ├── s3q04/  fig1-data-mix-domains.svg  fig2-quality-filtering-pipeline.svg
 │   ├── s3q05/  fig1-emergence-jump.svg  fig2-metric-artefact.svg
 │   ├── s3q06/  fig1-cosine-lr-schedule.svg  fig2-wsd-schedule.svg
-│   └── s3q07/  fig1-gradient-norm-training.svg  fig2-clipping-geometry.svg
+│   ├── s3q07/  fig1-gradient-norm-training.svg  fig2-clipping-geometry.svg
+│   ├── s3q08/  fig1-isoflop-curves.svg  fig2-chinchilla-vs-kaplan.svg
+│   ├── s3q09/  fig1-minhash-pipeline.svg  fig2-dedup-effect-on-scaling.svg
+│   ├── s3q10/  fig1-gradient-noise-scale.svg  fig2-batch-size-lr-scaling.svg
+│   ├── s3q11/  fig1-number-format-comparison.svg  fig2-mixed-precision-training-loop.svg
+│   ├── s3q12/  fig1-adam-update-anatomy.svg  fig2-adam-vs-sgd-landscape.svg
+│   ├── s3q13/  fig1-adam-vs-adamw-decay.svg  fig2-weight-decay-effect.svg
+│   ├── s3q14/  fig1-loss-spike-anatomy.svg  fig2-spike-diagnosis-flowchart.svg
+│   ├── s3q15/  fig1-filtering-pipeline.svg  fig2-quality-filter-heuristics.svg
+│   └── s3q16/  fig1-compute-vs-inference-optimal.svg  fig2-tokens-per-param-comparison.svg
 └── questions/
     ├── section-01-transformer-architecture/
     │   ├── README.md                ← section index (42 questions, 34 answered)
@@ -160,7 +178,7 @@ ml-interview-prep/
         ├── q16-special-tokens.md             ✅
         └── (Q2-17 – Q2-32 scaffolded — files coming)
     └── section-03-pretraining-and-scaling-laws/
-        ├── README.md                ← section index (32 questions, 7 answered)
+        ├── README.md                ← section index (32 questions, 16 answered)
         ├── q01-pretraining-objective.md      ✅
         ├── q02-scaling-laws-kaplan.md        ✅
         ├── q03-chinchilla.md                 ✅
@@ -168,7 +186,16 @@ ml-interview-prep/
         ├── q05-emergent-abilities.md         ✅
         ├── q06-lr-schedule.md                ✅
         ├── q07-gradient-clipping.md          ✅
-        └── (Q3-08 – Q3-32 scaffolded — files coming)
+        ├── q08-chinchilla-derivation.md      ✅
+        ├── q09-deduplication.md              ✅
+        ├── q10-batch-size.md                 ✅
+        ├── q11-mixed-precision.md            ✅
+        ├── q12-adam-optimizer.md             ✅
+        ├── q13-adamw-weight-decay.md         ✅
+        ├── q14-loss-spikes.md                ✅
+        ├── q15-data-quality-filtering.md     ✅
+        ├── q16-compute-vs-inference-optimal.md ✅
+        └── (Q3-17 – Q3-32 scaffolded — files coming)
 ```
 
 Each section is a folder with its own index; each question is one Markdown file; figures live under `assets/qNN/` — exactly 2 SVGs per question for Q23–Q34. Adding a new question never touches any existing file.
@@ -177,7 +204,7 @@ Each section is a folder with its own index; each question is one Markdown file;
 
 ## ⭐ Current status
 
-**57 questions fully answered across Sections 1–3.** Sections 4–22 are fully scaffolded — all questions listed, tagged, and organized by level. Every section has a README with question tables, themes, and reading-order suggestions. Answers are being written section-by-section following the same first-principles template: 20-second answer → first principles → mechanism → algorithm & pseudocode → PyTorch reference implementation → worked numerical example → interview drill → common misconceptions → one-screen summary → references.
+**66 questions fully answered across Sections 1–3.** Sections 4–22 are fully scaffolded — all questions listed, tagged, and organized by level. Every section has a README with question tables, themes, and reading-order suggestions. Answers are being written section-by-section following the same first-principles template: 20-second answer → first principles → mechanism → algorithm & pseudocode → PyTorch reference implementation → worked numerical example → interview drill → common misconceptions → one-screen summary → references.
 
 ### Section 1 — Transformer Architecture (34 answered · 8 scaffolded)
 
@@ -195,7 +222,6 @@ Each section is a folder with its own index; each question is one Markdown file;
 | **[🟢 Basic (Q2-01–Q2-07)](#-basic)** | [Q2-01](./questions/section-02-tokenization-and-embeddings/q01-what-is-a-token.md) · [Q2-02](./questions/section-02-tokenization-and-embeddings/q02-bpe.md) · [Q2-03](./questions/section-02-tokenization-and-embeddings/q03-wordpiece.md) · [Q2-04](./questions/section-02-tokenization-and-embeddings/q04-unigram-lm.md) · [Q2-05](./questions/section-02-tokenization-and-embeddings/q05-byte-level-bpe.md) · [Q2-06](./questions/section-02-tokenization-and-embeddings/q06-embedding-layer.md) · [Q2-07](./questions/section-02-tokenization-and-embeddings/q07-token-fertility.md) | ✅ 7/7 |
 | **🟡 Intermediate (Q2-08–Q2-16)** | [Q2-08](./questions/section-02-tokenization-and-embeddings/q08-bpe-algorithm.md) · [Q2-09](./questions/section-02-tokenization-and-embeddings/q09-sentencepiece.md) · [Q2-10](./questions/section-02-tokenization-and-embeddings/q10-vocab-size-tradeoff.md) · [Q2-11](./questions/section-02-tokenization-and-embeddings/q11-embedding-init.md) · [Q2-12](./questions/section-02-tokenization-and-embeddings/q12-weight-tying-embeddings.md) · [Q2-13](./questions/section-02-tokenization-and-embeddings/q13-tokenization-numbers.md) · [Q2-14](./questions/section-02-tokenization-and-embeddings/q14-token-healing.md) · [Q2-15](./questions/section-02-tokenization-and-embeddings/q15-token-counting-heuristics.md) · [Q2-16](./questions/section-02-tokenization-and-embeddings/q16-special-tokens.md) | ✅ 9/9 |
 | **🔴 Advanced (Q2-17–Q2-23)** | Glitch tokens · Unigram LM derivation · multilingual tokenization · vocabulary overlap · tiktoken · tokenizer extension · context efficiency | 📝 0/7 |
-| **🔴 Advanced (Q2-17–Q2-23)** | Glitch tokens · Unigram LM derivation · multilingual tokenization · vocabulary overlap · tiktoken · tokenizer extension · context efficiency | 📝 0/7 |
 | **🔵 Applied (Q2-24–Q2-32)** | Multilingual tokenizer design · medical OOV · cost optimisation · evaluation · adversarial tokenization · 70B vocab expansion · RAG retrieval · long identifiers · benchmark suite | 📝 0/9 |
 
 ### Section 3 — Pretraining and Scaling Laws (16 answered · 16 scaffolded)
@@ -203,7 +229,7 @@ Each section is a folder with its own index; each question is one Markdown file;
 | Group | Questions | Status |
 |---|---|:---:|
 | **🟢 Basic (Q3-01–Q3-07)** | [Q3-01 Pretraining objective](./questions/section-03-pretraining-and-scaling-laws/q01-pretraining-objective.md) · [Q3-02 Kaplan scaling laws](./questions/section-03-pretraining-and-scaling-laws/q02-scaling-laws-kaplan.md) · [Q3-03 Chinchilla](./questions/section-03-pretraining-and-scaling-laws/q03-chinchilla.md) · [Q3-04 Data mix](./questions/section-03-pretraining-and-scaling-laws/q04-data-mix.md) · [Q3-05 Emergent abilities](./questions/section-03-pretraining-and-scaling-laws/q05-emergent-abilities.md) · [Q3-06 LR schedule](./questions/section-03-pretraining-and-scaling-laws/q06-lr-schedule.md) · [Q3-07 Gradient clipping](./questions/section-03-pretraining-and-scaling-laws/q07-gradient-clipping.md) | ✅ 7/7 |
-| **🟡 Intermediate (Q3-08–Q3-16)** | [Q3-08](./questions/section-03-pretraining-and-scaling-laws/q08-chinchilla-derivation.md) · [Q3-09](./questions/section-03-pretraining-and-scaling-laws/q09-deduplication.md) · [Q3-10](./questions/section-03-pretraining-and-scaling-laws/q10-batch-size.md) · [Q3-11](./questions/section-03-pretraining-and-scaling-laws/q11-mixed-precision.md) · [Q3-12](./questions/section-03-pretraining-and-scaling-laws/q12-adam-optimizer.md) · [Q3-13](./questions/section-03-pretraining-and-scaling-laws/q13-adamw-weight-decay.md) · [Q3-14](./questions/section-03-pretraining-and-scaling-laws/q14-loss-spikes.md) · [Q3-15](./questions/section-03-pretraining-and-scaling-laws/q15-data-quality-filtering.md) · [Q3-16](./questions/section-03-pretraining-and-scaling-laws/q16-compute-vs-inference-optimal.md) | ✅ 9/9 |
+| **🟡 Intermediate (Q3-08–Q3-16)** | [Q3-08 Chinchilla derivation](./questions/section-03-pretraining-and-scaling-laws/q08-chinchilla-derivation.md) · [Q3-09 Deduplication](./questions/section-03-pretraining-and-scaling-laws/q09-deduplication.md) · [Q3-10 Batch size](./questions/section-03-pretraining-and-scaling-laws/q10-batch-size.md) · [Q3-11 Mixed precision](./questions/section-03-pretraining-and-scaling-laws/q11-mixed-precision.md) · [Q3-12 Adam](./questions/section-03-pretraining-and-scaling-laws/q12-adam-optimizer.md) · [Q3-13 AdamW](./questions/section-03-pretraining-and-scaling-laws/q13-adamw-weight-decay.md) · [Q3-14 Loss spikes](./questions/section-03-pretraining-and-scaling-laws/q14-loss-spikes.md) · [Q3-15 Data filtering](./questions/section-03-pretraining-and-scaling-laws/q15-data-quality-filtering.md) · [Q3-16 Compute vs inference optimal](./questions/section-03-pretraining-and-scaling-laws/q16-compute-vs-inference-optimal.md) | ✅ 9/9 |
 | **🔴 Advanced (Q3-17–Q3-23)** | Full Chinchilla derivation · downstream scaling · MuP · cooldown phase · data-constrained scaling · code pretraining · GPT-4 predictions | 📝 0/7 |
 | **🔵 Applied (Q3-24–Q3-32)** | Compute budget allocation · loss spike debug · data pipeline · serve vs quality · CPT · Llama-3 recipe · monitoring · early stopping · scaling experiment | 📝 0/9 |
 
@@ -278,7 +304,7 @@ A quick-reference map across all 30 sections. Jump straight to the depth you nee
 |---------|--------------------------|
 | [§1 Transformer Architecture](./questions/section-01-transformer-architecture/README.md) | [Q11 O(n²) complexity](./questions/section-01-transformer-architecture/q11-attention-complexity.md) · [Q13 GQA/MQA](./questions/section-01-transformer-architecture/q13-gqa-mqa.md) · [Q14 RMSNorm](./questions/section-01-transformer-architecture/q14-rmsnorm-vs-layernorm.md) · [Q15 SwiGLU](./questions/section-01-transformer-architecture/q15-swiglu-geglu.md) · [Q18 QK‑norm ⭐](./questions/section-01-transformer-architecture/q18-qk-norm.md) · [Q19 RoPE](./questions/section-01-transformer-architecture/q19-position-encodings.md) · [Q20 ALiBi](./questions/section-01-transformer-architecture/q20-alibi.md) |
 | [§2 Tokenization & Embeddings](./questions/section-02-tokenization-and-embeddings/README.md) | [Q2-08 BPE complexity](./questions/section-02-tokenization-and-embeddings/q08-bpe-algorithm.md) · [Q2-09 SentencePiece](./questions/section-02-tokenization-and-embeddings/q09-sentencepiece.md) · [Q2-10 vocab size tradeoffs](./questions/section-02-tokenization-and-embeddings/q10-vocab-size-tradeoff.md) · [Q2-11 embedding init](./questions/section-02-tokenization-and-embeddings/q11-embedding-init.md) · [Q2-12 weight tying](./questions/section-02-tokenization-and-embeddings/q12-weight-tying-embeddings.md) · [Q2-13 numbers & arithmetic](./questions/section-02-tokenization-and-embeddings/q13-tokenization-numbers.md) · [Q2-14 token healing](./questions/section-02-tokenization-and-embeddings/q14-token-healing.md) · [Q2-15 heuristics](./questions/section-02-tokenization-and-embeddings/q15-token-counting-heuristics.md) · [Q2-16 special tokens](./questions/section-02-tokenization-and-embeddings/q16-special-tokens.md) |
-| [§3 Pretraining & Scaling Laws](./questions/section-03-pretraining-and-scaling-laws/README.md) | Chinchilla derivation · deduplication · batch size · mixed precision · Adam/AdamW · loss spikes · data filtering · compute vs. inference optimal |
+| [§3 Pretraining & Scaling Laws](./questions/section-03-pretraining-and-scaling-laws/README.md) | [Q3-08 Chinchilla derivation](./questions/section-03-pretraining-and-scaling-laws/q08-chinchilla-derivation.md) · [Q3-09 Deduplication](./questions/section-03-pretraining-and-scaling-laws/q09-deduplication.md) · [Q3-10 Batch size](./questions/section-03-pretraining-and-scaling-laws/q10-batch-size.md) · [Q3-11 Mixed precision](./questions/section-03-pretraining-and-scaling-laws/q11-mixed-precision.md) · [Q3-12 Adam](./questions/section-03-pretraining-and-scaling-laws/q12-adam-optimizer.md) · [Q3-13 AdamW](./questions/section-03-pretraining-and-scaling-laws/q13-adamw-weight-decay.md) · [Q3-14 Loss spikes](./questions/section-03-pretraining-and-scaling-laws/q14-loss-spikes.md) · [Q3-15 Data filtering](./questions/section-03-pretraining-and-scaling-laws/q15-data-quality-filtering.md) · [Q3-16 Compute vs inference optimal](./questions/section-03-pretraining-and-scaling-laws/q16-compute-vs-inference-optimal.md) |
 | [§23 Vector Databases](#section-23--vector-databases-and-search-infrastructure) | HNSW parameters · IVF clustering · PQ recall · LSH regimes · pre vs post filtering |
 | [§24 Chunking](#section-24--document-digitization-and-chunking-strategies) | Fixed vs sentence vs semantic chunking · multi-column PDFs · table chunking |
 | [§25 Embeddings](#section-25--embedding-models-and-semantic-search) | Long vs short document embedding · MRL · domain benchmarking · MTEB gap |
@@ -353,7 +379,7 @@ A quick-reference map across all 30 sections. Jump straight to the depth you nee
 
 | [🟢 Basic](#-basic) | [🟡 Intermediate](#-intermediate) | [🔴 Advanced](#-advanced) | [🔵 Applied](#-applied--system-design) |
 |:---:|:---:|:---:|:---:|
-| ✅ **7/7** | 📝 **0/9** | 📝 **0/7** | 📝 **0/9** |
+| ✅ **7/7** | ✅ **9/9** | 📝 **0/7** | 📝 **0/9** |
 | Q3-01–Q3-07 | Q3-08–Q3-16 | Q3-17–Q3-23 | Q3-24–Q3-32 |
 | CLM objective · Kaplan laws · **Chinchilla** · data mix · **emergence** · cosine LR · gradient clipping | Chinchilla derivation · deduplication · batch size · mixed precision · Adam · AdamW · loss spikes · data filtering · compute vs. inference optimal | IsoFLOP analysis · downstream scaling · MuP · cooldown phase · data-constrained · code pretraining · GPT-4 predictions | compute budget allocation · loss spike debug · 10T token pipeline · serve vs. quality tradeoff · CPT forgetting · Llama-3 recipe · monitoring · early stopping · scaling experiment |
 
