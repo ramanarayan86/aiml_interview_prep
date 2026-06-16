@@ -64,9 +64,9 @@ Parameters = 2 × V × d   (without weight tying)
 
 | V | d | fp16 bytes (no tying) | fp16 bytes (tied) |
 |---|---|-----------------------|-------------------|
-| 32K | 4096 | 512 MB | 256 MB |
-| 128K | 4096 | 2.0 GB | 1.0 GB |
-| 256K | 8192 | 8.0 GB | 4.0 GB |
+| 32K | 4096 | 524 MB | 262 MB |
+| 128K | 4096 | ~2.1 GB | ~1.0 GB |
+| 256K | 8192 | ~8.4 GB | ~4.2 GB |
 
 For a 7B parameter model, untied 256K × 8192 embeddings alone consume more than the rest of the model's weights.
 
@@ -118,9 +118,9 @@ This is a `d × V` matrix-vector product on every generated token. Doubling V do
 
 | V | Softmax FLOPs/token | Relative to 32K |
 |---|---------------------|-----------------|
-| 32K | 267M | 1× |
-| 128K | 1.07B | 4× |
-| 256K | 2.15B | 8× |
+| 32K | 262M | 1× |
+| 128K | 1.05B | 4× |
+| 256K | 2.10B | 8× |
 
 In practice the overhead is partially offset because longer sequences at small V require more transformer-layer passes per document.
 
