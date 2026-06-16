@@ -146,13 +146,13 @@ $$D^\beta = 0.832 \cdot N^\alpha$$
 
 $$D = \left(0.832 \cdot N^\alpha\right)^{1/\beta} = 0.832^{1/0.28} \cdot N^{\alpha/\beta}$$
 
-Computing the constants: $0.832^{1/0.28} = 0.832^{3.571} \approx 0.565$ and $\alpha/\beta = 0.34/0.28 \approx 1.214$.
+Computing the constants: $0.832^{1/0.28} = 0.832^{3.571} \approx 0.519$ and $\alpha/\beta = 0.34/0.28 \approx 1.214$.
 
-$$D \approx 0.565 \cdot N^{1.214}$$
+$$D \approx 0.519 \cdot N^{1.214}$$
 
 **Step 3:** Evaluate at N = 1B (10⁹ parameters):
 
-$$D \approx 0.565 \times (10^9)^{1.214} = 0.565 \times 10^{10.926} \approx 0.565 \times 8.43 \times 10^{10}$$
+$$D \approx 0.519 \times (10^9)^{1.214} = 0.519 \times 10^{10.926} \approx 0.519 \times 8.43 \times 10^{10}$$
 
 $$D \approx 4.76 \times 10^{10} \approx 47.6\text{B tokens}$$
 
@@ -412,11 +412,11 @@ $$N^* = \left(\frac{A\alpha}{B\beta \cdot 6^\beta}\right)^{1/(\alpha+\beta)} \cd
 
 $$= \left(\frac{406.4 \times 0.34}{410.7 \times 0.28 \times 6^{0.28}}\right)^{1/0.62} \times (10^{23})^{0.28/0.62}$$
 
-Computing the constant: $6^{0.28} \approx 1.664$, numerator = 138.2, denominator = 410.7 × 0.28 × 1.664 = 191.3.
+Computing the constant: $6^{0.28} \approx 1.6515$, numerator = 138.2, denominator = 410.7 × 0.28 × 1.6515 ≈ 189.9.
 
-$$\text{prefactor} = (138.2 / 191.3)^{1.613} = (0.722)^{1.613} \approx 0.625$$
+$$\text{prefactor} = (138.2 / 189.9)^{1.613} = (0.728)^{1.613} \approx 0.599$$
 
-$$N^* = 0.625 \times (10^{23})^{0.452} = 0.625 \times 10^{10.40} = 0.625 \times 2.51 \times 10^{10} \approx 1.57 \times 10^{10}$$
+$$N^* = 0.599 \times (10^{23})^{0.452} = 0.599 \times 10^{10.40} = 0.599 \times 2.51 \times 10^{10} \approx 1.50 \times 10^{10}$$
 
 This is approximately **15.7B parameters** from the pure analytical formula. The paper's direct empirical fit gives N* ≈ 67B for C = 10²³; this discrepancy reflects numerical sensitivity in the fitted constants. Using the paper's direct-fit coefficients (Approach 2):
 
