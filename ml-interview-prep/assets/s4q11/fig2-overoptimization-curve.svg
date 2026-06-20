@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 360" width="700" height="360">
+  <!-- Background -->
+  <rect width="700" height="360" fill="#f8f9fb" rx="10"/>
+
+  <!-- Title -->
+  <text x="350" y="28" font-family="sans-serif" font-size="14" font-weight="bold"
+        fill="#1f4fa3" text-anchor="middle">Reward Model Overoptimization (Gao et al., 2022)</text>
+
+  <!-- Exploitation zone shading (after peak) -->
+  <rect x="330.5" y="50" width="319.5" height="240" fill="#fdecea" opacity="0.6" rx="4"/>
+  <text x="490" y="68" font-family="sans-serif" font-size="11" fill="#c0392b"
+        text-anchor="middle" font-style="italic">exploitation zone</text>
+
+  <!-- Improvement zone shading (before peak) -->
+  <rect x="80" y="50" width="250.5" height="240" fill="#e8f4f0" opacity="0.5" rx="4"/>
+  <text x="204" y="68" font-family="sans-serif" font-size="11" fill="#0e8a6e"
+        text-anchor="middle" font-style="italic">improvement zone</text>
+
+  <!-- Axes -->
+  <!-- x-axis -->
+  <line x1="80" y1="290" x2="660" y2="290" stroke="#5b6675" stroke-width="1.5"/>
+  <!-- y-axis -->
+  <line x1="80" y1="50" x2="80" y2="295" stroke="#5b6675" stroke-width="1.5"/>
+
+  <!-- X axis arrow -->
+  <polygon points="660,286 668,290 660,294" fill="#5b6675"/>
+  <!-- Y axis arrow -->
+  <polygon points="76,50 80,42 84,50" fill="#5b6675"/>
+
+  <!-- X tick marks and labels -->
+  <line x1="80" y1="290" x2="80" y2="296" stroke="#5b6675" stroke-width="1"/>
+  <text x="80" y="308" font-family="sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">0</text>
+
+  <line x1="222.5" y1="290" x2="222.5" y2="296" stroke="#5b6675" stroke-width="1"/>
+  <text x="222.5" y="308" font-family="sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">50</text>
+
+  <line x1="365" y1="290" x2="365" y2="296" stroke="#5b6675" stroke-width="1"/>
+  <text x="365" y="308" font-family="sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">100</text>
+
+  <line x1="507.5" y1="290" x2="507.5" y2="296" stroke="#5b6675" stroke-width="1"/>
+  <text x="507.5" y="308" font-family="sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">150</text>
+
+  <line x1="650" y1="290" x2="650" y2="296" stroke="#5b6675" stroke-width="1"/>
+  <text x="650" y="308" font-family="sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">200</text>
+
+  <!-- X axis label -->
+  <text x="375" y="328" font-family="sans-serif" font-size="12" fill="#5b6675" text-anchor="middle">KL distance from SFT reference (nats)</text>
+
+  <!-- Y tick marks and labels: gold reward 0..8 mapped to 242.1..73.9 -->
+  <!-- y_svg = 242.1 at gold=0, y_svg=73.9 at gold=7.03 -->
+  <!-- step: (242.1-73.9)/7.03 * 1 ≈ 24.0 per unit -->
+  <!-- gold=0 -> 242.1 -->
+  <line x1="74" y1="242.1" x2="80" y2="242.1" stroke="#5b6675" stroke-width="1"/>
+  <text x="70" y="246" font-family="sans-serif" font-size="10" fill="#5b6675" text-anchor="end">0</text>
+
+  <!-- gold=2 -> 242.1 - 2*(242.1-73.9)/7.03 * ... let me just compute: range 168.2 over 8.031 units -->
+  <!-- Actually range of display: g_max=8.031, g_min=-2 => 10.031 total, y range 50..290=240 -->
+  <!-- y = 50 + (8.031 - g)/10.031 * 240 -->
+  <!-- g=2: y = 50 + (6.031/10.031)*240 = 50 + 144.3 = 194.3 -->
+  <line x1="74" y1="194.3" x2="80" y2="194.3" stroke="#5b6675" stroke-width="1"/>
+  <text x="70" y="198" font-family="sans-serif" font-size="10" fill="#5b6675" text-anchor="end">2</text>
+
+  <!-- g=4: y = 50 + (4.031/10.031)*240 = 50 + 96.5 = 146.5 -->
+  <line x1="74" y1="146.5" x2="80" y2="146.5" stroke="#5b6675" stroke-width="1"/>
+  <text x="70" y="150" font-family="sans-serif" font-size="10" fill="#5b6675" text-anchor="end">4</text>
+
+  <!-- g=6: y = 50 + (2.031/10.031)*240 = 50 + 48.6 = 98.6 -->
+  <line x1="74" y1="98.6" x2="80" y2="98.6" stroke="#5b6675" stroke-width="1"/>
+  <text x="70" y="102" font-family="sans-serif" font-size="10" fill="#5b6675" text-anchor="end">6</text>
+
+  <!-- Y axis label -->
+  <text x="22" y="175" font-family="sans-serif" font-size="12" fill="#5b6675"
+        text-anchor="middle" transform="rotate(-90 22 175)">Gold reward (human eval)</text>
+
+  <!-- Grid lines (light) -->
+  <line x1="80" y1="242.1" x2="660" y2="242.1" stroke="#d0d5de" stroke-width="0.8" stroke-dasharray="4,3"/>
+  <line x1="80" y1="194.3" x2="660" y2="194.3" stroke="#d0d5de" stroke-width="0.8" stroke-dasharray="4,3"/>
+  <line x1="80" y1="146.5" x2="660" y2="146.5" stroke="#d0d5de" stroke-width="0.8" stroke-dasharray="4,3"/>
+  <line x1="80" y1="98.6" x2="660" y2="98.6" stroke="#d0d5de" stroke-width="0.8" stroke-dasharray="4,3"/>
+
+  <!-- Vertical dashed line at peak (KL=87.9 -> x=330.5) -->
+  <line x1="330.5" y1="50" x2="330.5" y2="290" stroke="#1f4fa3" stroke-width="1.5"
+        stroke-dasharray="6,4"/>
+
+  <!-- The overoptimization curve: alpha=1.5, beta=0.08 -->
+  <path d="M 80.0 242.1 L 94.2 171.5 L 108.5 147.8 L 122.8 131.9 L 137.0 119.9 L 151.2 110.6 L 165.5 103.0 L 179.8 96.8 L 194.0 91.7 L 208.2 87.5 L 222.5 84.1 L 236.8 81.3 L 251.0 79.0 L 265.2 77.2 L 279.5 75.9 L 293.8 74.9 L 308.0 74.3 L 322.2 74.0 L 336.5 73.9 L 350.8 74.2 L 365.0 74.7 L 379.2 75.4 L 393.5 76.3 L 407.8 77.4 L 422.0 78.7 L 436.2 80.2 L 450.5 81.8 L 464.8 83.6 L 479.0 85.5 L 493.2 87.5 L 507.5 89.7 L 521.8 92.0 L 536.0 94.4 L 550.2 97.0 L 564.5 99.6 L 578.8 102.4 L 593.0 105.2 L 607.2 108.1 L 621.5 111.1 L 635.8 114.2 L 650.0 117.4"
+        fill="none" stroke="#1f4fa3" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <!-- Peak dot -->
+  <circle cx="330.5" cy="73.9" r="6" fill="#1f4fa3" stroke="white" stroke-width="2"/>
+
+  <!-- Peak annotation -->
+  <text x="335" y="64" font-family="sans-serif" font-size="11" fill="#1f4fa3" font-weight="bold">KL* &#x2248; 88 nats</text>
+  <text x="335" y="78" font-family="sans-serif" font-size="11" fill="#1f4fa3" font-weight="bold">(peak gold reward)</text>
+
+  <!-- SFT start annotation -->
+  <text x="85" y="236" font-family="sans-serif" font-size="10" fill="#0e8a6e">SFT start</text>
+
+  <!-- Down-arrow in exploitation zone -->
+  <polygon points="530,130 526,118 534,118" fill="#c0392b"/>
+  <line x1="530" y1="118" x2="530" y2="165" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="537" y="138" font-family="sans-serif" font-size="10" fill="#c0392b">quality</text>
+  <text x="537" y="151" font-family="sans-serif" font-size="10" fill="#c0392b">degrades</text>
+
+  <!-- Formula annotation -->
+  <text x="350" y="344" font-family="sans-serif" font-size="11" fill="#5b6675"
+        text-anchor="middle">gold(KL) &#x2248; &#x03B1;&#x221A;KL &#x2212; &#x03B2;&#x22C5;KL,  &#x03B1;=1.5, &#x03B2;=0.08;  peak at KL* = (&#x03B1;/2&#x03B2;)&#xB2; &#x2248; 87.9</text>
+</svg>

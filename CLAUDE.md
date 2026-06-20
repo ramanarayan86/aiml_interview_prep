@@ -6,7 +6,7 @@ This is a first-principles ML/LLM interview question bank at `ml-interview-prep/
 Each question is a standalone Markdown page with 15 sections, SVG figures, LaTeX equations,
 PyTorch code, worked numerical examples, and references.
 
-**66 questions answered** across 3 sections. Sections 4–30 are scaffolded.
+**83 questions answered** across 4 sections. Sections 5–30 are scaffolded.
 
 ## Directory structure
 
@@ -75,8 +75,8 @@ Color palette: navy #1f4fa3, teal #0e8a6e, amber #c77a12, purple #6c4fe0, gray #
 | §1 Transformer Architecture | 34 | 42 |
 | §2 Tokenization and Embeddings | 16 | 32 |
 | §3 Pretraining and Scaling Laws | 16 | 32 |
-| §4 Post-training: SFT, RLHF, DPO | 2 | 40 |
-| **Total** | **68** | **146** |
+| §4 Post-training: SFT, RLHF, DPO | 17 | 40 |
+| **Total** | **83** | **146** |
 <!-- Note: Total of 106 originally; §4 adds 40, so 106+40=146 total questions tracked -->
 
 ## Key references

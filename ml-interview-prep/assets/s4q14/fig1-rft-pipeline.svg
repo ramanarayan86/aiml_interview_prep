@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 380">
+  <!-- Background -->
+  <rect width="760" height="380" fill="#f8f9fb" rx="8"/>
+
+  <!-- Title -->
+  <text x="380" y="28" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1f4fa3">RFT / RAFT Pipeline vs PPO Pipeline</text>
+
+  <!-- ===== LEFT PANEL: RFT / RAFT ===== -->
+  <!-- Panel background -->
+  <rect x="12" y="44" width="352" height="322" rx="8" fill="#eef2fb" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="188" y="66" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f4fa3">RFT / RAFT  (SFT-based)</text>
+
+  <!-- Box 1: Policy -->
+  <rect x="120" y="78" width="136" height="38" rx="6" fill="#1f4fa3"/>
+  <text x="188" y="102" text-anchor="middle" font-family="sans-serif" font-size="12" fill="white" font-weight="bold">Policy  π_θ</text>
+
+  <!-- Arrow down -->
+  <line x1="188" y1="116" x2="188" y2="138" stroke="#5b6675" stroke-width="1.8" marker-end="url(#arrow-gray)"/>
+
+  <!-- Box 2: Sample K responses -->
+  <rect x="100" y="138" width="176" height="44" rx="6" fill="#0e8a6e"/>
+  <text x="188" y="157" text-anchor="middle" font-family="sans-serif" font-size="11" fill="white">Sample K responses</text>
+  <text x="188" y="173" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#cef5ee">{y₁, y₂, ..., y_K} ~ π_θ(·|x)</text>
+
+  <!-- Arrow down -->
+  <line x1="188" y1="182" x2="188" y2="204" stroke="#5b6675" stroke-width="1.8" marker-end="url(#arrow-gray)"/>
+
+  <!-- Box 3: Score with RM / Verifier -->
+  <rect x="100" y="204" width="176" height="44" rx="6" fill="#c77a12"/>
+  <text x="188" y="223" text-anchor="middle" font-family="sans-serif" font-size="11" fill="white">Score with RM / Verifier</text>
+  <text x="188" y="239" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#fde8c3">r_φ(x, y_i)  or  correct(y_i)</text>
+
+  <!-- Arrow down -->
+  <line x1="188" y1="248" x2="188" y2="270" stroke="#5b6675" stroke-width="1.8" marker-end="url(#arrow-gray)"/>
+
+  <!-- Box 4: Select best (argmax / top-p%) -->
+  <rect x="100" y="270" width="176" height="44" rx="6" fill="#6c4fe0"/>
+  <text x="188" y="289" text-anchor="middle" font-family="sans-serif" font-size="11" fill="white">Select best response(s)</text>
+  <text x="188" y="305" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#e0d8ff">y* = argmax  r_φ(x, y_i)</text>
+
+  <!-- Arrow down -->
+  <line x1="188" y1="314" x2="188" y2="336" stroke="#5b6675" stroke-width="1.8" marker-end="url(#arrow-gray)"/>
+
+  <!-- Box 5: SFT update -->
+  <rect x="120" y="336" width="136" height="22" rx="6" fill="#1f4fa3"/>
+  <text x="188" y="352" text-anchor="middle" font-family="sans-serif" font-size="11" fill="white">SFT update on (x, y*)</text>
+
+  <!-- Feedback arc: SFT → Policy -->
+  <path d="M 120 347 Q 50 280 120 89" fill="none" stroke="#1f4fa3" stroke-width="1.8" stroke-dasharray="5,3" marker-end="url(#arrow-blue)"/>
+  <text x="44" y="230" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#1f4fa3" transform="rotate(-90,44,230)">iterate</text>
+
+  <!-- ===== RIGHT PANEL: PPO ===== -->
+  <rect x="396" y="44" width="352" height="322" rx="8" fill="#fef6ee" stroke="#c77a12" stroke-width="1.5"/>
+  <text x="572" y="66" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#c77a12">PPO / RLHF  (RL-based)</text>
+
+  <!-- Box 1: Policy -->
+  <rect x="504" y="78" width="136" height="38" rx="6" fill="#1f4fa3"/>
+  <text x="572" y="102" text-anchor="middle" font-family="sans-serif" font-size="12" fill="white" font-weight="bold">Policy  π_θ</text>
+
+  <!-- Arrow down -->
+  <line x1="572" y1="116" x2="572" y2="138" stroke="#5b6675" stroke-width="1.8" marker-end="url(#arrow-gray)"/>
+
+  <!-- Box 2: Sample response -->
+  <rect x="484" y="138" width="176" height="44" rx="6" fill="#0e8a6e"/>
+  <text x="572" y="157" text-anchor="middle" font-family="sans-serif" font-size="11" fill="white">Sample response</text>
+  <text x="572" y="173" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#cef5ee">y ~ π_θ(·|x)</text>
+
+  <!-- Arrow down -->
+  <line x1="572" y1="182" x2="572" y2="204" stroke="#5b6675" stroke-width="1.8" marker-end="url(#arrow-gray)"/>
+
+  <!-- Box 3: RM Score + KL penalty -->
+  <rect x="484" y="204" width="176" height="44" rx="6" fill="#c77a12"/>
+  <text x="572" y="223" text-anchor="middle" font-family="sans-serif" font-size="11" fill="white">RM score + KL penalty</text>
+  <text x="572" y="239" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#fde8c3">r(x,y) - β·KL(π_θ||π_ref)</text>
+
+  <!-- Arrow down -->
+  <line x1="572" y1="248" x2="572" y2="270" stroke="#5b6675" stroke-width="1.8" marker-end="url(#arrow-gray)"/>
+
+  <!-- Box 4: Advantage estimation + clipped surrogate -->
+  <rect x="484" y="270" width="176" height="44" rx="6" fill="#6c4fe0"/>
+  <text x="572" y="289" text-anchor="middle" font-family="sans-serif" font-size="11" fill="white">Advantage est. (GAE)</text>
+  <text x="572" y="305" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#e0d8ff">clipped surrogate loss</text>
+
+  <!-- Arrow down -->
+  <line x1="572" y1="314" x2="572" y2="336" stroke="#5b6675" stroke-width="1.8" marker-end="url(#arrow-gray)"/>
+
+  <!-- Box 5: Policy gradient update -->
+  <rect x="504" y="336" width="136" height="22" rx="6" fill="#1f4fa3"/>
+  <text x="572" y="352" text-anchor="middle" font-family="sans-serif" font-size="11" fill="white">Policy gradient update</text>
+
+  <!-- Feedback arc -->
+  <path d="M 504 347 Q 434 280 504 89" fill="none" stroke="#c77a12" stroke-width="1.8" stroke-dasharray="5,3" marker-end="url(#arrow-amber)"/>
+  <text x="428" y="230" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#c77a12" transform="rotate(-90,428,230)">on-policy</text>
+
+  <!-- VS divider -->
+  <line x1="380" y1="60" x2="380" y2="360" stroke="#5b6675" stroke-width="1" stroke-dasharray="4,4"/>
+  <rect x="364" y="195" width="32" height="22" rx="4" fill="#5b6675"/>
+  <text x="380" y="211" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="white">VS</text>
+
+  <!-- Legend row -->
+  <rect x="30" y="375" width="10" height="4" fill="#1f4fa3"/>
+  <text x="46" y="379" font-family="sans-serif" font-size="9" fill="#5b6675">No value fn</text>
+  <rect x="130" y="375" width="10" height="4" fill="#0e8a6e"/>
+  <text x="146" y="379" font-family="sans-serif" font-size="9" fill="#5b6675">SFT loss only</text>
+  <rect x="420" y="375" width="10" height="4" fill="#c77a12"/>
+  <text x="436" y="379" font-family="sans-serif" font-size="9" fill="#5b6675">Needs critic / value model</text>
+  <rect x="600" y="375" width="10" height="4" fill="#6c4fe0"/>
+  <text x="616" y="379" font-family="sans-serif" font-size="9" fill="#5b6675">On-policy gradients</text>
+
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arrow-gray" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#5b6675"/>
+    </marker>
+    <marker id="arrow-blue" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#1f4fa3"/>
+    </marker>
+    <marker id="arrow-amber" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#c77a12"/>
+    </marker>
+  </defs>
+</svg>

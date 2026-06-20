@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 360" width="700" height="360">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#5b6675"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="6" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 9 3, 0 6" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-navy" markerWidth="9" markerHeight="6" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 9 3, 0 6" fill="#1f4fa3"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="700" height="360" fill="#f8f9fb" rx="8"/>
+
+  <!-- Title -->
+  <text x="350" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="bold" fill="#1f4fa3">GAE &#955;: Bias-Variance Curves vs. Lambda</text>
+
+  <!-- Plot area: x 80..580, y 55..270 -->
+
+  <!-- Horizontal axis (lambda) -->
+  <line x1="80" y1="270" x2="590" y2="270" stroke="#5b6675" stroke-width="2" marker-end="url(#arr)"/>
+  <!-- Lambda tick labels -->
+  <text x="80"  y="286" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#5b6675">0</text>
+  <text x="182" y="286" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#5b6675">0.2</text>
+  <text x="284" y="286" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#5b6675">0.4</text>
+  <text x="386" y="286" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#5b6675">0.6</text>
+  <text x="488" y="286" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#5b6675">0.8</text>
+  <text x="565" y="286" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#5b6675">1.0</text>
+  <!-- x-axis label -->
+  <text x="330" y="305" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#5b6675">&#955; (GAE lambda)</text>
+
+  <!-- Left y-axis: Bias -->
+  <line x1="80" y1="270" x2="80" y2="45" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="42" y="162" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#c0392b" transform="rotate(-90 42 162)">Bias (squared)</text>
+
+  <!-- Right y-axis: Variance -->
+  <line x1="580" y1="270" x2="580" y2="45" stroke="#1f4fa3" stroke-width="2" marker-end="url(#arr-navy)"/>
+  <text x="636" y="162" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#1f4fa3" transform="rotate(90 636 162)">Variance</text>
+
+  <!-- Grid lines (light) -->
+  <line x1="80" y1="195" x2="580" y2="195" stroke="#cccccc" stroke-width="1" stroke-dasharray="3,4"/>
+  <line x1="80" y1="130" x2="580" y2="130" stroke="#cccccc" stroke-width="1" stroke-dasharray="3,4"/>
+  <line x1="80" y1="65"  x2="580" y2="65"  stroke="#cccccc" stroke-width="1" stroke-dasharray="3,4"/>
+
+  <!-- Bias curve: starts HIGH at lambda=0 (y=65), decreases exponentially to ~0 at lambda=1 (y=265) -->
+  <!-- Using cubic bezier: M(80,65) C(200,75) (350,200) (565,265) -->
+  <path d="M80,65 C160,72 280,165 400,230 C460,255 510,263 565,266"
+        stroke="#c0392b" stroke-width="2.5" fill="none"/>
+
+  <!-- Variance curve: starts LOW at lambda=0 (y=265), increases to HIGH at lambda=1 (y=65) -->
+  <!-- Using cubic bezier increasing -->
+  <path d="M80,263 C160,260 280,240 400,185 C460,158 510,110 565,68"
+        stroke="#1f4fa3" stroke-width="2.5" fill="none"/>
+
+  <!-- Optimal region: lambda 0.9-0.97, approximately x range: 80 + 0.9*485 = 517 to 80+0.97*485=550 -->
+  <rect x="517" y="55" width="38" height="220" fill="#c77a12" fill-opacity="0.12" rx="4"/>
+  <line x1="517" y1="55" x2="517" y2="275" stroke="#c77a12" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <line x1="555" y1="55" x2="555" y2="275" stroke="#c77a12" stroke-width="1.5" stroke-dasharray="5,3"/>
+
+  <!-- Optimal region label -->
+  <text x="536" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#c77a12">optimal</text>
+  <text x="536" y="298" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#c77a12">0.9-0.97</text>
+
+  <!-- Lambda=0.95 dot -->
+  <!-- x position for 0.95: 80 + 0.95*485 = 80+460.75 = 541 -->
+  <circle cx="541" cy="200" r="6" fill="#c77a12"/>
+  <text x="541" y="320" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#c77a12">&#955;=0.95</text>
+  <text x="541" y="333" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#c77a12">RLHF default</text>
+
+  <!-- Lambda=0 annotation -->
+  <circle cx="80" cy="263" r="5" fill="#0e8a6e"/>
+  <text x="80" y="340" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#0e8a6e">TD(0)</text>
+
+  <!-- Lambda=1 annotation -->
+  <circle cx="565" cy="68" r="5" fill="#6c4fe0"/>
+  <text x="565" y="340" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#6c4fe0">MC</text>
+
+  <!-- Legend -->
+  <rect x="150" y="62" width="200" height="54" fill="white" stroke="#cccccc" stroke-width="1" rx="5"/>
+  <line x1="162" y1="80" x2="192" y2="80" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="198" y="84" font-family="Arial, sans-serif" font-size="11" fill="#c0392b">Bias (decreases as &#955;&#8599;1)</text>
+  <line x1="162" y1="102" x2="192" y2="102" stroke="#1f4fa3" stroke-width="2.5"/>
+  <text x="198" y="106" font-family="Arial, sans-serif" font-size="11" fill="#1f4fa3">Variance (increases as &#955;&#8599;1)</text>
+
+</svg>

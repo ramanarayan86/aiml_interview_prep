@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400">
+  <!-- Background -->
+  <rect width="720" height="400" fill="#f8f9fb"/>
+
+  <!-- Title -->
+  <text x="360" y="26" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1f4fa3">RLHF Pipeline vs DPO Pipeline</text>
+
+  <!-- Divider line -->
+  <line x1="360" y1="38" x2="360" y2="390" stroke="#5b6675" stroke-width="1" stroke-dasharray="5,4"/>
+
+  <!-- ===== LEFT: RLHF ===== -->
+  <text x="180" y="56" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1f4fa3">RLHF (3-Stage)</text>
+
+  <!-- Stage 1: SFT -->
+  <rect x="60" y="68" width="240" height="46" rx="7" fill="#1f4fa3" opacity="0.15" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="180" y="88" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f4fa3">1. Supervised Fine-Tuning (SFT)</text>
+  <text x="180" y="105" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#5b6675">Train policy on demonstration data</text>
+
+  <!-- Arrow -->
+  <line x1="180" y1="114" x2="180" y2="132" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrowL)"/>
+
+  <!-- Stage 2: Reward Model -->
+  <rect x="60" y="132" width="240" height="54" rx="7" fill="#c77a12" opacity="0.15" stroke="#c77a12" stroke-width="1.5"/>
+  <text x="180" y="153" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#c77a12">2. Reward Model Training</text>
+  <text x="180" y="169" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#5b6675">Train r&#x3b8;(x,y) on human preference pairs</text>
+  <text x="180" y="182" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#c0392b">(separate model, extra GPU memory)</text>
+
+  <!-- Arrow -->
+  <line x1="180" y1="186" x2="180" y2="204" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrowL)"/>
+
+  <!-- Stage 3: PPO -->
+  <rect x="60" y="204" width="240" height="70" rx="7" fill="#6c4fe0" opacity="0.12" stroke="#6c4fe0" stroke-width="1.5"/>
+  <text x="180" y="225" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#6c4fe0">3. PPO Reinforcement Learning</text>
+  <text x="180" y="241" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#5b6675">Sample rollouts from policy</text>
+  <text x="180" y="255" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#5b6675">Score with reward model</text>
+  <text x="180" y="269" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#5b6675">Update with PPO + KL penalty</text>
+
+  <!-- Arrow -->
+  <line x1="180" y1="274" x2="180" y2="292" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrowL)"/>
+
+  <!-- Output RLHF -->
+  <rect x="80" y="292" width="200" height="36" rx="7" fill="#1f4fa3" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="180" y="310" text-anchor="middle" font-family="sans-serif" font-size="11.5" font-weight="bold" fill="#ffffff">Aligned Policy &#960;&#x3b8;</text>
+  <text x="180" y="323" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#d0daf7">Requires 3 models simultaneously</text>
+
+  <!-- Complexity callout -->
+  <rect x="60" y="340" width="240" height="44" rx="6" fill="#c0392b" opacity="0.10" stroke="#c0392b" stroke-width="1"/>
+  <text x="180" y="358" text-anchor="middle" font-family="sans-serif" font-size="10.5" font-weight="bold" fill="#c0392b">Complexity factors</text>
+  <text x="180" y="372" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5b6675">RM training &#183; PPO instability &#183; 4 models in memory</text>
+  <text x="180" y="384" text-anchor="middle" font-family="sans-serif" font-size="9.5" fill="#5b6675">(policy + ref + reward + value function)</text>
+
+  <!-- ===== RIGHT: DPO ===== -->
+  <text x="540" y="56" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0e8a6e">DPO (2-Stage)</text>
+
+  <!-- Stage 1: SFT -->
+  <rect x="420" y="68" width="240" height="46" rx="7" fill="#1f4fa3" opacity="0.15" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="540" y="88" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f4fa3">1. Supervised Fine-Tuning (SFT)</text>
+  <text x="540" y="105" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#5b6675">Same as RLHF stage 1</text>
+
+  <!-- Arrow -->
+  <line x1="540" y1="114" x2="540" y2="132" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrowL)"/>
+
+  <!-- Stage 2: Direct gradient -->
+  <rect x="420" y="132" width="240" height="84" rx="7" fill="#0e8a6e" opacity="0.13" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="540" y="153" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0e8a6e">2. DPO Gradient on Pairs</text>
+  <text x="540" y="170" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#5b6675">No rollouts &#8212; use offline preference data</text>
+  <text x="540" y="185" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#5b6675">Compute log-ratio for chosen / rejected</text>
+  <text x="540" y="199" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#5b6675">Backprop through &#8722;log &#963;(margin)</text>
+  <text x="540" y="212" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#0e8a6e">(implicit RM: r&#x3b8; = &#946; log &#960;&#x3b8;/&#960;&#x5f;ref)</text>
+
+  <!-- Arrow -->
+  <line x1="540" y1="216" x2="540" y2="234" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrowL)"/>
+
+  <!-- Output DPO -->
+  <rect x="440" y="234" width="200" height="36" rx="7" fill="#0e8a6e" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="540" y="252" text-anchor="middle" font-family="sans-serif" font-size="11.5" font-weight="bold" fill="#ffffff">Aligned Policy &#960;&#x3b8;</text>
+  <text x="540" y="265" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#cff0e8">Only 2 models needed (policy + ref)</text>
+
+  <!-- Simplicity callout -->
+  <rect x="420" y="282" width="240" height="44" rx="6" fill="#0e8a6e" opacity="0.10" stroke="#0e8a6e" stroke-width="1"/>
+  <text x="540" y="300" text-anchor="middle" font-family="sans-serif" font-size="10.5" font-weight="bold" fill="#0e8a6e">Simplicity factors</text>
+  <text x="540" y="316" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5b6675">No RM &#183; no rollouts &#183; standard cross-entropy</text>
+  <text x="540" y="328" text-anchor="middle" font-family="sans-serif" font-size="9.5" fill="#5b6675">2 models in memory (policy + frozen ref)</text>
+
+  <!-- Caveat -->
+  <rect x="420" y="338" width="240" height="44" rx="6" fill="#c77a12" opacity="0.10" stroke="#c77a12" stroke-width="1"/>
+  <text x="540" y="356" text-anchor="middle" font-family="sans-serif" font-size="10.5" font-weight="bold" fill="#c77a12">Known limitations</text>
+  <text x="540" y="372" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5b6675">Log-prob collapse &#183; offline dist. shift &#183; &#946;-sensitivity</text>
+  <text x="540" y="384" text-anchor="middle" font-family="sans-serif" font-size="9.5" fill="#5b6675">Relies on quality of preference dataset</text>
+
+  <!-- Arrow marker -->
+  <defs>
+    <marker id="arrowL" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
+      <path d="M0,0 L0,7 L7,3.5 Z" fill="#5b6675"/>
+    </marker>
+  </defs>
+</svg>

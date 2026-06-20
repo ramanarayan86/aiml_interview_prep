@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 420">
+  <!-- Background -->
+  <rect width="760" height="420" fill="#f8f9fb"/>
+
+  <!-- Title -->
+  <text x="380" y="30" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="bold" fill="#1f4fa3">DPO Derivation: From RLHF Objective to Loss Function</text>
+
+  <!-- Step 1: RLHF KL-constrained objective -->
+  <rect x="30" y="50" width="700" height="64" rx="8" fill="#1f4fa3" opacity="0.12" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="50" y="72" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f4fa3">Step 1 — RLHF KL-constrained objective</text>
+  <text x="380" y="96" text-anchor="middle" font-family="monospace" font-size="12" fill="#1a1a2e">max&#x3c0;  E[r(x,y)] &#8722; &#946; &#183; KL[&#960;(&#183;|x) &#8741; &#960;&#x5f;ref(&#183;|x)]</text>
+
+  <!-- Arrow 1 -->
+  <line x1="380" y1="114" x2="380" y2="136" stroke="#5b6675" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <text x="392" y="128" font-family="sans-serif" font-size="10" fill="#5b6675">solve for &#960;*</text>
+
+  <!-- Step 2: Closed-form optimal policy -->
+  <rect x="30" y="136" width="700" height="64" rx="8" fill="#0e8a6e" opacity="0.10" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="50" y="158" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0e8a6e">Step 2 — Closed-form optimal policy</text>
+  <text x="380" y="182" text-anchor="middle" font-family="monospace" font-size="12" fill="#1a1a2e">&#960;*(y|x) = (1/Z(x)) &#183; &#960;&#x5f;ref(y|x) &#183; exp(r(x,y)/&#946;)    where Z(x) = &#8721;&#x5f;y &#960;&#x5f;ref exp(r/&#946;)</text>
+
+  <!-- Arrow 2 -->
+  <line x1="380" y1="200" x2="380" y2="222" stroke="#5b6675" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <text x="392" y="214" font-family="sans-serif" font-size="10" fill="#5b6675">rearrange for r</text>
+
+  <!-- Step 3: Express r via policy ratio -->
+  <rect x="30" y="222" width="700" height="64" rx="8" fill="#c77a12" opacity="0.10" stroke="#c77a12" stroke-width="1.5"/>
+  <text x="50" y="244" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c77a12">Step 3 — Express r in terms of &#960;* and &#960;&#x5f;ref</text>
+  <text x="380" y="268" text-anchor="middle" font-family="monospace" font-size="12" fill="#1a1a2e">r(x,y) = &#946; &#183; log(&#960;*(y|x) / &#960;&#x5f;ref(y|x)) + &#946; &#183; log Z(x)</text>
+
+  <!-- Arrow 3 -->
+  <line x1="380" y1="286" x2="380" y2="308" stroke="#5b6675" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <text x="392" y="300" font-family="sans-serif" font-size="10" fill="#5b6675">plug into Bradley-Terry; Z(x) cancels</text>
+
+  <!-- Step 4: DPO loss -->
+  <rect x="30" y="308" width="700" height="80" rx="8" fill="#6c4fe0" opacity="0.10" stroke="#6c4fe0" stroke-width="2"/>
+  <text x="50" y="330" font-family="sans-serif" font-size="11" font-weight="bold" fill="#6c4fe0">Step 4 — DPO Loss (no reward model, no rollouts)</text>
+  <text x="380" y="356" text-anchor="middle" font-family="monospace" font-size="11.5" fill="#1a1a2e">L&#x5f;DPO(&#952;) = -E[ log &#963;( &#946;&#183;log(&#960;&#x3b8;(y&#x5f;w|x)/&#960;&#x5f;ref(y&#x5f;w|x)) &#8722; &#946;&#183;log(&#960;&#x3b8;(y&#x5f;l|x)/&#960;&#x5f;ref(y&#x5f;l|x)) ) ]</text>
+  <text x="380" y="378" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#5b6675">Replace &#960;* with &#960;&#x3b8; &#183; take &#8722;log-likelihood over preference pairs &#183; Z(x) has cancelled &#8658; tractable</text>
+
+  <!-- Arrow marker -->
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M0,0 L0,8 L8,4 Z" fill="#5b6675"/>
+    </marker>
+  </defs>
+
+  <!-- Legend note -->
+  <text x="380" y="410" text-anchor="middle" font-family="sans-serif" font-size="9.5" fill="#5b6675">&#946; = KL penalty coefficient &#183; &#963; = sigmoid &#183; y&#x5f;w = preferred response &#183; y&#x5f;l = dispreferred response</text>
+</svg>

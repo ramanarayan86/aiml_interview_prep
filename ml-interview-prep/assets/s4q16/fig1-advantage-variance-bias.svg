@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 380" width="700" height="380">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#5b6675"/>
+    </marker>
+    <marker id="arrowhead-navy" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1f4fa3"/>
+    </marker>
+    <linearGradient id="spectrumGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0e8a6e"/>
+      <stop offset="50%" stop-color="#c77a12"/>
+      <stop offset="100%" stop-color="#1f4fa3"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="700" height="380" fill="#f8f9fb" rx="8"/>
+
+  <!-- Title -->
+  <text x="350" y="34" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="bold" fill="#1f4fa3">Advantage Estimation: Bias-Variance Tradeoff</text>
+
+  <!-- Bias-Variance axis region -->
+  <!-- Main plot area: x 80..620, y 60..290 -->
+
+  <!-- Variance axis (horizontal, bottom) -->
+  <line x1="80" y1="290" x2="625" y2="290" stroke="#5b6675" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="640" y="295" font-family="Arial, sans-serif" font-size="12" fill="#5b6675">Variance</text>
+  <text x="352" y="315" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#5b6675">increasing &#x2192;</text>
+
+  <!-- Bias axis (vertical, left) -->
+  <line x1="80" y1="290" x2="80" y2="55" stroke="#5b6675" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="38" y="176" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#5b6675" transform="rotate(-90 38 176)">Bias &#x2191;</text>
+
+  <!-- Zero bias dashed line (horizontal) -->
+  <line x1="80" y1="105" x2="625" y2="105" stroke="#5b6675" stroke-width="1" stroke-dasharray="5,4" opacity="0.5"/>
+  <text x="72" y="109" text-anchor="end" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">zero</text>
+  <text x="72" y="120" text-anchor="end" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">bias</text>
+
+  <!-- Bias curve: high at left (lambda=0), goes down to ~zero at lambda=1 -->
+  <!-- curve: starts at (80,260), ends at (620,105) -->
+  <path d="M80,260 C160,250 260,220 380,150 C460,120 540,108 620,105"
+        stroke="#c0392b" stroke-width="2.5" fill="none" stroke-dasharray="6,3"/>
+  <!-- Variance curve: low at left (lambda=0), high at lambda=1 -->
+  <path d="M80,265 C200,268 320,275 440,230 C510,205 570,165 620,110"
+        stroke="#1f4fa3" stroke-width="2.5" fill="none"/>
+
+  <!-- Legend for curves -->
+  <line x1="430" y1="345" x2="460" y2="345" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="6,3"/>
+  <text x="466" y="349" font-family="Arial, sans-serif" font-size="11" fill="#c0392b">Bias</text>
+  <line x1="510" y1="345" x2="540" y2="345" stroke="#1f4fa3" stroke-width="2.5"/>
+  <text x="546" y="349" font-family="Arial, sans-serif" font-size="11" fill="#1f4fa3">Variance</text>
+
+  <!-- TD(0) marker at far left -->
+  <circle cx="80" cy="265" r="7" fill="#0e8a6e"/>
+  <text x="80" y="333" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#0e8a6e">&#955;=0</text>
+  <text x="80" y="348" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#0e8a6e">TD residual</text>
+  <text x="80" y="361" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#5b6675">low var, high bias</text>
+
+  <!-- MC marker at far right -->
+  <circle cx="620" cy="108" r="7" fill="#1f4fa3"/>
+  <text x="620" y="333" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#1f4fa3">&#955;=1</text>
+  <text x="620" y="348" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#1f4fa3">MC return</text>
+  <text x="620" y="361" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#5b6675">high var, zero bias</text>
+
+  <!-- GAE sweet spot at lambda~0.95 -->
+  <!-- x position: ~0.95 of the way: 80 + 0.95*(620-80) = 80+513=593, but let's call lambda=0.95 at x=590 -->
+  <circle cx="590" cy="113" r="10" fill="none" stroke="#c77a12" stroke-width="2.5"/>
+  <circle cx="590" cy="113" r="4" fill="#c77a12"/>
+  <!-- Sweet spot shaded region roughly lambda 0.9..0.97 -->
+  <rect x="558" y="68" width="52" height="240" fill="#c77a12" fill-opacity="0.08" rx="4"/>
+  <text x="584" y="65" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#c77a12">sweet spot</text>
+
+  <text x="590" y="333" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#c77a12">&#955;=0.95</text>
+  <text x="590" y="348" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#c77a12">GAE (typical)</text>
+  <text x="590" y="361" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#5b6675">balanced</text>
+
+  <!-- Formula box -->
+  <rect x="140" y="68" width="340" height="56" fill="white" stroke="#1f4fa3" stroke-width="1.5" rx="6"/>
+  <text x="310" y="87" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#1f4fa3">GAE Formula</text>
+  <text x="310" y="107" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#1f4fa3">&#194;&#770;&#x209C; = &#931;&#8467; (&#947;&#955;)&#737; &#183; &#948;&#x209C;&#x208A;&#737;</text>
+  <text x="310" y="120" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#5b6675">&#948;&#x209C; = r&#x209C; + &#947; V(s&#x209C;&#x208A;&#8321;) &#8722; V(s&#x209C;)</text>
+
+</svg>

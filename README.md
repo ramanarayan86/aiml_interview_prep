@@ -7,7 +7,7 @@
 ![Scope](https://img.shields.io/badge/scope-LLMs_&_VLMs-1f4fa3)
 ![Sections](https://img.shields.io/badge/sections-30-0e8a6e)
 ![Questions](https://img.shields.io/badge/questions-800%2B-6c4fe0)
-![Answered](https://img.shields.io/badge/answered-73-c77a12)
+![Answered](https://img.shields.io/badge/answered-83-c77a12)
 ![Format](https://img.shields.io/badge/format-Markdown_+_SVG_+_LaTeX-16202e)
 
 </div>
@@ -18,7 +18,7 @@
 
 **[ml-interview-prep/](./ml-interview-prep/README.md)**
 
-Everything is inside that folder: 73 fully answered questions across 4 sections, 145+ SVG figures, PyTorch code, worked examples, and scaffolded question lists for Sections 5–30.
+Everything is inside that folder: 83 fully answered questions across 4 sections, 165+ SVG figures, PyTorch code, worked examples, and scaffolded question lists for Sections 5–30.
 
 ---
 
@@ -29,7 +29,7 @@ Everything is inside that folder: 73 fully answered questions across 4 sections,
 | [§1 — Transformer Architecture](./ml-interview-prep/questions/section-01-transformer-architecture/README.md) | ✅ 34 / 42 | Basic · Intermediate · Advanced |
 | [§2 — Tokenization and Embeddings](./ml-interview-prep/questions/section-02-tokenization-and-embeddings/README.md) | ✅ 16 / 32 | Basic · Intermediate |
 | [§3 — Pretraining and Scaling Laws](./ml-interview-prep/questions/section-03-pretraining-and-scaling-laws/README.md) | ✅ 16 / 32 | Basic · Intermediate |
-| [§4 — Post-training: SFT, RLHF, DPO](./ml-interview-prep/questions/section-04-post-training-sft-rlhf-dpo/README.md) | ✅ 7 / 40 | Basic |
+| [§4 — Post-training: SFT, RLHF, DPO](./ml-interview-prep/questions/section-04-post-training-sft-rlhf-dpo/README.md) | ✅ 17 / 40 | Basic · Intermediate |
 | §5 – §30 | 📝 scaffolded | Question lists ready, answers coming |
 
 ---

@@ -7,7 +7,7 @@
 [![Scope](https://img.shields.io/badge/scope-LLMs_&_VLMs-1f4fa3)](#table-of-contents)
 [![Sections](https://img.shields.io/badge/sections-30-0e8a6e)](#table-of-contents)
 [![Questions](https://img.shields.io/badge/questions-800%2B-6c4fe0)](#questions-by-level)
-[![Answered](https://img.shields.io/badge/answered-73%2F146-c77a12)](#table-of-contents)
+[![Answered](https://img.shields.io/badge/answered-83%2F146-c77a12)](#table-of-contents)
 [![Levels](https://img.shields.io/badge/levels-Basic→Intermediate→Advanced→Applied-c77a12)](#questions-by-level)
 [![Format](https://img.shields.io/badge/format-Markdown_+_SVG_+_LaTeX-16202e)](#repository-layout)
 
@@ -214,7 +214,7 @@ Each section is a folder with its own index; each question is one Markdown file;
 
 ## ⭐ Current status
 
-**73 questions fully answered across Sections 1–4.** Sections 4–22 are fully scaffolded — all questions listed, tagged, and organized by level. Every section has a README with question tables, themes, and reading-order suggestions. Answers are being written section-by-section following the same first-principles template: 20-second answer → first principles → mechanism → algorithm & pseudocode → PyTorch reference implementation → worked numerical example → interview drill → common misconceptions → one-screen summary → references.
+**83 questions fully answered across Sections 1–4.** Sections 4–22 are fully scaffolded — all questions listed, tagged, and organized by level. Every section has a README with question tables, themes, and reading-order suggestions. Answers are being written section-by-section following the same first-principles template: 20-second answer → first principles → mechanism → algorithm & pseudocode → PyTorch reference implementation → worked numerical example → interview drill → common misconceptions → one-screen summary → references.
 
 ### Section 1 — Transformer Architecture (34 answered · 8 scaffolded)
 
@@ -256,7 +256,7 @@ Each section is a folder with its own index; each question is one Markdown file;
 | 1 | [**Transformer Architecture Fundamentals**](./questions/section-01-transformer-architecture/README.md) | attention, norms, position, FFN, variants | 42 | ✅ 34/42 · 📝 8/42 |
 | 2 | [**Tokenization and Embeddings**](./questions/section-02-tokenization-and-embeddings/README.md) | BPE/WordPiece/Unigram, byte‑level, glitch tokens | 32 | ✅ 16/32 · 📝 16/32 |
 | 3 | [**Pretraining and Scaling Laws**](./questions/section-03-pretraining-and-scaling-laws/README.md) | Chinchilla, data/compute optima, emergence | 32 | ✅ 16/32 · 📝 16/32 |
-| 4 | [**Post‑training: SFT, RLHF, DPO and Beyond**](./questions/section-04-post-training-sft-rlhf-dpo/README.md) | reward models, PPO, DPO/IPO/KTO | 40 | ✅ 7/40 · 📝 33/40 |
+| 4 | [**Post‑training: SFT, RLHF, DPO and Beyond**](./questions/section-04-post-training-sft-rlhf-dpo/README.md) | reward models, PPO, DPO/IPO/KTO | 40 | ✅ 17/40 · 📝 23/40 |
 | 5 | [**Reasoning, CoT, and Inference‑Time Compute**](./questions/section-05-reasoning-cot-inference-time-compute/README.md) | CoT, self‑consistency, search, o‑series | 34 | 📝 |
 | 6 | [**Efficient Inference and Serving**](./questions/section-06-efficient-inference-and-serving/README.md) | KV cache, batching, speculative decoding | 40 | 📝 |
 | 7 | [**Quantization and Model Compression**](./questions/section-07-quantization-and-model-compression/README.md) | INT8/FP8/FP4, GPTQ/AWQ, MXFP, distillation | 46 | 📝 |
@@ -395,7 +395,7 @@ A quick-reference map across all 30 sections. Jump straight to the depth you nee
 
 </div>
 
-### Section 4 — Post-training: SFT, RLHF, DPO · 7 answered · 33 scaffolded — [**Open →**](./questions/section-04-post-training-sft-rlhf-dpo/README.md)
+### Section 4 — Post-training: SFT, RLHF, DPO · 17 answered · 23 scaffolded — [**Open →**](./questions/section-04-post-training-sft-rlhf-dpo/README.md)
 
 <div align="center">
 

@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 360">
+  <!-- Background -->
+  <rect width="700" height="360" fill="#f8f9fb"/>
+
+  <!-- Title -->
+  <text x="350" y="26" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1f4fa3">PPO Clip vs. TRPO: Trust Region Geometry</text>
+
+  <!-- ============================================================
+       LEFT PANEL: PPO Clip — rectangular trust region (r_t axis)
+       Panel bounds: x=40..340, y=40..310
+  ============================================================ -->
+  <rect x="40" y="40" width="300" height="270" rx="6" fill="white" stroke="#5b6675" stroke-width="1"/>
+  <text x="190" y="62" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f4fa3">PPO-Clip</text>
+  <text x="190" y="76" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5b6675">(rectangular constraint)</text>
+
+  <!-- Left panel axes: origin (190,250), x=r_t from 0 to 2, y=gradient -->
+  <!-- r_t axis: x=60..320, y=250 -->
+  <line x1="60" y1="250" x2="322" y2="250" stroke="#5b6675" stroke-width="1.5"/>
+  <polygon points="322,246 330,250 322,254" fill="#5b6675"/>
+  <!-- gradient axis: x=60, y=90..255 -->
+  <line x1="60" y1="90" x2="60" y2="258" stroke="#5b6675" stroke-width="1.5"/>
+  <polygon points="56,92 60,82 64,92" fill="#5b6675"/>
+  <text x="334" y="254" font-family="sans-serif" font-size="10" fill="#5b6675">r_t</text>
+  <text x="42" y="82" font-family="sans-serif" font-size="10" fill="#5b6675">&#8711;L</text>
+
+  <!-- r_t scale: 0->x=60, 2->x=320 => 130px/unit. r=0.8->x=60+0.8*130=164, r=1->x=190, r=1.2->x=60+1.2*130=216 -->
+  <!-- Shaded "no gradient" regions: x=60..164 and x=216..320 -->
+  <rect x="60" y="95" width="104" height="155" fill="#c0392b" fill-opacity="0.15" rx="2"/>
+  <rect x="216" y="95" width="104" height="155" fill="#c0392b" fill-opacity="0.15" rx="2"/>
+
+  <!-- Trust region box (green fill) -->
+  <rect x="164" y="95" width="52" height="155" fill="#0e8a6e" fill-opacity="0.12" rx="2"/>
+
+  <!-- Vertical clip lines -->
+  <line x1="164" y1="95" x2="164" y2="255" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="5,3"/>
+  <line x1="216" y1="95" x2="216" y2="255" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="5,3"/>
+  <line x1="190" y1="95" x2="190" y2="255" stroke="#5b6675" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
+
+  <!-- Gradient signal line (positive: linear in trust region, flat outside) -->
+  <polyline points="60,195 164,195 216,160 320,160" fill="none" stroke="#1f4fa3" stroke-width="2.2" stroke-linejoin="round"/>
+
+  <!-- Tick labels on left panel x-axis -->
+  <text x="164" y="265" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#c0392b">1-&#949;</text>
+  <text x="190" y="265" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5b6675">1</text>
+  <text x="216" y="265" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#c0392b">1+&#949;</text>
+
+  <!-- Labels -->
+  <text x="112" y="185" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#c0392b">clipped</text>
+  <text x="112" y="196" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#c0392b">(no gradient)</text>
+  <text x="268" y="152" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#c0392b">clipped</text>
+  <text x="268" y="163" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#c0392b">(no gradient)</text>
+  <text x="190" y="140" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#0e8a6e" font-weight="bold">trust</text>
+  <text x="190" y="152" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#0e8a6e" font-weight="bold">region</text>
+
+  <!-- Constraint shape label: rectangle outline -->
+  <rect x="164" y="95" width="52" height="155" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- "Rectangular" label -->
+  <text x="190" y="288" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#c0392b">constraint: 1-&#949; &#8804; r_t &#8804; 1+&#949;</text>
+  <text x="190" y="302" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5b6675">(&#949; = 0.2, first-order approx.)</text>
+
+  <!-- ============================================================
+       RIGHT PANEL: TRPO — circular KL constraint in policy space
+       Panel bounds: x=360..660, y=40..310
+  ============================================================ -->
+  <rect x="360" y="40" width="300" height="270" rx="6" fill="white" stroke="#5b6675" stroke-width="1"/>
+  <text x="510" y="62" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#6c4fe0">TRPO</text>
+  <text x="510" y="76" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5b6675">(KL-ball constraint)</text>
+
+  <!-- TRPO uses 2D policy parameter space: axes &#952;_1, &#952;_2 centered at (510,185) -->
+  <line x1="380" y1="185" x2="645" y2="185" stroke="#5b6675" stroke-width="1.5"/>
+  <polygon points="645,181 653,185 645,189" fill="#5b6675"/>
+  <line x1="510" y1="95" x2="510" y2="260" stroke="#5b6675" stroke-width="1.5"/>
+  <polygon points="506,97 510,87 514,97" fill="#5b6675"/>
+  <text x="656" y="189" font-family="sans-serif" font-size="10" fill="#5b6675">&#952;_1</text>
+  <text x="494" y="87" font-family="sans-serif" font-size="10" fill="#5b6675">&#952;_2</text>
+
+  <!-- Current policy point (old policy) -->
+  <circle cx="510" cy="185" r="4" fill="#6c4fe0"/>
+  <text x="518" y="198" font-family="sans-serif" font-size="10" fill="#6c4fe0">&#952;_old</text>
+
+  <!-- KL constraint circle (trust region) -->
+  <circle cx="510" cy="185" r="65" fill="#6c4fe0" fill-opacity="0.10" stroke="#6c4fe0" stroke-width="1.8" stroke-dasharray="6,3"/>
+  <text x="510" y="140" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#6c4fe0">KL(&#960;_&#952; || &#960;_old) &#8804; &#948;</text>
+
+  <!-- Gradient direction arrow -->
+  <line x1="510" y1="185" x2="580" y2="145" stroke="#c77a12" stroke-width="2" marker-end="url(#arw)"/>
+  <text x="586" y="142" font-family="sans-serif" font-size="9" fill="#c77a12">unconstrained</text>
+  <text x="586" y="153" font-family="sans-serif" font-size="9" fill="#c77a12">gradient</text>
+
+  <!-- Projected step (inside KL ball) -->
+  <line x1="510" y1="185" x2="558" y2="161" stroke="#1f4fa3" stroke-width="2.2" marker-end="url(#arwn)"/>
+  <circle cx="558" cy="161" r="4" fill="#1f4fa3"/>
+  <text x="564" y="178" font-family="sans-serif" font-size="9" fill="#1f4fa3">projected</text>
+  <text x="564" y="189" font-family="sans-serif" font-size="9" fill="#1f4fa3">step &#952;_new</text>
+
+  <!-- Constraint label -->
+  <text x="510" y="288" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#6c4fe0">constraint: KL(&#960;_&#952; || &#960;_old) &#8804; &#948;</text>
+  <text x="510" y="302" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5b6675">(requires 2nd-order Fisher solve)</text>
+
+  <!-- Arrow marker definitions -->
+  <defs>
+    <marker id="arw" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0,0 8,3 0,6" fill="#c77a12"/>
+    </marker>
+    <marker id="arwn" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0,0 8,3 0,6" fill="#1f4fa3"/>
+    </marker>
+  </defs>
+
+  <!-- Comparison legend at bottom -->
+  <text x="350" y="338" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#5b6675">PPO-Clip approximates TRPO's KL trust region with a simpler first-order rectangular constraint on the probability ratio r_t.</text>
+</svg>

@@ -12,8 +12,8 @@
 
 ![Questions](https://img.shields.io/badge/questions-40-1f4fa3)
 ![Levels](https://img.shields.io/badge/levels-Basic→Intermediate→Advanced→Applied-0e8a6e)
-![Answered](https://img.shields.io/badge/answered-7%2F40-c77a12)
-![Scaffolded](https://img.shields.io/badge/scaffolded-33%2F40-6c4fe0)
+![Answered](https://img.shields.io/badge/answered-17%2F40-c77a12)
+![Scaffolded](https://img.shields.io/badge/scaffolded-23%2F40-6c4fe0)
 
 </div>
 
@@ -41,16 +41,16 @@ Post-training is where raw capability becomes useful, safe, and aligned behavior
 
 | # | Question | Tags | Status |
 |---|----------|------|:------:|
-| Q4‑08 | Derive the PPO objective. What does the clipping ratio prevent? | PPO · clipping · policy-gradient · surrogate-objective | 📝 |
-| Q4‑09 | What is DPO (Direct Preference Optimization)? Derive its loss from the RLHF objective — why does it eliminate the reward model? | DPO · preference-optimization · reward-free · derivation | 📝 |
-| Q4‑10 | Compare DPO, IPO, KTO, ORPO, and SimPO. What problems does each address with vanilla DPO? | DPO · IPO · KTO · ORPO · SimPO · comparison | 📝 |
-| Q4‑11 | What is reward hacking? Give concrete examples (length bias, sycophancy, format gaming) and mitigation strategies. | reward-hacking · Goodhart · length-bias · sycophancy | 📝 |
-| Q4‑12 | Explain RLAIF and Constitutional AI. When does AI feedback substitute reliably for human feedback? | RLAIF · Constitutional-AI · AI-feedback | 📝 |
-| Q4‑13 | Discuss the role of the reference model in DPO/RLHF. What happens if it drifts too far from the policy? | reference-model · DPO · policy-drift · KL | 📝 |
-| Q4‑14 | What is rejection sampling fine-tuning (RFT / RAFT)? When is it preferable to RLHF? | rejection-sampling · RFT · RAFT · sampling-efficiency | 📝 |
-| Q4‑15 | Compare offline preference learning (DPO) vs online preference learning (iterative DPO, online RLHF). What does the recent literature suggest about the gap? | offline · online · iterative-DPO · preference-learning | 📝 |
-| Q4‑16 | What is the advantage in PPO and how is it estimated (GAE)? Why does it matter for stability? | GAE · advantage-estimation · PPO · stability | 📝 |
-| Q4‑17 | Discuss best-of-N sampling as a baseline for RLHF. When does RLHF actually outperform BoN at matched inference compute? | best-of-N · BoN · inference-compute · RLHF-baseline | 📝 |
+| Q4‑08 | [Derive the PPO objective. What does the clipping ratio prevent?](./q08-ppo-objective.md) | PPO · clipping · policy-gradient · surrogate-objective | ✅ |
+| Q4‑09 | [What is DPO (Direct Preference Optimization)? Derive its loss from the RLHF objective — why does it eliminate the reward model?](./q09-dpo-derivation.md) | DPO · preference-optimization · reward-free · derivation | ✅ |
+| Q4‑10 | [Compare DPO, IPO, KTO, ORPO, and SimPO. What problems does each address with vanilla DPO?](./q10-dpo-variants.md) | DPO · IPO · KTO · ORPO · SimPO · comparison | ✅ |
+| Q4‑11 | [What is reward hacking? Give concrete examples (length bias, sycophancy, format gaming) and mitigation strategies.](./q11-reward-hacking.md) | reward-hacking · Goodhart · length-bias · sycophancy | ✅ |
+| Q4‑12 | [Explain RLAIF and Constitutional AI. When does AI feedback substitute reliably for human feedback?](./q12-rlaif-constitutional-ai.md) | RLAIF · Constitutional-AI · AI-feedback | ✅ |
+| Q4‑13 | [Discuss the role of the reference model in DPO/RLHF. What happens if it drifts too far from the policy?](./q13-reference-model.md) | reference-model · DPO · policy-drift · KL | ✅ |
+| Q4‑14 | [What is rejection sampling fine-tuning (RFT / RAFT)? When is it preferable to RLHF?](./q14-rejection-sampling.md) | rejection-sampling · RFT · RAFT · sampling-efficiency | ✅ |
+| Q4‑15 | [Compare offline preference learning (DPO) vs online preference learning (iterative DPO, online RLHF). What does the recent literature suggest about the gap?](./q15-offline-online-dpo.md) | offline · online · iterative-DPO · preference-learning | ✅ |
+| Q4‑16 | [What is the advantage in PPO and how is it estimated (GAE)? Why does it matter for stability?](./q16-gae-advantage.md) | GAE · advantage-estimation · PPO · stability | ✅ |
+| Q4‑17 | [Discuss best-of-N sampling as a baseline for RLHF. When does RLHF actually outperform BoN at matched inference compute?](./q17-best-of-n.md) | best-of-N · BoN · inference-compute · RLHF-baseline | ✅ |
 
 ---
 

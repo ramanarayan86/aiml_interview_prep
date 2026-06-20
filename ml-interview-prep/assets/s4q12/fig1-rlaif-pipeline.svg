@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 380" width="760" height="380">
+  <!-- Background -->
+  <rect width="760" height="380" fill="#f8f9fb" rx="8"/>
+
+  <!-- Title -->
+  <text x="380" y="30" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="bold" fill="#1f1f2e">RLHF vs RLAIF: Side-by-Side Pipeline Comparison</text>
+
+  <!-- Dividing line -->
+  <line x1="380" y1="45" x2="380" y2="370" stroke="#cccccc" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+  <!-- ===== LEFT PANEL: RLHF ===== -->
+  <text x="190" y="62" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1f4fa3">RLHF (Human Feedback)</text>
+
+  <!-- Step 1L: SFT generates pairs -->
+  <rect x="50" y="78" width="280" height="44" rx="6" fill="#dce8fb" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="190" y="97" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f4fa3">SFT Model</text>
+  <text x="190" y="113" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1f4fa3">Generates response pairs (y&#x2098;, y&#x2098;&#x207A;&#xB9;)</text>
+
+  <!-- Arrow 1L -->
+  <line x1="190" y1="122" x2="190" y2="148" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Step 2L: Human annotators (highlighted — this is what RLAIF replaces) -->
+  <rect x="50" y="150" width="280" height="44" rx="6" fill="#fff3cd" stroke="#c77a12" stroke-width="2.5"/>
+  <text x="190" y="169" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#c77a12">Human Annotators</text>
+  <text x="190" y="185" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#c77a12">Label: prefer y&#x2098; or y&#x2098;&#x207A;&#xB9;? ($0.10/label)</text>
+
+  <!-- Arrow 2L -->
+  <line x1="190" y1="194" x2="190" y2="220" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Step 3L: Preference dataset -->
+  <rect x="50" y="222" width="280" height="36" rx="6" fill="#e8f4f0" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="190" y="237" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0e8a6e">Preference Dataset</text>
+  <text x="190" y="251" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#0e8a6e">{(x, y_w, y_l)} human labels</text>
+
+  <!-- Arrow 3L -->
+  <line x1="190" y1="258" x2="190" y2="284" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Step 4L: Reward model -->
+  <rect x="50" y="286" width="130" height="36" rx="6" fill="#e8e4f8" stroke="#6c4fe0" stroke-width="1.5"/>
+  <text x="115" y="301" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#6c4fe0">Reward Model</text>
+  <text x="115" y="315" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#6c4fe0">r&#x03D5;(x, y)</text>
+
+  <!-- Arrow 4L -->
+  <line x1="200" y1="304" x2="248" y2="304" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Step 5L: PPO -->
+  <rect x="250" y="286" width="80" height="36" rx="6" fill="#1f4fa3" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="290" y="301" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="white">PPO</text>
+  <text x="290" y="315" text-anchor="middle" font-family="sans-serif" font-size="10" fill="white">Policy &#x3C0;&#x3B8;</text>
+
+  <!-- Cost annotation -->
+  <text x="190" y="345" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#c0392b">1M labels &#x2248; $100K, ~100K human-hours</text>
+  <!-- Win rate -->
+  <text x="190" y="362" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5b6675">Win rate vs SFT: ~73% (human pref)</text>
+
+  <!-- ===== RIGHT PANEL: RLAIF ===== -->
+  <text x="570" y="62" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0e8a6e">RLAIF (AI Feedback)</text>
+
+  <!-- Step 1R: SFT generates pairs -->
+  <rect x="430" y="78" width="280" height="44" rx="6" fill="#dce8fb" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="570" y="97" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f4fa3">SFT Model</text>
+  <text x="570" y="113" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1f4fa3">Generates response pairs (y&#x2098;, y&#x2098;&#x207A;&#xB9;)</text>
+
+  <!-- Arrow 1R -->
+  <line x1="570" y1="122" x2="570" y2="148" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Step 2R: AI judge (teal — replacement) -->
+  <rect x="430" y="150" width="280" height="44" rx="6" fill="#d0f0e8" stroke="#0e8a6e" stroke-width="2.5"/>
+  <text x="570" y="169" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0e8a6e">AI Judge (LLM)</text>
+  <text x="570" y="185" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#0e8a6e">Scores pairs via prompt ($0.001/label)</text>
+
+  <!-- Arrow 2R -->
+  <line x1="570" y1="194" x2="570" y2="220" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Step 3R: Preference dataset -->
+  <rect x="430" y="222" width="280" height="36" rx="6" fill="#e8f4f0" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="570" y="237" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0e8a6e">Preference Dataset</text>
+  <text x="570" y="251" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#0e8a6e">{(x, y_w, y_l)} AI labels</text>
+
+  <!-- Arrow 3R -->
+  <line x1="570" y1="258" x2="570" y2="284" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Step 4R: Reward model -->
+  <rect x="430" y="286" width="130" height="36" rx="6" fill="#e8e4f8" stroke="#6c4fe0" stroke-width="1.5"/>
+  <text x="495" y="301" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#6c4fe0">Reward Model</text>
+  <text x="495" y="315" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#6c4fe0">r&#x03D5;(x, y)</text>
+
+  <!-- Arrow 4R -->
+  <line x1="580" y1="304" x2="628" y2="304" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Step 5R: PPO -->
+  <rect x="630" y="286" width="80" height="36" rx="6" fill="#1f4fa3" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="670" y="301" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="white">PPO</text>
+  <text x="670" y="315" text-anchor="middle" font-family="sans-serif" font-size="10" fill="white">Policy &#x3C0;&#x3B8;</text>
+
+  <!-- Cost annotation -->
+  <text x="570" y="345" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#0e8a6e">1M labels &#x2248; $1K, minutes (100x cheaper)</text>
+  <!-- Win rate -->
+  <text x="570" y="362" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5b6675">Win rate vs SFT: ~71% (Lee et al., 2023)</text>
+
+  <!-- REPLACED badge on right panel -->
+  <rect x="615" y="155" width="92" height="18" rx="4" fill="#0e8a6e"/>
+  <text x="661" y="167" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="bold" fill="white">REPLACES HUMAN</text>
+
+  <!-- Arrow marker -->
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#5b6675"/>
+    </marker>
+  </defs>
+</svg>

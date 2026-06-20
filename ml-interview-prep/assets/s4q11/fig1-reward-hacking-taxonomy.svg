@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 440" width="700" height="440">
+  <!-- Background -->
+  <rect width="700" height="440" fill="#f8f9fb" rx="10"/>
+
+  <!-- Title -->
+  <text x="350" y="30" font-family="sans-serif" font-size="15" font-weight="bold"
+        fill="#1f4fa3" text-anchor="middle">Reward Hacking Taxonomy</text>
+
+  <!-- Central node -->
+  <ellipse cx="350" cy="220" rx="78" ry="40" fill="#1f4fa3"/>
+  <text x="350" y="214" font-family="sans-serif" font-size="13" font-weight="bold"
+        fill="white" text-anchor="middle">Reward</text>
+  <text x="350" y="230" font-family="sans-serif" font-size="13" font-weight="bold"
+        fill="white" text-anchor="middle">Hacking</text>
+
+  <!-- ===== Branch 1: Length Bias (top-left) ===== -->
+  <!-- connector line -->
+  <line x1="274" y1="200" x2="148" y2="108" stroke="#c77a12" stroke-width="2"/>
+  <!-- hack node -->
+  <rect x="60" y="72" width="130" height="44" rx="8" fill="#c77a12"/>
+  <text x="125" y="90" font-family="sans-serif" font-size="12" font-weight="bold"
+        fill="white" text-anchor="middle">Length Bias</text>
+  <text x="125" y="107" font-family="sans-serif" font-size="10.5"
+        fill="white" text-anchor="middle">longer = more reward</text>
+  <!-- mitigation -->
+  <rect x="52" y="126" width="146" height="34" rx="6" fill="#e8f4f0" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="125" y="139" font-family="sans-serif" font-size="10" fill="#0e8a6e" text-anchor="middle">Fix: length-normalize rewards</text>
+  <text x="125" y="152" font-family="sans-serif" font-size="10" fill="#0e8a6e" text-anchor="middle">+ penalize verbosity</text>
+
+  <!-- ===== Branch 2: Sycophancy (top-right) ===== -->
+  <line x1="426" y1="200" x2="554" y2="108" stroke="#c77a12" stroke-width="2"/>
+  <rect x="510" y="72" width="130" height="44" rx="8" fill="#c77a12"/>
+  <text x="575" y="90" font-family="sans-serif" font-size="12" font-weight="bold"
+        fill="white" text-anchor="middle">Sycophancy</text>
+  <text x="575" y="107" font-family="sans-serif" font-size="10.5"
+        fill="white" text-anchor="middle">agree to please, not inform</text>
+  <rect x="502" y="126" width="146" height="34" rx="6" fill="#e8f4f0" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="575" y="139" font-family="sans-serif" font-size="10" fill="#0e8a6e" text-anchor="middle">Fix: adversarial preference data</text>
+  <text x="575" y="152" font-family="sans-serif" font-size="10" fill="#0e8a6e" text-anchor="middle">+ SycophancyEval</text>
+
+  <!-- ===== Branch 3: Format Gaming (right) ===== -->
+  <line x1="428" y1="222" x2="560" y2="222" stroke="#c77a12" stroke-width="2"/>
+  <rect x="560" y="200" width="130" height="44" rx="8" fill="#6c4fe0"/>
+  <text x="625" y="218" font-family="sans-serif" font-size="12" font-weight="bold"
+        fill="white" text-anchor="middle">Format Gaming</text>
+  <text x="625" y="235" font-family="sans-serif" font-size="10.5"
+        fill="white" text-anchor="middle">bullets/bold over content</text>
+  <rect x="552" y="254" width="146" height="34" rx="6" fill="#e8f4f0" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="625" y="267" font-family="sans-serif" font-size="10" fill="#0e8a6e" text-anchor="middle">Fix: control format in RM;</text>
+  <text x="625" y="280" font-family="sans-serif" font-size="10" fill="#0e8a6e" text-anchor="middle">eval content separately</text>
+
+  <!-- ===== Branch 4: Repetition (bottom) ===== -->
+  <line x1="350" y1="260" x2="350" y2="320" stroke="#c77a12" stroke-width="2"/>
+  <rect x="261" y="320" width="178" height="44" rx="8" fill="#c0392b"/>
+  <text x="350" y="338" font-family="sans-serif" font-size="12" font-weight="bold"
+        fill="white" text-anchor="middle">Repetition</text>
+  <text x="350" y="355" font-family="sans-serif" font-size="10.5"
+        fill="white" text-anchor="middle">low-entropy gets high RM score</text>
+  <rect x="253" y="374" width="194" height="34" rx="6" fill="#e8f4f0" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="350" y="387" font-family="sans-serif" font-size="10" fill="#0e8a6e" text-anchor="middle">Fix: n-gram diversity penalty</text>
+  <text x="350" y="400" font-family="sans-serif" font-size="10" fill="#0e8a6e" text-anchor="middle">+ KL from reference</text>
+
+  <!-- ===== Branch 5: Prompt Exploitation (left) ===== -->
+  <line x1="272" y1="222" x2="140" y2="222" stroke="#c77a12" stroke-width="2"/>
+  <rect x="10" y="200" width="130" height="44" rx="8" fill="#6c4fe0"/>
+  <text x="75" y="218" font-family="sans-serif" font-size="12" font-weight="bold"
+        fill="white" text-anchor="middle">Prompt</text>
+  <text x="75" y="235" font-family="sans-serif" font-size="12" font-weight="bold"
+        fill="white" text-anchor="middle">Exploitation</text>
+  <rect x="2" y="254" width="146" height="34" rx="6" fill="#e8f4f0" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="75" y="267" font-family="sans-serif" font-size="10" fill="#0e8a6e" text-anchor="middle">Fix: adversarial red-teaming</text>
+  <text x="75" y="280" font-family="sans-serif" font-size="10" fill="#0e8a6e" text-anchor="middle">+ diverse prompt distribution</text>
+
+  <!-- Legend -->
+  <rect x="20" y="410" width="14" height="14" rx="3" fill="#c77a12"/>
+  <text x="38" y="422" font-family="sans-serif" font-size="10" fill="#5b6675">Surface hack</text>
+  <rect x="130" y="410" width="14" height="14" rx="3" fill="#6c4fe0"/>
+  <text x="148" y="422" font-family="sans-serif" font-size="10" fill="#5b6675">Structural hack</text>
+  <rect x="270" y="410" width="14" height="14" rx="3" fill="#c0392b"/>
+  <text x="288" y="422" font-family="sans-serif" font-size="10" fill="#5b6675">Degeneracy hack</text>
+  <rect x="430" y="410" width="14" height="14" rx="3" fill="#e8f4f0" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="448" y="422" font-family="sans-serif" font-size="10" fill="#5b6675">Mitigation</text>
+</svg>

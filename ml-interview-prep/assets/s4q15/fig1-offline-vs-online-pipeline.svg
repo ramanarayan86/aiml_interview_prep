@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 420" width="760" height="420">
+  <!-- Background -->
+  <rect width="760" height="420" fill="#f8f9fb"/>
+
+  <!-- Title -->
+  <text x="380" y="32" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="bold" fill="#1f4fa3">Offline DPO vs Iterative DPO vs Online RLHF — Pipeline Comparison</text>
+
+  <!-- Column header backgrounds -->
+  <rect x="20" y="46" width="220" height="36" rx="6" fill="#1f4fa3"/>
+  <rect x="270" y="46" width="220" height="36" rx="6" fill="#0e8a6e"/>
+  <rect x="520" y="46" width="220" height="36" rx="6" fill="#6c4fe0"/>
+
+  <!-- Column headers -->
+  <text x="130" y="69" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="#ffffff">Offline DPO</text>
+  <text x="380" y="69" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="#ffffff">Iterative DPO</text>
+  <text x="630" y="69" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="#ffffff">Online RLHF (PPO)</text>
+
+  <!-- Row label backgrounds -->
+  <!-- Row 1: Data Collection -->
+  <rect x="20" y="100" width="220" height="62" rx="5" fill="#dce8f8" stroke="#1f4fa3" stroke-width="1"/>
+  <rect x="270" y="100" width="220" height="62" rx="5" fill="#d4f0ea" stroke="#0e8a6e" stroke-width="1"/>
+  <rect x="520" y="100" width="220" height="62" rx="5" fill="#ece7fc" stroke="#6c4fe0" stroke-width="1"/>
+
+  <!-- Row 1 content: Data Collection -->
+  <text x="130" y="118" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#1f4fa3">Data Collection</text>
+  <text x="130" y="134" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#333">Static dataset D collected</text>
+  <text x="130" y="150" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#c0392b">once from old policy</text>
+
+  <text x="380" y="118" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#0e8a6e">Data Collection</text>
+  <text x="380" y="134" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#333">Re-sample from current</text>
+  <text x="380" y="150" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#0e8a6e">policy each iteration</text>
+
+  <text x="630" y="118" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#6c4fe0">Data Collection</text>
+  <text x="630" y="134" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#333">Sample on-policy at</text>
+  <text x="630" y="150" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#0e8a6e">every gradient step</text>
+
+  <!-- Row 2: Reference Model -->
+  <rect x="20" y="176" width="220" height="62" rx="5" fill="#dce8f8" stroke="#1f4fa3" stroke-width="1"/>
+  <rect x="270" y="176" width="220" height="62" rx="5" fill="#d4f0ea" stroke="#0e8a6e" stroke-width="1"/>
+  <rect x="520" y="176" width="220" height="62" rx="5" fill="#ece7fc" stroke="#6c4fe0" stroke-width="1"/>
+
+  <text x="130" y="194" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#1f4fa3">Reference Model</text>
+  <text x="130" y="210" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#333">Fixed SFT model</text>
+  <text x="130" y="226" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#c0392b">never updated</text>
+
+  <text x="380" y="194" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#0e8a6e">Reference Model</text>
+  <text x="380" y="210" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#333">Reset to previous checkpoint</text>
+  <text x="380" y="226" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#0e8a6e">each round: pi_ref = pi_theta^(t)</text>
+
+  <text x="630" y="194" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#6c4fe0">Reference Model</text>
+  <text x="630" y="210" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#333">Implicit via KL penalty</text>
+  <text x="630" y="226" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#0e8a6e">in reward: r - beta*KL</text>
+
+  <!-- Row 3: Training Loop -->
+  <rect x="20" y="252" width="220" height="62" rx="5" fill="#dce8f8" stroke="#1f4fa3" stroke-width="1"/>
+  <rect x="270" y="252" width="220" height="62" rx="5" fill="#d4f0ea" stroke="#0e8a6e" stroke-width="1"/>
+  <rect x="520" y="252" width="220" height="62" rx="5" fill="#ece7fc" stroke="#6c4fe0" stroke-width="1"/>
+
+  <text x="130" y="270" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#1f4fa3">Training Loop</text>
+  <text x="130" y="286" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#333">Single pass over D</text>
+  <text x="130" y="302" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#c0392b">Distribution shift grows</text>
+
+  <text x="380" y="270" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#0e8a6e">Training Loop</text>
+  <text x="380" y="286" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#333">T rounds of DPO</text>
+  <text x="380" y="302" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#0e8a6e">Gap closes each round</text>
+
+  <text x="630" y="270" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#6c4fe0">Training Loop</text>
+  <text x="630" y="286" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#333">PPO steps with critic</text>
+  <text x="630" y="302" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#0e8a6e">Always on-distribution</text>
+
+  <!-- Row 4: Cost / Complexity -->
+  <rect x="20" y="328" width="220" height="62" rx="5" fill="#dce8f8" stroke="#1f4fa3" stroke-width="1"/>
+  <rect x="270" y="328" width="220" height="62" rx="5" fill="#d4f0ea" stroke="#0e8a6e" stroke-width="1"/>
+  <rect x="520" y="328" width="220" height="62" rx="5" fill="#ece7fc" stroke="#6c4fe0" stroke-width="1"/>
+
+  <text x="130" y="346" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#1f4fa3">Cost / Complexity</text>
+  <text x="130" y="362" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#0e8a6e">Lowest — 1x compute</text>
+  <text x="130" y="378" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#c0392b">Quality ceiling limited</text>
+
+  <text x="380" y="346" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#0e8a6e">Cost / Complexity</text>
+  <text x="380" y="362" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#c77a12">Medium — T x compute</text>
+  <text x="380" y="378" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#0e8a6e">Recovers ~70% of gap</text>
+
+  <text x="630" y="346" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#6c4fe0">Cost / Complexity</text>
+  <text x="630" y="362" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#c0392b">Highest — actor+critic</text>
+  <text x="630" y="378" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#0e8a6e">Full on-policy quality</text>
+
+  <!-- Row labels on left side -->
+  <text x="10" y="135" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" fill="#5b6675" transform="rotate(-90,10,135)">Data</text>
+  <text x="10" y="207" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" fill="#5b6675" transform="rotate(-90,10,207)">Ref</text>
+  <text x="10" y="283" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" fill="#5b6675" transform="rotate(-90,10,283)">Loop</text>
+  <text x="10" y="359" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" fill="#5b6675" transform="rotate(-90,10,359)">Cost</text>
+
+  <!-- Arrows between columns indicating progression -->
+  <line x1="244" y1="210" x2="266" y2="210" stroke="#c77a12" stroke-width="2" marker-end="url(#arrowAmber)"/>
+  <line x1="494" y1="210" x2="516" y2="210" stroke="#c77a12" stroke-width="2" marker-end="url(#arrowAmber)"/>
+
+  <defs>
+    <marker id="arrowAmber" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#c77a12"/>
+    </marker>
+  </defs>
+</svg>

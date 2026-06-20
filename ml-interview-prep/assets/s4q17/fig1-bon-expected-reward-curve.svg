@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 360" width="700" height="360">
+  <!-- Background -->
+  <rect width="700" height="360" fill="#f8f9fa" rx="8"/>
+
+  <!-- Title -->
+  <text x="350" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="bold" fill="#1f4fa3">Expected Maximum Reward vs. N (Standard Normal Rewards)</text>
+  <text x="350" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#5b6675">E[max r_i] &#8776; &#934;&#8315;&#185;(N/(N+1)) for r ~ N(0,1)</text>
+
+  <!-- Chart area: left=80, right=650, top=70, bottom=300 -->
+  <!-- Grid lines (horizontal) -->
+  <line x1="80" y1="300" x2="650" y2="300" stroke="#dde" stroke-width="1"/>
+  <line x1="80" y1="250" x2="650" y2="250" stroke="#dde" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="80" y1="200" x2="650" y2="200" stroke="#dde" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="80" y1="150" x2="650" y2="150" stroke="#dde" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="80" y1="100" x2="650" y2="100" stroke="#dde" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="80" y1="70" x2="650" y2="70" stroke="#dde" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Y-axis labels: 0.0 at y=300, 3.0 at y=70. Scale: (300-70)/3.0 = 76.67 per unit -->
+  <!-- y_px = 300 - val * 76.67 -->
+  <text x="72" y="304" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#5b6675">0.0</text>
+  <text x="72" y="254" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#5b6675">0.5</text>
+  <text x="72" y="204" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#5b6675">1.0</text>
+  <text x="72" y="154" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#5b6675">1.5</text>
+  <text x="72" y="104" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#5b6675">2.0</text>
+  <text x="72" y="74" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#5b6675">2.5</text>
+
+  <!-- Y-axis label -->
+  <text x="20" y="190" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#1f4fa3" transform="rotate(-90 20 190)">E[max reward]</text>
+
+  <!-- X-axis: log scale positions for N=1,2,4,8,16,32,64,128,256 -->
+  <!-- log2(N): 0,1,2,3,4,5,6,7,8 mapped to x=80..650 -->
+  <!-- x_px = 80 + log2(N)/8 * 570 -->
+  <!-- N=1: x=80, N=2: x=151, N=4: x=222, N=8: x=293, N=16: x=365, N=32: x=436, N=64: x=507, N=128: x=578, N=256: x=650 -->
+
+  <!-- Vertical grid lines at x positions -->
+  <line x1="80" y1="70" x2="80" y2="300" stroke="#ccc" stroke-width="1"/>
+  <line x1="151" y1="70" x2="151" y2="300" stroke="#dde" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="222" y1="70" x2="222" y2="300" stroke="#dde" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="293" y1="70" x2="293" y2="300" stroke="#dde" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="365" y1="70" x2="365" y2="300" stroke="#dde" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="436" y1="70" x2="436" y2="300" stroke="#dde" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="507" y1="70" x2="507" y2="300" stroke="#dde" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="578" y1="70" x2="578" y2="300" stroke="#dde" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="650" y1="70" x2="650" y2="300" stroke="#ccc" stroke-width="1"/>
+
+  <!-- X-axis labels -->
+  <text x="80" y="318" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#5b6675">1</text>
+  <text x="151" y="318" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#5b6675">2</text>
+  <text x="222" y="318" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#5b6675">4</text>
+  <text x="293" y="318" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#5b6675">8</text>
+  <text x="365" y="318" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#5b6675">16</text>
+  <text x="436" y="318" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#5b6675">32</text>
+  <text x="507" y="318" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#5b6675">64</text>
+  <text x="578" y="318" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#5b6675">128</text>
+  <text x="650" y="318" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#5b6675">256</text>
+
+  <!-- X-axis label -->
+  <text x="365" y="345" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#1f4fa3">N (log scale)</text>
+
+  <!-- Axes -->
+  <line x1="80" y1="70" x2="80" y2="305" stroke="#333" stroke-width="2"/>
+  <line x1="75" y1="300" x2="655" y2="300" stroke="#333" stroke-width="2"/>
+
+  <!-- Data points: (N, E[max], x_px, y_px)
+       N=1:   0.000 -> y=300,  x=80
+       N=2:   0.564 -> y=300-0.564*76.67=256.8, x=151
+       N=4:   0.842 -> y=300-0.842*76.67=235.5, x=222
+       N=8:   1.130 -> y=300-1.130*76.67=213.4, x=293
+       N=16:  1.563 -> y=300-1.563*76.67=180.2, x=365
+       N=32:  1.870 -> y=300-1.870*76.67=156.6, x=436
+       N=64:  2.170 -> y=300-2.170*76.67=133.6, x=507
+       N=128: 2.430 -> y=300-2.430*76.67=113.7, x=578
+       N=256: 2.652 -> y=300-2.652*76.67=96.7,  x=650
+  -->
+
+  <!-- Smooth curve (polyline) -->
+  <polyline
+    points="80,300 151,256.8 222,235.5 293,213.4 365,180.2 436,156.6 507,133.6 578,113.7 650,96.7"
+    fill="none" stroke="#1f4fa3" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+
+  <!-- Area under curve for visual appeal -->
+  <polygon
+    points="80,300 151,256.8 222,235.5 293,213.4 365,180.2 436,156.6 507,133.6 578,113.7 650,96.7 650,300"
+    fill="#1f4fa3" fill-opacity="0.08"/>
+
+  <!-- Data point circles -->
+  <circle cx="80" cy="300" r="5" fill="#1f4fa3"/>
+  <circle cx="151" cy="256.8" r="5" fill="#1f4fa3"/>
+  <circle cx="222" cy="235.5" r="5" fill="#1f4fa3"/>
+  <circle cx="293" cy="213.4" r="5" fill="#1f4fa3"/>
+  <circle cx="365" cy="180.2" r="5" fill="#0e8a6e"/>
+  <circle cx="436" cy="156.6" r="5" fill="#1f4fa3"/>
+  <circle cx="507" cy="133.6" r="5" fill="#0e8a6e"/>
+  <circle cx="578" cy="113.7" r="5" fill="#1f4fa3"/>
+  <circle cx="650" cy="96.7" r="5" fill="#0e8a6e"/>
+
+  <!-- Annotation: N=16 -->
+  <line x1="365" y1="180.2" x2="365" y2="145" stroke="#0e8a6e" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <rect x="305" y="126" width="88" height="20" rx="3" fill="#e6f7f2" stroke="#0e8a6e" stroke-width="1"/>
+  <text x="349" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#0e8a6e">N=16: 1.563</text>
+
+  <!-- Annotation: N=64 -->
+  <line x1="507" y1="133.6" x2="540" y2="108" stroke="#c77a12" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <rect x="497" y="90" width="88" height="20" rx="3" fill="#fef6e6" stroke="#c77a12" stroke-width="1"/>
+  <text x="541" y="104" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#c77a12">N=64: 2.170</text>
+
+  <!-- Annotation: N=256 -->
+  <line x1="650" y1="96.7" x2="635" y2="78" stroke="#6c4fe0" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <rect x="571" y="60" width="92" height="20" rx="3" fill="#f0ecfd" stroke="#6c4fe0" stroke-width="1"/>
+  <text x="617" y="74" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#6c4fe0">N=256: 2.652</text>
+
+  <!-- Diminishing returns label -->
+  <text x="260" y="92" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-style="italic" fill="#5b6675">Diminishing</text>
+  <text x="260" y="106" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-style="italic" fill="#5b6675">returns (log growth)</text>
+
+  <!-- Formula box -->
+  <rect x="82" y="72" width="195" height="36" rx="4" fill="white" stroke="#1f4fa3" stroke-width="1.2" fill-opacity="0.9"/>
+  <text x="179" y="87" text-anchor="middle" font-family="Arial, sans-serif" font-size="10.5" fill="#1f4fa3">E[max] &#8776; &#934;&#8315;&#185;(N/(N+1))</text>
+  <text x="179" y="101" text-anchor="middle" font-family="Arial, sans-serif" font-size="10.5" fill="#5b6675">r ~ N(0, 1), iid samples</text>
+</svg>

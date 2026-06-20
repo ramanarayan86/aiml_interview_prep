@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 340" width="760" height="340">
+  <!-- Background -->
+  <rect width="760" height="340" fill="#f8f9fc" rx="8"/>
+
+  <!-- Title -->
+  <text x="380" y="28" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="bold" fill="#1f2937">DPO Variant Comparison Matrix</text>
+
+  <!-- Column headers background -->
+  <rect x="10" y="44" width="740" height="36" fill="#1f4fa3" rx="4"/>
+
+  <!-- Column header text -->
+  <text x="90" y="67" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="white">Method</text>
+  <text x="230" y="60" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="white">Paired</text>
+  <text x="230" y="75" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="white">Data</text>
+  <text x="360" y="60" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="white">Ref Model</text>
+  <text x="360" y="75" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="white">Required</text>
+  <text x="490" y="60" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="white">Length-</text>
+  <text x="490" y="75" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="white">Aware</text>
+  <text x="610" y="60" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="white">Saturation-</text>
+  <text x="610" y="75" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="white">Resistant</text>
+  <text x="710" y="60" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="white">Ref-Free</text>
+
+  <!-- Vertical dividers in header -->
+  <line x1="165" y1="44" x2="165" y2="80" stroke="white" stroke-width="0.5" stroke-opacity="0.4"/>
+  <line x1="295" y1="44" x2="295" y2="80" stroke="white" stroke-width="0.5" stroke-opacity="0.4"/>
+  <line x1="425" y1="44" x2="425" y2="80" stroke="white" stroke-width="0.5" stroke-opacity="0.4"/>
+  <line x1="555" y1="44" x2="555" y2="80" stroke="white" stroke-width="0.5" stroke-opacity="0.4"/>
+  <line x1="660" y1="44" x2="660" y2="80" stroke="white" stroke-width="0.5" stroke-opacity="0.4"/>
+
+  <!-- Row definitions: y positions for 5 rows -->
+  <!-- Row heights: each row = 48px, starting at y=80 -->
+
+  <!-- Row 1: DPO — light gray background -->
+  <rect x="10" y="80" width="740" height="48" fill="#ffffff"/>
+  <!-- Row 2: IPO -->
+  <rect x="10" y="128" width="740" height="48" fill="#f1f5fb"/>
+  <!-- Row 3: KTO -->
+  <rect x="10" y="176" width="740" height="48" fill="#ffffff"/>
+  <!-- Row 4: ORPO -->
+  <rect x="10" y="224" width="740" height="48" fill="#f1f5fb"/>
+  <!-- Row 5: SimPO -->
+  <rect x="10" y="272" width="740" height="48" fill="#ffffff"/>
+
+  <!-- Outer border -->
+  <rect x="10" y="80" width="740" height="240" fill="none" stroke="#cbd5e1" stroke-width="1.2" rx="0"/>
+
+  <!-- Horizontal dividers -->
+  <line x1="10" y1="128" x2="750" y2="128" stroke="#cbd5e1" stroke-width="0.8"/>
+  <line x1="10" y1="176" x2="750" y2="176" stroke="#cbd5e1" stroke-width="0.8"/>
+  <line x1="10" y1="224" x2="750" y2="224" stroke="#cbd5e1" stroke-width="0.8"/>
+  <line x1="10" y1="272" x2="750" y2="272" stroke="#cbd5e1" stroke-width="0.8"/>
+
+  <!-- Vertical dividers in data rows -->
+  <line x1="165" y1="80" x2="165" y2="320" stroke="#cbd5e1" stroke-width="0.8"/>
+  <line x1="295" y1="80" x2="295" y2="320" stroke="#cbd5e1" stroke-width="0.8"/>
+  <line x1="425" y1="80" x2="425" y2="320" stroke="#cbd5e1" stroke-width="0.8"/>
+  <line x1="555" y1="80" x2="555" y2="320" stroke="#cbd5e1" stroke-width="0.8"/>
+  <line x1="660" y1="80" x2="660" y2="320" stroke="#cbd5e1" stroke-width="0.8"/>
+
+  <!-- === ROW LABELS (Method names) === -->
+  <!-- DPO -->
+  <text x="90" y="99" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1f4fa3">DPO</text>
+  <text x="90" y="115" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5b6675">Rafailov 2023</text>
+  <!-- IPO -->
+  <text x="90" y="147" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#6c4fe0">IPO</text>
+  <text x="90" y="163" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5b6675">Azar 2023</text>
+  <!-- KTO -->
+  <text x="90" y="195" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0e8a6e">KTO</text>
+  <text x="90" y="211" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5b6675">Ethayarajh 2024</text>
+  <!-- ORPO -->
+  <text x="90" y="243" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#c77a12">ORPO</text>
+  <text x="90" y="259" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5b6675">Hong 2024</text>
+  <!-- SimPO -->
+  <text x="90" y="291" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#c0392b">SimPO</text>
+  <text x="90" y="307" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5b6675">Meng 2024</text>
+
+  <!-- Helper: green tick circle and red X circle macros via reuse -->
+  <!-- Green = needs / has property. Red = does not have property. -->
+  <!-- For "Paired Data needed": DPO=yes(red bad?), IPO=yes, KTO=no(green), ORPO=yes, SimPO=yes -->
+  <!-- Actually: green = favorable for user. Paired=yes is COSTLY (bad). So red circle for yes-paired, green for no-paired? -->
+  <!-- Let's use: green circle with checkmark = property present/good; red = absent/bad. -->
+  <!-- For "Paired Data": KTO says No (green = good). Others say Yes (red = costly). -->
+  <!-- For "Ref Model Required": ORPO=No(green), SimPO=No(green), others=Yes(red). -->
+  <!-- For "Length-Aware": SimPO=Yes(green), others=No(red). -->
+  <!-- For "Saturation-Resistant": IPO=Yes(green), others=No(red). -->
+  <!-- For "Ref-Free": ORPO=Yes(green), SimPO=Yes(green), others=No(red). -->
+
+  <!-- === COLUMN: Paired Data (x center=230) === -->
+  <!-- DPO: needs pairs (costly → red) -->
+  <circle cx="230" cy="104" r="13" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="230" y="109" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#c0392b">&#10007;</text>
+  <!-- IPO: needs pairs (red) -->
+  <circle cx="230" cy="152" r="13" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="230" y="157" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#c0392b">&#10007;</text>
+  <!-- KTO: no pairs needed (green) -->
+  <circle cx="230" cy="200" r="13" fill="#dcfce7" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="230" y="205" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#0e8a6e">&#10003;</text>
+  <!-- ORPO: needs pairs (red) -->
+  <circle cx="230" cy="248" r="13" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="230" y="253" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#c0392b">&#10007;</text>
+  <!-- SimPO: needs pairs (red) -->
+  <circle cx="230" cy="296" r="13" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="230" y="301" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#c0392b">&#10007;</text>
+
+  <!-- === COLUMN: Ref Model Required (x center=360) === -->
+  <!-- DPO: yes (red = costly) -->
+  <circle cx="360" cy="104" r="13" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="360" y="109" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#c0392b">&#10007;</text>
+  <!-- IPO: yes (red) -->
+  <circle cx="360" cy="152" r="13" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="360" y="157" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#c0392b">&#10007;</text>
+  <!-- KTO: yes (red) -->
+  <circle cx="360" cy="200" r="13" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="360" y="205" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#c0392b">&#10007;</text>
+  <!-- ORPO: no (green) -->
+  <circle cx="360" cy="248" r="13" fill="#dcfce7" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="360" y="253" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#0e8a6e">&#10003;</text>
+  <!-- SimPO: no (green) -->
+  <circle cx="360" cy="296" r="13" fill="#dcfce7" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="360" y="301" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#0e8a6e">&#10003;</text>
+
+  <!-- === COLUMN: Length-Aware (x center=490) === -->
+  <!-- DPO: no (red) -->
+  <circle cx="490" cy="104" r="13" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="490" y="109" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#c0392b">&#10007;</text>
+  <!-- IPO: no (red) -->
+  <circle cx="490" cy="152" r="13" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="490" y="157" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#c0392b">&#10007;</text>
+  <!-- KTO: no (red) -->
+  <circle cx="490" cy="200" r="13" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="490" y="205" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#c0392b">&#10007;</text>
+  <!-- ORPO: no (red) -->
+  <circle cx="490" cy="248" r="13" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="490" y="253" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#c0392b">&#10007;</text>
+  <!-- SimPO: yes (green) -->
+  <circle cx="490" cy="296" r="13" fill="#dcfce7" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="490" y="301" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#0e8a6e">&#10003;</text>
+
+  <!-- === COLUMN: Saturation-Resistant (x center=610) === -->
+  <!-- DPO: no (red) -->
+  <circle cx="610" cy="104" r="13" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="610" y="109" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#c0392b">&#10007;</text>
+  <!-- IPO: yes (green) -->
+  <circle cx="610" cy="152" r="13" fill="#dcfce7" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="610" y="157" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#0e8a6e">&#10003;</text>
+  <!-- KTO: partial (amber) -->
+  <circle cx="610" cy="200" r="13" fill="#fef3c7" stroke="#c77a12" stroke-width="1.5"/>
+  <text x="610" y="205" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#c77a12">~</text>
+  <!-- ORPO: no (red) -->
+  <circle cx="610" cy="248" r="13" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="610" y="253" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#c0392b">&#10007;</text>
+  <!-- SimPO: partial via margin (amber) -->
+  <circle cx="610" cy="296" r="13" fill="#fef3c7" stroke="#c77a12" stroke-width="1.5"/>
+  <text x="610" y="301" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#c77a12">~</text>
+
+  <!-- === COLUMN: Ref-Free (x center=710) === -->
+  <!-- DPO: no (red) -->
+  <circle cx="710" cy="104" r="13" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="710" y="109" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#c0392b">&#10007;</text>
+  <!-- IPO: no (red) -->
+  <circle cx="710" cy="152" r="13" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="710" y="157" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#c0392b">&#10007;</text>
+  <!-- KTO: no (red) -->
+  <circle cx="710" cy="200" r="13" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="710" y="205" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#c0392b">&#10007;</text>
+  <!-- ORPO: yes (green) -->
+  <circle cx="710" cy="248" r="13" fill="#dcfce7" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="710" y="253" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#0e8a6e">&#10003;</text>
+  <!-- SimPO: yes (green) -->
+  <circle cx="710" cy="296" r="13" fill="#dcfce7" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="710" y="301" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#0e8a6e">&#10003;</text>
+
+  <!-- Legend -->
+  <circle cx="240" cy="328" r="7" fill="#dcfce7" stroke="#0e8a6e" stroke-width="1.2"/>
+  <text x="250" y="332" font-family="sans-serif" font-size="10" fill="#0e8a6e">&#10003;</text>
+  <text x="263" y="332" font-family="sans-serif" font-size="10" fill="#374151">= favorable</text>
+  <circle cx="360" cy="328" r="7" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="370" y="332" font-family="sans-serif" font-size="10" fill="#c0392b">&#10007;</text>
+  <text x="383" y="332" font-family="sans-serif" font-size="10" fill="#374151">= limitation</text>
+  <circle cx="480" cy="328" r="7" fill="#fef3c7" stroke="#c77a12" stroke-width="1.2"/>
+  <text x="490" y="332" font-family="sans-serif" font-size="10" fill="#c77a12">~</text>
+  <text x="503" y="332" font-family="sans-serif" font-size="10" fill="#374151">= partial</text>
+</svg>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 360">
+  <!-- Background -->
+  <rect width="700" height="360" fill="#f8f9fb" rx="8"/>
+
+  <!-- Title -->
+  <text x="350" y="28" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1f4fa3">KL Divergence During Training: Three Scenarios</text>
+
+  <!-- ── Axes ── -->
+  <!-- Origin at (70, 290), x-axis length=580, y-axis height=240 -->
+  <line x1="70" y1="290" x2="650" y2="290" stroke="#5b6675" stroke-width="2"/>
+  <line x1="70" y1="50" x2="70" y2="290" stroke="#5b6675" stroke-width="2"/>
+
+  <!-- Axis arrows -->
+  <polygon points="650,290 641,286 641,294" fill="#5b6675"/>
+  <polygon points="70,50 66,59 74,59" fill="#5b6675"/>
+
+  <!-- Axis labels -->
+  <text x="360" y="318" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5b6675">Training Steps</text>
+  <text x="22" y="175" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5b6675" transform="rotate(-90 22 175)">KL(&#960;&#952; &#8741; &#960;ref) [nats]</text>
+
+  <!-- X-axis tick marks and labels -->
+  <line x1="185" y1="290" x2="185" y2="295" stroke="#5b6675" stroke-width="1.5"/>
+  <text x="185" y="307" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5b6675">1k</text>
+  <line x1="300" y1="290" x2="300" y2="295" stroke="#5b6675" stroke-width="1.5"/>
+  <text x="300" y="307" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5b6675">2k</text>
+  <line x1="415" y1="290" x2="415" y2="295" stroke="#5b6675" stroke-width="1.5"/>
+  <text x="415" y="307" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5b6675">3k</text>
+  <line x1="530" y1="290" x2="530" y2="295" stroke="#5b6675" stroke-width="1.5"/>
+  <text x="530" y="307" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#5b6675">4k</text>
+
+  <!-- Y-axis tick marks and labels: map KL values to pixel y coords
+       KL=0 -> y=290; KL=50 -> y=230; KL=100 -> y=170; KL=150 -> y=110; KL=200 -> y=50
+       scale: 240px / 200nats = 1.2 px/nat -->
+  <line x1="70" y1="230" x2="65" y2="230" stroke="#5b6675" stroke-width="1.5"/>
+  <text x="58" y="233" text-anchor="end" font-family="sans-serif" font-size="10" fill="#5b6675">50</text>
+  <line x1="70" y1="170" x2="65" y2="170" stroke="#5b6675" stroke-width="1.5"/>
+  <text x="58" y="173" text-anchor="end" font-family="sans-serif" font-size="10" fill="#5b6675">100</text>
+  <line x1="70" y1="110" x2="65" y2="110" stroke="#5b6675" stroke-width="1.5"/>
+  <text x="58" y="113" text-anchor="end" font-family="sans-serif" font-size="10" fill="#5b6675">150</text>
+  <line x1="70" y1="50" x2="65" y2="50" stroke="#5b6675" stroke-width="1.5"/>
+  <text x="58" y="53" text-anchor="end" font-family="sans-serif" font-size="10" fill="#5b6675">200</text>
+
+  <!-- ── Safe Zone (KL < 50) shaded green ── -->
+  <rect x="70" y="230" width="580" height="60" fill="#e6f4f1" opacity="0.6"/>
+  <text x="635" y="263" text-anchor="end" font-family="sans-serif" font-size="10" fill="#0e8a6e" font-weight="bold">Safe zone</text>
+  <text x="635" y="275" text-anchor="end" font-family="sans-serif" font-size="9" fill="#0e8a6e">KL &lt; 50</text>
+
+  <!-- ── Danger Zone (KL > 100) shaded red ── -->
+  <rect x="70" y="50" width="580" height="120" fill="#fdecea" opacity="0.5"/>
+  <text x="635" y="80" text-anchor="end" font-family="sans-serif" font-size="10" fill="#c0392b" font-weight="bold">Danger zone</text>
+  <text x="635" y="92" text-anchor="end" font-family="sans-serif" font-size="9" fill="#c0392b">KL &gt; 100</text>
+
+  <!-- ── Threshold lines ── -->
+  <line x1="70" y1="230" x2="650" y2="230" stroke="#0e8a6e" stroke-width="1" stroke-dasharray="6,4" opacity="0.7"/>
+  <line x1="70" y1="170" x2="650" y2="170" stroke="#c77a12" stroke-width="1" stroke-dasharray="6,4" opacity="0.7"/>
+  <line x1="70" y1="110" x2="650" y2="110" stroke="#c0392b" stroke-width="1" stroke-dasharray="6,4" opacity="0.7"/>
+
+  <!-- ── Caution band label ── -->
+  <text x="637" y="150" text-anchor="end" font-family="sans-serif" font-size="9" fill="#c77a12" font-weight="bold">Caution</text>
+  <text x="637" y="161" text-anchor="end" font-family="sans-serif" font-size="9" fill="#c77a12">50-100</text>
+
+  <!-- ── Curve 1: Healthy training (KL plateaus around 25) ── -->
+  <!-- Rises quickly to ~25 then levels off; pixel coords based on scale above -->
+  <!-- KL=25 -> y = 290 - 25*1.2 = 260 -->
+  <path d="M 70,290 C 100,285 130,272 185,264 C 240,258 300,257 415,257 C 530,257 590,258 640,259"
+        fill="none" stroke="#0e8a6e" stroke-width="2.5" stroke-linejoin="round"/>
+  <!-- Label -->
+  <text x="648" y="256" font-family="sans-serif" font-size="10" fill="#0e8a6e" font-weight="bold">1</text>
+
+  <!-- ── Curve 2: Drifted training (KL explodes to ~200) ── -->
+  <!-- KL=200 -> y=50; explodes around step 2k then continues up -->
+  <path d="M 70,290 C 100,287 130,282 185,274 C 230,265 270,240 310,210 C 360,170 390,120 430,80 C 460,58 500,54 530,52"
+        fill="none" stroke="#c0392b" stroke-width="2.5" stroke-linejoin="round"/>
+  <text x="535" y="50" font-family="sans-serif" font-size="10" fill="#c0392b" font-weight="bold">2</text>
+  <!-- Annotation arrow for explosion -->
+  <line x1="375" y1="152" x2="355" y2="175" stroke="#c0392b" stroke-width="1.5"/>
+  <polygon points="355,175 354,165 362,168" fill="#c0392b"/>
+  <text x="380" y="148" font-family="sans-serif" font-size="9" fill="#c0392b">KL explosion</text>
+  <text x="380" y="159" font-family="sans-serif" font-size="9" fill="#c0392b">coherence degrades</text>
+
+  <!-- ── Curve 3: Iterative DPO with resets ── -->
+  <!-- KL rises to ~40, then resets to ~5, rises to ~35, resets, rises to ~30 -->
+  <!-- KL=40 -> y=242; KL=5 -> y=284; KL=35 -> y=248; KL=30 -> y=254 -->
+  <path d="M 70,290 C 100,287 140,275 185,248 C 210,238 220,240 235,242"
+        fill="none" stroke="#6c4fe0" stroke-width="2.5" stroke-linejoin="round"/>
+  <!-- Reset drop 1 -->
+  <line x1="235" y1="242" x2="235" y2="284" stroke="#6c4fe0" stroke-width="2" stroke-dasharray="3,3"/>
+  <!-- Second rise -->
+  <path d="M 235,284 C 260,280 290,270 330,252 C 360,244 375,244 390,246"
+        fill="none" stroke="#6c4fe0" stroke-width="2.5" stroke-linejoin="round"/>
+  <!-- Reset drop 2 -->
+  <line x1="390" y1="246" x2="390" y2="284" stroke="#6c4fe0" stroke-width="2" stroke-dasharray="3,3"/>
+  <!-- Third rise -->
+  <path d="M 390,284 C 415,280 450,271 500,255 C 540,247 580,246 630,246"
+        fill="none" stroke="#6c4fe0" stroke-width="2.5" stroke-linejoin="round"/>
+  <!-- Label -->
+  <text x="635" y="244" font-family="sans-serif" font-size="10" fill="#6c4fe0" font-weight="bold">3</text>
+  <!-- Reset labels -->
+  <text x="228" y="237" text-anchor="middle" font-family="sans-serif" font-size="8.5" fill="#6c4fe0">reset</text>
+  <text x="383" y="241" text-anchor="middle" font-family="sans-serif" font-size="8.5" fill="#6c4fe0">reset</text>
+
+  <!-- ── Legend ── -->
+  <rect x="75" y="55" width="250" height="72" fill="#ffffff" stroke="#d0d4db" stroke-width="1" rx="4" opacity="0.9"/>
+  <line x1="85" y1="72" x2="115" y2="72" stroke="#0e8a6e" stroke-width="2.5"/>
+  <text x="120" y="76" font-family="sans-serif" font-size="10" fill="#0e8a6e">1. Healthy training (KL plateaus ~25)</text>
+  <line x1="85" y1="90" x2="115" y2="90" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="120" y="94" font-family="sans-serif" font-size="10" fill="#c0392b">2. Drifted training (KL explosion)</text>
+  <line x1="85" y1="108" x2="95" y2="108" stroke="#6c4fe0" stroke-width="2.5"/>
+  <line x1="95" y1="108" x2="95" y2="115" stroke="#6c4fe0" stroke-width="2" stroke-dasharray="3,3"/>
+  <line x1="95" y1="115" x2="115" y2="115" stroke="#6c4fe0" stroke-width="2.5"/>
+  <text x="120" y="115" font-family="sans-serif" font-size="10" fill="#6c4fe0">3. Iterative DPO (&#960;ref resets)</text>
+</svg>
