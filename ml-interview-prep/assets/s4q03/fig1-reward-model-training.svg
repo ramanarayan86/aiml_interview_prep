@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 400" width="860" height="400" font-family="Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 9 3.5, 0 7" fill="#5b6675"/>
+    </marker>
+    <marker id="arr-navy" markerWidth="9" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 9 3.5, 0 7" fill="#1f4fa3"/>
+    </marker>
+    <marker id="arr-teal" markerWidth="9" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 9 3.5, 0 7" fill="#0e8a6e"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 9 3.5, 0 7" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="860" height="400" fill="#f8f9fa" rx="10"/>
+
+  <!-- Title -->
+  <text x="430" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">Reward Model Training Pipeline (Bradley-Terry)</text>
+
+  <!-- ===== STEP 1: Prompt box ===== -->
+  <rect x="20" y="55" width="110" height="50" rx="8" fill="#1f4fa3" opacity="0.12" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="75" y="75" text-anchor="middle" font-size="11" font-weight="bold" fill="#1f4fa3">Prompt x</text>
+  <text x="75" y="92" text-anchor="middle" font-size="10" fill="#1f4fa3">"Explain gravity"</text>
+
+  <!-- arrow to SFT -->
+  <line x1="130" y1="80" x2="160" y2="80" stroke="#5b6675" stroke-width="1.8" marker-end="url(#arr)"/>
+
+  <!-- ===== STEP 2: SFT Model ===== -->
+  <rect x="162" y="55" width="130" height="50" rx="8" fill="#0e8a6e" opacity="0.12" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="227" y="75" text-anchor="middle" font-size="11" font-weight="bold" fill="#0e8a6e">SFT Model</text>
+  <text x="227" y="90" text-anchor="middle" font-size="10" fill="#0e8a6e">generates responses</text>
+
+  <!-- arrows down to responses -->
+  <line x1="220" y1="105" x2="185" y2="155" stroke="#5b6675" stroke-width="1.8" marker-end="url(#arr)"/>
+  <line x1="234" y1="105" x2="270" y2="155" stroke="#5b6675" stroke-width="1.8" marker-end="url(#arr)"/>
+
+  <!-- ===== Response boxes ===== -->
+  <!-- y_w (winning/preferred) -->
+  <rect x="115" y="157" width="130" height="50" rx="8" fill="#0e8a6e" opacity="0.15" stroke="#0e8a6e" stroke-width="1.8"/>
+  <text x="180" y="177" text-anchor="middle" font-size="11" font-weight="bold" fill="#0e8a6e">Response y_w</text>
+  <text x="180" y="193" text-anchor="middle" font-size="10" fill="#0e8a6e">(preferred / winning)</text>
+
+  <!-- y_l (losing) -->
+  <rect x="260" y="157" width="130" height="50" rx="8" fill="#c0392b" opacity="0.12" stroke="#c0392b" stroke-width="1.8"/>
+  <text x="325" y="177" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Response y_l</text>
+  <text x="325" y="193" text-anchor="middle" font-size="10" fill="#c0392b">(dispreferred / losing)</text>
+
+  <!-- ===== Human annotator ===== -->
+  <!-- Arrow from both responses to human -->
+  <line x1="190" y1="207" x2="390" y2="255" stroke="#5b6675" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr)"/>
+  <line x1="345" y1="207" x2="400" y2="255" stroke="#5b6675" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr)"/>
+
+  <rect x="360" y="257" width="140" height="50" rx="8" fill="#c77a12" opacity="0.14" stroke="#c77a12" stroke-width="1.8"/>
+  <text x="430" y="277" text-anchor="middle" font-size="11" font-weight="bold" fill="#c77a12">Human Annotator</text>
+  <text x="430" y="293" text-anchor="middle" font-size="10" fill="#c77a12">labels y_w &#8827; y_l</text>
+
+  <!-- Arrow from annotator to training data -->
+  <line x1="500" y1="282" x2="560" y2="282" stroke="#5b6675" stroke-width="1.8" marker-end="url(#arr)"/>
+
+  <!-- ===== Preference dataset ===== -->
+  <rect x="562" y="257" width="150" height="50" rx="8" fill="#6c4fe0" opacity="0.12" stroke="#6c4fe0" stroke-width="1.8"/>
+  <text x="637" y="277" text-anchor="middle" font-size="11" font-weight="bold" fill="#6c4fe0">Preference Dataset</text>
+  <text x="637" y="293" text-anchor="middle" font-size="10" fill="#6c4fe0">(x, y_w, y_l) triplets</text>
+
+  <!-- Arrow from dataset to RM training -->
+  <line x1="637" y1="257" x2="637" y2="207" stroke="#5b6675" stroke-width="1.8" marker-end="url(#arr)"/>
+
+  <!-- ===== Reward Model Architecture box ===== -->
+  <rect x="562" y="120" width="270" height="130" rx="8" fill="#ffffff" stroke="#1f4fa3" stroke-width="2"/>
+  <text x="697" y="142" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f4fa3">Reward Model r_&#952;(x, y)</text>
+
+  <!-- RM architecture internals -->
+  <!-- LM backbone -->
+  <rect x="585" y="152" width="110" height="35" rx="5" fill="#1f4fa3" opacity="0.12" stroke="#1f4fa3" stroke-width="1.2"/>
+  <text x="640" y="167" text-anchor="middle" font-size="10" font-weight="bold" fill="#1f4fa3">LM Backbone</text>
+  <text x="640" y="181" text-anchor="middle" font-size="9" fill="#1f4fa3">(frozen or fine-tuned)</text>
+
+  <!-- arrow right -->
+  <line x1="695" y1="170" x2="715" y2="170" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Scalar head -->
+  <rect x="717" y="152" width="100" height="35" rx="5" fill="#6c4fe0" opacity="0.15" stroke="#6c4fe0" stroke-width="1.2"/>
+  <text x="767" y="167" text-anchor="middle" font-size="10" font-weight="bold" fill="#6c4fe0">Scalar Head</text>
+  <text x="767" y="181" text-anchor="middle" font-size="9" fill="#6c4fe0">Linear(d, 1)</text>
+
+  <!-- Loss annotation box -->
+  <rect x="585" y="200" width="228" height="42" rx="5" fill="#c77a12" opacity="0.08" stroke="#c77a12" stroke-width="1.2"/>
+  <text x="699" y="217" text-anchor="middle" font-size="10" font-weight="bold" fill="#c77a12">Bradley-Terry Loss:</text>
+  <text x="699" y="234" text-anchor="middle" font-size="10" fill="#c77a12">L = -log &#963;(r&#952;(x,y_w) - r&#952;(x,y_l))</text>
+
+  <!-- Initialized from SFT checkpoint label -->
+  <text x="697" y="265" text-anchor="middle" font-size="9" fill="#5b6675" font-style="italic">Initialized from SFT checkpoint</text>
+
+  <!-- Step labels -->
+  <text x="75" y="47" text-anchor="middle" font-size="9" font-weight="bold" fill="#5b6675">STEP 1</text>
+  <text x="227" y="47" text-anchor="middle" font-size="9" font-weight="bold" fill="#5b6675">STEP 2</text>
+  <text x="253" y="147" text-anchor="middle" font-size="9" font-weight="bold" fill="#5b6675">STEP 3: Human Labeling</text>
+  <text x="430" y="248" text-anchor="middle" font-size="9" font-weight="bold" fill="#5b6675">STEP 4</text>
+  <text x="697" y="112" text-anchor="middle" font-size="9" font-weight="bold" fill="#5b6675">STEP 5: Train RM</text>
+
+  <!-- Output label -->
+  <text x="697" y="380" text-anchor="middle" font-size="11" fill="#1f4fa3" font-weight="bold">Output: r&#952;(x,y) &#8712; &#8477; — scalar reward score</text>
+</svg>

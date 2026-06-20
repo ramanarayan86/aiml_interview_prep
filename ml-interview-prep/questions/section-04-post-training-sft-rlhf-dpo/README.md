@@ -12,8 +12,8 @@
 
 ![Questions](https://img.shields.io/badge/questions-40-1f4fa3)
 ![Levels](https://img.shields.io/badge/levels-Basic→Intermediate→Advanced→Applied-0e8a6e)
-![Answered](https://img.shields.io/badge/answered-0%2F40-c77a12)
-![Scaffolded](https://img.shields.io/badge/scaffolded-40%2F40-6c4fe0)
+![Answered](https://img.shields.io/badge/answered-7%2F40-c77a12)
+![Scaffolded](https://img.shields.io/badge/scaffolded-33%2F40-6c4fe0)
 
 </div>
 
@@ -27,13 +27,13 @@ Post-training is where raw capability becomes useful, safe, and aligned behavior
 
 | # | Question | Tags | Status |
 |---|----------|------|:------:|
-| Q4‑01 | What is supervised fine-tuning (SFT)? Why is data quality often more important than quantity here (LIMA hypothesis)? | SFT · LIMA · instruction-tuning · data-quality | 📝 |
-| Q4‑02 | Explain RLHF at a high level. What are the three stages (SFT, RM, PPO)? | RLHF · reward-model · PPO · three-stage | 📝 |
-| Q4‑03 | What is a reward model? How is it trained from preference pairs (Bradley-Terry model)? | reward-model · Bradley-Terry · preference-pairs | 📝 |
-| Q4‑04 | What is the KL penalty in RLHF for? What happens if you remove it? | KL-penalty · RLHF · policy-constraint · reward-hacking | 📝 |
-| Q4‑05 | What's the difference between on-policy and off-policy RL? Which category does PPO fall into? | on-policy · off-policy · PPO · RL | 📝 |
-| Q4‑06 | What is instruction tuning, and how does it differ from chat tuning? | instruction-tuning · chat-tuning · SFT | 📝 |
-| Q4‑07 | Explain the role of a system prompt vs a user prompt during post-training. | system-prompt · user-prompt · post-training | 📝 |
+| Q4‑01 | [What is supervised fine-tuning (SFT)? Why is data quality often more important than quantity here (LIMA hypothesis)?](./q01-sft-lima.md) | SFT · LIMA · instruction-tuning · data-quality | ✅ |
+| Q4‑02 | [Explain RLHF at a high level. What are the three stages (SFT, RM, PPO)?](./q02-rlhf-overview.md) | RLHF · reward-model · PPO · three-stage | ✅ |
+| Q4‑03 | [What is a reward model? How is it trained from preference pairs (Bradley-Terry model)?](./q03-reward-model.md) | reward-model · Bradley-Terry · preference-pairs | ✅ |
+| Q4‑04 | [What is the KL penalty in RLHF for? What happens if you remove it?](./q04-kl-penalty.md) | KL-penalty · RLHF · policy-constraint · reward-hacking | ✅ |
+| Q4‑05 | [What's the difference between on-policy and off-policy RL? Which category does PPO fall into?](./q05-on-off-policy.md) | on-policy · off-policy · PPO · RL | ✅ |
+| Q4‑06 | [What is instruction tuning, and how does it differ from chat tuning?](./q06-instruction-tuning.md) | instruction-tuning · chat-tuning · SFT | ✅ |
+| Q4‑07 | [Explain the role of a system prompt vs a user prompt during post-training.](./q07-system-user-prompt.md) | system-prompt · user-prompt · post-training | ✅ |
 
 ---
 

@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 400" width="860" height="400" font-family="Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#5b6675"/>
+    </marker>
+    <marker id="arr-navy" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1f4fa3"/>
+    </marker>
+    <marker id="arr-teal" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#0e8a6e"/>
+    </marker>
+    <marker id="arr-amber" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#c77a12"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="860" height="400" fill="#f8f9fa" rx="10"/>
+
+  <!-- Title -->
+  <text x="430" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">RLHF Three-Stage Pipeline</text>
+
+  <!-- ========== STAGE 1: SFT (navy) ========== -->
+  <!-- Stage banner -->
+  <rect x="20" y="45" width="240" height="32" fill="#1f4fa3" rx="6"/>
+  <text x="140" y="66" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">Stage 1 &#183; SFT</text>
+
+  <!-- Base Model box -->
+  <rect x="30" y="90" width="100" height="44" fill="#d6e4fa" stroke="#1f4fa3" stroke-width="1.5" rx="5"/>
+  <text x="80" y="110" text-anchor="middle" font-size="11" fill="#1f4fa3" font-weight="bold">Base LM</text>
+  <text x="80" y="126" text-anchor="middle" font-size="10" fill="#1f4fa3">(pretrained)</text>
+
+  <!-- Instruction Data box -->
+  <rect x="30" y="150" width="100" height="44" fill="#d6e4fa" stroke="#1f4fa3" stroke-width="1.5" rx="5"/>
+  <text x="80" y="170" text-anchor="middle" font-size="11" fill="#1f4fa3" font-weight="bold">Instruction</text>
+  <text x="80" y="186" text-anchor="middle" font-size="10" fill="#1f4fa3">Data (Q,A pairs)</text>
+
+  <!-- Arrow: Base LM + Data -> SFT model -->
+  <line x1="133" y1="112" x2="158" y2="112" stroke="#1f4fa3" stroke-width="1.5" marker-end="url(#arr-navy)"/>
+  <line x1="133" y1="172" x2="145" y2="172" stroke="#1f4fa3" stroke-width="1.5"/>
+  <line x1="145" y1="172" x2="145" y2="119" stroke="#1f4fa3" stroke-width="1.5"/>
+  <line x1="145" y1="119" x2="158" y2="119" stroke="#1f4fa3" stroke-width="1.5" marker-end="url(#arr-navy)"/>
+
+  <!-- SFT Model output box -->
+  <rect x="160" y="93" width="90" height="44" fill="#1f4fa3" rx="5"/>
+  <text x="205" y="113" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">SFT Model</text>
+  <text x="205" y="129" text-anchor="middle" font-size="10" fill="#e0e8f8">&#960;&#8320; (policy)</text>
+
+  <!-- Stage 1 description -->
+  <text x="140" y="215" text-anchor="middle" font-size="10" fill="#5b6675">Fine-tune on labeled</text>
+  <text x="140" y="228" text-anchor="middle" font-size="10" fill="#5b6675">prompt-response pairs</text>
+  <text x="140" y="241" text-anchor="middle" font-size="10" fill="#5b6675">via cross-entropy loss</text>
+
+  <!-- Stage 1 boundary box -->
+  <rect x="20" y="80" width="240" height="175" fill="none" stroke="#1f4fa3" stroke-width="1.5" stroke-dasharray="6,3" rx="8"/>
+
+  <!-- ========== INTER-STAGE ARROW 1->2 ========== -->
+  <line x1="260" y1="200" x2="290" y2="200" stroke="#5b6675" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="275" y="215" text-anchor="middle" font-size="9" fill="#5b6675">SFT</text>
+  <text x="275" y="226" text-anchor="middle" font-size="9" fill="#5b6675">model</text>
+
+  <!-- ========== STAGE 2: RM (teal) ========== -->
+  <!-- Stage banner -->
+  <rect x="295" y="45" width="270" height="32" fill="#0e8a6e" rx="6"/>
+  <text x="430" y="66" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">Stage 2 &#183; Reward Model</text>
+
+  <!-- SFT generates pairs -->
+  <rect x="305" y="90" width="110" height="44" fill="#c8efe6" stroke="#0e8a6e" stroke-width="1.5" rx="5"/>
+  <text x="360" y="108" text-anchor="middle" font-size="10" fill="#0e8a6e" font-weight="bold">SFT generates</text>
+  <text x="360" y="120" text-anchor="middle" font-size="10" fill="#0e8a6e">k responses/prompt</text>
+  <text x="360" y="132" text-anchor="middle" font-size="10" fill="#0e8a6e">(y&#8321; vs y&#8322;)</text>
+
+  <!-- Human raters -->
+  <rect x="305" y="150" width="110" height="44" fill="#c8efe6" stroke="#0e8a6e" stroke-width="1.5" rx="5"/>
+  <text x="360" y="168" text-anchor="middle" font-size="10" fill="#0e8a6e" font-weight="bold">Human Raters</text>
+  <text x="360" y="180" text-anchor="middle" font-size="10" fill="#0e8a6e">rank/prefer</text>
+  <text x="360" y="192" text-anchor="middle" font-size="10" fill="#0e8a6e">y&#8321; &#8827; y&#8322;</text>
+
+  <!-- Arrows within Stage 2 -->
+  <line x1="418" y1="112" x2="435" y2="112" stroke="#0e8a6e" stroke-width="1.5" marker-end="url(#arr-teal)"/>
+  <line x1="418" y1="172" x2="430" y2="172" stroke="#0e8a6e" stroke-width="1.5"/>
+  <line x1="430" y1="172" x2="430" y2="125" stroke="#0e8a6e" stroke-width="1.5"/>
+  <line x1="430" y1="125" x2="435" y2="125" stroke="#0e8a6e" stroke-width="1.5" marker-end="url(#arr-teal)"/>
+
+  <!-- Reward Model output -->
+  <rect x="437" y="90" width="110" height="68" fill="#0e8a6e" rx="5"/>
+  <text x="492" y="112" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">Reward Model</text>
+  <text x="492" y="128" text-anchor="middle" font-size="10" fill="#d0f0e8">r&#966;(x, y)</text>
+  <text x="492" y="143" text-anchor="middle" font-size="9.5" fill="#d0f0e8">Bradley-Terry</text>
+  <text x="492" y="156" text-anchor="middle" font-size="9.5" fill="#d0f0e8">log-likelihood</text>
+
+  <!-- Stage 2 description -->
+  <text x="430" y="215" text-anchor="middle" font-size="10" fill="#5b6675">Train RM on preference pairs;</text>
+  <text x="430" y="228" text-anchor="middle" font-size="10" fill="#5b6675">P(y&#8321;&#8827;y&#8322;) = &#963;(r(y&#8321;)&#8722;r(y&#8322;))</text>
+  <text x="430" y="241" text-anchor="middle" font-size="10" fill="#5b6675">maximise log P across pairs</text>
+
+  <!-- Stage 2 boundary box -->
+  <rect x="295" y="80" width="270" height="175" fill="none" stroke="#0e8a6e" stroke-width="1.5" stroke-dasharray="6,3" rx="8"/>
+
+  <!-- ========== INTER-STAGE ARROW 2->3 ========== -->
+  <line x1="565" y1="200" x2="595" y2="200" stroke="#5b6675" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="580" y="215" text-anchor="middle" font-size="9" fill="#5b6675">RM +</text>
+  <text x="580" y="226" text-anchor="middle" font-size="9" fill="#5b6675">SFT ref</text>
+
+  <!-- ========== STAGE 3: PPO (amber) ========== -->
+  <!-- Stage banner -->
+  <rect x="605" y="45" width="235" height="32" fill="#c77a12" rx="6"/>
+  <text x="722" y="66" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">Stage 3 &#183; PPO</text>
+
+  <!-- Policy init from SFT -->
+  <rect x="615" y="90" width="100" height="40" fill="#fdebd4" stroke="#c77a12" stroke-width="1.5" rx="5"/>
+  <text x="665" y="107" text-anchor="middle" font-size="10" fill="#c77a12" font-weight="bold">Policy &#960;&#952;</text>
+  <text x="665" y="121" text-anchor="middle" font-size="10" fill="#c77a12">(init from SFT)</text>
+
+  <!-- Reference policy -->
+  <rect x="615" y="145" width="100" height="40" fill="#fdebd4" stroke="#c77a12" stroke-width="1.5" rx="5"/>
+  <text x="665" y="162" text-anchor="middle" font-size="10" fill="#c77a12" font-weight="bold">Ref Policy &#960;&#8320;</text>
+  <text x="665" y="176" text-anchor="middle" font-size="10" fill="#c77a12">(frozen SFT)</text>
+
+  <!-- Arrows to reward -->
+  <line x1="718" y1="110" x2="730" y2="110" stroke="#c77a12" stroke-width="1.5" marker-end="url(#arr-amber)"/>
+  <line x1="718" y1="165" x2="725" y2="165" stroke="#c77a12" stroke-width="1.5"/>
+  <line x1="725" y1="165" x2="725" y2="120" stroke="#c77a12" stroke-width="1.5"/>
+  <line x1="725" y1="120" x2="730" y2="120" stroke="#c77a12" stroke-width="1.5" marker-end="url(#arr-amber)"/>
+
+  <!-- Total reward box -->
+  <rect x="732" y="90" width="95" height="70" fill="#c77a12" rx="5"/>
+  <text x="779" y="110" text-anchor="middle" font-size="10" font-weight="bold" fill="#ffffff">Reward =</text>
+  <text x="779" y="124" text-anchor="middle" font-size="10" fill="#fdebd4">r&#966;(x,y)</text>
+  <text x="779" y="137" text-anchor="middle" font-size="10" fill="#fdebd4">&#8722; &#946; KL(&#960;||&#960;&#8320;)</text>
+  <text x="779" y="150" text-anchor="middle" font-size="9" fill="#ffe4b5">PPO update</text>
+
+  <!-- Stage 3 description -->
+  <text x="722" y="215" text-anchor="middle" font-size="10" fill="#5b6675">Optimise policy via PPO;</text>
+  <text x="722" y="228" text-anchor="middle" font-size="10" fill="#5b6675">KL penalty prevents</text>
+  <text x="722" y="241" text-anchor="middle" font-size="10" fill="#5b6675">reward hacking</text>
+
+  <!-- Stage 3 boundary box -->
+  <rect x="605" y="80" width="235" height="175" fill="none" stroke="#c77a12" stroke-width="1.5" stroke-dasharray="6,3" rx="8"/>
+
+  <!-- ========== FEEDBACK LOOP arrow for PPO ========== -->
+  <path d="M 779 160 Q 779 270 665 270 Q 610 270 610 220 L 610 208" stroke="#c77a12" stroke-width="1.5" fill="none" stroke-dasharray="5,3" marker-end="url(#arr-amber)"/>
+  <text x="722" y="285" text-anchor="middle" font-size="10" fill="#c77a12" font-weight="bold">policy update loop</text>
+
+  <!-- ========== OUTPUT ========== -->
+  <rect x="310" y="318" width="240" height="42" fill="#1f4fa3" rx="7"/>
+  <text x="430" y="337" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">RLHF-aligned LM</text>
+  <text x="430" y="353" text-anchor="middle" font-size="10" fill="#d0dcf8">helpful &#183; harmless &#183; honest</text>
+
+  <!-- Arrow from Stage 3 to output -->
+  <line x1="722" y1="305" x2="510" y2="318" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Legend -->
+  <rect x="20" y="340" width="260" height="50" fill="#ffffff" stroke="#d0d5dd" stroke-width="1" rx="5"/>
+  <rect x="30" y="350" width="12" height="12" fill="#1f4fa3" rx="2"/>
+  <text x="48" y="361" font-size="10" fill="#5b6675">Stage 1 SFT (supervised)</text>
+  <rect x="30" y="368" width="12" height="12" fill="#0e8a6e" rx="2"/>
+  <text x="48" y="379" font-size="10" fill="#5b6675">Stage 2 RM (preference)</text>
+  <rect x="150" y="350" width="12" height="12" fill="#c77a12" rx="2"/>
+  <text x="168" y="361" font-size="10" fill="#5b6675">Stage 3 PPO (RL)</text>
+</svg>

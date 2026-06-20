@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 460" width="900" height="460" font-family="Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#5b6675"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="460" fill="#f8f9fa" rx="10"/>
+
+  <!-- Title -->
+  <text x="450" y="30" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">Context Window Layout During Chat-SFT</text>
+
+  <!-- ======== Context window container ======== -->
+  <rect x="20" y="50" width="860" height="80" fill="#ffffff" stroke="#5b6675" stroke-width="2" rx="8"/>
+  <text x="450" y="45" text-anchor="middle" font-size="11" fill="#5b6675">Full context window (left-to-right = token positions)</text>
+
+  <!-- SYSTEM PROMPT segment -->
+  <rect x="24" y="54" width="170" height="72" fill="#d6e4fa" stroke="#1f4fa3" stroke-width="2" rx="4"/>
+  <text x="109" y="78" text-anchor="middle" font-size="11" font-weight="bold" fill="#1f4fa3">SYSTEM PROMPT</text>
+  <text x="109" y="94" text-anchor="middle" font-size="10" fill="#1f4fa3">&#34;You are a helpful</text>
+  <text x="109" y="108" text-anchor="middle" font-size="10" fill="#1f4fa3">coding assistant.&#34;</text>
+
+  <!-- USER TURN 1 segment -->
+  <rect x="198" y="54" width="130" height="72" fill="#c8efe6" stroke="#0e8a6e" stroke-width="2" rx="4"/>
+  <text x="263" y="78" text-anchor="middle" font-size="11" font-weight="bold" fill="#0e8a6e">USER TURN 1</text>
+  <text x="263" y="94" text-anchor="middle" font-size="10" fill="#0e8a6e">&#34;What is</text>
+  <text x="263" y="108" text-anchor="middle" font-size="10" fill="#0e8a6e">2+2?&#34;</text>
+
+  <!-- ASSISTANT TURN 1 segment -->
+  <rect x="332" y="54" width="150" height="72" fill="#fdebd4" stroke="#c77a12" stroke-width="2" rx="4"/>
+  <text x="407" y="72" text-anchor="middle" font-size="11" font-weight="bold" fill="#c77a12">ASSISTANT</text>
+  <text x="407" y="86" text-anchor="middle" font-size="11" font-weight="bold" fill="#c77a12">TURN 1</text>
+  <text x="407" y="102" text-anchor="middle" font-size="10" fill="#c77a12">&#34;4&#34;</text>
+  <text x="407" y="116" text-anchor="middle" font-size="9" fill="#c77a12">(generated)</text>
+
+  <!-- USER TURN 2 segment -->
+  <rect x="486" y="54" width="150" height="72" fill="#c8efe6" stroke="#0e8a6e" stroke-width="2" rx="4"/>
+  <text x="561" y="78" text-anchor="middle" font-size="11" font-weight="bold" fill="#0e8a6e">USER TURN 2</text>
+  <text x="561" y="94" text-anchor="middle" font-size="10" fill="#0e8a6e">&#34;Now multiply</text>
+  <text x="561" y="108" text-anchor="middle" font-size="10" fill="#0e8a6e">by 3.&#34;</text>
+
+  <!-- ASSISTANT TURN 2 segment (being generated) -->
+  <rect x="640" y="54" width="236" height="72" fill="#f3effd" stroke="#6c4fe0" stroke-width="2" stroke-dasharray="6,3" rx="4"/>
+  <text x="758" y="72" text-anchor="middle" font-size="11" font-weight="bold" fill="#6c4fe0">ASSISTANT TURN 2</text>
+  <text x="758" y="86" text-anchor="middle" font-size="11" font-weight="bold" fill="#6c4fe0">(being generated)</text>
+  <text x="758" y="102" text-anchor="middle" font-size="10" fill="#6c4fe0">&#34;12&#34;...</text>
+  <text x="758" y="116" text-anchor="middle" font-size="9" fill="#6c4fe0">loss computed here</text>
+
+  <!-- ======== Annotation arrows ======== -->
+  <!-- System prompt annotation -->
+  <line x1="109" y1="130" x2="109" y2="165" stroke="#1f4fa3" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="20" y="168" width="178" height="70" fill="#d6e4fa" stroke="#1f4fa3" stroke-width="1" rx="5"/>
+  <text x="109" y="185" text-anchor="middle" font-size="10" font-weight="bold" fill="#1f4fa3">System Prompt</text>
+  <text x="109" y="199" text-anchor="middle" font-size="9.5" fill="#1f4fa3">Set by app developer</text>
+  <text x="109" y="212" text-anchor="middle" font-size="9.5" fill="#1f4fa3">Appears once before all turns</text>
+  <text x="109" y="225" text-anchor="middle" font-size="9.5" fill="#1f4fa3">Defines persona + constraints</text>
+
+  <!-- User prompt annotation -->
+  <line x1="400" y1="130" x2="400" y2="165" stroke="#0e8a6e" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="198" y="168" width="404" height="70" fill="#c8efe6" stroke="#0e8a6e" stroke-width="1" rx="5"/>
+  <text x="400" y="185" text-anchor="middle" font-size="10" font-weight="bold" fill="#0e8a6e">User Prompts (per turn)</text>
+  <text x="400" y="199" text-anchor="middle" font-size="9.5" fill="#0e8a6e">Submitted by end user at runtime</text>
+  <text x="400" y="212" text-anchor="middle" font-size="9.5" fill="#0e8a6e">Can include RAG docs, few-shot examples, tool outputs</text>
+  <text x="400" y="225" text-anchor="middle" font-size="9.5" fill="#0e8a6e">Each follows a prior assistant turn (except turn 1)</text>
+
+  <!-- Assistant annotation -->
+  <line x1="758" y1="130" x2="758" y2="165" stroke="#6c4fe0" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="618" y="168" width="262" height="70" fill="#f3effd" stroke="#6c4fe0" stroke-width="1" rx="5"/>
+  <text x="749" y="185" text-anchor="middle" font-size="10" font-weight="bold" fill="#6c4fe0">Assistant Responses</text>
+  <text x="749" y="199" text-anchor="middle" font-size="9.5" fill="#6c4fe0">Generated by the model</text>
+  <text x="749" y="212" text-anchor="middle" font-size="9.5" fill="#6c4fe0">SFT loss computed ONLY here</text>
+  <text x="749" y="225" text-anchor="middle" font-size="9.5" fill="#6c4fe0">Loss weight = 1 (others = 0)</text>
+
+  <!-- ======== ChatML token layout ======== -->
+  <text x="450" y="262" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f4fa3">ChatML Token Sequence</text>
+
+  <!-- ChatML row -->
+  <rect x="20" y="272" width="860" height="44" fill="#ffffff" stroke="#5b6675" stroke-width="1.5" rx="6"/>
+
+  <!-- im_start|system -->
+  <rect x="24" y="276" width="82" height="36" fill="#d6e4fa" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <text x="65" y="291" text-anchor="middle" font-size="8.5" fill="#1f4fa3" font-weight="bold">&lt;|im_start|&gt;</text>
+  <text x="65" y="304" text-anchor="middle" font-size="8.5" fill="#1f4fa3">system</text>
+
+  <!-- system content -->
+  <rect x="110" y="276" width="86" height="36" fill="#d6e4fa" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <text x="153" y="291" text-anchor="middle" font-size="8.5" fill="#1f4fa3">You are a</text>
+  <text x="153" y="304" text-anchor="middle" font-size="8.5" fill="#1f4fa3">helpful asst.</text>
+
+  <!-- im_end -->
+  <rect x="200" y="276" width="60" height="36" fill="#d6e4fa" stroke="#1f4fa3" stroke-width="1" rx="3"/>
+  <text x="230" y="295" text-anchor="middle" font-size="8.5" fill="#1f4fa3">&lt;|im_end|&gt;</text>
+
+  <!-- im_start|user -->
+  <rect x="264" y="276" width="75" height="36" fill="#c8efe6" stroke="#0e8a6e" stroke-width="1" rx="3"/>
+  <text x="301" y="291" text-anchor="middle" font-size="8.5" fill="#0e8a6e" font-weight="bold">&lt;|im_start|&gt;</text>
+  <text x="301" y="304" text-anchor="middle" font-size="8.5" fill="#0e8a6e">user</text>
+
+  <!-- user content -->
+  <rect x="343" y="276" width="80" height="36" fill="#c8efe6" stroke="#0e8a6e" stroke-width="1" rx="3"/>
+  <text x="383" y="295" text-anchor="middle" font-size="8.5" fill="#0e8a6e">What is 2+2?</text>
+
+  <!-- im_end -->
+  <rect x="427" y="276" width="60" height="36" fill="#c8efe6" stroke="#0e8a6e" stroke-width="1" rx="3"/>
+  <text x="457" y="295" text-anchor="middle" font-size="8.5" fill="#0e8a6e">&lt;|im_end|&gt;</text>
+
+  <!-- im_start|assistant -->
+  <rect x="491" y="276" width="80" height="36" fill="#fdebd4" stroke="#c77a12" stroke-width="1" rx="3"/>
+  <text x="531" y="291" text-anchor="middle" font-size="8.5" fill="#c77a12" font-weight="bold">&lt;|im_start|&gt;</text>
+  <text x="531" y="304" text-anchor="middle" font-size="8.5" fill="#c77a12">assistant</text>
+
+  <!-- assistant content "4" -->
+  <rect x="575" y="276" width="36" height="36" fill="#fdebd4" stroke="#c77a12" stroke-width="1" rx="3"/>
+  <text x="593" y="295" text-anchor="middle" font-size="9" fill="#c77a12" font-weight="bold">4</text>
+
+  <!-- im_end -->
+  <rect x="615" y="276" width="60" height="36" fill="#fdebd4" stroke="#c77a12" stroke-width="2" rx="3"/>
+  <text x="645" y="295" text-anchor="middle" font-size="8.5" fill="#c77a12" font-weight="bold">&lt;|im_end|&gt;</text>
+
+  <!-- loss annotation band -->
+  <rect x="573" y="272" width="104" height="44" fill="none" stroke="#c77a12" stroke-width="2.5" stroke-dasharray="4,2" rx="4"/>
+  <text x="625" y="330" text-anchor="middle" font-size="9.5" fill="#c77a12" font-weight="bold">loss computed on these tokens only</text>
+  <line x1="625" y1="318" x2="625" y2="316" stroke="#c77a12" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- rest ellipsis -->
+  <text x="705" y="300" text-anchor="middle" font-size="14" fill="#5b6675">...</text>
+
+  <!-- ======== Loss mask legend ======== -->
+  <text x="450" y="362" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f4fa3">Loss Masking Summary</text>
+
+  <rect x="140" y="375" width="620" height="70" fill="#ffffff" stroke="#5b6675" stroke-width="1.5" rx="8"/>
+
+  <!-- System row -->
+  <rect x="155" y="388" width="14" height="14" fill="#d6e4fa" stroke="#1f4fa3" stroke-width="1" rx="2"/>
+  <text x="175" y="400" font-size="10.5" fill="#1f4fa3" font-weight="bold">System prompt tokens</text>
+  <text x="340" y="400" font-size="10.5" fill="#5b6675">&#8212; loss weight = 0 (ignored during SFT)</text>
+
+  <!-- User row -->
+  <rect x="155" y="410" width="14" height="14" fill="#c8efe6" stroke="#0e8a6e" stroke-width="1" rx="2"/>
+  <text x="175" y="422" font-size="10.5" fill="#0e8a6e" font-weight="bold">User prompt tokens</text>
+  <text x="316" y="422" font-size="10.5" fill="#5b6675">&#8212; loss weight = 0 (ignored during SFT)</text>
+
+  <!-- Assistant row -->
+  <rect x="490" y="388" width="14" height="14" fill="#fdebd4" stroke="#c77a12" stroke-width="1" rx="2"/>
+  <text x="510" y="400" font-size="10.5" fill="#c77a12" font-weight="bold">Assistant tokens</text>
+  <text x="624" y="400" font-size="10.5" fill="#5b6675">&#8212; loss weight = 1</text>
+
+  <text x="510" y="422" font-size="10" fill="#6c4fe0">Cross-entropy loss computed only on assistant tokens</text>
+</svg>

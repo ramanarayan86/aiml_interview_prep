@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 320" width="860" height="320">
+  <!-- Background -->
+  <rect width="860" height="320" fill="#f8f9fa" rx="6"/>
+
+  <!-- Title -->
+  <text x="430" y="26" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#1f4fa3">On-Policy vs Off-Policy Reinforcement Learning</text>
+
+  <!-- ===== LEFT PANEL: On-Policy ===== -->
+  <rect x="20" y="40" width="390" height="260" fill="#eef4ff" rx="8" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="215" y="62" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#1f4fa3">On-Policy</text>
+  <text x="215" y="78" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">(data must come from current policy)</text>
+
+  <!-- On-policy cycle boxes -->
+  <!-- Box 1: Policy -->
+  <rect x="145" y="92" width="140" height="36" rx="6" fill="#1f4fa3"/>
+  <text x="215" y="114" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="white">Policy &#960;&#952;</text>
+
+  <!-- Arrow down -->
+  <line x1="215" y1="128" x2="215" y2="148" stroke="#1f4fa3" stroke-width="2"/>
+  <polygon points="210,148 220,148 215,156" fill="#1f4fa3"/>
+
+  <!-- Box 2: Generate data -->
+  <rect x="125" y="157" width="180" height="36" rx="6" fill="#0e8a6e"/>
+  <text x="215" y="179" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">Generate rollout data</text>
+
+  <!-- Arrow down -->
+  <line x1="215" y1="193" x2="215" y2="213" stroke="#0e8a6e" stroke-width="2"/>
+  <polygon points="210,213 220,213 215,221" fill="#0e8a6e"/>
+
+  <!-- Box 3: Update policy -->
+  <rect x="125" y="222" width="180" height="36" rx="6" fill="#0e8a6e"/>
+  <text x="215" y="244" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">Compute gradients + update</text>
+
+  <!-- Curved arrow back up (left side) indicating discard then repeat -->
+  <path d="M125,240 Q60,240 60,145 Q60,110 145,110" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,3"/>
+  <polygon points="140,105 150,110 140,115" fill="#c0392b"/>
+
+  <!-- Discard label on the left side -->
+  <text x="42" y="185" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#c0392b" transform="rotate(-90 42 185)">Discard data, repeat</text>
+
+  <!-- PPO label -->
+  <rect x="140" y="278" width="150" height="18" rx="4" fill="#6c4fe0" fill-opacity="0.15" stroke="#6c4fe0" stroke-width="1"/>
+  <text x="215" y="291" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#6c4fe0">Example: PPO, A2C, TRPO</text>
+
+  <!-- ===== RIGHT PANEL: Off-Policy ===== -->
+  <rect x="450" y="40" width="390" height="260" fill="#f0faf5" rx="8" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="645" y="62" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#0e8a6e">Off-Policy</text>
+  <text x="645" y="78" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#5b6675">(data can come from older or different policy)</text>
+
+  <!-- Box 1: Policy -->
+  <rect x="560" y="92" width="170" height="36" rx="6" fill="#0e8a6e"/>
+  <text x="645" y="114" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="white">Behavior policy &#960;b</text>
+
+  <!-- Arrow down to replay buffer -->
+  <line x1="645" y1="128" x2="645" y2="148" stroke="#0e8a6e" stroke-width="2"/>
+  <polygon points="640,148 650,148 645,156" fill="#0e8a6e"/>
+
+  <!-- Box 2: Replay buffer -->
+  <rect x="545" y="157" width="200" height="36" rx="6" fill="#c77a12"/>
+  <text x="645" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">Replay buffer D</text>
+  <text x="645" y="187" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="white">(stores (s, a, r, s') tuples)</text>
+
+  <!-- Arrow down from buffer -->
+  <line x1="645" y1="193" x2="645" y2="213" stroke="#c77a12" stroke-width="2"/>
+  <polygon points="640,213 650,213 645,221" fill="#c77a12"/>
+
+  <!-- Box 3: Sample + update target policy -->
+  <rect x="525" y="222" width="240" height="36" rx="6" fill="#1f4fa3"/>
+  <text x="645" y="240" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">Sample batch &#8594; update &#960;&#952;</text>
+  <text x="645" y="252" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="white">(importance weighting corrects mismatch)</text>
+
+  <!-- Curved arrow back to buffer (reuse data) -->
+  <path d="M835,240 Q850,240 850,175 Q850,157 745,157" fill="none" stroke="#1f4fa3" stroke-width="2" stroke-dasharray="5,3"/>
+  <polygon points="750,152 740,157 750,162" fill="#1f4fa3"/>
+
+  <!-- Reuse label -->
+  <text x="867" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#1f4fa3" transform="rotate(90 867 200)">Reuse data</text>
+
+  <!-- Q-learning / SAC label -->
+  <rect x="548" y="278" width="194" height="18" rx="4" fill="#c77a12" fill-opacity="0.15" stroke="#c77a12" stroke-width="1"/>
+  <text x="645" y="291" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#c77a12">Example: DQN, SAC, TD3</text>
+
+  <!-- VS separator -->
+  <text x="430" y="185" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#5b6675">vs</text>
+
+  <!-- Key property annotations at bottom -->
+  <text x="215" y="312" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#5b6675">Sample-inefficient &#8226; Stable &#8226; No distribution shift</text>
+  <text x="645" y="312" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#5b6675">Sample-efficient &#8226; Needs importance weighting &#8226; Replay possible</text>
+</svg>

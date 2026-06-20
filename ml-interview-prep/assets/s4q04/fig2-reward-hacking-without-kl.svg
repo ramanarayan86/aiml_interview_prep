@@ -1,0 +1,116 @@
+<svg viewBox="0 0 860 500" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#F8FAFD"/>
+    </linearGradient>
+    <marker id="arr2" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 z" fill="#9AA4B2"/>
+    </marker>
+  </defs>
+
+  <rect x="1" y="1" width="858" height="498" rx="16" fill="url(#bg2)" stroke="#E3E6EC"/>
+
+  <!-- Title -->
+  <text x="32" y="42" font-size="20" font-weight="700" fill="#16202E">Reward Hacking: With vs. Without KL Penalty</text>
+  <text x="32" y="64" font-size="13" fill="#5b6675">Goodhart's Law: "When a measure becomes a target, it ceases to be a good measure."</text>
+
+  <!-- ===== LEFT PANEL: With KL ===== -->
+  <rect x="32" y="80" width="388" height="390" rx="14" fill="#FFFFFF" stroke="#0e8a6e" stroke-width="2"/>
+  <rect x="32" y="80" width="388" height="44" rx="14" fill="#0e8a6e" opacity="0.12"/>
+  <rect x="32" y="110" width="388" height="14" rx="0" fill="#0e8a6e" opacity="0.12"/>
+  <text x="226" y="109" font-size="14" font-weight="700" fill="#0e8a6e" text-anchor="middle">With KL Penalty (&#946; = 0.05)</text>
+
+  <!-- Left chart axes -->
+  <line x1="80" y1="340" x2="380" y2="340" stroke="#E3E6EC" stroke-width="1.5" marker-end="url(#arr2)"/>
+  <line x1="80" y1="340" x2="80" y2="140" stroke="#E3E6EC" stroke-width="1.5" marker-end="url(#arr2)"/>
+  <text x="230" y="362" font-size="11.5" fill="#5b6675" text-anchor="middle">PPO training steps</text>
+  <text x="52" y="242" font-size="11" fill="#5b6675" text-anchor="middle" transform="rotate(-90, 52, 242)">RM reward score</text>
+
+  <!-- Gridlines left -->
+  <line x1="80" y1="290" x2="375" y2="290" stroke="#E3E6EC" stroke-width="0.8" stroke-dasharray="4,4"/>
+  <line x1="80" y1="240" x2="375" y2="240" stroke="#E3E6EC" stroke-width="0.8" stroke-dasharray="4,4"/>
+  <line x1="80" y1="190" x2="375" y2="190" stroke="#E3E6EC" stroke-width="0.8" stroke-dasharray="4,4"/>
+
+  <!-- Y axis labels left -->
+  <text x="74" y="344" font-size="10" fill="#9AA4B2" text-anchor="end">0</text>
+  <text x="74" y="294" font-size="10" fill="#9AA4B2" text-anchor="end">1</text>
+  <text x="74" y="244" font-size="10" fill="#9AA4B2" text-anchor="end">2</text>
+  <text x="74" y="194" font-size="10" fill="#9AA4B2" text-anchor="end">3</text>
+  <text x="74" y="154" font-size="10" fill="#9AA4B2" text-anchor="end">4</text>
+
+  <!-- Reward curve (with KL): rises and plateaus, healthy -->
+  <path d="M82,338 C100,320 120,285 145,255 C165,232 185,218 210,208 C235,200 260,196 290,194 C320,192 345,192 372,191"
+        fill="none" stroke="#0e8a6e" stroke-width="2.8"/>
+
+  <!-- KL curve (dashed, stays low) -->
+  <path d="M82,340 C100,336 120,330 145,325 C165,321 185,318 210,317 C235,316 260,316 290,316 C320,316 345,316 372,316"
+        fill="none" stroke="#1f4fa3" stroke-width="2" stroke-dasharray="6,4"/>
+
+  <!-- Legend left panel -->
+  <line x1="96" y1="388" x2="126" y2="388" stroke="#0e8a6e" stroke-width="2.8"/>
+  <text x="132" y="392" font-size="11" fill="#16202E">Reward score</text>
+  <line x1="218" y1="388" x2="248" y2="388" stroke="#1f4fa3" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="254" y="392" font-size="11" fill="#16202E">KL divergence</text>
+
+  <!-- Plateau annotation -->
+  <text x="310" y="184" font-size="10.5" fill="#0e8a6e">plateaus</text>
+  <text x="310" y="198" font-size="10.5" fill="#0e8a6e">(KL stops it)</text>
+
+  <!-- Good outputs annotation -->
+  <rect x="96" y="408" width="300" height="52" rx="8" fill="#0e8a6e" opacity="0.07" stroke="#0e8a6e" stroke-width="1"/>
+  <text x="246" y="428" font-size="11" fill="#0e8a6e" text-anchor="middle" font-weight="600">Outputs remain coherent</text>
+  <text x="246" y="445" font-size="10.5" fill="#5b6675" text-anchor="middle">Policy stays near SFT distribution;</text>
+  <text x="246" y="459" font-size="10.5" fill="#5b6675" text-anchor="middle">reward improves, language stays natural</text>
+
+  <!-- ===== RIGHT PANEL: Without KL ===== -->
+  <rect x="440" y="80" width="388" height="390" rx="14" fill="#FFFFFF" stroke="#c0392b" stroke-width="2"/>
+  <rect x="440" y="80" width="388" height="44" rx="14" fill="#c0392b" opacity="0.10"/>
+  <rect x="440" y="110" width="388" height="14" rx="0" fill="#c0392b" opacity="0.10"/>
+  <text x="634" y="109" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle">Without KL Penalty (&#946; = 0)</text>
+
+  <!-- Right chart axes -->
+  <line x1="488" y1="340" x2="788" y2="340" stroke="#E3E6EC" stroke-width="1.5" marker-end="url(#arr2)"/>
+  <line x1="488" y1="340" x2="488" y2="140" stroke="#E3E6EC" stroke-width="1.5" marker-end="url(#arr2)"/>
+  <text x="638" y="362" font-size="11.5" fill="#5b6675" text-anchor="middle">PPO training steps</text>
+  <text x="460" y="242" font-size="11" fill="#5b6675" text-anchor="middle" transform="rotate(-90, 460, 242)">RM reward score</text>
+
+  <!-- Gridlines right -->
+  <line x1="488" y1="290" x2="783" y2="290" stroke="#E3E6EC" stroke-width="0.8" stroke-dasharray="4,4"/>
+  <line x1="488" y1="240" x2="783" y2="240" stroke="#E3E6EC" stroke-width="0.8" stroke-dasharray="4,4"/>
+  <line x1="488" y1="190" x2="783" y2="190" stroke="#E3E6EC" stroke-width="0.8" stroke-dasharray="4,4"/>
+  <line x1="488" y1="155" x2="783" y2="155" stroke="#F2C5C2" stroke-width="0.8" stroke-dasharray="3,3"/>
+
+  <!-- Y axis labels right -->
+  <text x="482" y="344" font-size="10" fill="#9AA4B2" text-anchor="end">0</text>
+  <text x="482" y="294" font-size="10" fill="#9AA4B2" text-anchor="end">1</text>
+  <text x="482" y="244" font-size="10" fill="#9AA4B2" text-anchor="end">2</text>
+  <text x="482" y="194" font-size="10" fill="#9AA4B2" text-anchor="end">3</text>
+  <text x="482" y="154" font-size="10" fill="#9AA4B2" text-anchor="end">4+</text>
+
+  <!-- Reward hacking curve: spikes then collapses -->
+  <path d="M490,338 C505,318 520,285 540,248 C555,220 565,190 572,162 C576,152 578,149 580,149 C582,149 584,154 588,164 C596,185 610,220 630,252 C650,280 670,300 690,310 C710,318 730,322 760,325 C775,327 782,328 784,328"
+        fill="none" stroke="#c0392b" stroke-width="2.8"/>
+
+  <!-- Spike label -->
+  <text x="580" y="142" font-size="10.5" fill="#c0392b" text-anchor="middle">REWARD SPIKE</text>
+  <text x="580" y="156" font-size="10" fill="#c0392b" text-anchor="middle">(RM exploited)</text>
+
+  <!-- Collapse label -->
+  <text x="710" y="300" font-size="10.5" fill="#c0392b">collapse</text>
+  <text x="710" y="313" font-size="10" fill="#c0392b">(degenerate</text>
+  <text x="710" y="325" font-size="10" fill="#c0392b">outputs)</text>
+
+  <!-- Bad outputs annotation -->
+  <rect x="504" y="408" width="300" height="52" rx="8" fill="#c0392b" opacity="0.07" stroke="#c0392b" stroke-width="1"/>
+  <text x="654" y="428" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="600">Outputs become degenerate</text>
+  <text x="654" y="445" font-size="10.5" fill="#5b6675" text-anchor="middle">e.g. "The answer is great! Great! Great! Great!</text>
+  <text x="654" y="459" font-size="10.5" fill="#5b6675" text-anchor="middle">Great!" &#8212; fools RM but useless to user</text>
+
+  <!-- KL grows unbounded annotation -->
+  <text x="730" y="170" font-size="10" fill="#1f4fa3" text-anchor="middle">KL &#8594; &#8734;</text>
+  <text x="730" y="182" font-size="10" fill="#1f4fa3" text-anchor="middle">(unconstrained)</text>
+
+  <!-- Divider line between panels -->
+  <line x1="428" y1="80" x2="428" y2="470" stroke="#E3E6EC" stroke-width="1" stroke-dasharray="4,3"/>
+</svg>

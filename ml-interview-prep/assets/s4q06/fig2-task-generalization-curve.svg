@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 440" width="820" height="440" font-family="Arial, sans-serif">
+  <defs>
+    <marker id="arr-axis" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#5b6675"/>
+    </marker>
+    <marker id="arr-navy" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#1f4fa3"/>
+    </marker>
+    <marker id="arr-amber" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#c77a12"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="820" height="440" fill="#f8f9fa" rx="10"/>
+
+  <!-- Title -->
+  <text x="410" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">Task Diversity &#8594; Zero-Shot Generalization (FLAN Finding)</text>
+  <text x="410" y="46" text-anchor="middle" font-size="11" fill="#5b6675">More diverse instruction-tuning tasks &#8594; better zero-shot performance on held-out tasks</text>
+
+  <!-- Plot area: x: 80..710, y: 70..360 -->
+  <!-- Grid lines -->
+  <line x1="80" y1="70" x2="710" y2="70" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="80" y1="118" x2="710" y2="118" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="80" y1="166" x2="710" y2="166" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="80" y1="214" x2="710" y2="214" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="80" y1="262" x2="710" y2="262" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="80" y1="310" x2="710" y2="310" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="80" y1="360" x2="710" y2="360" stroke="#d0d7e3" stroke-width="1"/>
+
+  <!-- Vertical grid -->
+  <line x1="206" y1="70" x2="206" y2="360" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="332" y1="70" x2="332" y2="360" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="458" y1="70" x2="458" y2="360" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="584" y1="70" x2="584" y2="360" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="710" y1="70" x2="710" y2="360" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Axes -->
+  <line x1="80" y1="360" x2="718" y2="360" stroke="#5b6675" stroke-width="2" marker-end="url(#arr-axis)"/>
+  <line x1="80" y1="360" x2="80" y2="62" stroke="#5b6675" stroke-width="2" marker-end="url(#arr-axis)"/>
+
+  <!-- X-axis labels -->
+  <text x="80" y="378" text-anchor="middle" font-size="10" fill="#5b6675">0</text>
+  <text x="206" y="378" text-anchor="middle" font-size="10" fill="#5b6675">10</text>
+  <text x="332" y="378" text-anchor="middle" font-size="10" fill="#5b6675">20</text>
+  <text x="458" y="378" text-anchor="middle" font-size="10" fill="#5b6675">30</text>
+  <text x="584" y="378" text-anchor="middle" font-size="10" fill="#5b6675">40</text>
+  <text x="710" y="378" text-anchor="middle" font-size="10" fill="#5b6675">62</text>
+  <text x="395" y="400" text-anchor="middle" font-size="12" fill="#5b6675">Number of task clusters in training mixture</text>
+
+  <!-- Y-axis labels -->
+  <text x="72" y="363" text-anchor="end" font-size="10" fill="#5b6675">0%</text>
+  <text x="72" y="315" text-anchor="end" font-size="10" fill="#5b6675">20%</text>
+  <text x="72" y="265" text-anchor="end" font-size="10" fill="#5b6675">40%</text>
+  <text x="72" y="215" text-anchor="end" font-size="10" fill="#5b6675">60%</text>
+  <text x="72" y="165" text-anchor="end" font-size="10" fill="#5b6675">80%</text>
+  <text x="72" y="115" text-anchor="end" font-size="10" fill="#5b6675">100%</text>
+
+  <!-- Y-axis title -->
+  <text x="20" y="215" text-anchor="middle" font-size="12" fill="#5b6675" transform="rotate(-90,20,215)">Zero-shot performance (held-out tasks)</text>
+
+  <!-- ===== FLAN curve (navy) ===== -->
+  <!-- Data points (x_task -> x_pixel, perf -> y_pixel)
+       x_pixel = 80 + (tasks/62)*630
+       y_pixel = 360 - (perf/100)*290
+       0 tasks  -> 80, perf=8%   -> y=337
+       5 tasks  -> 131, perf=28% -> y=279
+       10 tasks -> 182, perf=45% -> y=230
+       15 tasks -> 233, perf=57% -> y=195
+       20 tasks -> 284, perf=65% -> y=172
+       25 tasks -> 334, perf=71% -> y=154
+       30 tasks -> 385, perf=75% -> y=143
+       40 tasks -> 487, perf=79% -> y=131
+       50 tasks -> 589, perf=81% -> y=125
+       62 tasks -> 710, perf=83% -> y=119
+  -->
+  <polyline
+    points="80,337 131,279 182,230 233,195 284,172 334,154 385,143 487,131 589,125 710,119"
+    fill="none" stroke="#1f4fa3" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <!-- Data point circles (navy) -->
+  <circle cx="80" cy="337" r="4" fill="#1f4fa3"/>
+  <circle cx="131" cy="279" r="4" fill="#1f4fa3"/>
+  <circle cx="182" cy="230" r="4" fill="#1f4fa3"/>
+  <circle cx="233" cy="195" r="4" fill="#1f4fa3"/>
+  <circle cx="284" cy="172" r="4" fill="#1f4fa3"/>
+  <circle cx="334" cy="154" r="4" fill="#1f4fa3"/>
+  <circle cx="385" cy="143" r="4" fill="#1f4fa3"/>
+  <circle cx="487" cy="131" r="4" fill="#1f4fa3"/>
+  <circle cx="589" cy="125" r="4" fill="#1f4fa3"/>
+  <circle cx="710" cy="119" r="4" fill="#1f4fa3"/>
+
+  <!-- ===== GPT-3 zero-shot baseline (dashed gray) ===== -->
+  <!-- GPT-3 zero-shot ~35% on NLP tasks -->
+  <!-- y = 360 - (35/100)*290 = 258.5 -->
+  <line x1="80" y1="259" x2="710" y2="259" stroke="#5b6675" stroke-width="1.5" stroke-dasharray="8,4"/>
+  <text x="716" y="263" font-size="10" fill="#5b6675">GPT-3</text>
+  <text x="716" y="275" font-size="10" fill="#5b6675">zero-shot</text>
+  <text x="716" y="287" font-size="10" fill="#5b6675">baseline</text>
+
+  <!-- ===== Saturation zone shading (right portion) ===== -->
+  <rect x="487" y="70" width="223" height="290" fill="#f0f4ff" opacity="0.5" rx="0"/>
+  <text x="599" y="90" text-anchor="middle" font-size="10" fill="#6c4fe0" font-weight="bold">Saturation</text>
+  <text x="599" y="104" text-anchor="middle" font-size="10" fill="#6c4fe0">regime</text>
+
+  <!-- Saturation boundary arrow -->
+  <line x1="487" y1="105" x2="487" y2="355" stroke="#6c4fe0" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- ===== Key annotations ===== -->
+  <!-- Annotation: FLAN 62 tasks -->
+  <line x1="710" y1="119" x2="760" y2="100" stroke="#1f4fa3" stroke-width="1" marker-end="url(#arr-navy)"/>
+  <text x="764" y="98" font-size="10" fill="#1f4fa3" font-weight="bold">FLAN</text>
+  <text x="764" y="110" font-size="10" fill="#1f4fa3">62 tasks</text>
+
+  <!-- Annotation: Steep gain zone -->
+  <rect x="88" y="135" width="150" height="36" fill="#fff8e6" stroke="#c77a12" stroke-width="1" rx="4"/>
+  <text x="163" y="151" text-anchor="middle" font-size="10" fill="#c77a12" font-weight="bold">Steep gains</text>
+  <text x="163" y="165" text-anchor="middle" font-size="10" fill="#c77a12">0-25 task clusters</text>
+
+  <!-- Key insight box -->
+  <rect x="88" y="195" width="240" height="44" fill="#eaf7f3" stroke="#0e8a6e" stroke-width="1.5" rx="4"/>
+  <text x="208" y="213" text-anchor="middle" font-size="10" fill="#0e8a6e" font-weight="bold">Key insight (Wei et al. 2022):</text>
+  <text x="208" y="228" text-anchor="middle" font-size="10" fill="#0e8a6e">Task diversity &gt; task volume</text>
+
+  <!-- Legend -->
+  <rect x="80" y="415" width="640" height="22" fill="#f0f4ff" rx="4"/>
+  <line x1="100" y1="426" x2="130" y2="426" stroke="#1f4fa3" stroke-width="2.5"/>
+  <circle cx="115" cy="426" r="3" fill="#1f4fa3"/>
+  <text x="136" y="430" font-size="10" fill="#1f4fa3">FLAN zero-shot on held-out tasks (62-task mixture)</text>
+  <line x1="390" y1="426" x2="420" y2="426" stroke="#5b6675" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="426" y="430" font-size="10" fill="#5b6675">GPT-3 175B zero-shot (no instruction tuning)</text>
+</svg>

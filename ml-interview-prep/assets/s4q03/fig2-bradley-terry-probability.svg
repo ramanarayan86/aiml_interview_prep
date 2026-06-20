@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" width="760" height="360" font-family="Arial, sans-serif">
+  <defs>
+    <marker id="arrowx" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#5b6675"/>
+    </marker>
+    <marker id="arrowy" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto-start-reverse">
+      <polygon points="0 0, 8 3, 0 6" fill="#5b6675"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="760" height="360" fill="#f8f9fa" rx="10"/>
+
+  <!-- Title -->
+  <text x="380" y="28" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f4fa3">Bradley-Terry Preference Probability: P(y_w &#8827; y_l) = &#963;(r_w - r_l)</text>
+
+  <!-- Plot area: x=90..680, y=50..290 -->
+  <rect x="90" y="50" width="590" height="240" fill="#ffffff" stroke="#d0d5dd" stroke-width="1" rx="4"/>
+
+  <!-- Grid lines horizontal (at P=0.1, 0.2, ..., 0.9) -->
+  <!-- P=0.1 -> y = 50 + 240*(1-0.1) = 50+216 = 266 -->
+  <!-- P=0.2 -> y = 50 + 240*(0.8) = 50+192=242 -->
+  <!-- P=0.3 -> y = 50+240*0.7=218 -->
+  <!-- P=0.5 -> y=50+240*0.5=170 (midpoint) -->
+  <!-- P=0.8 -> y=50+240*0.2=98 -->
+  <!-- P=0.9 -> y=50+240*0.1=74 -->
+  <line x1="90" y1="266" x2="680" y2="266" stroke="#e8ecf0" stroke-width="1"/>
+  <line x1="90" y1="242" x2="680" y2="242" stroke="#e8ecf0" stroke-width="1"/>
+  <line x1="90" y1="218" x2="680" y2="218" stroke="#e8ecf0" stroke-width="1"/>
+  <line x1="90" y1="194" x2="680" y2="194" stroke="#e8ecf0" stroke-width="1"/>
+  <line x1="90" y1="170" x2="680" y2="170" stroke="#c77a12" stroke-width="1" stroke-dasharray="5,3"/>
+  <line x1="90" y1="146" x2="680" y2="146" stroke="#e8ecf0" stroke-width="1"/>
+  <line x1="90" y1="122" x2="680" y2="122" stroke="#e8ecf0" stroke-width="1"/>
+  <line x1="90" y1="98" x2="680" y2="98" stroke="#e8ecf0" stroke-width="1"/>
+  <line x1="90" y1="74" x2="680" y2="74" stroke="#e8ecf0" stroke-width="1"/>
+
+  <!-- Grid lines vertical (at x = -4, -3, -2, -1, 0, 1, 2, 3, 4) -->
+  <!-- x range: -5 to 5; plot x: 90..680, so width=590, per unit=590/10=59 -->
+  <!-- x=0 -> px=90+5*59=90+295=385 -->
+  <!-- x=-4 -> px=90+1*59=149 -->
+  <!-- x=-3 -> px=90+2*59=208 -->
+  <!-- x=-2 -> px=90+3*59=267 -->
+  <!-- x=-1 -> px=90+4*59=326 -->
+  <!-- x=1  -> px=90+6*59=444 -->
+  <!-- x=2  -> px=90+7*59=503 -->
+  <!-- x=3  -> px=90+8*59=562 -->
+  <!-- x=4  -> px=90+9*59=621 -->
+  <line x1="149" y1="50" x2="149" y2="290" stroke="#e8ecf0" stroke-width="1"/>
+  <line x1="208" y1="50" x2="208" y2="290" stroke="#e8ecf0" stroke-width="1"/>
+  <line x1="267" y1="50" x2="267" y2="290" stroke="#e8ecf0" stroke-width="1"/>
+  <line x1="326" y1="50" x2="326" y2="290" stroke="#e8ecf0" stroke-width="1"/>
+  <line x1="385" y1="50" x2="385" y2="290" stroke="#c77a12" stroke-width="1" stroke-dasharray="5,3"/>
+  <line x1="444" y1="50" x2="444" y2="290" stroke="#e8ecf0" stroke-width="1"/>
+  <line x1="503" y1="50" x2="503" y2="290" stroke="#e8ecf0" stroke-width="1"/>
+  <line x1="562" y1="50" x2="562" y2="290" stroke="#e8ecf0" stroke-width="1"/>
+  <line x1="621" y1="50" x2="621" y2="290" stroke="#e8ecf0" stroke-width="1"/>
+
+  <!-- Sigmoid curve: P = 1/(1+e^{-d}), d from -5 to 5 -->
+  <!-- Precompute: d=-5->0.0067, d=-4->0.0180, d=-3->0.0474, d=-2->0.1192, d=-1->0.2689, d=0->0.5, d=1->0.7311, d=2->0.8808, d=3->0.9526, d=4->0.9820, d=5->0.9933 -->
+  <!-- map x: px = 90 + (d+5)*59; map P to py: py = 50 + 240*(1-P) -->
+  <!-- d=-5,P=0.0067: px=90, py=50+240*0.9933=288.4 -->
+  <!-- d=-4,P=0.018: px=149, py=50+240*0.982=285.6 -->
+  <!-- d=-3,P=0.0474: px=208, py=50+240*0.9526=278.6 -->
+  <!-- d=-2.5,P=0.076: px=237.5, py=50+240*0.924=271.8 -->
+  <!-- d=-2,P=0.1192: px=267, py=50+240*0.8808=261.4 -->
+  <!-- d=-1.5,P=0.182: px=296.5, py=50+240*0.818=246.3 -->
+  <!-- d=-1,P=0.2689: px=326, py=50+240*0.7311=225.5 -->
+  <!-- d=-0.5,P=0.378: px=355.5, py=50+240*0.622=199.3 -->
+  <!-- d=0,P=0.5: px=385, py=50+240*0.5=170 -->
+  <!-- d=0.5,P=0.622: px=414.5, py=50+240*0.378=140.7 -->
+  <!-- d=1,P=0.7311: px=444, py=50+240*0.2689=114.5 -->
+  <!-- d=1.5,P=0.818: px=473.5, py=50+240*0.182=93.7 -->
+  <!-- d=2,P=0.8808: px=503, py=50+240*0.1192=78.6 -->
+  <!-- d=2.5,P=0.924: px=532.5, py=50+240*0.076=68.2 -->
+  <!-- d=3,P=0.9526: px=562, py=50+240*0.0474=61.4 -->
+  <!-- d=4,P=0.982: px=621, py=50+240*0.018=54.3 -->
+  <!-- d=5,P=0.9933: px=680, py=50+240*0.0067=51.6 -->
+  <polyline points="90,288.4 149,285.6 208,278.6 237.5,271.8 267,261.4 296.5,246.3 326,225.5 355.5,199.3 385,170 414.5,140.7 444,114.5 473.5,93.7 503,78.6 532.5,68.2 562,61.4 621,54.3 680,51.6" fill="none" stroke="#1f4fa3" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+
+  <!-- ===== Key annotation 1: r_w - r_l = 0, P = 0.5 ===== -->
+  <circle cx="385" cy="170" r="6" fill="#c77a12" stroke="#ffffff" stroke-width="2"/>
+  <line x1="385" y1="170" x2="420" y2="140" stroke="#c77a12" stroke-width="1.4" stroke-dasharray="3,2"/>
+  <rect x="421" y="120" width="160" height="34" rx="4" fill="#c77a12" opacity="0.12" stroke="#c77a12" stroke-width="1.2"/>
+  <text x="501" y="135" text-anchor="middle" font-size="10" font-weight="bold" fill="#c77a12">r_w - r_l = 0</text>
+  <text x="501" y="149" text-anchor="middle" font-size="10" fill="#c77a12">P = 0.5  (no preference)</text>
+
+  <!-- ===== Key annotation 2: r_w - r_l = 2, P ≈ 0.88 ===== -->
+  <!-- d=2: px=503, P=0.8808, py=78.6 -->
+  <circle cx="503" cy="78.6" r="6" fill="#0e8a6e" stroke="#ffffff" stroke-width="2"/>
+  <line x1="503" y1="78.6" x2="540" y2="60" stroke="#0e8a6e" stroke-width="1.4" stroke-dasharray="3,2"/>
+  <rect x="541" y="45" width="130" height="34" rx="4" fill="#0e8a6e" opacity="0.12" stroke="#0e8a6e" stroke-width="1.2"/>
+  <text x="606" y="60" text-anchor="middle" font-size="10" font-weight="bold" fill="#0e8a6e">r_w - r_l = 2</text>
+  <text x="606" y="74" text-anchor="middle" font-size="10" fill="#0e8a6e">P &#8776; 0.88</text>
+
+  <!-- ===== Key annotation 3: d=1.7, P≈0.846 (numerical example) ===== -->
+  <!-- d=1.7: px=90+(1.7+5)*59=90+395.3=485.3, P=0.846, py=50+240*0.154=86.96 -->
+  <circle cx="485" cy="87" r="6" fill="#c0392b" stroke="#ffffff" stroke-width="2"/>
+  <line x1="485" y1="87" x2="450" y2="230" stroke="#c0392b" stroke-width="1.4" stroke-dasharray="3,2"/>
+  <rect x="360" y="231" width="178" height="34" rx="4" fill="#c0392b" opacity="0.1" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="449" y="246" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">r_w - r_l = 1.7</text>
+  <text x="449" y="260" text-anchor="middle" font-size="10" fill="#c0392b">P &#8776; 0.846  (worked example)</text>
+
+  <!-- X-axis labels -->
+  <text x="90" y="308" text-anchor="middle" font-size="10" fill="#5b6675">-5</text>
+  <text x="149" y="308" text-anchor="middle" font-size="10" fill="#5b6675">-4</text>
+  <text x="208" y="308" text-anchor="middle" font-size="10" fill="#5b6675">-3</text>
+  <text x="267" y="308" text-anchor="middle" font-size="10" fill="#5b6675">-2</text>
+  <text x="326" y="308" text-anchor="middle" font-size="10" fill="#5b6675">-1</text>
+  <text x="385" y="308" text-anchor="middle" font-size="10" font-weight="bold" fill="#c77a12">0</text>
+  <text x="444" y="308" text-anchor="middle" font-size="10" fill="#5b6675">1</text>
+  <text x="503" y="308" text-anchor="middle" font-size="10" fill="#5b6675">2</text>
+  <text x="562" y="308" text-anchor="middle" font-size="10" fill="#5b6675">3</text>
+  <text x="621" y="308" text-anchor="middle" font-size="10" fill="#5b6675">4</text>
+  <text x="680" y="308" text-anchor="middle" font-size="10" fill="#5b6675">5</text>
+
+  <!-- Y-axis labels: P values -->
+  <text x="82" y="294" text-anchor="end" font-size="10" fill="#5b6675">0.0</text>
+  <text x="82" y="246" text-anchor="end" font-size="10" fill="#5b6675">0.2</text>
+  <text x="82" y="218" text-anchor="end" font-size="10" fill="#5b6675">0.3</text>
+  <text x="82" y="174" text-anchor="end" font-size="10" font-weight="bold" fill="#c77a12">0.5</text>
+  <text x="82" y="126" text-anchor="end" font-size="10" fill="#5b6675">0.7</text>
+  <text x="82" y="98" text-anchor="end" font-size="10" fill="#5b6675">0.8</text>
+  <text x="82" y="74" text-anchor="end" font-size="10" fill="#5b6675">0.9</text>
+  <text x="82" y="55" text-anchor="end" font-size="10" fill="#5b6675">1.0</text>
+
+  <!-- Axis titles -->
+  <text x="385" y="332" text-anchor="middle" font-size="12" fill="#5b6675" font-weight="bold">r_w - r_l  (reward gap)</text>
+  <!-- Y-axis title (rotated) -->
+  <text x="18" y="170" text-anchor="middle" font-size="12" fill="#5b6675" font-weight="bold" transform="rotate(-90, 18, 170)">P(y_w &#8827; y_l)</text>
+
+  <!-- Asymptote labels -->
+  <text x="660" y="46" text-anchor="end" font-size="9" fill="#5b6675" font-style="italic">P &#8594; 1</text>
+  <text x="660" y="286" text-anchor="end" font-size="9" fill="#5b6675" font-style="italic">P &#8594; 0</text>
+
+  <!-- Formula box -->
+  <rect x="90" y="338" width="590" height="18" rx="3" fill="none"/>
+  <text x="385" y="352" text-anchor="middle" font-size="11" fill="#1f4fa3" font-weight="bold">P(y_w &#8827; y_l | x) = &#963;(r&#952;(x, y_w) - r&#952;(x, y_l))  where  &#963;(z) = 1 / (1 + e^{-z})</text>
+</svg>

@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420">
+  <!-- Background -->
+  <rect width="900" height="420" fill="#f8f9fb" rx="8"/>
+
+  <!-- Title -->
+  <text x="450" y="32" font-family="Arial,sans-serif" font-size="15" font-weight="bold" fill="#1f4fa3" text-anchor="middle">Supervised Fine-Tuning (SFT) Pipeline</text>
+
+  <!-- ===== LEFT: Base Pretrained Model ===== -->
+  <rect x="30" y="60" width="150" height="80" rx="8" fill="#1f4fa3"/>
+  <text x="105" y="96" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="white" text-anchor="middle">Base Pretrained</text>
+  <text x="105" y="114" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="white" text-anchor="middle">LLM</text>
+  <text x="105" y="132" font-family="Arial,sans-serif" font-size="10" fill="#a8c4f8" text-anchor="middle">(next-token predictor)</text>
+
+  <!-- Arrow base model -> data curation -->
+  <line x1="180" y1="100" x2="240" y2="100" stroke="#5b6675" stroke-width="2" marker-end="url(#arrowGray)"/>
+
+  <!-- ===== CENTER-LEFT: Data Curation Box ===== -->
+  <rect x="240" y="50" width="180" height="200" rx="8" fill="#e6f4f0" stroke="#0e8a6e" stroke-width="2"/>
+  <text x="330" y="72" font-family="Arial,sans-serif" font-size="12" font-weight="bold" fill="#0e8a6e" text-anchor="middle">Curated Dataset</text>
+
+  <!-- Data cards inside curation box -->
+  <rect x="258" y="84" width="144" height="34" rx="4" fill="#0e8a6e" opacity="0.85"/>
+  <text x="330" y="100" font-family="Arial,sans-serif" font-size="10" fill="white" text-anchor="middle">Quality Filter</text>
+  <text x="330" y="113" font-family="Arial,sans-serif" font-size="9" fill="#d0f0e8" text-anchor="middle">(correct, clear, no duplication)</text>
+
+  <rect x="258" y="126" width="144" height="34" rx="4" fill="#0e8a6e" opacity="0.85"/>
+  <text x="330" y="142" font-family="Arial,sans-serif" font-size="10" fill="white" text-anchor="middle">Diversity</text>
+  <text x="330" y="155" font-family="Arial,sans-serif" font-size="9" fill="#d0f0e8" text-anchor="middle">(topics, styles, difficulty)</text>
+
+  <rect x="258" y="168" width="144" height="34" rx="4" fill="#0e8a6e" opacity="0.85"/>
+  <text x="330" y="184" font-family="Arial,sans-serif" font-size="10" fill="white" text-anchor="middle">Formatting</text>
+  <text x="330" y="197" font-family="Arial,sans-serif" font-size="9" fill="#d0f0e8" text-anchor="middle">(chat template, special tokens)</text>
+
+  <!-- Example pair at bottom of curation box -->
+  <rect x="258" y="210" width="144" height="30" rx="4" fill="white" stroke="#0e8a6e" stroke-width="1"/>
+  <text x="330" y="225" font-family="Arial,sans-serif" font-size="9" fill="#0e8a6e" text-anchor="middle">( instruction, response ) pairs</text>
+  <text x="330" y="236" font-family="Arial,sans-serif" font-size="8" fill="#5b6675" text-anchor="middle">e.g. LIMA: 1 K hand-crafted</text>
+
+  <!-- Arrow data curation -> training loop -->
+  <line x1="420" y1="150" x2="480" y2="150" stroke="#5b6675" stroke-width="2" marker-end="url(#arrowGray)"/>
+
+  <!-- ===== CENTER: Training Loop ===== -->
+  <rect x="480" y="60" width="180" height="190" rx="8" fill="#fff8ec" stroke="#c77a12" stroke-width="2"/>
+  <text x="570" y="82" font-family="Arial,sans-serif" font-size="12" font-weight="bold" fill="#c77a12" text-anchor="middle">Fine-Tuning Loop</text>
+
+  <!-- Loop steps -->
+  <rect x="496" y="92" width="148" height="28" rx="4" fill="#c77a12" opacity="0.85"/>
+  <text x="570" y="111" font-family="Arial,sans-serif" font-size="10" fill="white" text-anchor="middle">Forward pass (instruction + response)</text>
+
+  <rect x="496" y="128" width="148" height="38" rx="4" fill="#c77a12" opacity="0.85"/>
+  <text x="570" y="142" font-family="Arial,sans-serif" font-size="10" fill="white" text-anchor="middle">Loss on response tokens only</text>
+  <text x="570" y="157" font-family="Arial,sans-serif" font-size="9" fill="#fde8c0" text-anchor="middle">L = &#8722;(1/|y|) &#931; log P(y&#8346; | x, y&#60;&#8346;)</text>
+
+  <rect x="496" y="174" width="148" height="28" rx="4" fill="#c77a12" opacity="0.85"/>
+  <text x="570" y="193" font-family="Arial,sans-serif" font-size="10" fill="white" text-anchor="middle">Backprop + gradient update</text>
+
+  <!-- Cycle arrow inside loop -->
+  <path d="M 570 210 Q 640 230 640 215 Q 640 200 570 210" fill="none" stroke="#c77a12" stroke-width="1.5" stroke-dasharray="4 2" marker-end="url(#arrowAmber)"/>
+  <text x="620" y="228" font-family="Arial,sans-serif" font-size="9" fill="#c77a12" text-anchor="middle">repeat N epochs</text>
+
+  <!-- Arrow training loop -> output model -->
+  <line x1="660" y1="155" x2="720" y2="155" stroke="#5b6675" stroke-width="2" marker-end="url(#arrowGray)"/>
+
+  <!-- ===== RIGHT: Instruction-Following Model ===== -->
+  <rect x="720" y="110" width="150" height="90" rx="8" fill="#1f4fa3"/>
+  <text x="795" y="148" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="white" text-anchor="middle">Instruction-</text>
+  <text x="795" y="165" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="white" text-anchor="middle">Following LLM</text>
+  <text x="795" y="183" font-family="Arial,sans-serif" font-size="10" fill="#a8c4f8" text-anchor="middle">(SFT model)</text>
+
+  <!-- ===== BOTTOM: Input/Output example ===== -->
+  <rect x="30" y="300" width="840" height="96" rx="8" fill="white" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="450" y="318" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#1f4fa3" text-anchor="middle">Example (instruction, response) pair</text>
+
+  <!-- Instruction token strip -->
+  <rect x="44" y="328" width="380" height="52" rx="5" fill="#e8eef9" stroke="#1f4fa3" stroke-width="1"/>
+  <text x="234" y="344" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="#1f4fa3" text-anchor="middle">Instruction (x) — loss MASKED</text>
+  <text x="234" y="360" font-family="Arial,sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">[INST] Explain gradient descent in one sentence [/INST]</text>
+  <text x="234" y="374" font-family="Arial,sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">Tokens: 9 | Loss contribution: 0</text>
+
+  <!-- Response token strip -->
+  <rect x="436" y="328" width="420" height="52" rx="5" fill="#e6f4f0" stroke="#0e8a6e" stroke-width="1"/>
+  <text x="646" y="344" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="#0e8a6e" text-anchor="middle">Response (y) — loss COMPUTED here</text>
+  <text x="646" y="360" font-family="Arial,sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">Gradient descent iteratively adjusts parameters ...</text>
+  <text x="646" y="374" font-family="Arial,sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">Tokens: 11 | Each token contributes &#8722;log P(y&#8346; | x, y&#60;&#8346;)</text>
+
+  <!-- Separator between instruction and response -->
+  <line x1="430" y1="328" x2="430" y2="380" stroke="#c77a12" stroke-width="2" stroke-dasharray="3 2"/>
+  <text x="430" y="393" font-family="Arial,sans-serif" font-size="9" fill="#c77a12" text-anchor="middle">split</text>
+
+  <!-- Arrowhead markers -->
+  <defs>
+    <marker id="arrowGray" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#5b6675"/>
+    </marker>
+    <marker id="arrowAmber" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#c77a12"/>
+    </marker>
+  </defs>
+</svg>

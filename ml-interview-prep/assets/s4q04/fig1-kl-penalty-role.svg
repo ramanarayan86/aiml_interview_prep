@@ -1,0 +1,81 @@
+<svg viewBox="0 0 860 500" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <defs>
+    <linearGradient id="bg1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#F8FAFD"/>
+    </linearGradient>
+    <marker id="arrowNavy" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f4fa3"/>
+    </marker>
+    <marker id="arrowRed" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#c0392b"/>
+    </marker>
+    <marker id="arrowTeal" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#0e8a6e"/>
+    </marker>
+  </defs>
+
+  <rect x="1" y="1" width="858" height="498" rx="16" fill="url(#bg1)" stroke="#E3E6EC"/>
+
+  <!-- Title -->
+  <text x="32" y="42" font-size="20" font-weight="700" fill="#16202E">RLHF PPO Objective: Opposing Forces on the Policy</text>
+  <text x="32" y="64" font-size="13" fill="#5b6675">The policy &#960;&#946; is pulled toward high reward and restrained toward the SFT reference simultaneously.</text>
+
+  <!-- Objective formula box -->
+  <rect x="32" y="78" width="796" height="54" rx="10" fill="#1f4fa3" opacity="0.06" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="430" y="100" font-size="13" fill="#1f4fa3" text-anchor="middle" font-weight="600">Objective:</text>
+  <text x="430" y="120" font-size="13.5" fill="#16202E" text-anchor="middle">J(&#946;) = E[  r&#966;(x, y)  &#8722;  &#946; &#183; KL[ &#960;&#946;(&#183;|x) &#8741; &#960;ref(&#183;|x) ]  ]</text>
+
+  <!-- Center: policy distribution blob -->
+  <ellipse cx="430" cy="310" rx="64" ry="44" fill="#6c4fe0" opacity="0.15" stroke="#6c4fe0" stroke-width="2"/>
+  <text x="430" y="305" font-size="13" font-weight="700" fill="#6c4fe0" text-anchor="middle">Policy &#960;&#946;</text>
+  <text x="430" y="322" font-size="11.5" fill="#6c4fe0" text-anchor="middle">(being updated)</text>
+
+  <!-- Left side: reward signal pushing right -->
+  <rect x="48" y="258" width="210" height="104" rx="12" fill="#0e8a6e" opacity="0.08" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="153" y="284" font-size="13" font-weight="700" fill="#0e8a6e" text-anchor="middle">Reward Signal</text>
+  <text x="153" y="302" font-size="12" fill="#16202E" text-anchor="middle">r&#966;(x, y)</text>
+  <text x="153" y="320" font-size="11" fill="#5b6675" text-anchor="middle">Reward model score</text>
+  <text x="153" y="337" font-size="11" fill="#5b6675" text-anchor="middle">pushes &#960;&#946; toward</text>
+  <text x="153" y="352" font-size="11" fill="#5b6675" text-anchor="middle">higher-reward outputs</text>
+  <!-- Arrow: reward pushing policy rightward (toward high reward zone) -->
+  <line x1="262" y1="310" x2="355" y2="310" stroke="#0e8a6e" stroke-width="2.8" marker-end="url(#arrowTeal)"/>
+  <text x="308" y="300" font-size="11" fill="#0e8a6e" text-anchor="middle">PUSH</text>
+
+  <!-- Right side: KL penalty pulling left -->
+  <rect x="602" y="258" width="210" height="104" rx="12" fill="#c0392b" opacity="0.08" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="707" y="284" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">KL Penalty</text>
+  <text x="707" y="302" font-size="12" fill="#16202E" text-anchor="middle">&#946; &#183; KL[ &#960;&#946; &#8741; &#960;ref ]</text>
+  <text x="707" y="320" font-size="11" fill="#5b6675" text-anchor="middle">Divergence cost</text>
+  <text x="707" y="337" font-size="11" fill="#5b6675" text-anchor="middle">pulls &#960;&#946; back toward</text>
+  <text x="707" y="352" font-size="11" fill="#5b6675" text-anchor="middle">SFT reference model</text>
+  <!-- Arrow: KL pulling policy leftward (restraining) -->
+  <line x1="598" y1="310" x2="505" y2="310" stroke="#c0392b" stroke-width="2.8" marker-end="url(#arrowRed)"/>
+  <text x="552" y="300" font-size="11" fill="#c0392b" text-anchor="middle">RESTRAIN</text>
+
+  <!-- Beta annotation -->
+  <rect x="330" y="368" width="200" height="68" rx="10" fill="#c77a12" opacity="0.10" stroke="#c77a12" stroke-width="1.5"/>
+  <text x="430" y="390" font-size="12.5" font-weight="700" fill="#c77a12" text-anchor="middle">&#946; controls the tradeoff</text>
+  <text x="430" y="408" font-size="11.5" fill="#16202E" text-anchor="middle">Small &#946; (0.01): more freedom,</text>
+  <text x="430" y="424" font-size="11.5" fill="#16202E" text-anchor="middle">higher hacking risk</text>
+
+  <!-- SFT ref model icon -->
+  <rect x="330" y="456" width="200" height="34" rx="8" fill="#1f4fa3" opacity="0.08" stroke="#1f4fa3" stroke-width="1.2"/>
+  <text x="430" y="478" font-size="11.5" fill="#1f4fa3" text-anchor="middle">&#960;ref = SFT model (frozen)</text>
+
+  <!-- Labels for beta range -->
+  <text x="48" y="390" font-size="11" fill="#5b6675">&#946; &#8594; 0</text>
+  <text x="48" y="406" font-size="11" fill="#5b6675">Maximum</text>
+  <text x="48" y="420" font-size="11" fill="#5b6675">reward pursuit</text>
+
+  <text x="700" y="390" font-size="11" fill="#5b6675">&#946; &#8594; large</text>
+  <text x="700" y="406" font-size="11" fill="#5b6675">Stay close</text>
+  <text x="700" y="420" font-size="11" fill="#5b6675">to SFT model</text>
+
+  <!-- Typical beta callout -->
+  <text x="430" y="164" font-size="12" fill="#5b6675" text-anchor="middle">Typical &#946; range: 0.01 &#8211; 0.1</text>
+  <text x="430" y="182" font-size="12" fill="#5b6675" text-anchor="middle">Higher &#946; &#8594; safer, less improvement &#160;|&#160; Lower &#946; &#8594; more reward gain, more hacking risk</text>
+
+  <!-- Equilibrium label -->
+  <text x="430" y="245" font-size="11.5" fill="#6c4fe0" text-anchor="middle" font-style="italic">At equilibrium: marginal reward gain = marginal KL cost</text>
+</svg>

@@ -1,0 +1,220 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="900" height="500" font-family="Arial, sans-serif">
+  <!-- Background -->
+  <rect width="900" height="500" fill="#f8f9fa" rx="10"/>
+
+  <!-- Main title -->
+  <text x="450" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f4fa3">Causal Attention Mask and SFT Loss Mask</text>
+
+  <!-- ======== LEFT: Causal Attention Mask ======== -->
+  <text x="220" y="58" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f4fa3">Causal Attention Mask</text>
+  <text x="220" y="74" text-anchor="middle" font-size="10" fill="#5b6675">(each token attends to all previous tokens + itself)</text>
+
+  <!-- Token labels (columns = keys, rows = queries) -->
+  <!-- Tokens: s1 s2 u1 u2 a1 a2 -->
+  <!-- Column labels -->
+  <text x="110" y="108" text-anchor="middle" font-size="9" fill="#1f4fa3" font-weight="bold">s1</text>
+  <text x="150" y="108" text-anchor="middle" font-size="9" fill="#1f4fa3" font-weight="bold">s2</text>
+  <text x="190" y="108" text-anchor="middle" font-size="9" fill="#0e8a6e" font-weight="bold">u1</text>
+  <text x="230" y="108" text-anchor="middle" font-size="9" fill="#0e8a6e" font-weight="bold">u2</text>
+  <text x="270" y="108" text-anchor="middle" font-size="9" fill="#c77a12" font-weight="bold">a1</text>
+  <text x="310" y="108" text-anchor="middle" font-size="9" fill="#c77a12" font-weight="bold">a2</text>
+
+  <!-- Row labels -->
+  <text x="85" y="128" text-anchor="end" font-size="9" fill="#1f4fa3" font-weight="bold">s1</text>
+  <text x="85" y="168" text-anchor="end" font-size="9" fill="#1f4fa3" font-weight="bold">s2</text>
+  <text x="85" y="208" text-anchor="end" font-size="9" fill="#0e8a6e" font-weight="bold">u1</text>
+  <text x="85" y="248" text-anchor="end" font-size="9" fill="#0e8a6e" font-weight="bold">u2</text>
+  <text x="85" y="288" text-anchor="end" font-size="9" fill="#c77a12" font-weight="bold">a1</text>
+  <text x="85" y="328" text-anchor="end" font-size="9" fill="#c77a12" font-weight="bold">a2</text>
+
+  <!-- Grid: 6x6 causal mask -->
+  <!-- Row s1 (query=s1): only s1 can attend to s1 -->
+  <rect x="90" y="113" width="36" height="30" fill="#1f4fa3" rx="2"/>
+  <text x="108" y="133" text-anchor="middle" font-size="9" fill="white">1</text>
+  <rect x="130" y="113" width="36" height="30" fill="#e2e8f0" rx="2"/>
+  <text x="148" y="133" text-anchor="middle" font-size="9" fill="#94a3b8">0</text>
+  <rect x="170" y="113" width="36" height="30" fill="#e2e8f0" rx="2"/>
+  <text x="188" y="133" text-anchor="middle" font-size="9" fill="#94a3b8">0</text>
+  <rect x="210" y="113" width="36" height="30" fill="#e2e8f0" rx="2"/>
+  <text x="228" y="133" text-anchor="middle" font-size="9" fill="#94a3b8">0</text>
+  <rect x="250" y="113" width="36" height="30" fill="#e2e8f0" rx="2"/>
+  <text x="268" y="133" text-anchor="middle" font-size="9" fill="#94a3b8">0</text>
+  <rect x="290" y="113" width="36" height="30" fill="#e2e8f0" rx="2"/>
+  <text x="308" y="133" text-anchor="middle" font-size="9" fill="#94a3b8">0</text>
+
+  <!-- Row s2: s2 attends to s1, s2 -->
+  <rect x="90" y="153" width="36" height="30" fill="#1f4fa3" rx="2"/>
+  <text x="108" y="173" text-anchor="middle" font-size="9" fill="white">1</text>
+  <rect x="130" y="153" width="36" height="30" fill="#1f4fa3" rx="2"/>
+  <text x="148" y="173" text-anchor="middle" font-size="9" fill="white">1</text>
+  <rect x="170" y="153" width="36" height="30" fill="#e2e8f0" rx="2"/>
+  <text x="188" y="173" text-anchor="middle" font-size="9" fill="#94a3b8">0</text>
+  <rect x="210" y="153" width="36" height="30" fill="#e2e8f0" rx="2"/>
+  <text x="228" y="173" text-anchor="middle" font-size="9" fill="#94a3b8">0</text>
+  <rect x="250" y="153" width="36" height="30" fill="#e2e8f0" rx="2"/>
+  <text x="268" y="173" text-anchor="middle" font-size="9" fill="#94a3b8">0</text>
+  <rect x="290" y="153" width="36" height="30" fill="#e2e8f0" rx="2"/>
+  <text x="308" y="173" text-anchor="middle" font-size="9" fill="#94a3b8">0</text>
+
+  <!-- Row u1: attends to s1, s2, u1 -->
+  <rect x="90" y="193" width="36" height="30" fill="#1f4fa3" rx="2"/>
+  <text x="108" y="213" text-anchor="middle" font-size="9" fill="white">1</text>
+  <rect x="130" y="193" width="36" height="30" fill="#1f4fa3" rx="2"/>
+  <text x="148" y="213" text-anchor="middle" font-size="9" fill="white">1</text>
+  <rect x="170" y="193" width="36" height="30" fill="#0e8a6e" rx="2"/>
+  <text x="188" y="213" text-anchor="middle" font-size="9" fill="white">1</text>
+  <rect x="210" y="193" width="36" height="30" fill="#e2e8f0" rx="2"/>
+  <text x="228" y="213" text-anchor="middle" font-size="9" fill="#94a3b8">0</text>
+  <rect x="250" y="193" width="36" height="30" fill="#e2e8f0" rx="2"/>
+  <text x="268" y="213" text-anchor="middle" font-size="9" fill="#94a3b8">0</text>
+  <rect x="290" y="193" width="36" height="30" fill="#e2e8f0" rx="2"/>
+  <text x="308" y="213" text-anchor="middle" font-size="9" fill="#94a3b8">0</text>
+
+  <!-- Row u2: attends to s1, s2, u1, u2 -->
+  <rect x="90" y="233" width="36" height="30" fill="#1f4fa3" rx="2"/>
+  <text x="108" y="253" text-anchor="middle" font-size="9" fill="white">1</text>
+  <rect x="130" y="233" width="36" height="30" fill="#1f4fa3" rx="2"/>
+  <text x="148" y="253" text-anchor="middle" font-size="9" fill="white">1</text>
+  <rect x="170" y="233" width="36" height="30" fill="#0e8a6e" rx="2"/>
+  <text x="188" y="253" text-anchor="middle" font-size="9" fill="white">1</text>
+  <rect x="210" y="233" width="36" height="30" fill="#0e8a6e" rx="2"/>
+  <text x="228" y="253" text-anchor="middle" font-size="9" fill="white">1</text>
+  <rect x="250" y="233" width="36" height="30" fill="#e2e8f0" rx="2"/>
+  <text x="268" y="253" text-anchor="middle" font-size="9" fill="#94a3b8">0</text>
+  <rect x="290" y="233" width="36" height="30" fill="#e2e8f0" rx="2"/>
+  <text x="308" y="253" text-anchor="middle" font-size="9" fill="#94a3b8">0</text>
+
+  <!-- Row a1: attends to all previous (s1,s2,u1,u2,a1) -->
+  <rect x="90" y="273" width="36" height="30" fill="#1f4fa3" rx="2"/>
+  <text x="108" y="293" text-anchor="middle" font-size="9" fill="white">1</text>
+  <rect x="130" y="273" width="36" height="30" fill="#1f4fa3" rx="2"/>
+  <text x="148" y="293" text-anchor="middle" font-size="9" fill="white">1</text>
+  <rect x="170" y="273" width="36" height="30" fill="#0e8a6e" rx="2"/>
+  <text x="188" y="293" text-anchor="middle" font-size="9" fill="white">1</text>
+  <rect x="210" y="273" width="36" height="30" fill="#0e8a6e" rx="2"/>
+  <text x="228" y="293" text-anchor="middle" font-size="9" fill="white">1</text>
+  <rect x="250" y="273" width="36" height="30" fill="#c77a12" rx="2"/>
+  <text x="268" y="293" text-anchor="middle" font-size="9" fill="white">1</text>
+  <rect x="290" y="273" width="36" height="30" fill="#e2e8f0" rx="2"/>
+  <text x="308" y="293" text-anchor="middle" font-size="9" fill="#94a3b8">0</text>
+
+  <!-- Row a2: attends to all (s1,s2,u1,u2,a1,a2) -->
+  <rect x="90" y="313" width="36" height="30" fill="#1f4fa3" rx="2"/>
+  <text x="108" y="333" text-anchor="middle" font-size="9" fill="white">1</text>
+  <rect x="130" y="313" width="36" height="30" fill="#1f4fa3" rx="2"/>
+  <text x="148" y="333" text-anchor="middle" font-size="9" fill="white">1</text>
+  <rect x="170" y="313" width="36" height="30" fill="#0e8a6e" rx="2"/>
+  <text x="188" y="333" text-anchor="middle" font-size="9" fill="white">1</text>
+  <rect x="210" y="313" width="36" height="30" fill="#0e8a6e" rx="2"/>
+  <text x="228" y="333" text-anchor="middle" font-size="9" fill="white">1</text>
+  <rect x="250" y="313" width="36" height="30" fill="#c77a12" rx="2"/>
+  <text x="268" y="333" text-anchor="middle" font-size="9" fill="white">1</text>
+  <rect x="290" y="313" width="36" height="30" fill="#c77a12" rx="2"/>
+  <text x="308" y="333" text-anchor="middle" font-size="9" fill="white">1</text>
+
+  <!-- Diagonal label -->
+  <text x="220" y="362" text-anchor="middle" font-size="9.5" fill="#5b6675">lower-triangular = causal mask (future tokens masked out)</text>
+
+  <!-- ======== RIGHT: Loss Mask ======== -->
+  <text x="670" y="58" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f4fa3">SFT Loss Mask</text>
+  <text x="670" y="74" text-anchor="middle" font-size="10" fill="#5b6675">(loss weight per token position)</text>
+
+  <!-- Token position labels -->
+  <text x="560" y="108" text-anchor="middle" font-size="9" fill="#5b6675">Pos</text>
+  <text x="610" y="108" text-anchor="middle" font-size="9" fill="#5b6675">Token</text>
+  <text x="700" y="108" text-anchor="middle" font-size="9" fill="#5b6675">Role</text>
+  <text x="790" y="108" text-anchor="middle" font-size="9" fill="#5b6675">Loss wt.</text>
+  <text x="860" y="108" text-anchor="middle" font-size="9" fill="#5b6675">Grad?</text>
+
+  <!-- Separator line -->
+  <line x1="530" y1="112" x2="890" y2="112" stroke="#d0d5dd" stroke-width="1"/>
+
+  <!-- Row 1: s1 -->
+  <rect x="530" y="116" width="360" height="28" fill="#eef4ff" rx="2"/>
+  <text x="560" y="135" text-anchor="middle" font-size="9.5" fill="#5b6675">1</text>
+  <text x="610" y="135" text-anchor="middle" font-size="9.5" fill="#1f4fa3" font-weight="bold">s1</text>
+  <text x="700" y="135" text-anchor="middle" font-size="9.5" fill="#1f4fa3">system</text>
+  <rect x="762" y="119" width="50" height="22" fill="#c0392b" rx="3"/>
+  <text x="787" y="134" text-anchor="middle" font-size="9.5" fill="white" font-weight="bold">0</text>
+  <text x="860" y="135" text-anchor="middle" font-size="9.5" fill="#c0392b">No</text>
+
+  <!-- Row 2: s2 -->
+  <rect x="530" y="148" width="360" height="28" fill="#eef4ff" rx="2"/>
+  <text x="560" y="167" text-anchor="middle" font-size="9.5" fill="#5b6675">2</text>
+  <text x="610" y="167" text-anchor="middle" font-size="9.5" fill="#1f4fa3" font-weight="bold">s2</text>
+  <text x="700" y="167" text-anchor="middle" font-size="9.5" fill="#1f4fa3">system</text>
+  <rect x="762" y="151" width="50" height="22" fill="#c0392b" rx="3"/>
+  <text x="787" y="166" text-anchor="middle" font-size="9.5" fill="white" font-weight="bold">0</text>
+  <text x="860" y="167" text-anchor="middle" font-size="9.5" fill="#c0392b">No</text>
+
+  <!-- Row 3: u1 -->
+  <rect x="530" y="180" width="360" height="28" fill="#f0fdf8" rx="2"/>
+  <text x="560" y="199" text-anchor="middle" font-size="9.5" fill="#5b6675">3</text>
+  <text x="610" y="199" text-anchor="middle" font-size="9.5" fill="#0e8a6e" font-weight="bold">u1</text>
+  <text x="700" y="199" text-anchor="middle" font-size="9.5" fill="#0e8a6e">user</text>
+  <rect x="762" y="183" width="50" height="22" fill="#c0392b" rx="3"/>
+  <text x="787" y="198" text-anchor="middle" font-size="9.5" fill="white" font-weight="bold">0</text>
+  <text x="860" y="199" text-anchor="middle" font-size="9.5" fill="#c0392b">No</text>
+
+  <!-- Row 4: u2 -->
+  <rect x="530" y="212" width="360" height="28" fill="#f0fdf8" rx="2"/>
+  <text x="560" y="231" text-anchor="middle" font-size="9.5" fill="#5b6675">4</text>
+  <text x="610" y="231" text-anchor="middle" font-size="9.5" fill="#0e8a6e" font-weight="bold">u2</text>
+  <text x="700" y="231" text-anchor="middle" font-size="9.5" fill="#0e8a6e">user</text>
+  <rect x="762" y="215" width="50" height="22" fill="#c0392b" rx="3"/>
+  <text x="787" y="230" text-anchor="middle" font-size="9.5" fill="white" font-weight="bold">0</text>
+  <text x="860" y="231" text-anchor="middle" font-size="9.5" fill="#c0392b">No</text>
+
+  <!-- Row 5: a1 -->
+  <rect x="530" y="244" width="360" height="28" fill="#fff8f0" rx="2"/>
+  <text x="560" y="263" text-anchor="middle" font-size="9.5" fill="#5b6675">5</text>
+  <text x="610" y="263" text-anchor="middle" font-size="9.5" fill="#c77a12" font-weight="bold">a1</text>
+  <text x="700" y="263" text-anchor="middle" font-size="9.5" fill="#c77a12">assistant</text>
+  <rect x="762" y="247" width="50" height="22" fill="#0e8a6e" rx="3"/>
+  <text x="787" y="262" text-anchor="middle" font-size="9.5" fill="white" font-weight="bold">1</text>
+  <text x="860" y="263" text-anchor="middle" font-size="9.5" fill="#0e8a6e">Yes</text>
+
+  <!-- Row 6: a2 -->
+  <rect x="530" y="276" width="360" height="28" fill="#fff8f0" rx="2"/>
+  <text x="560" y="295" text-anchor="middle" font-size="9.5" fill="#5b6675">6</text>
+  <text x="610" y="295" text-anchor="middle" font-size="9.5" fill="#c77a12" font-weight="bold">a2</text>
+  <text x="700" y="295" text-anchor="middle" font-size="9.5" fill="#c77a12">assistant</text>
+  <rect x="762" y="279" width="50" height="22" fill="#0e8a6e" rx="3"/>
+  <text x="787" y="294" text-anchor="middle" font-size="9.5" fill="white" font-weight="bold">1</text>
+  <text x="860" y="295" text-anchor="middle" font-size="9.5" fill="#0e8a6e">Yes</text>
+
+  <!-- Loss equation -->
+  <rect x="530" y="320" width="360" height="50" fill="#f3effd" stroke="#6c4fe0" stroke-width="1.5" rx="6"/>
+  <text x="710" y="340" text-anchor="middle" font-size="10" font-weight="bold" fill="#6c4fe0">SFT Loss (cross-entropy on assistant tokens):</text>
+  <text x="710" y="360" text-anchor="middle" font-size="11" fill="#6c4fe0">L = -(1/|y|) * sum log P(y_t | x_&lt;t)</text>
+
+  <!-- ======== Legend ======== -->
+  <rect x="20" y="390" width="480" height="95" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5" rx="8"/>
+  <text x="260" y="410" text-anchor="middle" font-size="11" font-weight="bold" fill="#1f4fa3">Legend</text>
+
+  <rect x="35" y="420" width="14" height="14" fill="#1f4fa3" rx="2"/>
+  <text x="55" y="432" font-size="10" fill="#1f4fa3">s1, s2 = system prompt tokens</text>
+
+  <rect x="35" y="442" width="14" height="14" fill="#0e8a6e" rx="2"/>
+  <text x="55" y="454" font-size="10" fill="#0e8a6e">u1, u2 = user prompt tokens</text>
+
+  <rect x="35" y="464" width="14" height="14" fill="#c77a12" rx="2"/>
+  <text x="55" y="476" font-size="10" fill="#c77a12">a1, a2 = assistant tokens (loss weight = 1)</text>
+
+  <rect x="240" y="420" width="14" height="14" fill="#e2e8f0" rx="2"/>
+  <text x="260" y="432" font-size="10" fill="#5b6675">0 = masked (cannot attend)</text>
+
+  <rect x="240" y="442" width="14" height="14" fill="#c0392b" rx="2"/>
+  <text x="260" y="454" font-size="10" fill="#c0392b">Loss wt = 0: token excluded from gradient</text>
+
+  <rect x="240" y="464" width="14" height="14" fill="#0e8a6e" rx="2"/>
+  <text x="260" y="476" font-size="10" fill="#0e8a6e">Loss wt = 1: token drives parameter update</text>
+
+  <!-- Key insight box -->
+  <rect x="510" y="390" width="380" height="95" fill="#fff8e7" stroke="#c77a12" stroke-width="1.5" rx="8"/>
+  <text x="700" y="410" text-anchor="middle" font-size="11" font-weight="bold" fill="#c77a12">Key Insight</text>
+  <text x="700" y="428" text-anchor="middle" font-size="10" fill="#5b6675">The causal mask ensures full context is available</text>
+  <text x="700" y="443" text-anchor="middle" font-size="10" fill="#5b6675">when predicting each assistant token.</text>
+  <text x="700" y="460" text-anchor="middle" font-size="10" fill="#5b6675">The loss mask ensures gradients flow only</text>
+  <text x="700" y="475" text-anchor="middle" font-size="10" fill="#5b6675">through assistant tokens during SFT training.</text>
+</svg>

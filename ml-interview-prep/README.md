@@ -7,7 +7,7 @@
 [![Scope](https://img.shields.io/badge/scope-LLMs_&_VLMs-1f4fa3)](#table-of-contents)
 [![Sections](https://img.shields.io/badge/sections-30-0e8a6e)](#table-of-contents)
 [![Questions](https://img.shields.io/badge/questions-800%2B-6c4fe0)](#questions-by-level)
-[![Answered](https://img.shields.io/badge/answered-66%2F106-c77a12)](#table-of-contents)
+[![Answered](https://img.shields.io/badge/answered-73%2F146-c77a12)](#table-of-contents)
 [![Levels](https://img.shields.io/badge/levels-Basic→Intermediate→Advanced→Applied-c77a12)](#questions-by-level)
 [![Format](https://img.shields.io/badge/format-Markdown_+_SVG_+_LaTeX-16202e)](#repository-layout)
 
@@ -196,6 +196,16 @@ ml-interview-prep/
         ├── q15-data-quality-filtering.md     ✅
         ├── q16-compute-vs-inference-optimal.md ✅
         └── (Q3-17 – Q3-32 scaffolded — files coming)
+    └── section-04-post-training-sft-rlhf-dpo/
+        ├── README.md                ← section index (40 questions, 7 answered)
+        ├── q01-sft-lima.md                   ✅
+        ├── q02-rlhf-overview.md              ✅
+        ├── q03-reward-model.md               ✅
+        ├── q04-kl-penalty.md                 ✅
+        ├── q05-on-off-policy.md              ✅
+        ├── q06-instruction-tuning.md         ✅
+        ├── q07-system-user-prompt.md         ✅
+        └── (Q4-08 – Q4-40 scaffolded — files coming)
 ```
 
 Each section is a folder with its own index; each question is one Markdown file; figures live under `assets/qNN/` — exactly 2 SVGs per question for Q23–Q34. Adding a new question never touches any existing file.
@@ -204,7 +214,7 @@ Each section is a folder with its own index; each question is one Markdown file;
 
 ## ⭐ Current status
 
-**66 questions fully answered across Sections 1–3.** Sections 4–22 are fully scaffolded — all questions listed, tagged, and organized by level. Every section has a README with question tables, themes, and reading-order suggestions. Answers are being written section-by-section following the same first-principles template: 20-second answer → first principles → mechanism → algorithm & pseudocode → PyTorch reference implementation → worked numerical example → interview drill → common misconceptions → one-screen summary → references.
+**73 questions fully answered across Sections 1–4.** Sections 4–22 are fully scaffolded — all questions listed, tagged, and organized by level. Every section has a README with question tables, themes, and reading-order suggestions. Answers are being written section-by-section following the same first-principles template: 20-second answer → first principles → mechanism → algorithm & pseudocode → PyTorch reference implementation → worked numerical example → interview drill → common misconceptions → one-screen summary → references.
 
 ### Section 1 — Transformer Architecture (34 answered · 8 scaffolded)
 
@@ -246,7 +256,7 @@ Each section is a folder with its own index; each question is one Markdown file;
 | 1 | [**Transformer Architecture Fundamentals**](./questions/section-01-transformer-architecture/README.md) | attention, norms, position, FFN, variants | 42 | ✅ 34/42 · 📝 8/42 |
 | 2 | [**Tokenization and Embeddings**](./questions/section-02-tokenization-and-embeddings/README.md) | BPE/WordPiece/Unigram, byte‑level, glitch tokens | 32 | ✅ 16/32 · 📝 16/32 |
 | 3 | [**Pretraining and Scaling Laws**](./questions/section-03-pretraining-and-scaling-laws/README.md) | Chinchilla, data/compute optima, emergence | 32 | ✅ 16/32 · 📝 16/32 |
-| 4 | [**Post‑training: SFT, RLHF, DPO and Beyond**](./questions/section-04-post-training-sft-rlhf-dpo/README.md) | reward models, PPO, DPO/IPO/KTO | 40 | 📝 |
+| 4 | [**Post‑training: SFT, RLHF, DPO and Beyond**](./questions/section-04-post-training-sft-rlhf-dpo/README.md) | reward models, PPO, DPO/IPO/KTO | 40 | ✅ 7/40 · 📝 33/40 |
 | 5 | [**Reasoning, CoT, and Inference‑Time Compute**](./questions/section-05-reasoning-cot-inference-time-compute/README.md) | CoT, self‑consistency, search, o‑series | 34 | 📝 |
 | 6 | [**Efficient Inference and Serving**](./questions/section-06-efficient-inference-and-serving/README.md) | KV cache, batching, speculative decoding | 40 | 📝 |
 | 7 | [**Quantization and Model Compression**](./questions/section-07-quantization-and-model-compression/README.md) | INT8/FP8/FP4, GPTQ/AWQ, MXFP, distillation | 46 | 📝 |
@@ -382,6 +392,18 @@ A quick-reference map across all 30 sections. Jump straight to the depth you nee
 | ✅ **7/7** | ✅ **9/9** | 📝 **0/7** | 📝 **0/9** |
 | Q3-01–Q3-07 | Q3-08–Q3-16 | Q3-17–Q3-23 | Q3-24–Q3-32 |
 | CLM objective · Kaplan laws · **Chinchilla** · data mix · **emergence** · cosine LR · gradient clipping | Chinchilla derivation · deduplication · batch size · mixed precision · Adam · AdamW · loss spikes · data filtering · compute vs. inference optimal | IsoFLOP analysis · downstream scaling · MuP · cooldown phase · data-constrained · code pretraining · GPT-4 predictions | compute budget allocation · loss spike debug · 10T token pipeline · serve vs. quality tradeoff · CPT forgetting · Llama-3 recipe · monitoring · early stopping · scaling experiment |
+
+</div>
+
+### Section 4 — Post-training: SFT, RLHF, DPO · 7 answered · 33 scaffolded — [**Open →**](./questions/section-04-post-training-sft-rlhf-dpo/README.md)
+
+<div align="center">
+
+| [🟢 Basic](#-basic) | [🟡 Intermediate](#-intermediate) | [🔴 Advanced](#-advanced) | [🔵 Applied](#-applied--system-design) |
+|:---:|:---:|:---:|:---:|
+| ✅ **7/7** | 📝 **0/10** | 📝 **0/14** | 📝 **0/9** |
+| Q4-01–Q4-07 | Q4-08–Q4-17 | Q4-18–Q4-31 | Q4-32–Q4-40 |
+| **SFT** · LIMA hypothesis · **RLHF three stages** · **reward model** · Bradley-Terry · **KL penalty** · on/off-policy · **PPO** · instruction tuning · chat tuning · system prompt | PPO objective · **DPO derivation** · DPO variants · reward hacking · RLAIF · reference model drift · rejection sampling · offline vs online · GAE · best-of-N | DPO log-prob collapse · RLHF↔IRL connection · **PRMs vs ORMs** · post-training pipeline · superficial alignment · **GRPO** · impossibility results · robust RM · multi-objective · Constitutional AI · model collapse | DPO regression debugging · pipeline design · sycophancy fix · RM/PPO mismatch · annotation budget · annotator disagreement · online RLHF production · safety balance · PPO→DPO migration |
 
 </div>
 
