@@ -581,7 +581,7 @@ No. As the policy improves, more responses exceed any fixed reward threshold. Th
 |---|---|
 | Yuan et al. (2023). *Scaling Relationship on Learning Mathematical Reasoning with Large Language Models.* [arXiv:2308.01825](https://arxiv.org/abs/2308.01825) | Original RFT paper for math; K/(K+1) analysis; GSM8K benchmarks |
 | Dong et al. (2023). *RAFT: Reward rAnked Fine-Tuning for Generative Foundation Model Alignment.* [arXiv:2304.06767](https://arxiv.org/abs/2304.06767) | RAFT algorithm; beat PPO on AlpacaFarm; top-p% selection |
-| Zeiler & Hinton (2022). *STaR: Bootstrapping Reasoning With Reasoning.* NeurIPS 2022. [arXiv:2203.14465](https://arxiv.org/abs/2203.14465) | Reasoning-specific RFT; rationalization trick; geometric improvement |
+| Zelikman et al. (2022). *STaR: Bootstrapping Reasoning With Reasoning.* NeurIPS 2022. [arXiv:2203.14465](https://arxiv.org/abs/2203.14465) | Reasoning-specific RFT; rationalization trick; geometric improvement |
 | Touvron et al. (2023). *Llama 2: Open Foundation and Fine-Tuned Chat Models.* [arXiv:2307.09288](https://arxiv.org/abs/2307.09288) | RFT as warm-start before RLHF in production; Sec. 3.3 |
 | Schulman et al. (2017). *Proximal Policy Optimization Algorithms.* [arXiv:1707.06347](https://arxiv.org/abs/1707.06347) | PPO baseline for comparison; explains the RL overhead RFT avoids |
 | Lightman et al. (2023). *Let's Verify Step by Step.* [arXiv:2305.20050](https://arxiv.org/abs/2305.20050) | Process reward models (PRM) as an alternative scorer for RFT in math |

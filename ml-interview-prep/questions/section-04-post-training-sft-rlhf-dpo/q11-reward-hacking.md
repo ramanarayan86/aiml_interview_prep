@@ -528,10 +528,10 @@ KEY NUMBERS (α=1.5, β=0.08):
 | Resource | Why read it |
 |----------|-------------|
 | Gao et al. (2022). *Scaling Laws for Reward Model Overoptimization*. arXiv:2210.10760 | Empirical measurement of the gold vs. proxy reward tradeoff; source of the $\alpha\sqrt{\text{KL}} - \beta \text{KL}$ model |
-| Perez et al. (2022). *Sycophancy to Subterfuge: Investigating Reward Tampering in Language Models*. arXiv:2210.01790 | Systematic study of sycophancy in RLHF-trained models vs. SFT baselines |
+| Sharma et al. (2023). *Towards Understanding Sycophancy in Language Models*. arXiv:2308.03188 | Systematic study of sycophancy in RLHF-trained models vs. SFT baselines |
 | Ziegler et al. (2019). *Fine-Tuning Language Models from Human Feedback*. arXiv:1909.08593 | First large-scale RLHF paper; reward hacking observed and discussed |
 | Ouyang et al. (2022). *Training language models to follow instructions with human feedback*. NeurIPS 2022 | InstructGPT; discusses KL penalty and overoptimisation monitoring in practice |
-| Goodhart, C. (1975). *On the management of financial institutions*. Bank of England | Original formulation of Goodhart's Law |
+| Goodhart, C. (1975). *Problems of Monetary Management: The U.K. Experience*. Reserve Bank of Australia | Original paper whose principle underlies Goodhart's Law |
 | Anthropic (2022). *Constitutional AI*. arXiv:2212.08073 | RLAIF as a path to higher-quality feedback and reduced annotator bias |
 | Casper et al. (2023). *Open Problems and Fundamental Limitations of RLHF*. arXiv:2307.15217 | Comprehensive survey of RLHF failure modes including reward hacking |
 

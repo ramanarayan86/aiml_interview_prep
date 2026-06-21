@@ -210,7 +210,7 @@ $$\log\frac{\pi_\theta(y_l|x)}{\pi_\text{ref}(y_l|x)} = -1.609 - (-1.204) = -0.4
 
 ### Compute the margin
 
-$$\Delta = \beta\!\left(0.318 - (-0.405)\right) = 0.5 \times 0.723 = 0.362$$
+$$\Delta = \beta\!\left(0.318 - (-0.405)\right) = 0.5 \times 0.723 = 0.3615 \approx 0.362$$
 
 ### Compute the loss
 
@@ -463,7 +463,7 @@ Verified in Python (see numeric checks above):
    computable from two forward passes.
 
 8. **Can DPO handle non-binary preferences (e.g., ratings 1–5)?**
-   Not directly. Extensions such as KTO (Ethayarajh et al., 2023) and
+   Not directly. Extensions such as KTO (Ethayarajh et al., 2024) and
    IPO (Azar et al., 2023) relax the Bradley-Terry assumption.
 
 ---
@@ -586,9 +586,9 @@ and optimal policy is large.
    *A General Theoretical Paradigm to Understand Learning from Human Feedback.*
    (IPO) [arXiv:2310.12036](https://arxiv.org/abs/2310.12036)
 
-6. **Ethayarajh, K., Xu, W., Muennighoff, N., Jurafsky, D., & Kiela, D.** (2023).
+6. **Ethayarajh, K., Xu, W., Muennighoff, N., Jurafsky, D., & Kiela, D.** (2024).
    *KTO: Model Alignment as Prospect Theoretic Optimization.*
-   [arXiv:2402.01306](https://arxiv.org/abs/2402.01306)
+   ICML 2024. [arXiv:2402.01306](https://arxiv.org/abs/2402.01306)
 
 ---
 

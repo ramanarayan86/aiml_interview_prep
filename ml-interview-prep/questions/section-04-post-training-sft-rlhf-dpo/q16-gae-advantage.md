@@ -342,19 +342,19 @@ $$\delta_2 = 1.5 + 0.99 \times 0.0 - 0.0 = +1.500$$
 
 $$\hat{A}_2 = \delta_2 = 1.500$$
 
-$$\hat{A}_1 = -0.600 + 0.9405 \times 1.500 = -0.600 + 1.4108 = +0.811$$
+$$\hat{A}_1 = -0.600 + 0.9405 \times 1.500 = -0.600 + 1.4108 = +0.8108 \approx 0.811$$
 
-$$\hat{A}_0 = -0.206 + 0.9405 \times 0.811 = -0.206 + 0.7627 = +0.557$$
+$$\hat{A}_0 = -0.206 + 0.9405 \times 0.8108 = -0.206 + 0.7626 = +0.5566 \approx 0.556$$
 
 **Value-function regression targets** $y_t = \hat{A}_t + V(s_t)$:
 
-$$y_0 = 0.557 + 0.8 = 1.357, \quad y_1 = 0.811 + 0.6 = 1.411, \quad y_2 = 1.500 + 0.0 = 1.500$$
+$$y_0 = 0.556 + 0.8 = 1.356, \quad y_1 = 0.811 + 0.6 = 1.411, \quad y_2 = 1.500 + 0.0 = 1.500$$
 
-The target $y_0 = 1.357$ is the GAE estimate of the true value of $s_0$. For comparison, the undiscounted sum of rewards is 1.5 and the discounted sum $\sum \gamma^k r_k = 0.99^2 \times 1.5 = 1.470$, so the critic's initial estimate of 0.8 was too conservative — these targets will push it upward.
+The target $y_0 = 1.356$ is the GAE estimate of the true value of $s_0$. For comparison, the undiscounted sum of rewards is 1.5 and the discounted sum $\sum \gamma^k r_k = 0.99^2 \times 1.5 = 1.470$, so the critic's initial estimate of 0.8 was too conservative — these targets will push it upward.
 
 **Policy gradient magnitudes** (assuming $\nabla \log \pi$ is roughly uniform across tokens):
 
-The PPO update nudges the policy in the direction of $\hat{A}_t \cdot \nabla \log \pi_\theta(a_t|s_t)$. All three tokens get a positive nudge, but the magnitude scales 0.557 : 0.811 : 1.500, giving the strongest reinforcement to the final token while still crediting the earlier tokens that set up the good response.
+The PPO update nudges the policy in the direction of $\hat{A}_t \cdot \nabla \log \pi_\theta(a_t|s_t)$. All three tokens get a positive nudge, but the magnitude scales 0.556 : 0.811 : 1.500, giving the strongest reinforcement to the final token while still crediting the earlier tokens that set up the good response.
 
 ---
 

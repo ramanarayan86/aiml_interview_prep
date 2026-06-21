@@ -14,7 +14,7 @@
 > [!IMPORTANT]
 > The reference model $\pi_\text{ref}$ is the **frozen SFT checkpoint** that acts as a behavioural anchor throughout post-training.
 > In **RLHF/PPO** it appears as an explicit KL penalty in the objective.
-> In **DPO** it serves as the implicit baseline inside the log-ratio loss — without it, the model would simply raise all token log-probs uniformly, erasing the alignment signal.
+> In **DPO** it serves as the implicit baseline inside the log-ratio loss — without it, the loss has a degenerate flat direction where increasing both $\log\pi_\theta(y_w)$ and $\log\pi_\theta(y_l)$ jointly leaves the objective unchanged, causing the model to unlearn language rather than learn preferences.
 > When the policy $\pi_\theta$ drifts too far from $\pi_\text{ref}$ (KL ≫ 50 nats), the Bradley-Terry assumption underlying DPO breaks, training becomes off-distribution, and log-prob collapse or coherence degradation follows.
 > Remedies include iterative DPO (periodic $\pi_\text{ref}$ resets), SFT anchoring loss, and β scheduling.
 
@@ -161,7 +161,7 @@ $$
 A positive $\Delta$ means the policy already prefers $y_w$ relative to $\pi_\text{ref}$.
 The gradient will push $\pi_\theta(y_w)$ higher and $\pi_\theta(y_l)$ lower, but the *magnitude* is modulated by $\pi_\text{ref}$ — responses that $\pi_\text{ref}$ found equally (un)likely get equal baseline credit.
 
-**Without $\pi_\text{ref}$:** if both log-probs were simply −12.4 and −14.0, the model might satisfy the loss by increasing both probabilities uniformly rather than genuinely preferring $y_w$ over $y_l$.
+**Without $\pi_\text{ref}$:** the loss becomes $-\log\sigma(\beta(\log\pi_\theta(y_w) - \log\pi_\theta(y_l)))$. Adding any constant $C$ to both $\log\pi_\theta(y_w)$ and $\log\pi_\theta(y_l)$ leaves the loss unchanged — a degenerate flat direction that lets the model increase overall log-probabilities without learning preferences, eventually violating the probability simplex.
 
 ---
 
@@ -412,7 +412,7 @@ At 1.1490 nats per token, a 500-token response accumulates approximately $1.1490
 ## 9 · Interview drill — follow-up questions
 
 **Q1. Why can't you just remove the reference model from DPO to simplify the algorithm?**
-Without $\pi_\text{ref}$, there is no baseline: the model can decrease the loss by uniformly increasing $\log \pi_\theta(y)$ for all responses regardless of quality. The log-ratio is what converts absolute log-probabilities into a *relative* preference signal.
+Without $\pi_\text{ref}$, the loss has a degenerate flat direction: jointly increasing $\log\pi_\theta(y_w)$ and $\log\pi_\theta(y_l)$ by the same amount leaves the objective unchanged. The log-ratio is what converts absolute log-probabilities into a *relative* preference signal anchored to the SFT distribution.
 
 **Q2. What is the relationship between β in RLHF and β in DPO?**
 They play the same conceptual role (temperature controlling KL budget) and share the same analytic origin from the KL-constrained RL optimal policy. In RLHF β multiplies the explicit KL penalty; in DPO β scales the log-ratios, implicitly setting how strongly the policy can deviate from the reference.

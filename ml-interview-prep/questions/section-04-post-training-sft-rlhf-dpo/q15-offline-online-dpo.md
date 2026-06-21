@@ -15,7 +15,7 @@
 
 > [!IMPORTANT]
 > **The 20-second answer.**
-> Offline DPO trains on a static preference dataset collected from an old policy. As the policy is updated the training pairs become off-distribution, capping quality. Iterative DPO closes this gap by re-sampling responses from the current policy every few epochs and resetting the reference model to the latest checkpoint. Full online RLHF (PPO) is always on-policy and achieves the best performance, but at 2–4x the compute cost. Guo et al. (2024) show that online DPO outperforms offline DPO by 3–8 win-rate points on AlpacaEval 2.0, and that 1–3 rounds of iterative DPO recovers roughly 70% of that gap at moderate cost.
+> Offline DPO trains on a static preference dataset collected from an old policy. As the policy is updated the training pairs become off-distribution, capping quality. Iterative DPO closes this gap by re-sampling responses from the current policy every few epochs and resetting the reference model to the latest checkpoint. Full online RLHF (PPO) is always on-policy and achieves the best performance, but at 2–4x the compute cost. Guo et al. (2024) show that online DPO outperforms offline DPO on AlpacaEval 2.0. Based on the literature, 1–3 rounds of iterative DPO recovers a substantial fraction of the online advantage at moderate cost (exact recovery depends on the task and RM quality).
 
 ---
 
@@ -556,7 +556,7 @@ It is on-policy at every gradient step — no batching into rounds. It requires 
 
 4. **Calandriello et al. (2024)** — "Human Alignment of Large Language Models through Online Preference Optimisation." *arXiv:2403.08635*. Theoretical analysis of offline vs online alignment; proves improved sample complexity bounds for online methods.
 
-5. **Xu et al. (2023)** — "Some things are more CRINGE than others: Preference Optimization with the Pairwise Cringe Loss." *arXiv:2312.16682*. Explains why on-policy negative examples are more informative; introduces the Pairwise Cringe Loss as an alternative objective.
+5. **Xu et al. (2023)** — "Some things are more CRINGE than others: Iterative Preference Optimization with the Pairwise Cringe Loss." *arXiv:2312.16682*. Explains why on-policy negative examples are more informative; introduces the Pairwise Cringe Loss as an alternative objective.
 
 6. **Stiennon et al. (2020)** — "Learning to Summarize with Human Feedback." *NeurIPS 2020*. Seminal PPO-based RLHF paper; the reference implementation of full online RLHF.
 

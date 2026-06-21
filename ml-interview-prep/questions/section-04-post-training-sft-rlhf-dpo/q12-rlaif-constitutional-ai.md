@@ -92,7 +92,7 @@ These soft labels can be used in the Bradley-Terry reward model loss just like h
 | RLAIF (AI labels) | 71% |
 | SFT baseline | 50% (reference) |
 
-The 2 pp gap is within noise for many applications, but RLAIF annotations cost ~$0.001/label vs ~$0.10/label for human annotation — a 100x reduction.
+The 2 pp gap is within noise for many applications, but RLAIF annotations cost roughly $0.001/label vs. roughly $0.10/label for human annotation (industry estimates; actual costs vary with model and task) — approximately a 100× reduction.
 
 **Known failure modes of AI judges:**
 
@@ -392,15 +392,15 @@ Consider generating 1,000,000 preference labels:
 
 ### Agreement analysis
 
-Lee et al. (2023) report AI–human label agreement rates on their summarization task:
+Lee et al. (2023) focus on summarization and report that RLAIF-trained models achieve win rates of ~71% vs. ~73% for RLHF when evaluated by human raters — a gap that is not statistically significant. The paper does not break down AI–human agreement by the five task categories below; the following figures are representative estimates from the broader LLM-judge literature (Zheng et al. 2023 on MT-Bench; Dubois et al. 2023 on AlpacaFarm):
 
-| Task type | AI–human agreement |
+| Task type | AI–human agreement (est.) |
 |---|---|
-| Safety / harm | 85% |
-| Helpfulness | 78% |
-| Fluency / format | 91% |
-| Factual accuracy | 82% |
-| Creative quality | 61% |
+| Safety / harm | ~85% |
+| Helpfulness | ~78% |
+| Fluency / format | ~91% |
+| Factual accuracy | ~82% |
+| Creative quality | ~61% |
 
 **Effective label efficiency at 85% agreement:**
 

@@ -19,7 +19,7 @@
 </div>
 
 > [!IMPORTANT]
-> **The 20-second answer.** Best-of-N (BoN) sampling draws $N$ responses from the SFT policy, scores each with the reward model, and returns the highest-scoring one — a pure **test-time compute** strategy requiring no training. Its expected reward grows as $\Phi^{-1}(N/(N+1))$ for standard-normal rewards, with strongly diminishing returns. RLHF with KL budget $k$ outperforms BoN at the equivalent KL ($\approx \log N$ nats) in the **moderate-KL regime** (roughly 5–50 nats) because gradient-based training can shift the base distribution into high-reward regions that simple rejection sampling cannot reach. However, at very large KL, RLHF degrades due to **proxy reward overoptimization** while BoN always samples from the unmodified SFT distribution. The practical rule: use RLHF when deployment latency matters or when moderate-KL reward improvements are worth the training cost; use BoN as a cheap, reliable baseline and diagnostic.
+> **The 20-second answer.** Best-of-N (BoN) sampling draws $N$ responses from the SFT policy, scores each with the reward model, and returns the highest-scoring one — a pure **test-time compute** strategy requiring no training. Its expected reward grows as $\Phi^{-1}(N/(N+1))$ for standard-normal rewards, with strongly diminishing returns. RLHF with KL budget $k$ outperforms BoN at the equivalent KL ($\approx \log N$ nats) in the **moderate-KL regime** (roughly 5–40 nats) because gradient-based training can shift the base distribution into high-reward regions that simple rejection sampling cannot reach. However, at very large KL, RLHF degrades due to **proxy reward overoptimization** while BoN always samples from the unmodified SFT distribution. The practical rule: use RLHF when deployment latency matters or when moderate-KL reward improvements are worth the training cost; use BoN as a cheap, reliable baseline and diagnostic.
 
 ---
 
@@ -338,14 +338,14 @@ if __name__ == "__main__":
 #      N    KL (nats)    E[max r]
 # -----------------------------------
 #      1        0.0000      0.0000
-#      2        0.1931      0.5642
+#      2        0.1931      0.4307
 #      4        0.6363      0.8416
-#      8        1.2614      1.1303
-#     16        1.8351      1.5631
-#     32        2.4072      1.8720
-#     64        2.9735      2.1701
-#    128        3.5374      2.4300
-#    256        4.0989      2.6521
+#      8        1.2044      1.2206
+#     16        1.8351      1.5632
+#     32        2.4970      1.8745
+#     64        3.1745      2.1601
+#    128        3.8598      2.4204
+#    256        4.5491      2.6614
 ```
 
 **Implementation notes:**
@@ -412,8 +412,8 @@ At KL = 10 nats (aggressive training):
 | 1   | 0.000     | 0.000               | 1$\times$      |
 | 4   | 0.636     | 0.842               | 4$\times$      |
 | 16  | 1.835     | 1.563               | 16$\times$     |
-| 64  | 2.974     | 2.170               | 64$\times$     |
-| 256 | 4.099     | 2.652               | 256$\times$    |
+| 64  | 3.175     | 2.160               | 64$\times$     |
+| 256 | 4.549     | 2.661               | 256$\times$    |
 
 All values verified via `scipy.stats.norm.ppf` and `math.log`.
 

@@ -84,13 +84,13 @@ The target $\frac{1}{2\beta}$ acts as regularization: increasing $\beta$ shrinks
 
 KTO discards the paired structure entirely. Each example is a single $(x, y)$ pair labelled **desirable** ($z=1$) or **undesirable** ($z=0$), analogous to the binary signals humans naturally give. Motivated by Kahneman–Tversky prospect theory (humans are more sensitive to losses than to equivalent gains), KTO uses separate loss functions for each label:
 
-$$\mathcal{L}_{\text{KTO}}(\theta) = \mathbb{E}_{(x,y,z)}\!\left[\lambda_w\, w(x,y_w) + \lambda_l\, w(x,y_l)\right]$$
+$$\mathcal{L}_{\text{KTO}}(\theta) = \mathbb{E}_{(x,y,z)}\!\left[\lambda_w\,\mathbf{1}[z=1]\cdot w(x,y) + \lambda_l\,\mathbf{1}[z=0]\cdot w(x,y)\right]$$
 
-where, denoting $\hat{r}(x,y) = \beta \log \frac{\pi_\theta(y|x)}{\pi_{\text{ref}}(y|x)}$ and $z_{\text{ref}} = \mathbb{E}_{x'}\!\left[\text{KL}\!\left(\pi_\theta(\cdot|x') \| \pi_{\text{ref}}(\cdot|x')\right)\right]$:
+where each example is a **single** $(x, y, z)$ triple (not a pair), $\hat{r}(x,y) = \beta \log \frac{\pi_\theta(y|x)}{\pi_{\text{ref}}(y|x)}$, and $z_{\text{ref}} = \mathbb{E}_{x'}\!\left[\text{KL}\!\left(\pi_\theta(\cdot|x') \| \pi_{\text{ref}}(\cdot|x')\right)\right]$:
 
-$$w(x, y_w) = \sigma\!\left(\hat{r}(x,y_w) - z_{\text{ref}}\right), \qquad w(x, y_l) = \sigma\!\left(z_{\text{ref}} - \hat{r}(x,y_l)\right)$$
+$$w(x,y) = \begin{cases} 1 - \sigma\!\left(\hat{r}(x,y) - z_{\text{ref}}\right) & \text{if } z = 1 \text{ (desirable)} \\ 1 - \sigma\!\left(z_{\text{ref}} - \hat{r}(x,y)\right) & \text{if } z = 0 \text{ (undesirable)} \end{cases}$$
 
-$\lambda_w, \lambda_l > 0$ are asymmetric weights (typically $\lambda_l > \lambda_w$) reflecting loss aversion. The KL baseline $z_{\text{ref}}$ is estimated from a mini-batch and provides the anchor that replaces the rejected response in paired DPO.
+The loss is minimized when $\hat{r}(x,y_w) > z_{\text{ref}}$ (desirable responses score above the KL baseline) and $\hat{r}(x,y_l) < z_{\text{ref}}$ (undesirable responses score below). $\lambda_w, \lambda_l > 0$ are asymmetric weights (typically $\lambda_l > \lambda_w$) reflecting Kahneman–Tversky loss aversion.
 
 ### ORPO (Hong et al., 2024) — removes reference model
 
@@ -492,7 +492,7 @@ Length bias in DPO is structural, not a symptom of insufficient training. The im
 LOSS FUNCTIONS
   DPO  : -log σ( β·(log π_w/ref_w - log π_l/ref_l) )
   IPO  : ( log π_w/ref_w - log π_l/ref_l - 1/(2β) )²
-  KTO  : λ_w·σ(r_w - z_ref) + λ_l·σ(z_ref - r_l)     [unpaired]
+  KTO  : λ_w·(1-σ(r_w - z_ref))·𝟏[z=1] + λ_l·(1-σ(z_ref - r_l))·𝟏[z=0]  [unpaired]
   ORPO : -log p(y_w|x) - λ·log σ( log odds(y_w)/odds(y_l) )
   SimPO: -log σ( β/|y_w|·log π(y_w) - β/|y_l|·log π(y_l) - γ )
 
