@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 400">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#5b6675"/>
+    </marker>
+    <marker id="arrowhead-teal" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#0e8a6e"/>
+    </marker>
+    <marker id="arrowhead-navy" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1f4fa3"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="820" height="400" fill="#f8f9fc" rx="8"/>
+
+  <!-- Title -->
+  <text x="410" y="32" font-family="sans-serif" font-size="16" font-weight="bold" fill="#1f4fa3" text-anchor="middle">System 1 vs System 2 Reasoning in LLMs</text>
+
+  <!-- ===== LEFT PANEL: System 1 ===== -->
+  <rect x="20" y="48" width="375" height="330" rx="10" fill="#e8f0fb" stroke="#1f4fa3" stroke-width="2"/>
+  <rect x="20" y="48" width="375" height="40" rx="10" fill="#1f4fa3"/>
+  <rect x="20" y="78" width="375" height="10" rx="0" fill="#1f4fa3"/>
+  <text x="207" y="73" font-family="sans-serif" font-size="14" font-weight="bold" fill="white" text-anchor="middle">System 1 — Fast &#38; Intuitive</text>
+
+  <!-- Attributes list -->
+  <text x="40" y="114" font-family="sans-serif" font-size="12" fill="#1f4fa3" font-weight="bold">Characteristics:</text>
+  <text x="48" y="134" font-family="sans-serif" font-size="11" fill="#333">&#x2022; Automatic, unconscious, low effort</text>
+  <text x="48" y="152" font-family="sans-serif" font-size="11" fill="#333">&#x2022; Pattern-matching and associative</text>
+  <text x="48" y="170" font-family="sans-serif" font-size="11" fill="#333">&#x2022; Single forward pass per token</text>
+  <text x="48" y="188" font-family="sans-serif" font-size="11" fill="#333">&#x2022; Latency: ~10&#8211;100 ms per token</text>
+
+  <!-- Single forward pass diagram -->
+  <text x="207" y="214" font-family="sans-serif" font-size="11" fill="#5b6675" text-anchor="middle" font-style="italic">One pass &#8594; one answer</text>
+
+  <!-- Input box -->
+  <rect x="50" y="222" width="120" height="34" rx="6" fill="#1f4fa3"/>
+  <text x="110" y="236" font-family="sans-serif" font-size="10" fill="white" text-anchor="middle" font-weight="bold">Prompt</text>
+  <text x="110" y="249" font-family="sans-serif" font-size="9" fill="#ccd6f6" text-anchor="middle">"Capital of France?"</text>
+
+  <!-- Arrow -->
+  <line x1="172" y1="239" x2="218" y2="239" stroke="#5b6675" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="195" y="233" font-family="sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">1 pass</text>
+
+  <!-- Output box -->
+  <rect x="220" y="222" width="120" height="34" rx="6" fill="#0e8a6e"/>
+  <text x="280" y="236" font-family="sans-serif" font-size="10" fill="white" text-anchor="middle" font-weight="bold">Answer</text>
+  <text x="280" y="249" font-family="sans-serif" font-size="9" fill="#c8f0e0" text-anchor="middle">"Paris"</text>
+
+  <!-- Strengths / Weaknesses -->
+  <text x="40" y="282" font-family="sans-serif" font-size="11" fill="#0e8a6e" font-weight="bold">Strengths:</text>
+  <text x="48" y="298" font-family="sans-serif" font-size="10" fill="#333">Fluency, factual recall, simple QA</text>
+  <text x="48" y="312" font-family="sans-serif" font-size="10" fill="#333">Common tasks, low latency, cheap</text>
+  <text x="40" y="330" font-family="sans-serif" font-size="11" fill="#c0392b" font-weight="bold">Weaknesses:</text>
+  <text x="48" y="346" font-family="sans-serif" font-size="10" fill="#333">Multi-step arithmetic, planning,</text>
+  <text x="48" y="360" font-family="sans-serif" font-size="10" fill="#333">constraint satisfaction, novel puzzles</text>
+
+  <!-- Example label -->
+  <text x="207" y="380" font-family="sans-serif" font-size="10" fill="#5b6675" text-anchor="middle" font-style="italic">e.g. GPT-4 greedy decode, base LLM</text>
+
+  <!-- ===== RIGHT PANEL: System 2 ===== -->
+  <rect x="425" y="48" width="375" height="330" rx="10" fill="#ede8fb" stroke="#6c4fe0" stroke-width="2"/>
+  <rect x="425" y="48" width="375" height="40" rx="10" fill="#6c4fe0"/>
+  <rect x="425" y="78" width="375" height="10" rx="0" fill="#6c4fe0"/>
+  <text x="612" y="73" font-family="sans-serif" font-size="14" font-weight="bold" fill="white" text-anchor="middle">System 2 — Slow &#38; Deliberate</text>
+
+  <!-- Attributes list -->
+  <text x="445" y="114" font-family="sans-serif" font-size="12" fill="#6c4fe0" font-weight="bold">Characteristics:</text>
+  <text x="453" y="134" font-family="sans-serif" font-size="11" fill="#333">&#x2022; Deliberate, effortful, sequential steps</text>
+  <text x="453" y="152" font-family="sans-serif" font-size="11" fill="#333">&#x2022; Logical, can backtrack and verify</text>
+  <text x="453" y="170" font-family="sans-serif" font-size="11" fill="#333">&#x2022; Many tokens before final answer</text>
+  <text x="453" y="188" font-family="sans-serif" font-size="11" fill="#333">&#x2022; Latency: seconds to minutes</text>
+
+  <!-- Multi-step diagram: search tree -->
+  <text x="612" y="212" font-family="sans-serif" font-size="11" fill="#5b6675" text-anchor="middle" font-style="italic">Iterative refinement over many steps</text>
+
+  <!-- Root node -->
+  <circle cx="545" cy="240" r="16" fill="#6c4fe0"/>
+  <text x="545" y="244" font-family="sans-serif" font-size="9" fill="white" text-anchor="middle" font-weight="bold">Start</text>
+
+  <!-- Branch 1 (wrong, pruned) -->
+  <line x1="558" y1="229" x2="595" y2="218" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <circle cx="610" cy="213" r="12" fill="#f5c6c6" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="610" y="217" font-family="sans-serif" font-size="8" fill="#c0392b" text-anchor="middle">&#10007;</text>
+
+  <!-- Branch 2 (continues) -->
+  <line x1="555" y1="252" x2="592" y2="252" stroke="#6c4fe0" stroke-width="2" marker-end="url(#arrowhead-navy)"/>
+  <circle cx="608" cy="252" r="14" fill="#6c4fe0"/>
+  <text x="608" y="256" font-family="sans-serif" font-size="9" fill="white" text-anchor="middle">S2</text>
+
+  <!-- Branch 3 (wrong, pruned) -->
+  <line x1="558" y1="263" x2="595" y2="278" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <circle cx="610" cy="283" r="12" fill="#f5c6c6" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="610" y="287" font-family="sans-serif" font-size="8" fill="#c0392b" text-anchor="middle">&#10007;</text>
+
+  <!-- Step S2 -> S3 -->
+  <line x1="622" y1="252" x2="655" y2="252" stroke="#6c4fe0" stroke-width="2" marker-end="url(#arrowhead-navy)"/>
+  <circle cx="671" cy="252" r="14" fill="#6c4fe0"/>
+  <text x="671" y="256" font-family="sans-serif" font-size="9" fill="white" text-anchor="middle">S3</text>
+
+  <!-- Step S3 -> Answer -->
+  <line x1="685" y1="252" x2="715" y2="252" stroke="#0e8a6e" stroke-width="2" marker-end="url(#arrowhead-teal)"/>
+  <rect x="718" y="238" width="60" height="28" rx="6" fill="#0e8a6e"/>
+  <text x="748" y="249" font-family="sans-serif" font-size="9" fill="white" text-anchor="middle" font-weight="bold">Answer</text>
+  <text x="748" y="260" font-family="sans-serif" font-size="8" fill="#c8f0e0" text-anchor="middle">verified &#10003;</text>
+
+  <!-- Thinking tokens label -->
+  <text x="630" y="290" font-family="sans-serif" font-size="9" fill="#6c4fe0" text-anchor="middle" font-style="italic">1,000&#8211;10,000 thinking tokens</text>
+
+  <!-- Strengths / Weaknesses -->
+  <text x="445" y="315" font-family="sans-serif" font-size="11" fill="#0e8a6e" font-weight="bold">Strengths:</text>
+  <text x="453" y="331" font-family="sans-serif" font-size="10" fill="#333">Competition math, hard coding,</text>
+  <text x="453" y="345" font-family="sans-serif" font-size="10" fill="#333">logical puzzles, multi-step planning</text>
+  <text x="445" y="363" font-family="sans-serif" font-size="11" fill="#c0392b" font-weight="bold">Cost:</text>
+  <text x="453" y="377" font-family="sans-serif" font-size="10" fill="#333">10&#8211;100&#215; more tokens, 10&#8211;60&#215; slower</text>
+
+  <!-- Example label -->
+  <text x="612" y="392" font-family="sans-serif" font-size="10" fill="#5b6675" text-anchor="middle" font-style="italic">e.g. OpenAI o1, o3, DeepSeek-R1</text>
+</svg>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 420">
+  <defs>
+    <style>
+      .title { font: bold 16px sans-serif; fill: #1f4fa3; }
+      .hdr   { font: bold 12px sans-serif; fill: #ffffff; }
+      .label { font: bold 11px sans-serif; fill: #2c2c2c; }
+      .body  { font: 11px sans-serif; fill: #2c2c2c; }
+      .small { font: 10px sans-serif; fill: #5b6675; }
+      .bar-label { font: 10px sans-serif; fill: #ffffff; }
+    </style>
+    <marker id="arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#5b6675"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="860" height="420" fill="#f8f9fc" rx="8"/>
+
+  <!-- Title -->
+  <text x="430" y="30" text-anchor="middle" class="title">How "Let's think step by step" Shifts the Next-Token Distribution</text>
+
+  <!-- =================== LEFT PANEL: WITHOUT trigger =================== -->
+  <rect x="20" y="48" width="390" height="352" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <rect x="20" y="48" width="390" height="32" rx="8" fill="#c0392b"/>
+  <rect x="20" y="68" width="390" height="12" fill="#c0392b"/>
+  <text x="215" y="69" text-anchor="middle" class="hdr">WITHOUT Trigger Phrase</text>
+
+  <!-- Prompt box -->
+  <rect x="32" y="90" width="366" height="44" rx="4" fill="#fff0ee" stroke="#c0392b" stroke-width="1"/>
+  <text x="42" y="108" class="body" font-style="italic">Q: If 5 + 3 = ?</text>
+  <text x="42" y="124" class="body" font-style="italic">A:&#160;</text>
+  <text x="62" y="124" class="label" fill="#c0392b">&#9646;  (predict next token)</text>
+
+  <!-- Distribution chart (bar chart) -->
+  <text x="215" y="153" text-anchor="middle" class="label">P(next token | prompt)</text>
+
+  <!-- Bars without trigger -->
+  <!-- "8" = 0.35 -->
+  <rect x="50" y="200" width="50" height="105" rx="3" fill="#c0392b"/>
+  <text x="75" y="315" text-anchor="middle" class="small">"8"</text>
+  <text x="75" y="190" text-anchor="middle" class="label" fill="#c0392b">0.35</text>
+
+  <!-- "The answer" = 0.18 -->
+  <rect x="118" y="254" width="50" height="51" rx="3" fill="#c77a12"/>
+  <text x="143" y="315" text-anchor="middle" class="small">"The"</text>
+  <text x="143" y="245" text-anchor="middle" class="label" fill="#c77a12">0.18</text>
+
+  <!-- "=" = 0.12 -->
+  <rect x="186" y="270" width="50" height="35" rx="3" fill="#5b6675"/>
+  <text x="211" y="315" text-anchor="middle" class="small">"="</text>
+  <text x="211" y="261" text-anchor="middle" class="small">0.12</text>
+
+  <!-- "First" = 0.04 -->
+  <rect x="254" y="293" width="50" height="12" rx="3" fill="#1f4fa3"/>
+  <text x="279" y="315" text-anchor="middle" class="small">"First"</text>
+  <text x="279" y="287" text-anchor="middle" class="small">0.04</text>
+
+  <!-- "We" = 0.03 -->
+  <rect x="322" y="296" width="50" height="9" rx="3" fill="#6c4fe0"/>
+  <text x="347" y="315" text-anchor="middle" class="small">"We"</text>
+  <text x="347" y="290" text-anchor="middle" class="small">0.03</text>
+
+  <!-- Axis -->
+  <line x1="38" y1="305" x2="395" y2="305" stroke="#cccccc" stroke-width="1"/>
+  <line x1="38" y1="170" x2="38" y2="305" stroke="#cccccc" stroke-width="1"/>
+
+  <text x="215" y="340" text-anchor="middle" class="small">Model immediately outputs a direct numeric answer</text>
+  <rect x="32" y="350" width="366" height="38" rx="4" fill="#fff0ee" stroke="#c0392b" stroke-width="1"/>
+  <text x="215" y="366" text-anchor="middle" class="body">High P("8" | ...) &#8594; answer-first generation</text>
+  <text x="215" y="382" text-anchor="middle" class="small">No intermediate reasoning distributed across tokens</text>
+
+  <!-- =================== RIGHT PANEL: WITH trigger =================== -->
+  <rect x="450" y="48" width="390" height="352" rx="8" fill="#ffffff" stroke="#0e8a6e" stroke-width="2"/>
+  <rect x="450" y="48" width="390" height="32" rx="8" fill="#0e8a6e"/>
+  <rect x="450" y="68" width="390" height="12" fill="#0e8a6e"/>
+  <text x="645" y="69" text-anchor="middle" class="hdr">WITH "Let's think step by step"</text>
+
+  <!-- Prompt box -->
+  <rect x="462" y="90" width="366" height="44" rx="4" fill="#eafaf3" stroke="#0e8a6e" stroke-width="1"/>
+  <text x="472" y="108" class="body" font-style="italic">Q: If 5 + 3 = ?</text>
+  <text x="472" y="124" class="body" font-style="italic">A: Let's think step by step.&#160;</text>
+  <text x="660" y="124" class="label" fill="#0e8a6e">&#9646;</text>
+
+  <!-- Distribution chart -->
+  <text x="645" y="153" text-anchor="middle" class="label">P(next token | prompt + trigger)</text>
+
+  <!-- "First" = 0.28 -->
+  <rect x="480" y="221" width="50" height="84" rx="3" fill="#0e8a6e"/>
+  <text x="505" y="315" text-anchor="middle" class="small">"First"</text>
+  <text x="505" y="212" text-anchor="middle" class="label" fill="#0e8a6e">0.28</text>
+
+  <!-- "We" = 0.18 -->
+  <rect x="548" y="254" width="50" height="51" rx="3" fill="#1f4fa3"/>
+  <text x="573" y="315" text-anchor="middle" class="small">"We"</text>
+  <text x="573" y="245" text-anchor="middle" class="label" fill="#1f4fa3">0.18</text>
+
+  <!-- "To" = 0.12 -->
+  <rect x="616" y="269" width="50" height="36" rx="3" fill="#6c4fe0"/>
+  <text x="641" y="315" text-anchor="middle" class="small">"To"</text>
+  <text x="641" y="260" text-anchor="middle" class="small">0.12</text>
+
+  <!-- "8" = 0.01 -->
+  <rect x="684" y="302" width="50" height="3" rx="3" fill="#c0392b"/>
+  <text x="709" y="315" text-anchor="middle" class="small">"8"</text>
+  <text x="709" y="295" text-anchor="middle" class="small">0.01</text>
+
+  <!-- "The" = 0.02 -->
+  <rect x="752" y="299" width="50" height="6" rx="3" fill="#c77a12"/>
+  <text x="777" y="315" text-anchor="middle" class="small">"The"</text>
+  <text x="777" y="293" text-anchor="middle" class="small">0.02</text>
+
+  <!-- Axis -->
+  <line x1="468" y1="305" x2="825" y2="305" stroke="#cccccc" stroke-width="1"/>
+  <line x1="468" y1="170" x2="468" y2="305" stroke="#cccccc" stroke-width="1"/>
+
+  <text x="645" y="340" text-anchor="middle" class="small">Model generates reasoning tokens that build intermediate context</text>
+  <rect x="462" y="350" width="366" height="38" rx="4" fill="#eafaf3" stroke="#0e8a6e" stroke-width="1"/>
+  <text x="645" y="366" text-anchor="middle" class="body">High P("First" | ...) &#8594; reasoning-first generation</text>
+  <text x="645" y="382" text-anchor="middle" class="small">Reasoning tokens become context for later answer tokens</text>
+</svg>

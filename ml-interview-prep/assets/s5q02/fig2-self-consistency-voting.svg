@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 440">
+  <defs>
+    <style>
+      .title  { font: bold 16px sans-serif; fill: #1f4fa3; }
+      .hdr    { font: bold 13px sans-serif; fill: #ffffff; }
+      .label  { font: bold 12px sans-serif; fill: #2c2c2c; }
+      .body   { font: 11px sans-serif; fill: #2c2c2c; }
+      .small  { font: 10px sans-serif; fill: #5b6675; }
+      .green  { font: bold 12px sans-serif; fill: #0e8a6e; }
+      .red    { font: bold 12px sans-serif; fill: #c0392b; }
+      .path-arrow { stroke: #5b6675; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#5b6675"/>
+    </marker>
+    <marker id="arrowBlue" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#1f4fa3"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="860" height="440" fill="#f8f9fc" rx="8"/>
+
+  <!-- Title -->
+  <text x="430" y="32" text-anchor="middle" class="title">Self-Consistency: N Diverse Reasoning Paths &#8594; Majority Vote</text>
+
+  <!-- Problem box -->
+  <rect x="280" y="50" width="300" height="50" rx="8" fill="#1f4fa3"/>
+  <text x="430" y="70" text-anchor="middle" class="hdr">Problem (Worked Example)</text>
+  <text x="430" y="88" text-anchor="middle" font-size="11" fill="#d0e0ff">
+    Bag: 3 red, 5 blue, 2 green. Fraction not red?
+  </text>
+
+  <!-- Sampling label -->
+  <text x="430" y="122" text-anchor="middle" class="small">Sample N = 4 paths at temperature T = 0.7</text>
+
+  <!-- Fan-out arrows -->
+  <line x1="430" y1="128" x2="100" y2="165" stroke="#5b6675" stroke-width="1.2" marker-end="url(#arrowhead)"/>
+  <line x1="430" y1="128" x2="300" y2="165" stroke="#5b6675" stroke-width="1.2" marker-end="url(#arrowhead)"/>
+  <line x1="430" y1="128" x2="530" y2="165" stroke="#5b6675" stroke-width="1.2" marker-end="url(#arrowhead)"/>
+  <line x1="430" y1="128" x2="735" y2="165" stroke="#5b6675" stroke-width="1.2" marker-end="url(#arrowhead)"/>
+
+  <!-- Path 1 (correct) -->
+  <rect x="22" y="168" width="156" height="115" rx="6" fill="#eef2fb" stroke="#1f4fa3" stroke-width="1.5"/>
+  <rect x="22" y="168" width="156" height="22" rx="6" fill="#1f4fa3"/>
+  <rect x="22" y="180" width="156" height="10" fill="#1f4fa3"/>
+  <text x="100" y="183" text-anchor="middle" class="hdr" font-size="11">Path 1</text>
+  <text x="32" y="202" class="body">Total = 3+5+2 = 10</text>
+  <text x="32" y="217" class="body">Not red = 5+2 = 7</text>
+  <text x="32" y="232" class="body">Fraction = 7/10</text>
+  <text x="32" y="252" class="green">Answer: 7/10 &#10003;</text>
+  <text x="32" y="270" class="small">Reasoning: correct</text>
+
+  <!-- Path 2 (correct) -->
+  <rect x="220" y="168" width="156" height="115" rx="6" fill="#eef2fb" stroke="#1f4fa3" stroke-width="1.5"/>
+  <rect x="220" y="168" width="156" height="22" rx="6" fill="#1f4fa3"/>
+  <rect x="220" y="180" width="156" height="10" fill="#1f4fa3"/>
+  <text x="298" y="183" text-anchor="middle" class="hdr" font-size="11">Path 2</text>
+  <text x="230" y="202" class="body">Non-red = 10 - 3 = 7</text>
+  <text x="230" y="217" class="body">Total = 10</text>
+  <text x="230" y="232" class="body">7 / 10</text>
+  <text x="230" y="252" class="green">Answer: 7/10 &#10003;</text>
+  <text x="230" y="270" class="small">Reasoning: correct</text>
+
+  <!-- Path 3 (correct) -->
+  <rect x="452" y="168" width="156" height="115" rx="6" fill="#eef2fb" stroke="#1f4fa3" stroke-width="1.5"/>
+  <rect x="452" y="168" width="156" height="22" rx="6" fill="#1f4fa3"/>
+  <rect x="452" y="180" width="156" height="10" fill="#1f4fa3"/>
+  <text x="530" y="183" text-anchor="middle" class="hdr" font-size="11">Path 3</text>
+  <text x="462" y="202" class="body">Red fraction = 3/10</text>
+  <text x="462" y="217" class="body">Not-red = 1 - 3/10</text>
+  <text x="462" y="232" class="body">= 7/10</text>
+  <text x="462" y="252" class="green">Answer: 7/10 &#10003;</text>
+  <text x="462" y="270" class="small">Reasoning: correct</text>
+
+  <!-- Path 4 (wrong) -->
+  <rect x="656" y="168" width="162" height="115" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="656" y="168" width="162" height="22" rx="6" fill="#c0392b"/>
+  <rect x="656" y="180" width="162" height="10" fill="#c0392b"/>
+  <text x="737" y="183" text-anchor="middle" class="hdr" font-size="11">Path 4 (wrong)</text>
+  <text x="666" y="202" class="body">Not red = 5 (only blue)</text>
+  <text x="666" y="217" class="body">Total = 10</text>
+  <text x="666" y="232" class="body">Fraction = 5/10 = 1/2</text>
+  <text x="666" y="252" class="red">Answer: 1/2 &#10007;</text>
+  <text x="666" y="270" class="small">Reasoning: forgot green</text>
+
+  <!-- Fan-in arrows to vote box -->
+  <line x1="100" y1="287" x2="380" y2="328" stroke="#1f4fa3" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+  <line x1="298" y1="287" x2="400" y2="328" stroke="#1f4fa3" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+  <line x1="530" y1="287" x2="460" y2="328" stroke="#1f4fa3" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+  <line x1="737" y1="287" x2="490" y2="328" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arrowhead)"/>
+
+  <!-- Vote tally box -->
+  <rect x="280" y="328" width="300" height="72" rx="8" fill="#6c4fe0"/>
+  <text x="430" y="350" text-anchor="middle" class="hdr">Majority Vote Tally</text>
+  <text x="360" y="370" text-anchor="middle" font-size="13" fill="#ffffff" font-weight="bold">7/10  &#9646;&#9646;&#9646;</text>
+  <text x="360" y="388" text-anchor="middle" font-size="11" fill="#d0c8ff">3 votes</text>
+  <text x="520" y="370" text-anchor="middle" font-size="13" fill="#ffaaaa" font-weight="bold">1/2   &#9646;</text>
+  <text x="520" y="388" text-anchor="middle" font-size="11" fill="#ffaaaa">1 vote</text>
+
+  <!-- Arrow to final -->
+  <line x1="430" y1="404" x2="430" y2="420" stroke="#0e8a6e" stroke-width="2" marker-end="url(#arrowBlue)"/>
+
+  <!-- Final answer -->
+  <rect x="330" y="420" width="200" height="12" rx="4" fill="#eafaf3" stroke="#0e8a6e" stroke-width="1"/>
+  <text x="430" y="430" text-anchor="middle" class="green" font-size="11">Final answer: 7/10 (correct)</text>
+</svg>

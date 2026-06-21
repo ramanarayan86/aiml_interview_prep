@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 370">
+  <defs>
+    <linearGradient id="spectrumGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1f4fa3;stop-opacity:1"/>
+      <stop offset="50%" style="stop-color:#c77a12;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#6c4fe0;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="820" height="370" fill="#f8f9fc" rx="8"/>
+
+  <!-- Title -->
+  <text x="410" y="30" font-family="sans-serif" font-size="16" font-weight="bold" fill="#1f4fa3" text-anchor="middle">LLM Reasoning Spectrum: System 1 to System 2</text>
+
+  <!-- ===== SPECTRUM BAR ===== -->
+  <rect x="50" y="52" width="720" height="28" rx="14" fill="url(#spectrumGrad)"/>
+
+  <!-- Endpoint labels -->
+  <text x="50" y="100" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f4fa3" text-anchor="middle">System 1</text>
+  <text x="770" y="100" font-family="sans-serif" font-size="12" font-weight="bold" fill="#6c4fe0" text-anchor="middle">System 2</text>
+
+  <!-- Axis label -->
+  <text x="410" y="100" font-family="sans-serif" font-size="11" fill="#5b6675" text-anchor="middle">Increasing test-time compute &#x2192;</text>
+
+  <!-- ===== METHOD CARDS ===== -->
+  <!-- 5 cards positioned along the spectrum -->
+
+  <!-- Card 1: Base LLM greedy (~x=90) -->
+  <line x1="90" y1="80" x2="90" y2="120" stroke="#1f4fa3" stroke-width="2"/>
+  <rect x="30" y="120" width="130" height="88" rx="6" fill="white" stroke="#1f4fa3" stroke-width="1.5"/>
+  <rect x="30" y="120" width="130" height="22" rx="6" fill="#1f4fa3"/>
+  <rect x="30" y="132" width="130" height="10" fill="#1f4fa3"/>
+  <text x="95" y="135" font-family="sans-serif" font-size="10" font-weight="bold" fill="white" text-anchor="middle">Base LLM</text>
+  <text x="95" y="155" font-family="sans-serif" font-size="9" fill="#333" text-anchor="middle">Greedy decode</text>
+  <text x="95" y="169" font-family="sans-serif" font-size="9" fill="#333" text-anchor="middle">T = 0, 1 pass</text>
+  <text x="95" y="183" font-family="sans-serif" font-size="9" fill="#0e8a6e" text-anchor="middle">Fast, cheap</text>
+  <text x="95" y="197" font-family="sans-serif" font-size="8" fill="#5b6675" text-anchor="middle" font-style="italic">GPT-4 simple QA</text>
+
+  <!-- Card 2: Standard CoT (~x=240) -->
+  <line x1="240" y1="80" x2="240" y2="120" stroke="#1f4fa3" stroke-width="2"/>
+  <rect x="175" y="120" width="132" height="88" rx="6" fill="white" stroke="#1f4fa3" stroke-width="1.5"/>
+  <rect x="175" y="120" width="132" height="22" rx="6" fill="#1f4fa3"/>
+  <rect x="175" y="132" width="132" height="10" fill="#1f4fa3"/>
+  <text x="241" y="135" font-family="sans-serif" font-size="10" font-weight="bold" fill="white" text-anchor="middle">Standard CoT</text>
+  <text x="241" y="155" font-family="sans-serif" font-size="9" fill="#333" text-anchor="middle">Prompted reasoning</text>
+  <text x="241" y="169" font-family="sans-serif" font-size="9" fill="#333" text-anchor="middle">~100&#8211;500 extra tokens</text>
+  <text x="241" y="183" font-family="sans-serif" font-size="9" fill="#c77a12" text-anchor="middle">+5&#8211;15% accuracy</text>
+  <text x="241" y="197" font-family="sans-serif" font-size="8" fill="#5b6675" text-anchor="middle" font-style="italic">Wei et al. 2022</text>
+
+  <!-- Card 3: Self-consistency (~x=400) -->
+  <line x1="410" y1="80" x2="410" y2="120" stroke="#c77a12" stroke-width="2"/>
+  <rect x="348" y="120" width="126" height="88" rx="6" fill="white" stroke="#c77a12" stroke-width="1.5"/>
+  <rect x="348" y="120" width="126" height="22" rx="6" fill="#c77a12"/>
+  <rect x="348" y="132" width="126" height="10" fill="#c77a12"/>
+  <text x="411" y="135" font-family="sans-serif" font-size="10" font-weight="bold" fill="white" text-anchor="middle">Self-Consistency</text>
+  <text x="411" y="155" font-family="sans-serif" font-size="9" fill="#333" text-anchor="middle">N sampled paths</text>
+  <text x="411" y="169" font-family="sans-serif" font-size="9" fill="#333" text-anchor="middle">Majority vote</text>
+  <text x="411" y="183" font-family="sans-serif" font-size="9" fill="#c77a12" text-anchor="middle">+20&#8211;28% on GSM8K</text>
+  <text x="411" y="197" font-family="sans-serif" font-size="8" fill="#5b6675" text-anchor="middle" font-style="italic">Wang et al. 2023</text>
+
+  <!-- Card 4: ToT / MCTS (~x=580) -->
+  <line x1="580" y1="80" x2="580" y2="120" stroke="#6c4fe0" stroke-width="2"/>
+  <rect x="514" y="120" width="134" height="88" rx="6" fill="white" stroke="#6c4fe0" stroke-width="1.5"/>
+  <rect x="514" y="120" width="134" height="22" rx="6" fill="#6c4fe0"/>
+  <rect x="514" y="132" width="134" height="10" fill="#6c4fe0"/>
+  <text x="581" y="135" font-family="sans-serif" font-size="10" font-weight="bold" fill="white" text-anchor="middle">Tree of Thoughts</text>
+  <text x="581" y="155" font-family="sans-serif" font-size="9" fill="#333" text-anchor="middle">BFS/DFS search</text>
+  <text x="581" y="169" font-family="sans-serif" font-size="9" fill="#333" text-anchor="middle">+ value heuristic</text>
+  <text x="581" y="183" font-family="sans-serif" font-size="9" fill="#6c4fe0" text-anchor="middle">Best for planning</text>
+  <text x="581" y="197" font-family="sans-serif" font-size="8" fill="#5b6675" text-anchor="middle" font-style="italic">Yao et al. 2023</text>
+
+  <!-- Card 5: o1/R1 (~x=740) -->
+  <line x1="740" y1="80" x2="740" y2="120" stroke="#6c4fe0" stroke-width="2"/>
+  <rect x="665" y="120" width="140" height="88" rx="6" fill="white" stroke="#6c4fe0" stroke-width="1.5"/>
+  <rect x="665" y="120" width="140" height="22" rx="6" fill="#6c4fe0"/>
+  <rect x="665" y="132" width="140" height="10" fill="#6c4fe0"/>
+  <text x="735" y="135" font-family="sans-serif" font-size="10" font-weight="bold" fill="white" text-anchor="middle">o1 / DeepSeek-R1</text>
+  <text x="735" y="155" font-family="sans-serif" font-size="9" fill="#333" text-anchor="middle">Long internal CoT</text>
+  <text x="735" y="169" font-family="sans-serif" font-size="9" fill="#333" text-anchor="middle">1K&#8211;10K think tokens</text>
+  <text x="735" y="183" font-family="sans-serif" font-size="9" fill="#6c4fe0" text-anchor="middle">83% AIME 2024</text>
+  <text x="735" y="197" font-family="sans-serif" font-size="8" fill="#5b6675" text-anchor="middle" font-style="italic">OpenAI 2024, Guo 2025</text>
+
+  <!-- ===== BOTTOM METRICS ROW ===== -->
+  <text x="410" y="238" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f4fa3" text-anchor="middle">Key Trade-offs Across the Spectrum</text>
+
+  <!-- Metrics table header -->
+  <rect x="50" y="248" width="720" height="24" rx="4" fill="#1f4fa3"/>
+  <text x="160" y="263" font-family="sans-serif" font-size="11" fill="white" text-anchor="middle" font-weight="bold">Metric</text>
+  <text x="310" y="263" font-family="sans-serif" font-size="11" fill="white" text-anchor="middle" font-weight="bold">System 1 (greedy)</text>
+  <text x="500" y="263" font-family="sans-serif" font-size="11" fill="white" text-anchor="middle" font-weight="bold">Intermediate CoT</text>
+  <text x="680" y="263" font-family="sans-serif" font-size="11" fill="white" text-anchor="middle" font-weight="bold">System 2 (o1)</text>
+
+  <!-- Row 1 -->
+  <rect x="50" y="272" width="720" height="22" fill="#f0f4ff"/>
+  <text x="160" y="286" font-family="sans-serif" font-size="10" fill="#333" text-anchor="middle">Latency</text>
+  <text x="310" y="286" font-family="sans-serif" font-size="10" fill="#0e8a6e" text-anchor="middle">~1 s</text>
+  <text x="500" y="286" font-family="sans-serif" font-size="10" fill="#c77a12" text-anchor="middle">~5&#8211;15 s</text>
+  <text x="680" y="286" font-family="sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">~10&#8211;60 s</text>
+
+  <!-- Row 2 -->
+  <rect x="50" y="294" width="720" height="22" fill="white"/>
+  <text x="160" y="308" font-family="sans-serif" font-size="10" fill="#333" text-anchor="middle">Token cost</text>
+  <text x="310" y="308" font-family="sans-serif" font-size="10" fill="#0e8a6e" text-anchor="middle">1&#215;</text>
+  <text x="500" y="308" font-family="sans-serif" font-size="10" fill="#c77a12" text-anchor="middle">5&#8211;20&#215;</text>
+  <text x="680" y="308" font-family="sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">10&#8211;100&#215;</text>
+
+  <!-- Row 3 -->
+  <rect x="50" y="316" width="720" height="22" fill="#f0f4ff"/>
+  <text x="160" y="330" font-family="sans-serif" font-size="10" fill="#333" text-anchor="middle">GSM8K</text>
+  <text x="310" y="330" font-family="sans-serif" font-size="10" fill="#333" text-anchor="middle">~92%</text>
+  <text x="500" y="330" font-family="sans-serif" font-size="10" fill="#333" text-anchor="middle">~94&#8211;96%</text>
+  <text x="680" y="330" font-family="sans-serif" font-size="10" fill="#6c4fe0" text-anchor="middle">~97%</text>
+
+  <!-- Row 4 -->
+  <rect x="50" y="338" width="720" height="22" fill="white"/>
+  <text x="160" y="352" font-family="sans-serif" font-size="10" fill="#333" text-anchor="middle">AIME 2024</text>
+  <text x="310" y="352" font-family="sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">~13%</text>
+  <text x="500" y="352" font-family="sans-serif" font-size="10" fill="#c77a12" text-anchor="middle">~40&#8211;50%</text>
+  <text x="680" y="352" font-family="sans-serif" font-size="10" fill="#6c4fe0" text-anchor="middle">~83%</text>
+
+  <!-- Border around table -->
+  <rect x="50" y="248" width="720" height="112" rx="4" fill="none" stroke="#1f4fa3" stroke-width="1.5"/>
+  <!-- vertical dividers -->
+  <line x1="230" y1="248" x2="230" y2="360" stroke="#dde3f0" stroke-width="1"/>
+  <line x1="400" y1="248" x2="400" y2="360" stroke="#dde3f0" stroke-width="1"/>
+  <line x1="590" y1="248" x2="590" y2="360" stroke="#dde3f0" stroke-width="1"/>
+</svg>

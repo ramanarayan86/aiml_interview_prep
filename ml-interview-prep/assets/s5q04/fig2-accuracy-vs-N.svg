@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 420">
+  <!-- Background -->
+  <rect width="700" height="420" fill="#f8f9fc"/>
+
+  <!-- Title -->
+  <text x="350" y="28" font-family="Arial,sans-serif" font-size="15" font-weight="bold" fill="#1f4fa3" text-anchor="middle">Self-Consistency: Accuracy vs. Number of Samples N</text>
+  <text x="350" y="46" font-family="Arial,sans-serif" font-size="11" fill="#5b6675" text-anchor="middle">GPT-3 (code-davinci-002) on GSM8K benchmark (Wang et al., 2023)</text>
+
+  <!-- Chart area -->
+  <line x1="90" y1="70" x2="90" y2="320" stroke="#5b6675" stroke-width="2"/>
+  <line x1="90" y1="320" x2="620" y2="320" stroke="#5b6675" stroke-width="2"/>
+
+  <!-- Y axis gridlines and labels -->
+  <!-- 40% y=320-100=220, 50%=195, 60%=170, 70%=145, 80%=120 -->
+  <line x1="88" y1="220" x2="620" y2="220" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="82" y="224" font-family="Arial,sans-serif" font-size="11" fill="#5b6675" text-anchor="end">40%</text>
+  <line x1="88" y1="195" x2="620" y2="195" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="82" y="199" font-family="Arial,sans-serif" font-size="11" fill="#5b6675" text-anchor="end">50%</text>
+  <line x1="88" y1="170" x2="620" y2="170" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="82" y="174" font-family="Arial,sans-serif" font-size="11" fill="#5b6675" text-anchor="end">60%</text>
+  <line x1="88" y1="145" x2="620" y2="145" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="82" y="149" font-family="Arial,sans-serif" font-size="11" fill="#5b6675" text-anchor="end">70%</text>
+  <line x1="88" y1="120" x2="620" y2="120" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="82" y="124" font-family="Arial,sans-serif" font-size="11" fill="#5b6675" text-anchor="end">80%</text>
+
+  <!-- Y axis title -->
+  <text x="25" y="200" font-family="Arial,sans-serif" font-size="12" font-weight="bold" fill="#1f4fa3" text-anchor="middle" transform="rotate(-90, 25, 200)">GSM8K Accuracy (%)</text>
+
+  <!-- X positions: N=1 x=103, N=5 x=156, N=10 x=223, N=20 x=355, N=40 x=620 -->
+  <!-- Y coords: y = 320 - (acc/100)*250 -->
+  <!-- N=1 (56.5%): y=179  N=5 (65%): y=158  N=10 (71%): y=143  N=20 (76%): y=130  N=40 (78.5%): y=124 -->
+
+  <!-- X axis labels -->
+  <text x="103" y="335" font-family="Arial,sans-serif" font-size="11" fill="#5b6675" text-anchor="middle">1</text>
+  <text x="156" y="335" font-family="Arial,sans-serif" font-size="11" fill="#5b6675" text-anchor="middle">5</text>
+  <text x="223" y="335" font-family="Arial,sans-serif" font-size="11" fill="#5b6675" text-anchor="middle">10</text>
+  <text x="355" y="335" font-family="Arial,sans-serif" font-size="11" fill="#5b6675" text-anchor="middle">20</text>
+  <text x="620" y="335" font-family="Arial,sans-serif" font-size="11" fill="#5b6675" text-anchor="middle">40</text>
+  <text x="355" y="352" font-family="Arial,sans-serif" font-size="12" font-weight="bold" fill="#5b6675" text-anchor="middle">Number of Sampled Reasoning Paths (N)</text>
+
+  <!-- X axis tick marks -->
+  <line x1="103" y1="320" x2="103" y2="326" stroke="#5b6675" stroke-width="1.5"/>
+  <line x1="156" y1="320" x2="156" y2="326" stroke="#5b6675" stroke-width="1.5"/>
+  <line x1="223" y1="320" x2="223" y2="326" stroke="#5b6675" stroke-width="1.5"/>
+  <line x1="355" y1="320" x2="355" y2="326" stroke="#5b6675" stroke-width="1.5"/>
+  <line x1="620" y1="320" x2="620" y2="326" stroke="#5b6675" stroke-width="1.5"/>
+
+  <!-- Curve for self-consistency (teal) -->
+  <polyline points="103,179 156,158 223,143 355,130 620,124" fill="none" stroke="#0e8a6e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Baseline CoT (dashed navy) at 56.5% y=179 -->
+  <line x1="90" y1="179" x2="620" y2="179" stroke="#1f4fa3" stroke-width="2" stroke-dasharray="8,5"/>
+  <text x="625" y="183" font-family="Arial,sans-serif" font-size="10" fill="#1f4fa3" text-anchor="start">Greedy CoT</text>
+  <text x="625" y="195" font-family="Arial,sans-serif" font-size="10" fill="#1f4fa3" text-anchor="start">56.5%</text>
+
+  <!-- Data points on curve -->
+  <circle cx="103" cy="179" r="5" fill="#0e8a6e"/>
+  <circle cx="156" cy="158" r="5" fill="#0e8a6e"/>
+  <circle cx="223" cy="143" r="5" fill="#0e8a6e"/>
+  <circle cx="355" cy="130" r="5" fill="#0e8a6e"/>
+  <circle cx="620" cy="124" r="5" fill="#0e8a6e"/>
+
+  <!-- Data labels above points -->
+  <text x="103" y="172" font-family="Arial,sans-serif" font-size="10" fill="#0e8a6e" text-anchor="middle">56.5%</text>
+  <text x="156" y="151" font-family="Arial,sans-serif" font-size="10" fill="#0e8a6e" text-anchor="middle">~65%</text>
+  <text x="223" y="136" font-family="Arial,sans-serif" font-size="10" fill="#0e8a6e" text-anchor="middle">~71%</text>
+  <text x="355" y="123" font-family="Arial,sans-serif" font-size="10" fill="#0e8a6e" text-anchor="middle">~76%</text>
+  <text x="620" y="117" font-family="Arial,sans-serif" font-size="10" fill="#0e8a6e" text-anchor="middle">78.5%</text>
+
+  <!-- Diminishing returns annotation -->
+  <rect x="160" y="72" width="275" height="44" rx="6" fill="#fff8ec" stroke="#c77a12" stroke-width="1.5"/>
+  <text x="297" y="90" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#c77a12" text-anchor="middle">Diminishing Returns</text>
+  <text x="297" y="106" font-family="Arial,sans-serif" font-size="10" fill="#c77a12" text-anchor="middle">N=1&#8594;5: +8.5 pp    N=20&#8594;40: +2.5 pp</text>
+  <line x1="297" y1="116" x2="297" y2="138" stroke="#c77a12" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arrow-amber)"/>
+
+  <!-- Legend -->
+  <rect x="90" y="370" width="520" height="38" rx="6" fill="#ffffff" stroke="#e0e0e0" stroke-width="1"/>
+  <line x1="110" y1="389" x2="145" y2="389" stroke="#0e8a6e" stroke-width="3"/>
+  <circle cx="128" cy="389" r="4" fill="#0e8a6e"/>
+  <text x="150" y="393" font-family="Arial,sans-serif" font-size="11" fill="#0e8a6e">Self-Consistency (majority vote, T=0.7)</text>
+  <line x1="360" y1="389" x2="395" y2="389" stroke="#1f4fa3" stroke-width="2" stroke-dasharray="8,5"/>
+  <text x="400" y="393" font-family="Arial,sans-serif" font-size="11" fill="#1f4fa3">Greedy CoT baseline</text>
+
+  <defs>
+    <marker id="arrow-amber" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#c77a12"/>
+    </marker>
+  </defs>
+</svg>

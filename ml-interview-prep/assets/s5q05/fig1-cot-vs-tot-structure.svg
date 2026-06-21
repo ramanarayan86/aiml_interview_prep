@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 440">
+  <!-- Background -->
+  <rect width="820" height="440" fill="#f8f9fc"/>
+
+  <!-- Title -->
+  <text x="410" y="28" font-family="Arial,sans-serif" font-size="15" font-weight="bold" fill="#1f4fa3" text-anchor="middle">Chain-of-Thought vs. Tree-of-Thoughts Structure</text>
+
+  <!-- ========== LEFT PANEL: CoT ========== -->
+  <rect x="20" y="45" width="360" height="370" rx="10" fill="#ffffff" stroke="#1f4fa3" stroke-width="2"/>
+  <text x="200" y="68" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="#1f4fa3" text-anchor="middle">Chain-of-Thought (CoT)</text>
+  <text x="200" y="84" font-family="Arial,sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">Single linear path, no branching</text>
+
+  <!-- CoT nodes (vertical chain) -->
+  <!-- Node 0: Prompt -->
+  <rect x="140" y="96" width="120" height="34" rx="6" fill="#1f4fa3"/>
+  <text x="200" y="110" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">Prompt</text>
+  <text x="200" y="124" font-family="Arial,sans-serif" font-size="10" fill="#e8edf7" text-anchor="middle">Problem state</text>
+
+  <!-- Arrow -->
+  <line x1="200" y1="130" x2="200" y2="152" stroke="#5b6675" stroke-width="2" marker-end="url(#cot-arrow)"/>
+
+  <!-- Node 1 -->
+  <rect x="130" y="153" width="140" height="34" rx="6" fill="#e8edf7" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="200" y="167" font-family="Arial,sans-serif" font-size="11" fill="#1f4fa3" text-anchor="middle" font-weight="bold">Thought 1</text>
+  <text x="200" y="181" font-family="Arial,sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">Reasoning step</text>
+
+  <!-- Arrow -->
+  <line x1="200" y1="187" x2="200" y2="209" stroke="#5b6675" stroke-width="2" marker-end="url(#cot-arrow)"/>
+
+  <!-- Node 2 -->
+  <rect x="130" y="210" width="140" height="34" rx="6" fill="#e8edf7" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="200" y="224" font-family="Arial,sans-serif" font-size="11" fill="#1f4fa3" text-anchor="middle" font-weight="bold">Thought 2</text>
+  <text x="200" y="238" font-family="Arial,sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">Reasoning step</text>
+
+  <!-- Arrow -->
+  <line x1="200" y1="244" x2="200" y2="266" stroke="#5b6675" stroke-width="2" marker-end="url(#cot-arrow)"/>
+
+  <!-- Node 3 -->
+  <rect x="130" y="267" width="140" height="34" rx="6" fill="#e8edf7" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="200" y="281" font-family="Arial,sans-serif" font-size="11" fill="#1f4fa3" text-anchor="middle" font-weight="bold">Thought 3</text>
+  <text x="200" y="295" font-family="Arial,sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">Reasoning step</text>
+
+  <!-- Arrow -->
+  <line x1="200" y1="301" x2="200" y2="323" stroke="#5b6675" stroke-width="2" marker-end="url(#cot-arrow)"/>
+
+  <!-- Final Answer Node -->
+  <rect x="140" y="324" width="120" height="34" rx="6" fill="#0e8a6e"/>
+  <text x="200" y="339" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">Answer</text>
+  <text x="200" y="353" font-family="Arial,sans-serif" font-size="10" fill="#d0f0e8" text-anchor="middle">Single output</text>
+
+  <!-- CoT properties -->
+  <text x="55" y="380" font-family="Arial,sans-serif" font-size="10" fill="#5b6675">&#8226; No backtracking</text>
+  <text x="55" y="394" font-family="Arial,sans-serif" font-size="10" fill="#5b6675">&#8226; 1 forward pass</text>
+  <text x="200" y="380" font-family="Arial,sans-serif" font-size="10" fill="#5b6675">&#8226; O(L) thoughts</text>
+  <text x="200" y="394" font-family="Arial,sans-serif" font-size="10" fill="#5b6675">&#8226; Game of 24: 4% success</text>
+
+  <!-- ========== RIGHT PANEL: ToT ========== -->
+  <rect x="440" y="45" width="360" height="370" rx="10" fill="#ffffff" stroke="#6c4fe0" stroke-width="2"/>
+  <text x="620" y="68" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="#6c4fe0" text-anchor="middle">Tree-of-Thoughts (ToT)</text>
+  <text x="620" y="84" font-family="Arial,sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">Branching, evaluation, and pruning</text>
+
+  <!-- Root node -->
+  <rect x="560" y="96" width="120" height="34" rx="6" fill="#6c4fe0"/>
+  <text x="620" y="110" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">Prompt</text>
+  <text x="620" y="124" font-family="Arial,sans-serif" font-size="10" fill="#e8e0fc" text-anchor="middle">Problem state</text>
+
+  <!-- Level 1 branches: 3 thoughts -->
+  <!-- Branch lines from root -->
+  <line x1="580" y1="130" x2="510" y2="163" stroke="#6c4fe0" stroke-width="1.5" marker-end="url(#tot-arrow)"/>
+  <line x1="620" y1="130" x2="620" y2="163" stroke="#6c4fe0" stroke-width="1.5" marker-end="url(#tot-arrow)"/>
+  <line x1="660" y1="130" x2="730" y2="163" stroke="#6c4fe0" stroke-width="1.5" marker-end="url(#tot-arrow)"/>
+
+  <!-- Level 1 nodes -->
+  <!-- T1-a (good) -->
+  <rect x="460" y="164" width="100" height="34" rx="6" fill="#f3f0fc" stroke="#6c4fe0" stroke-width="1.5"/>
+  <text x="510" y="178" font-family="Arial,sans-serif" font-size="10" fill="#6c4fe0" text-anchor="middle" font-weight="bold">T1-a</text>
+  <text x="510" y="192" font-family="Arial,sans-serif" font-size="9" fill="#0e8a6e" text-anchor="middle">sure &#10004;</text>
+
+  <!-- T1-b (likely) -->
+  <rect x="570" y="164" width="100" height="34" rx="6" fill="#f3f0fc" stroke="#6c4fe0" stroke-width="1.5"/>
+  <text x="620" y="178" font-family="Arial,sans-serif" font-size="10" fill="#6c4fe0" text-anchor="middle" font-weight="bold">T1-b</text>
+  <text x="620" y="192" font-family="Arial,sans-serif" font-size="9" fill="#c77a12" text-anchor="middle">likely &#8776;</text>
+
+  <!-- T1-c (impossible, pruned) -->
+  <rect x="680" y="164" width="100" height="34" rx="6" fill="#fde8e8" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="730" y="178" font-family="Arial,sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="bold">T1-c</text>
+  <text x="730" y="192" font-family="Arial,sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">impossible &#10008;</text>
+  <!-- Prune X mark -->
+  <line x1="713" y1="163" x2="747" y2="200" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="747" y1="163" x2="713" y2="200" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Level 2: expand T1-a into 2 children; T1-b into 2 children -->
+  <!-- T1-a children -->
+  <line x1="493" y1="198" x2="475" y2="230" stroke="#6c4fe0" stroke-width="1.5" marker-end="url(#tot-arrow)"/>
+  <line x1="527" y1="198" x2="545" y2="230" stroke="#6c4fe0" stroke-width="1.5" marker-end="url(#tot-arrow)"/>
+
+  <rect x="440" y="231" width="80" height="30" rx="5" fill="#e0f7ef" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="480" y="244" font-family="Arial,sans-serif" font-size="9" fill="#0e8a6e" text-anchor="middle" font-weight="bold">T2-a1</text>
+  <text x="480" y="256" font-family="Arial,sans-serif" font-size="8" fill="#0e8a6e" text-anchor="middle">sure &#10004;</text>
+
+  <rect x="528" y="231" width="80" height="30" rx="5" fill="#fde8e8" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="568" y="244" font-family="Arial,sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="bold">T2-a2</text>
+  <text x="568" y="256" font-family="Arial,sans-serif" font-size="8" fill="#c0392b" text-anchor="middle">impossible &#10008;</text>
+
+  <!-- T1-b children -->
+  <line x1="603" y1="198" x2="615" y2="230" stroke="#6c4fe0" stroke-width="1.5" marker-end="url(#tot-arrow)"/>
+  <line x1="637" y1="198" x2="655" y2="230" stroke="#6c4fe0" stroke-width="1.5" marker-end="url(#tot-arrow)"/>
+
+  <rect x="592" y="231" width="80" height="30" rx="5" fill="#f3f0fc" stroke="#6c4fe0" stroke-width="1.5"/>
+  <text x="632" y="244" font-family="Arial,sans-serif" font-size="9" fill="#6c4fe0" text-anchor="middle" font-weight="bold">T2-b1</text>
+  <text x="632" y="256" font-family="Arial,sans-serif" font-size="8" fill="#c77a12" text-anchor="middle">likely &#8776;</text>
+
+  <rect x="680" y="231" width="80" height="30" rx="5" fill="#fde8e8" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="720" y="244" font-family="Arial,sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="bold">T2-b2</text>
+  <text x="720" y="256" font-family="Arial,sans-serif" font-size="8" fill="#c0392b" text-anchor="middle">impossible &#10008;</text>
+
+  <!-- T2-a1 leads to answer -->
+  <line x1="480" y1="261" x2="520" y2="290" stroke="#0e8a6e" stroke-width="2" marker-end="url(#tot-arrow-green)"/>
+
+  <!-- Final answer -->
+  <rect x="475" y="292" width="130" height="34" rx="6" fill="#0e8a6e"/>
+  <text x="540" y="306" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">Answer Found</text>
+  <text x="540" y="320" font-family="Arial,sans-serif" font-size="9" fill="#d0f0e8" text-anchor="middle">via backtracking + BFS</text>
+
+  <!-- ToT properties -->
+  <text x="455" y="355" font-family="Arial,sans-serif" font-size="10" fill="#5b6675">&#8226; Backtracking (DFS/BFS)</text>
+  <text x="455" y="369" font-family="Arial,sans-serif" font-size="10" fill="#5b6675">&#8226; O(b&#215;d) thought evals</text>
+  <text x="620" y="355" font-family="Arial,sans-serif" font-size="10" fill="#5b6675">&#8226; Explicit self-evaluation</text>
+  <text x="620" y="369" font-family="Arial,sans-serif" font-size="10" fill="#5b6675">&#8226; Game of 24: 74% success</text>
+
+  <!-- Eval legend box -->
+  <rect x="455" y="388" width="325" height="30" rx="5" fill="#f8f9fc" stroke="#e0e0e0" stroke-width="1"/>
+  <rect x="464" y="398" width="10" height="10" rx="2" fill="#0e8a6e"/>
+  <text x="480" y="407" font-family="Arial,sans-serif" font-size="9" fill="#0e8a6e">sure</text>
+  <rect x="504" y="398" width="10" height="10" rx="2" fill="#c77a12"/>
+  <text x="520" y="407" font-family="Arial,sans-serif" font-size="9" fill="#c77a12">likely</text>
+  <rect x="550" y="398" width="10" height="10" rx="2" fill="#c0392b"/>
+  <text x="566" y="407" font-family="Arial,sans-serif" font-size="9" fill="#c0392b">impossible (pruned)</text>
+  <text x="665" y="407" font-family="Arial,sans-serif" font-size="9" fill="#5b6675">b=3 breadth shown</text>
+
+  <!-- Arrow defs -->
+  <defs>
+    <marker id="cot-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#5b6675"/>
+    </marker>
+    <marker id="tot-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#6c4fe0"/>
+    </marker>
+    <marker id="tot-arrow-green" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#0e8a6e"/>
+    </marker>
+  </defs>
+</svg>

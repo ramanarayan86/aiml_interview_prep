@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 460">
+  <defs>
+    <style>
+      .title  { font: bold 16px sans-serif; fill: #1f4fa3; }
+      .hdr    { font: bold 13px sans-serif; fill: #ffffff; }
+      .label  { font: bold 12px sans-serif; fill: #2c2c2c; }
+      .body   { font: 11px sans-serif; fill: #2c2c2c; }
+      .small  { font: 10px sans-serif; fill: #5b6675; }
+      .mono   { font: 11px monospace; fill: #2c2c2c; }
+      .green  { font: bold 12px sans-serif; fill: #0e8a6e; }
+    </style>
+    <marker id="arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#1f4fa3"/>
+    </marker>
+    <marker id="arrGreen" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#0e8a6e"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="860" height="460" fill="#f8f9fc" rx="8"/>
+
+  <!-- Title -->
+  <text x="430" y="30" text-anchor="middle" class="title">Zero-Shot CoT: Two-Stage Extraction Pipeline (Kojima et al. 2022)</text>
+
+  <!-- ======= STAGE 1 ======= -->
+  <!-- Stage 1 header -->
+  <rect x="20" y="48" width="820" height="34" rx="8" fill="#1f4fa3"/>
+  <text x="430" y="70" text-anchor="middle" class="hdr">Stage 1 — Reasoning Chain Generation</text>
+
+  <!-- Input prompt box -->
+  <rect x="20" y="94" width="380" height="100" rx="6" fill="#ffffff" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="30" y="112" class="label">Input Prompt:</text>
+  <text x="30" y="132" class="mono">Q: A train travels 60 km/h for</text>
+  <text x="30" y="148" class="mono">   2.5 hours. How far?</text>
+  <text x="30" y="168" class="mono" fill="#1f4fa3">A: Let's think step by step.</text>
+  <text x="30" y="184" class="small">Trigger appended to question</text>
+
+  <!-- LLM forward pass -->
+  <rect x="450" y="94" width="390" height="100" rx="6" fill="#ffffff" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="460" y="112" class="label">LLM Output (reasoning chain C):</text>
+  <text x="460" y="132" class="mono">First, speed = 60 km/h.</text>
+  <text x="460" y="148" class="mono">Time = 2.5 h.</text>
+  <text x="460" y="164" class="mono">Distance = 60 x 2.5 = 150 km.</text>
+  <text x="460" y="184" class="small" fill="#0e8a6e">Chain C saved for Stage 2</text>
+
+  <!-- Arrow between boxes -->
+  <line x1="404" y1="144" x2="446" y2="144" stroke="#1f4fa3" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="425" y="138" text-anchor="middle" class="small">forward</text>
+  <text x="425" y="153" text-anchor="middle" class="small">pass</text>
+
+  <!-- Separator + Stage 2 header -->
+  <rect x="20" y="206" width="820" height="2" fill="#cccccc"/>
+  <rect x="20" y="214" width="820" height="34" rx="8" fill="#0e8a6e"/>
+  <text x="430" y="236" text-anchor="middle" class="hdr">Stage 2 — Answer Extraction</text>
+
+  <!-- Stage 2 input -->
+  <rect x="20" y="260" width="380" height="110" rx="6" fill="#ffffff" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="30" y="278" class="label">Input Prompt (Stage 2):</text>
+  <text x="30" y="296" class="mono">Q: A train travels 60 km/h for</text>
+  <text x="30" y="312" class="mono">   2.5 hours. How far?</text>
+  <text x="30" y="328" class="mono">A: [chain C from Stage 1]</text>
+  <text x="30" y="344" class="mono" fill="#0e8a6e">Therefore, the answer is:</text>
+  <text x="30" y="360" class="small">Extraction trigger appended</text>
+
+  <!-- Stage 2 output -->
+  <rect x="450" y="260" width="390" height="110" rx="6" fill="#ffffff" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="460" y="278" class="label">LLM Output (clean answer A):</text>
+  <text x="460" y="298" class="mono">150 km.</text>
+  <text x="460" y="330" class="green">Extracted answer: 150 km &#10003;</text>
+  <text x="460" y="358" class="small">Two stages prevent the chain from</text>
+  <text x="460" y="372" class="small">polluting the final extracted answer.</text>
+
+  <!-- Arrow between Stage 2 boxes -->
+  <line x1="404" y1="315" x2="446" y2="315" stroke="#0e8a6e" stroke-width="2" marker-end="url(#arrGreen)"/>
+  <text x="425" y="309" text-anchor="middle" class="small">forward</text>
+  <text x="425" y="322" text-anchor="middle" class="small">pass</text>
+
+  <!-- Why two stages annotation -->
+  <rect x="20" y="384" width="820" height="60" rx="6" fill="#fffbea" stroke="#c77a12" stroke-width="1.5"/>
+  <text x="430" y="404" text-anchor="middle" class="label" fill="#c77a12">Why two stages?</text>
+  <text x="430" y="422" text-anchor="middle" class="body">Stage 1 reasoning chains can be verbose, self-contradictory, or end ambiguously.</text>
+  <text x="430" y="440" text-anchor="middle" class="body">Stage 2 re-presents the chain with a definitive extraction prompt, yielding a clean parseable answer.</text>
+</svg>

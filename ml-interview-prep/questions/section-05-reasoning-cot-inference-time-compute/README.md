@@ -12,7 +12,7 @@
 
 ![Questions](https://img.shields.io/badge/questions-34-1f4fa3)
 ![Levels](https://img.shields.io/badge/levels-Basic→Intermediate→Advanced→Applied-0e8a6e)
-![Answered](https://img.shields.io/badge/answered-0%2F34-c77a12)
+![Answered](https://img.shields.io/badge/answered-6%2F34-c77a12)
 ![Scaffolded](https://img.shields.io/badge/scaffolded-34%2F34-6c4fe0)
 
 </div>
@@ -27,12 +27,12 @@ Reasoning and inference-time compute have become the defining frontier of modern
 
 | # | Question | Tags | Status |
 |---|----------|------|:------:|
-| Q5‑01 | What is chain-of-thought prompting? Why does it work? | CoT · prompting · step-by-step · reasoning | 📝 |
-| Q5‑02 | Differentiate few-shot CoT, zero-shot CoT, and self-consistency. | few-shot · zero-shot · self-consistency · CoT | 📝 |
-| Q5‑03 | What is 'let's think step by step' doing mechanically? | zero-shot-CoT · elicitation · reasoning-trace | 📝 |
-| Q5‑04 | Explain self-consistency decoding. When does it help vs hurt? | self-consistency · majority-voting · sampling · reasoning | 📝 |
-| Q5‑05 | What is tree-of-thoughts? How does it differ from chain-of-thought? | tree-of-thoughts · search · branching · CoT | 📝 |
-| Q5‑06 | What is the difference between system 1 and system 2 reasoning in the LLM context? | system-1 · system-2 · fast-slow · reasoning | 📝 |
+| [Q5‑01 · Chain-of-thought prompting fundamentals](./q01-cot-prompting.md) | What is chain-of-thought prompting? Why does it work? | CoT · prompting · step-by-step · reasoning | ✅ |
+| [Q5‑02 · CoT variants](./q02-cot-variants.md) | Differentiate few-shot CoT, zero-shot CoT, and self-consistency. | few-shot · zero-shot · self-consistency · CoT | ✅ |
+| [Q5‑03 · Zero-shot CoT mechanism](./q03-zero-shot-cot-mechanism.md) | What is 'let's think step by step' doing mechanically? | zero-shot-CoT · elicitation · reasoning-trace | ✅ |
+| [Q5‑04 · Self-consistency decoding](./q04-self-consistency.md) | Explain self-consistency decoding. When does it help vs hurt? | self-consistency · majority-voting · sampling · reasoning | ✅ |
+| [Q5‑05 · Tree of thoughts](./q05-tree-of-thoughts.md) | What is tree-of-thoughts? How does it differ from chain-of-thought? | tree-of-thoughts · search · branching · CoT | ✅ |
+| [Q5‑06 · System 1 vs system 2 reasoning](./q06-system1-system2.md) | What is the difference between system 1 and system 2 reasoning in the LLM context? | system-1 · system-2 · fast-slow · reasoning | ✅ |
 
 ---
 

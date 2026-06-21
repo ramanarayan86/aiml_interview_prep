@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420">
+  <defs>
+    <style>
+      .title { font: bold 15px sans-serif; fill: #1f4fa3; }
+      .label { font: bold 12px sans-serif; fill: #ffffff; }
+      .body  { font: 11px sans-serif; fill: #2c2c2c; }
+      .small { font: 10px sans-serif; fill: #5b6675; }
+      .arrow { stroke: #5b6675; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+      .answer { font: bold 11px sans-serif; fill: #0e8a6e; }
+    </style>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#5b6675"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="420" fill="#f8f9fc" rx="8"/>
+
+  <!-- Main title -->
+  <text x="450" y="32" text-anchor="middle" class="title" font-size="17">Three Variants of Chain-of-Thought Prompting</text>
+
+  <!-- === PANEL 1: Few-shot CoT === -->
+  <rect x="20" y="50" width="270" height="350" rx="8" fill="#ffffff" stroke="#1f4fa3" stroke-width="2"/>
+  <rect x="20" y="50" width="270" height="36" rx="8" fill="#1f4fa3"/>
+  <rect x="20" y="74" width="270" height="12" fill="#1f4fa3"/>
+  <text x="155" y="74" text-anchor="middle" class="label" font-size="13">Few-Shot CoT</text>
+  <text x="155" y="92" text-anchor="middle" class="small">Wei et al. 2022  arXiv:2201.11903</text>
+
+  <!-- Exemplar box -->
+  <rect x="32" y="104" width="246" height="100" rx="5" fill="#eef2fb" stroke="#1f4fa3" stroke-width="1"/>
+  <text x="42" y="120" class="small" font-style="italic">Exemplar (K = 8 shown):</text>
+  <text x="42" y="137" class="body">Q: John has 5 apples.</text>
+  <text x="42" y="151" class="body">   He gives 2 to Mary.</text>
+  <text x="42" y="165" class="body">A: Start with 5. Give 2.</text>
+  <text x="42" y="179" class="body">   Remaining = 5 - 2 = 3.</text>
+  <text x="42" y="193" class="answer">   Answer: 3 &#10003;</text>
+
+  <!-- Arrow -->
+  <line x1="155" y1="208" x2="155" y2="224" class="arrow"/>
+
+  <!-- New question -->
+  <rect x="32" y="224" width="246" height="45" rx="5" fill="#fff8e6" stroke="#c77a12" stroke-width="1"/>
+  <text x="42" y="241" class="body">Q: Sara has 8 books.</text>
+  <text x="42" y="257" class="body">   She lends 3. How many left?</text>
+
+  <!-- Arrow -->
+  <line x1="155" y1="273" x2="155" y2="289" class="arrow"/>
+
+  <!-- Output -->
+  <rect x="32" y="289" width="246" height="55" rx="5" fill="#eafaf3" stroke="#0e8a6e" stroke-width="1"/>
+  <text x="42" y="306" class="body">A: Start with 8. Lend 3.</text>
+  <text x="42" y="321" class="body">   Left = 8 - 3 = 5.</text>
+  <text x="42" y="336" class="answer">   Answer: 5 &#10003;</text>
+
+  <!-- Properties -->
+  <text x="42" y="362" class="small">Cost: medium &#183; Exemplars: K labeled chains</text>
+  <text x="42" y="376" class="small">Best for: domain-specific tasks</text>
+
+  <!-- === PANEL 2: Zero-shot CoT === -->
+  <rect x="315" y="50" width="270" height="350" rx="8" fill="#ffffff" stroke="#0e8a6e" stroke-width="2"/>
+  <rect x="315" y="50" width="270" height="36" rx="8" fill="#0e8a6e"/>
+  <rect x="315" y="74" width="270" height="12" fill="#0e8a6e"/>
+  <text x="450" y="74" text-anchor="middle" class="label" font-size="13">Zero-Shot CoT</text>
+  <text x="450" y="92" text-anchor="middle" class="small">Kojima et al. 2022  arXiv:2205.11916</text>
+
+  <!-- Question only -->
+  <rect x="327" y="104" width="246" height="45" rx="5" fill="#fff8e6" stroke="#c77a12" stroke-width="1"/>
+  <text x="337" y="122" class="body">Q: Sara has 8 books.</text>
+  <text x="337" y="138" class="body">   She lends 3. How many left?</text>
+
+  <!-- Trigger -->
+  <rect x="327" y="159" width="246" height="26" rx="5" fill="#1f4fa3"/>
+  <text x="450" y="177" text-anchor="middle" class="label" font-size="11">+ "Let's think step by step"</text>
+
+  <!-- Arrow -->
+  <line x1="450" y1="189" x2="450" y2="205" class="arrow"/>
+
+  <!-- Stage 1 -->
+  <rect x="327" y="205" width="246" height="55" rx="5" fill="#eef2fb" stroke="#1f4fa3" stroke-width="1"/>
+  <text x="337" y="221" class="small" font-weight="bold">Stage 1 — Reasoning chain:</text>
+  <text x="337" y="236" class="body">Start with 8. Lend 3.</text>
+  <text x="337" y="251" class="body">Remaining = 8 - 3 = 5.</text>
+
+  <!-- Arrow + label -->
+  <line x1="450" y1="264" x2="450" y2="280" class="arrow"/>
+  <text x="455" y="274" class="small">"Therefore, the answer is:"</text>
+
+  <!-- Stage 2 -->
+  <rect x="327" y="280" width="246" height="40" rx="5" fill="#eafaf3" stroke="#0e8a6e" stroke-width="1"/>
+  <text x="337" y="298" class="small" font-weight="bold">Stage 2 — Extraction:</text>
+  <text x="337" y="312" class="answer">   Answer: 5 &#10003;</text>
+
+  <!-- Properties -->
+  <text x="337" y="362" class="small">Cost: low &#183; Exemplars: 0</text>
+  <text x="337" y="376" class="small">GSM8K: 18.8% &#8594; 47.9% (GPT-3)</text>
+
+  <!-- === PANEL 3: Self-Consistency === -->
+  <rect x="610" y="50" width="270" height="350" rx="8" fill="#ffffff" stroke="#6c4fe0" stroke-width="2"/>
+  <rect x="610" y="50" width="270" height="36" rx="8" fill="#6c4fe0"/>
+  <rect x="610" y="74" width="270" height="12" fill="#6c4fe0"/>
+  <text x="745" y="74" text-anchor="middle" class="label" font-size="13">Self-Consistency</text>
+  <text x="745" y="92" text-anchor="middle" class="small">Wang et al. 2023  arXiv:2203.11171</text>
+
+  <!-- Question -->
+  <rect x="622" y="104" width="246" height="35" rx="5" fill="#fff8e6" stroke="#c77a12" stroke-width="1"/>
+  <text x="632" y="120" class="body">Q: Sara has 8 books.</text>
+  <text x="632" y="134" class="body">   She lends 3. How many left?</text>
+
+  <!-- Sample N paths -->
+  <text x="745" y="157" text-anchor="middle" class="small">Sample N paths, T = 0.7</text>
+
+  <!-- Path boxes -->
+  <rect x="622" y="163" width="75" height="60" rx="4" fill="#eef2fb" stroke="#1f4fa3" stroke-width="1"/>
+  <text x="659" y="178" text-anchor="middle" class="small">Path 1</text>
+  <text x="659" y="193" text-anchor="middle" class="body">8-3=5</text>
+  <text x="659" y="208" text-anchor="middle" class="answer">5 &#10003;</text>
+
+  <rect x="708" y="163" width="75" height="60" rx="4" fill="#eef2fb" stroke="#1f4fa3" stroke-width="1"/>
+  <text x="745" y="178" text-anchor="middle" class="small">Path 2</text>
+  <text x="745" y="193" text-anchor="middle" class="body">8-3=5</text>
+  <text x="745" y="208" text-anchor="middle" class="answer">5 &#10003;</text>
+
+  <rect x="793" y="163" width="75" height="60" rx="4" fill="#fef2f2" stroke="#c0392b" stroke-width="1"/>
+  <text x="830" y="178" text-anchor="middle" class="small">Path 3</text>
+  <text x="830" y="193" text-anchor="middle" class="body">wrong</text>
+  <text x="830" y="208" text-anchor="middle" font-size="11" fill="#c0392b">4 &#10007;</text>
+
+  <!-- Arrows to vote -->
+  <line x1="659" y1="227" x2="720" y2="255" class="arrow"/>
+  <line x1="745" y1="227" x2="745" y2="255" class="arrow"/>
+  <line x1="830" y1="227" x2="770" y2="255" class="arrow"/>
+
+  <!-- Majority vote -->
+  <rect x="672" y="255" width="146" height="36" rx="5" fill="#6c4fe0"/>
+  <text x="745" y="270" text-anchor="middle" class="label" font-size="11">Majority Vote</text>
+  <text x="745" y="284" text-anchor="middle" class="label" font-size="10">5 wins  (N-1) : 1</text>
+
+  <!-- Arrow -->
+  <line x1="745" y1="295" x2="745" y2="311" class="arrow"/>
+
+  <!-- Final answer -->
+  <rect x="672" y="311" width="146" height="28" rx="5" fill="#eafaf3" stroke="#0e8a6e" stroke-width="1"/>
+  <text x="745" y="330" text-anchor="middle" class="answer">Final Answer: 5 &#10003;</text>
+
+  <!-- Properties -->
+  <text x="632" y="362" class="small">Cost: high (N=40) &#183; +0–8 exemplars</text>
+  <text x="632" y="376" class="small">GSM8K: 56.5% &#8594; 78.5% (GPT-3, N=40)</text>
+</svg>

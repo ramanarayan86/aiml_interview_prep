@@ -7,7 +7,7 @@
 [![Scope](https://img.shields.io/badge/scope-LLMs_&_VLMs-1f4fa3)](#table-of-contents)
 [![Sections](https://img.shields.io/badge/sections-30-0e8a6e)](#table-of-contents)
 [![Questions](https://img.shields.io/badge/questions-800%2B-6c4fe0)](#questions-by-level)
-[![Answered](https://img.shields.io/badge/answered-83%2F146-c77a12)](#table-of-contents)
+[![Answered](https://img.shields.io/badge/answered-89%2F146-c77a12)](#table-of-contents)
 [![Levels](https://img.shields.io/badge/levels-Basic→Intermediate→Advanced→Applied-c77a12)](#questions-by-level)
 [![Format](https://img.shields.io/badge/format-Markdown_+_SVG_+_LaTeX-16202e)](#repository-layout)
 
@@ -214,7 +214,7 @@ Each section is a folder with its own index; each question is one Markdown file;
 
 ## ⭐ Current status
 
-**83 questions fully answered across Sections 1–4.** Sections 4–22 are fully scaffolded — all questions listed, tagged, and organized by level. Every section has a README with question tables, themes, and reading-order suggestions. Answers are being written section-by-section following the same first-principles template: 20-second answer → first principles → mechanism → algorithm & pseudocode → PyTorch reference implementation → worked numerical example → interview drill → common misconceptions → one-screen summary → references.
+**89 questions fully answered across Sections 1–5.** Sections 4–22 are fully scaffolded — all questions listed, tagged, and organized by level. Every section has a README with question tables, themes, and reading-order suggestions. Answers are being written section-by-section following the same first-principles template: 20-second answer → first principles → mechanism → algorithm & pseudocode → PyTorch reference implementation → worked numerical example → interview drill → common misconceptions → one-screen summary → references.
 
 ### Section 1 — Transformer Architecture (34 answered · 8 scaffolded)
 
@@ -257,7 +257,7 @@ Each section is a folder with its own index; each question is one Markdown file;
 | 2 | [**Tokenization and Embeddings**](./questions/section-02-tokenization-and-embeddings/README.md) | BPE/WordPiece/Unigram, byte‑level, glitch tokens | 32 | ✅ 16/32 · 📝 16/32 |
 | 3 | [**Pretraining and Scaling Laws**](./questions/section-03-pretraining-and-scaling-laws/README.md) | Chinchilla, data/compute optima, emergence | 32 | ✅ 16/32 · 📝 16/32 |
 | 4 | [**Post‑training: SFT, RLHF, DPO and Beyond**](./questions/section-04-post-training-sft-rlhf-dpo/README.md) | reward models, PPO, DPO/IPO/KTO | 40 | ✅ 17/40 · 📝 23/40 |
-| 5 | [**Reasoning, CoT, and Inference‑Time Compute**](./questions/section-05-reasoning-cot-inference-time-compute/README.md) | CoT, self‑consistency, search, o‑series | 34 | 📝 |
+| 5 | [**Reasoning, CoT, and Inference‑Time Compute**](./questions/section-05-reasoning-cot-inference-time-compute/README.md) | CoT, self‑consistency, search, o‑series | 34 | ✅ 6/34 · 📝 28/34 |
 | 6 | [**Efficient Inference and Serving**](./questions/section-06-efficient-inference-and-serving/README.md) | KV cache, batching, speculative decoding | 40 | 📝 |
 | 7 | [**Quantization and Model Compression**](./questions/section-07-quantization-and-model-compression/README.md) | INT8/FP8/FP4, GPTQ/AWQ, MXFP, distillation | 46 | 📝 |
 | 8 | [**Vision‑Language Models (VLMs)**](./questions/section-08-vision-language-models/README.md) | connectors, resolution, any‑res, evaluation | 49 | 📝 |
@@ -404,6 +404,18 @@ A quick-reference map across all 30 sections. Jump straight to the depth you nee
 | ✅ **7/7** | 📝 **0/10** | 📝 **0/14** | 📝 **0/9** |
 | Q4-01–Q4-07 | Q4-08–Q4-17 | Q4-18–Q4-31 | Q4-32–Q4-40 |
 | **SFT** · LIMA hypothesis · **RLHF three stages** · **reward model** · Bradley-Terry · **KL penalty** · on/off-policy · **PPO** · instruction tuning · chat tuning · system prompt | PPO objective · **DPO derivation** · DPO variants · reward hacking · RLAIF · reference model drift · rejection sampling · offline vs online · GAE · best-of-N | DPO log-prob collapse · RLHF↔IRL connection · **PRMs vs ORMs** · post-training pipeline · superficial alignment · **GRPO** · impossibility results · robust RM · multi-objective · Constitutional AI · model collapse | DPO regression debugging · pipeline design · sycophancy fix · RM/PPO mismatch · annotation budget · annotator disagreement · online RLHF production · safety balance · PPO→DPO migration |
+
+</div>
+
+### Section 5 — Reasoning, CoT, and Inference-Time Compute · 6 answered · 28 scaffolded — [**Open →**](./questions/section-05-reasoning-cot-inference-time-compute/README.md)
+
+<div align="center">
+
+| [🟢 Basic](#-basic) | [🟡 Intermediate](#-intermediate) | [🔴 Advanced](#-advanced) | [🔵 Applied](#-applied--system-design) |
+|:---:|:---:|:---:|:---:|
+| ✅ **6/6** | 📝 **0/8** | 📝 **0/12** | 📝 **0/8** |
+| Q5-01–Q5-06 | Q5-07–Q5-14 | Q5-15–Q5-26 | Q5-27–Q5-34 |
+| **CoT prompting** · few-shot vs zero-shot CoT · "think step by step" · **self-consistency** · **tree-of-thoughts** · system 1 vs system 2 | test-time compute scaling · **PRM verifiers** · **MCTS** · process supervision · o1/o3/R1 paradigm · self-refine · reasoning gap · faithfulness | **GRPO vs PPO** · non-verifiable reward design · real reasoning vs pattern matching · compute allocation · latent reasoning · chain length · curriculum · cross-domain transfer | AIME vs enterprise benchmark gap · latency-constrained reasoning · best-of-N production cost · verifier design · o1-training plan · CoT fabrication · inference budget allocation · reasoning shortcuts |
 
 </div>
 

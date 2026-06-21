@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420">
+  <!-- Background -->
+  <rect width="800" height="420" fill="#f8f9fc"/>
+
+  <!-- Title -->
+  <text x="400" y="30" font-family="Arial,sans-serif" font-size="15" font-weight="bold" fill="#1f4fa3" text-anchor="middle">Self-Consistency Decoding Pipeline</text>
+
+  <!-- === STEP 1: Prompt Box === -->
+  <rect x="30" y="55" width="160" height="60" rx="8" fill="#ffffff" stroke="#1f4fa3" stroke-width="2"/>
+  <text x="110" y="78" font-family="Arial,sans-serif" font-size="12" font-weight="bold" fill="#1f4fa3" text-anchor="middle">Few-shot CoT</text>
+  <text x="110" y="95" font-family="Arial,sans-serif" font-size="11" fill="#5b6675" text-anchor="middle">Prompt P</text>
+  <text x="110" y="110" font-family="Arial,sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">temperature T = 0.7</text>
+
+  <!-- Arrow from prompt to sample box -->
+  <line x1="190" y1="85" x2="228" y2="85" stroke="#5b6675" stroke-width="2" marker-end="url(#arrow-gray)"/>
+
+  <!-- === STEP 2: N sampling paths === -->
+  <!-- Fan-out lines -->
+  <line x1="240" y1="85" x2="340" y2="50" stroke="#1f4fa3" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="240" y1="85" x2="340" y2="100" stroke="#1f4fa3" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="240" y1="85" x2="340" y2="150" stroke="#0e8a6e" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="240" y1="85" x2="340" y2="200" stroke="#6c4fe0" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="240" y1="85" x2="340" y2="250" stroke="#c77a12" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Sample marker dot -->
+  <circle cx="240" cy="85" r="6" fill="#1f4fa3"/>
+  <text x="238" y="75" font-family="Arial,sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">Sample</text>
+  <text x="238" y="65" font-family="Arial,sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">N times</text>
+
+  <!-- Path boxes -->
+  <!-- Path 1 -->
+  <rect x="340" y="30" width="220" height="40" rx="6" fill="#e8edf7" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="450" y="46" font-family="Arial,sans-serif" font-size="10" fill="#1f4fa3" text-anchor="middle" font-weight="bold">Path 1: "144x12=1728, 36x8=288,</text>
+  <text x="450" y="62" font-family="Arial,sans-serif" font-size="10" fill="#1f4fa3" text-anchor="middle">total=2016" &#8594; $2016</text>
+
+  <!-- Path 2 -->
+  <rect x="340" y="80" width="220" height="40" rx="6" fill="#e8edf7" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="450" y="96" font-family="Arial,sans-serif" font-size="10" fill="#1f4fa3" text-anchor="middle" font-weight="bold">Path 2: "Revenue = 1728+288</text>
+  <text x="450" y="112" font-family="Arial,sans-serif" font-size="10" fill="#1f4fa3" text-anchor="middle">= 2016" &#8594; $2016</text>
+
+  <!-- Path 3 -->
+  <rect x="340" y="130" width="220" height="40" rx="6" fill="#e8f5ef" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="450" y="146" font-family="Arial,sans-serif" font-size="10" fill="#0e8a6e" text-anchor="middle" font-weight="bold">Path 3: "1728+288=2016"</text>
+  <text x="450" y="162" font-family="Arial,sans-serif" font-size="10" fill="#0e8a6e" text-anchor="middle">&#8594; $2016</text>
+
+  <!-- Path 4 (wrong) -->
+  <rect x="340" y="180" width="220" height="40" rx="6" fill="#fde8e8" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="450" y="196" font-family="Arial,sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="bold">Path 4: "avg price=10,</text>
+  <text x="450" y="212" font-family="Arial,sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">180x10=1800" &#8594; $1800 &#10008;</text>
+
+  <!-- Path 5 -->
+  <rect x="340" y="230" width="220" height="40" rx="6" fill="#f3f0fc" stroke="#6c4fe0" stroke-width="1.5"/>
+  <text x="450" y="246" font-family="Arial,sans-serif" font-size="10" fill="#6c4fe0" text-anchor="middle" font-weight="bold">Path 5: "12x100+12x44=1728,</text>
+  <text x="450" y="262" font-family="Arial,sans-serif" font-size="10" fill="#6c4fe0" text-anchor="middle">+288=2016" &#8594; $2016</text>
+
+  <!-- Dots for more paths -->
+  <text x="450" y="290" font-family="Arial,sans-serif" font-size="14" fill="#5b6675" text-anchor="middle">&#8230;</text>
+  <text x="450" y="308" font-family="Arial,sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">Paths 6 through N</text>
+
+  <!-- Fan-in arrows -->
+  <line x1="560" y1="50" x2="610" y2="180" stroke="#1f4fa3" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="560" y1="100" x2="610" y2="180" stroke="#1f4fa3" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="560" y1="150" x2="610" y2="180" stroke="#0e8a6e" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="560" y1="200" x2="610" y2="180" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="560" y1="250" x2="610" y2="180" stroke="#6c4fe0" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- === STEP 3: Vote box === -->
+  <rect x="610" y="145" width="160" height="70" rx="8" fill="#ffffff" stroke="#0e8a6e" stroke-width="2"/>
+  <text x="690" y="165" font-family="Arial,sans-serif" font-size="12" font-weight="bold" fill="#0e8a6e" text-anchor="middle">Majority Vote</text>
+  <text x="690" y="183" font-family="Arial,sans-serif" font-size="11" fill="#5b6675" text-anchor="middle">$2016: 4 votes &#10004;</text>
+  <text x="690" y="200" font-family="Arial,sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">$1800: 1 vote &#10008;</text>
+
+  <!-- Arrow to final answer -->
+  <line x1="690" y1="215" x2="690" y2="250" stroke="#5b6675" stroke-width="2" marker-end="url(#arrow-gray)"/>
+
+  <!-- Final answer box -->
+  <rect x="618" y="252" width="144" height="40" rx="8" fill="#0e8a6e"/>
+  <text x="690" y="270" font-family="Arial,sans-serif" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Final Answer:</text>
+  <text x="690" y="286" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">$2016</text>
+
+  <!-- Math formula -->
+  <rect x="30" y="330" width="740" height="60" rx="6" fill="#ffffff" stroke="#5b6675" stroke-width="1"/>
+  <text x="400" y="350" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#1f4fa3" text-anchor="middle">Self-Consistency Formula</text>
+  <text x="400" y="370" font-family="Arial,sans-serif" font-size="11" fill="#5b6675" text-anchor="middle">a&#770; = argmax&#8336; &#931;&#8305;&#8321;&#8319; 1[f(c&#7522;) = a]    where c&#8321;,...,c&#8319; ~ LLM(prompt, T=0.7)</text>
+  <text x="400" y="384" font-family="Arial,sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">GPT-3 GSM8K: CoT single-pass 46.9%  &#8594;  Self-Consistency N=40: 74.4%  (+27.5 pp)</text>
+
+  <!-- Arrow defs -->
+  <defs>
+    <marker id="arrow-gray" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#5b6675"/>
+    </marker>
+  </defs>
+</svg>

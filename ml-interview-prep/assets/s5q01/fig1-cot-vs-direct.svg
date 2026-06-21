@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 380">
+  <!-- Background -->
+  <rect width="720" height="380" fill="#f8f9fc"/>
+
+  <!-- Title -->
+  <text x="360" y="32" font-family="Arial,sans-serif" font-size="15" font-weight="bold" fill="#1f4fa3" text-anchor="middle">Standard Prompting vs. Chain-of-Thought Prompting</text>
+
+  <!-- ===== LEFT PANEL: Standard Prompting ===== -->
+  <rect x="30" y="50" width="310" height="220" rx="10" fill="#ffffff" stroke="#1f4fa3" stroke-width="1.5"/>
+  <text x="185" y="75" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="#1f4fa3" text-anchor="middle">Standard Prompting</text>
+
+  <!-- Q box -->
+  <rect x="65" y="90" width="240" height="44" rx="6" fill="#e8edf7" stroke="#1f4fa3" stroke-width="1.2"/>
+  <text x="185" y="107" font-family="Arial,sans-serif" font-size="11" fill="#1f4fa3" text-anchor="middle">Q: Roger has 5 balls. He buys 2 cans</text>
+  <text x="185" y="122" font-family="Arial,sans-serif" font-size="11" fill="#1f4fa3" text-anchor="middle">of 3 balls each. How many total?</text>
+
+  <!-- Arrow down -->
+  <line x1="185" y1="134" x2="185" y2="162" stroke="#5b6675" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- A box -->
+  <rect x="90" y="163" width="190" height="34" rx="6" fill="#fef3e2" stroke="#c77a12" stroke-width="1.2"/>
+  <text x="185" y="185" font-family="Arial,sans-serif" font-size="12" fill="#c77a12" text-anchor="middle" font-weight="bold">A: 11 &#x2714;  (or 8 &#x2718;)</text>
+
+  <!-- Label: single step -->
+  <text x="185" y="216" font-family="Arial,sans-serif" font-size="10" fill="#5b6675" text-anchor="middle" font-style="italic">One step — no intermediate reasoning</text>
+
+  <!-- Accuracy bar: Standard -->
+  <text x="185" y="242" font-family="Arial,sans-serif" font-size="11" fill="#5b6675" text-anchor="middle">GSM8K Accuracy (PaLM 540B)</text>
+  <rect x="80" y="250" width="210" height="16" rx="3" fill="#e0e0e0"/>
+  <rect x="80" y="250" width="38" height="16" rx="3" fill="#c0392b"/>
+  <text x="125" y="263" font-family="Arial,sans-serif" font-size="10" fill="#ffffff" font-weight="bold">17.9%</text>
+
+  <!-- ===== RIGHT PANEL: Chain-of-Thought ===== -->
+  <rect x="380" y="50" width="310" height="220" rx="10" fill="#ffffff" stroke="#0e8a6e" stroke-width="1.5"/>
+  <text x="535" y="75" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="#0e8a6e" text-anchor="middle">Chain-of-Thought Prompting</text>
+
+  <!-- Q box -->
+  <rect x="415" y="90" width="240" height="44" rx="6" fill="#e8edf7" stroke="#1f4fa3" stroke-width="1.2"/>
+  <text x="535" y="107" font-family="Arial,sans-serif" font-size="11" fill="#1f4fa3" text-anchor="middle">Q: Roger has 5 balls. He buys 2 cans</text>
+  <text x="535" y="122" font-family="Arial,sans-serif" font-size="11" fill="#1f4fa3" text-anchor="middle">of 3 balls each. How many total?</text>
+
+  <!-- Arrow to Step 1 -->
+  <line x1="535" y1="134" x2="535" y2="147" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="415" y="148" width="240" height="20" rx="4" fill="#e6f7f3" stroke="#0e8a6e" stroke-width="1"/>
+  <text x="535" y="162" font-family="Arial,sans-serif" font-size="10" fill="#0e8a6e" text-anchor="middle">Step 1: Roger started with 5 balls.</text>
+
+  <line x1="535" y1="168" x2="535" y2="178" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="415" y="179" width="240" height="20" rx="4" fill="#e6f7f3" stroke="#0e8a6e" stroke-width="1"/>
+  <text x="535" y="193" font-family="Arial,sans-serif" font-size="10" fill="#0e8a6e" text-anchor="middle">Step 2: 2 cans &#215; 3 balls = 6 balls.</text>
+
+  <line x1="535" y1="199" x2="535" y2="209" stroke="#5b6675" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="440" y="210" width="190" height="20" rx="4" fill="#fef3e2" stroke="#c77a12" stroke-width="1.2"/>
+  <text x="535" y="224" font-family="Arial,sans-serif" font-size="11" fill="#c77a12" text-anchor="middle" font-weight="bold">A: 5 + 6 = 11 &#x2714;</text>
+
+  <!-- Accuracy bar: CoT -->
+  <text x="535" y="242" font-family="Arial,sans-serif" font-size="11" fill="#5b6675" text-anchor="middle">GSM8K Accuracy (PaLM 540B)</text>
+  <rect x="430" y="250" width="210" height="16" rx="3" fill="#e0e0e0"/>
+  <rect x="430" y="250" width="119" height="16" rx="3" fill="#0e8a6e"/>
+  <text x="495" y="263" font-family="Arial,sans-serif" font-size="10" fill="#ffffff" font-weight="bold">56.9%</text>
+
+  <!-- Improvement label -->
+  <text x="360" y="296" font-family="Arial,sans-serif" font-size="12" fill="#6c4fe0" text-anchor="middle" font-weight="bold">3.2&#215; accuracy improvement with CoT (Wei et al., 2022)</text>
+
+  <!-- Bottom legend -->
+  <rect x="195" y="315" width="14" height="14" rx="2" fill="#c0392b"/>
+  <text x="213" y="326" font-family="Arial,sans-serif" font-size="11" fill="#5b6675">Standard: 17.9%</text>
+  <rect x="340" y="315" width="14" height="14" rx="2" fill="#0e8a6e"/>
+  <text x="358" y="326" font-family="Arial,sans-serif" font-size="11" fill="#5b6675">CoT: 56.9%</text>
+
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#5b6675"/>
+    </marker>
+  </defs>
+
+  <!-- Source note -->
+  <text x="360" y="368" font-family="Arial,sans-serif" font-size="9" fill="#5b6675" text-anchor="middle">Source: Wei et al. (2022), NeurIPS — PaLM 540B on GSM8K benchmark</text>
+</svg>

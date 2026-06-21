@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 460">
+  <!-- Background -->
+  <rect width="780" height="460" fill="#f8f9fc"/>
+
+  <!-- Title -->
+  <text x="390" y="28" font-family="Arial,sans-serif" font-size="15" font-weight="bold" fill="#1f4fa3" text-anchor="middle">Tree-of-Thoughts: Four Module Architecture</text>
+  <text x="390" y="46" font-family="Arial,sans-serif" font-size="11" fill="#5b6675" text-anchor="middle">Yao et al. (NeurIPS 2023, arXiv:2305.10601)</text>
+
+  <!-- ===== MODULE 1: Thought Decomposer ===== -->
+  <rect x="30" y="65" width="340" height="140" rx="10" fill="#ffffff" stroke="#1f4fa3" stroke-width="2"/>
+  <rect x="30" y="65" width="340" height="30" rx="10" fill="#1f4fa3"/>
+  <rect x="30" y="83" width="340" height="12" rx="0" fill="#1f4fa3"/>
+  <text x="200" y="85" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Module 1: Thought Decomposer</text>
+  <text x="55" y="114" font-family="Arial,sans-serif" font-size="11" fill="#1f4fa3" font-weight="bold">Purpose: define the unit of a "thought"</text>
+  <text x="55" y="132" font-family="Arial,sans-serif" font-size="10" fill="#5b6675">&#8226; Game of 24: one arithmetic operation (e.g. "4+9=13")</text>
+  <text x="55" y="148" font-family="Arial,sans-serif" font-size="10" fill="#5b6675">&#8226; Essay writing: one paragraph of text</text>
+  <text x="55" y="164" font-family="Arial,sans-serif" font-size="10" fill="#5b6675">&#8226; Crossword: one word fill for one clue</text>
+  <text x="55" y="182" font-family="Arial,sans-serif" font-size="10" fill="#5b6675">&#8226; Planning: one action step</text>
+  <text x="55" y="196" font-family="Arial,sans-serif" font-size="10" fill="#c77a12" font-style="italic">Thought granularity = key design choice</text>
+
+  <!-- ===== MODULE 2: Thought Generator ===== -->
+  <rect x="410" y="65" width="340" height="140" rx="10" fill="#ffffff" stroke="#0e8a6e" stroke-width="2"/>
+  <rect x="410" y="65" width="340" height="30" rx="10" fill="#0e8a6e"/>
+  <rect x="410" y="83" width="340" height="12" rx="0" fill="#0e8a6e"/>
+  <text x="580" y="85" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Module 2: Thought Generator</text>
+  <text x="435" y="114" font-family="Arial,sans-serif" font-size="11" fill="#0e8a6e" font-weight="bold">Purpose: generate b candidate thoughts at each node</text>
+  <text x="435" y="132" font-family="Arial,sans-serif" font-size="10" fill="#5b6675">Strategy A - Sample: call LLM b times independently</text>
+  <text x="435" y="148" font-family="Arial,sans-serif" font-size="10" fill="#5b6675">&#160;&#160;&#160;(more diverse; b forward passes per node)</text>
+  <text x="435" y="164" font-family="Arial,sans-serif" font-size="10" fill="#5b6675">Strategy B - Propose: "Generate b distinct next steps"</text>
+  <text x="435" y="180" font-family="Arial,sans-serif" font-size="10" fill="#5b6675">&#160;&#160;&#160;(one forward pass; cheaper; less diverse)</text>
+  <text x="435" y="196" font-family="Arial,sans-serif" font-size="10" fill="#0e8a6e" font-style="italic">Breadth b is a key hyperparameter (typically b=5)</text>
+
+  <!-- ===== MODULE 3: State Evaluator ===== -->
+  <rect x="30" y="235" width="340" height="140" rx="10" fill="#ffffff" stroke="#6c4fe0" stroke-width="2"/>
+  <rect x="30" y="235" width="340" height="30" rx="10" fill="#6c4fe0"/>
+  <rect x="30" y="253" width="340" height="12" rx="0" fill="#6c4fe0"/>
+  <text x="200" y="255" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Module 3: State Evaluator</text>
+  <text x="55" y="284" font-family="Arial,sans-serif" font-size="11" fill="#6c4fe0" font-weight="bold">Purpose: score each partial reasoning path</text>
+  <text x="55" y="302" font-family="Arial,sans-serif" font-size="10" fill="#5b6675">Prompt: "Rate if this partial solution leads to</text>
+  <text x="55" y="316" font-family="Arial,sans-serif" font-size="10" fill="#5b6675">a valid answer: sure / likely / impossible"</text>
+  <text x="55" y="334" font-family="Arial,sans-serif" font-size="10" fill="#5b6675">Option A: value each state independently</text>
+  <text x="55" y="350" font-family="Arial,sans-serif" font-size="10" fill="#5b6675">Option B: vote across states (compare all b)</text>
+  <text x="55" y="366" font-family="Arial,sans-serif" font-size="10" fill="#6c4fe0" font-style="italic">Uses the LLM itself as the evaluator</text>
+
+  <!-- ===== MODULE 4: Search Algorithm ===== -->
+  <rect x="410" y="235" width="340" height="140" rx="10" fill="#ffffff" stroke="#c77a12" stroke-width="2"/>
+  <rect x="410" y="235" width="340" height="30" rx="10" fill="#c77a12"/>
+  <rect x="410" y="253" width="340" height="12" rx="0" fill="#c77a12"/>
+  <text x="580" y="255" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Module 4: Search Algorithm</text>
+  <text x="435" y="284" font-family="Arial,sans-serif" font-size="11" fill="#c77a12" font-weight="bold">Purpose: decide which nodes to explore</text>
+  <text x="435" y="302" font-family="Arial,sans-serif" font-size="10" fill="#5b6675">BFS: keep top-k states at each level</text>
+  <text x="435" y="318" font-family="Arial,sans-serif" font-size="10" fill="#5b6675">&#160;&#160;(used for Game of 24; b=5 kept per level)</text>
+  <text x="435" y="334" font-family="Arial,sans-serif" font-size="10" fill="#5b6675">DFS: explore one branch to depth d, backtrack</text>
+  <text x="435" y="350" font-family="Arial,sans-serif" font-size="10" fill="#5b6675">&#160;&#160;(used for crosswords; prune on "impossible")</text>
+  <text x="435" y="366" font-family="Arial,sans-serif" font-size="10" fill="#c77a12" font-style="italic">Cost: O(b&#215;d) thought evaluations total</text>
+
+  <!-- Central connector circle -->
+  <circle cx="390" cy="200" r="28" fill="#ffffff" stroke="#1f4fa3" stroke-width="2"/>
+  <text x="390" y="196" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="#1f4fa3" text-anchor="middle">LLM</text>
+  <text x="390" y="210" font-family="Arial,sans-serif" font-size="10" fill="#1f4fa3" text-anchor="middle">backbone</text>
+
+  <!-- Arrows between modules and center -->
+  <line x1="370" y1="165" x2="370" y2="172" stroke="#1f4fa3" stroke-width="1.5" marker-end="url(#center-arrow)"/>
+  <line x1="410" y1="165" x2="410" y2="172" stroke="#0e8a6e" stroke-width="1.5" marker-end="url(#center-arrow-g)"/>
+  <line x1="370" y1="228" x2="370" y2="221" stroke="#6c4fe0" stroke-width="1.5" marker-end="url(#center-arrow-p)"/>
+  <line x1="410" y1="228" x2="410" y2="221" stroke="#c77a12" stroke-width="1.5" marker-end="url(#center-arrow-a)"/>
+
+  <!-- Results comparison strip -->
+  <rect x="30" y="392" width="720" height="56" rx="8" fill="#ffffff" stroke="#5b6675" stroke-width="1"/>
+  <text x="390" y="410" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#1f4fa3" text-anchor="middle">Key Results (Yao et al., 2023)</text>
+  <!-- Three columns -->
+  <text x="145" y="428" font-family="Arial,sans-serif" font-size="10" fill="#5b6675" text-anchor="middle" font-weight="bold">Task</text>
+  <text x="340" y="428" font-family="Arial,sans-serif" font-size="10" fill="#1f4fa3" text-anchor="middle" font-weight="bold">CoT</text>
+  <text x="490" y="428" font-family="Arial,sans-serif" font-size="10" fill="#6c4fe0" text-anchor="middle" font-weight="bold">ToT (BFS, b=5)</text>
+  <text x="660" y="428" font-family="Arial,sans-serif" font-size="10" fill="#0e8a6e" text-anchor="middle" font-weight="bold">Improvement</text>
+  <line x1="30" y1="432" x2="750" y2="432" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="145" y="444" font-family="Arial,sans-serif" font-size="10" fill="#5b6675" text-anchor="middle">Game of 24</text>
+  <text x="340" y="444" font-family="Arial,sans-serif" font-size="10" fill="#1f4fa3" text-anchor="middle">4%</text>
+  <text x="490" y="444" font-family="Arial,sans-serif" font-size="10" fill="#6c4fe0" text-anchor="middle">74%</text>
+  <text x="660" y="444" font-family="Arial,sans-serif" font-size="10" fill="#0e8a6e" text-anchor="middle">+70 pp</text>
+
+  <defs>
+    <marker id="center-arrow" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#1f4fa3"/>
+    </marker>
+    <marker id="center-arrow-g" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#0e8a6e"/>
+    </marker>
+    <marker id="center-arrow-p" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#6c4fe0"/>
+    </marker>
+    <marker id="center-arrow-a" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#c77a12"/>
+    </marker>
+  </defs>
+</svg>
